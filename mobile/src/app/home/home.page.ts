@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Platform } from '@ionic/angular';
-import { NFC, Ndef } from '@ionic-native/nfc/ngx';
+import { NFC } from '@ionic-native/nfc/ngx';
 
 @Component({
   selector: 'app-home',
@@ -10,8 +10,9 @@ import { NFC, Ndef } from '@ionic-native/nfc/ngx';
 export class HomePage {
   message: string = null;
 
-  constructor(private platform: Platform, private nfc: NFC, private ndef: Ndef) {
+  constructor(private platform: Platform, private nfc: NFC) {
     platform.ready().then(() => {
+
       this.nfc.addTagDiscoveredListener(() => {
         console.log('successfully attached listener');
       }, (err) => {
@@ -22,6 +23,7 @@ export class HomePage {
         this.message = str;
         console.log('decoded tag id', str);
       });
+
     });
   }
 }
