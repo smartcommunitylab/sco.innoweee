@@ -1,0 +1,7 @@
+{
+  "name": "sco.innowee",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
