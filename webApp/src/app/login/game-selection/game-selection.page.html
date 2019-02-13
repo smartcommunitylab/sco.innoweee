@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{'title_game_selection'|translate}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-list>
+        <ion-list-header>{{'label_game_selection'|translate}}</ion-list-header>
+      
+        <ion-item>
+          <ion-label>{{'label_tenants'|translate}}</ion-label>
+          <ion-select cancelText="Nah" okText="Okay!">
+            <ion-select-option value="bacon" selected>Bacon</ion-select-option>
+            <ion-select-option value="olives">Black Olives</ion-select-option>
+          </ion-select>
+        </ion-item>
+      
+        <ion-item>
+            <ion-label>{{'label_institute'|translate}}</ion-label>
+            <ion-select >
+              <ion-select-option value="bird" selected>Bird</ion-select-option>
+              <ion-select-option value="cat">Cat</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+              <ion-label>{{'label_school'|translate}}</ion-label>
+              <ion-select >
+                <ion-select-option value="bird" selected>Bird</ion-select-option>
+                <ion-select-option value="cat">Cat</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-item>
+                <ion-label>{{'label_game'|translate}}</ion-label>
+                <ion-select >
+                  <ion-select-option value="bird" selected>Bird</ion-select-option>
+                  <ion-select-option value="cat">Cat</ion-select-option>
+                </ion-select>
+              </ion-item>
+      </ion-list>
+      <ion-button [routerLink]="['/home']" expand="block" fill="outline">Inizia raccolta</ion-button>
+
+</ion-content>
