@@ -1,0 +1,17 @@
+{
+	"components":{
+		"head0":{
+			"id":"head0",
+			"type":"head",
+			"name":{"it":"testa base"},
+			"costMap":{"oro":1,"argento":2,"birra":3}
+		},
+		"head1":{
+			"id":"head1",
+			"type":"head", 
+			"parentId":"head0", 
+			"name":{"it":"testa avanzata"},
+			"costMap":{"oro":2,"argento":3,"birra":4}
+		} 
+	}
+}
