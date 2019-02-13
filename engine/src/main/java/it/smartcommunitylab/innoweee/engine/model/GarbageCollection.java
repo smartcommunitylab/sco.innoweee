@@ -2,14 +2,16 @@ package it.smartcommunitylab.innoweee.engine.model;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class GarbageCollection extends BaseObject {
 	private String gameId;
 	private Date from;
 	private Date to;
 	private String nameGE;
-	private String message;
+	private Map<String, String> message = new HashMap<String, String>();
 	private List<String> items = new ArrayList<>();
 	private List<Link> links = new ArrayList<>();
 	
@@ -24,12 +26,6 @@ public class GarbageCollection extends BaseObject {
 	}
 	public void setTo(Date to) {
 		this.to = to;
-	}
-	public String getMessage() {
-		return message;
-	}
-	public void setMessage(String message) {
-		this.message = message;
 	}
 	public List<String> getItems() {
 		return items;
@@ -54,6 +50,12 @@ public class GarbageCollection extends BaseObject {
 	}
 	public void setNameGE(String nameGE) {
 		this.nameGE = nameGE;
+	}
+	public Map<String, String> getMessage() {
+		return message;
+	}
+	public void setMessage(Map<String, String> message) {
+		this.message = message;
 	}
 	
 }

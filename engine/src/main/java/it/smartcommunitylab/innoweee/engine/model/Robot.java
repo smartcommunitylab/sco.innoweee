@@ -1,29 +1,15 @@
 package it.smartcommunitylab.innoweee.engine.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
-public class Robot extends BaseObject {
-	private String playerId;
-	private String gameId;
-	private List<Component> components = new ArrayList<Component>();
+public class Robot {
+	private Map<String, Component> components = new HashMap<String, Component>();
 	
-	public String getPlayerId() {
-		return playerId;
-	}
-	public void setPlayerId(String playerId) {
-		this.playerId = playerId;
-	}
-	public String getGameId() {
-		return gameId;
-	}
-	public void setGameId(String gameId) {
-		this.gameId = gameId;
-	}
-	public List<Component> getComponents() {
+	public Map<String, Component> getComponents() {
 		return components;
 	}
-	public void setComponents(List<Component> components) {
+	public void setComponents(Map<String, Component> components) {
 		this.components = components;
 	}
 }

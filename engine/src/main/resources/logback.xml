@@ -11,10 +11,10 @@
   </appender>
 
   <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-    <file>${LOG_PATH}/event-manager.log</file>
+    <file>${LOG_PATH}/engine.log</file>
     <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
       <!-- daily rollover -->
-      <fileNamePattern>${LOG_PATH}/event-manager.%d{yyyy-MM-dd}.log</fileNamePattern>
+      <fileNamePattern>${LOG_PATH}/engine.%d{yyyy-MM-dd}.log</fileNamePattern>
 
       <!-- keep 30 days' worth of history capped at 3GB total size -->
       <maxHistory>30</maxHistory>

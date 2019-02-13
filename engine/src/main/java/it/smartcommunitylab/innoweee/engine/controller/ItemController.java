@@ -20,7 +20,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
-import it.smartcommunitylab.innoweee.engine.core.GeManager;
+import it.smartcommunitylab.innoweee.engine.ge.GeManager;
 import it.smartcommunitylab.innoweee.engine.model.ItemEvent;
 import it.smartcommunitylab.innoweee.engine.repository.ItemEventRepository;
 

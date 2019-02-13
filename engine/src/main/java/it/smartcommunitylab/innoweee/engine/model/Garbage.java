@@ -6,7 +6,8 @@ import java.util.Map;
 public class Garbage {
 	private String id;
 	private String category;
-	private String name;
+	private Map<String, String> name = new HashMap<String, String>();
+	private Map<String, String> description = new HashMap<String, String>();
 	private double weight;
 	private double co2;
 	private Map<String, Double> materialsConversion = new HashMap<String, Double>();
@@ -22,12 +23,6 @@ public class Garbage {
 	}
 	public void setCategory(String category) {
 		this.category = category;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
 	}
 	public double getWeight() {
 		return weight;
@@ -46,6 +41,18 @@ public class Garbage {
 	}
 	public void setMaterialsConversion(Map<String, Double> materialsConversion) {
 		this.materialsConversion = materialsConversion;
+	}
+	public Map<String, String> getName() {
+		return name;
+	}
+	public void setName(Map<String, String> name) {
+		this.name = name;
+	}
+	public Map<String, String> getDescription() {
+		return description;
+	}
+	public void setDescription(Map<String, String> description) {
+		this.description = description;
 	}
 	
 }

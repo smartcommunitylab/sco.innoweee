@@ -1,25 +1,25 @@
 package it.smartcommunitylab.innoweee.engine.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.data.annotation.Id;
 
 public class Catalog {
 	@Id
 	private String id;
-	private List<Component> components = new ArrayList<>();
+	private Map<String, Component> components = new HashMap<String, Component>();
 	
-	public List<Component> getComponents() {
-		return components;
-	}
-	public void setComponents(List<Component> components) {
-		this.components = components;
-	}
 	public String getId() {
 		return id;
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+	public Map<String, Component> getComponents() {
+		return components;
+	}
+	public void setComponents(Map<String, Component> components) {
+		this.components = components;
 	}
 }

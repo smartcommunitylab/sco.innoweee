@@ -1,16 +1,10 @@
 package it.smartcommunitylab.innoweee.engine.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.springframework.data.annotation.Transient;
-
 public class Player extends BaseObject {
 	private String name;
 	private String gameId;
 	private boolean team;
-	@Transient
-	private List<Robot> robots = new ArrayList<>();
+	private Robot robot;
 	
 	public String getName() {
 		return name;
@@ -30,10 +24,10 @@ public class Player extends BaseObject {
 	public void setTeam(boolean team) {
 		this.team = team;
 	}
-	public List<Robot> getRobots() {
-		return robots;
+	public Robot getRobot() {
+		return robot;
 	}
-	public void setRobots(List<Robot> robots) {
-		this.robots = robots;
+	public void setRobot(Robot robot) {
+		this.robot = robot;
 	}
 }

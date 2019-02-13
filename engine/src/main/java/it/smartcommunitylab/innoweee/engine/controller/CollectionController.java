@@ -54,25 +54,7 @@ public class CollectionController extends AuthController {
 		logger.info("searchCollection[{}]:{} / {}", game.getTenantId(), gameId, result.size());
 		return result;
 	}
-	
-	public @ResponseBody GarbageCollection getActualCollection(
-			@PathVariable String gameId,
-			HttpServletRequest request, 
-			HttpServletResponse response) throws Exception {
-		Optional<Game> optional = gameRepository.findById(gameId);
-		if(optional.isEmpty()) {
-			throw new EntityNotFoundException("entity not found");
-		}
-		Game game = optional.get();
-		if(!validateAuthorization(game.getTenantId(), game.getInstituteId(), game.getSchoolId(), 
-				game.getObjectId(), Const.AUTH_RES_Game_GarbageCollection, Const.AUTH_ACTION_READ, request)) {
-			throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
-		}
-		GarbageCollection collection = collectionRepository.findActualCollection(game.getTenantId(), gameId);
-		logger.info("getActualCollection[{}]:{}", game.getTenantId(), gameId);
-		return collection;
-	}
-	
+		
 	@PostMapping(value = "/api/collection")
 	public @ResponseBody GarbageCollection saveCollection(
 			@RequestBody GarbageCollection collection,

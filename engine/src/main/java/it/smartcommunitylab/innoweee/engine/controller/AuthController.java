@@ -1,5 +1,6 @@
 package it.smartcommunitylab.innoweee.engine.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -7,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -17,14 +19,24 @@ import it.smartcommunitylab.innoweee.engine.common.Utils;
 import it.smartcommunitylab.innoweee.engine.exception.EntityNotFoundException;
 import it.smartcommunitylab.innoweee.engine.exception.StorageException;
 import it.smartcommunitylab.innoweee.engine.exception.UnauthorizedException;
+import it.smartcommunitylab.innoweee.engine.repository.UserRepository;
+import it.smartcommunitylab.innoweee.engine.security.Authorization;
 import it.smartcommunitylab.innoweee.engine.security.User;
 
 @Controller
 public class AuthController {
 	private static final transient Logger logger = LoggerFactory.getLogger(AuthController.class);
+	
+	@Autowired
+	private UserRepository userRepository;
 
 	public User getUserByEmail(HttpServletRequest request) throws Exception {
-		return new User();
+		//TODO test only
+		User user = userRepository.findByEmail("admin@test.com");
+		if(user == null) {
+			throw new UnauthorizedException("Unauthorized Exception: token not valid or call not authorized");
+		}
+		return user;
 	}
 	
 	public boolean validateAuthorization(String tenantId, String resource, String action,	
@@ -121,6 +133,36 @@ public class AuthController {
 //		return false;
 	}
 	
+	public boolean validateRole(String role, String tenantId, HttpServletRequest request) throws Exception {
+		User user = getUserByEmail(request);
+		if(user != null) {
+			for(String authKey : user.getRoles().keySet()) {
+				List<Authorization> authList = user.getRoles().get(authKey);
+				for(Authorization auth : authList) {
+					if(auth.getRole().equals(role) && auth.getTenantId().equals(tenantId)) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+	
+	public boolean validateRole(String role, HttpServletRequest request) throws Exception {
+		User user = getUserByEmail(request);
+		if(user != null) {
+			for(String authKey : user.getRoles().keySet()) {
+				List<Authorization> authList = user.getRoles().get(authKey);
+				for(Authorization auth : authList) {
+					if(auth.getRole().equals(role)) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+
 	@ExceptionHandler({EntityNotFoundException.class, StorageException.class})
 	@ResponseStatus(value=HttpStatus.BAD_REQUEST)
 	@ResponseBody

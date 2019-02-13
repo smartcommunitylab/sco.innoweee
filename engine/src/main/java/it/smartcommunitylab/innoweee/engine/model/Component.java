@@ -7,9 +7,8 @@ public class Component {
 	private String id;
 	private String parentId;
 	private String type;
-	private String name;
+	private Map<String, String> name = new HashMap<String, String>();
 	private String imageUri;
-	private String customization;
 	private Map<String, Integer> costMap = new HashMap<String, Integer>();
 	
 	public String getType() {
@@ -18,23 +17,11 @@ public class Component {
 	public void setType(String type) {
 		this.type = type;
 	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
 	public String getImageUri() {
 		return imageUri;
 	}
 	public void setImageUri(String imageUri) {
 		this.imageUri = imageUri;
-	}
-	public String getCustomization() {
-		return customization;
-	}
-	public void setCustomization(String customization) {
-		this.customization = customization;
 	}
 	public Map<String, Integer> getCostMap() {
 		return costMap;
@@ -53,5 +40,11 @@ public class Component {
 	}
 	public void setParentId(String parentId) {
 		this.parentId = parentId;
+	}
+	public Map<String, String> getName() {
+		return name;
+	}
+	public void setName(Map<String, String> name) {
+		this.name = name;
 	}
 }

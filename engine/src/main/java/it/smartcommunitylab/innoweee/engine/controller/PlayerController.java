@@ -30,7 +30,6 @@ import it.smartcommunitylab.innoweee.engine.model.Robot;
 import it.smartcommunitylab.innoweee.engine.repository.CatalogRepository;
 import it.smartcommunitylab.innoweee.engine.repository.GameRepository;
 import it.smartcommunitylab.innoweee.engine.repository.PlayerRepository;
-import it.smartcommunitylab.innoweee.engine.repository.RobotRepository;
 
 @RestController
 public class PlayerController extends AuthController {
@@ -42,8 +41,6 @@ public class PlayerController extends AuthController {
 	private GameRepository gameRepository; 
 	@Autowired
 	private CatalogRepository catalogResopitory;
-	@Autowired
-	private RobotRepository robotRepository;
 	
 	@GetMapping(value = "/api/player/{gameId}")
 	public @ResponseBody List<Player> searchPlayer(
@@ -60,10 +57,6 @@ public class PlayerController extends AuthController {
 			throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
 		}
 		List<Player> result = playerRepository.findByGameId(game.getTenantId(), gameId);
-		for(Player player : result) {
-			List<Robot> robots = robotRepository.findByPlayerId(game.getTenantId(), player.getObjectId());
-			player.setRobots(robots);
-		}
 		logger.info("searchPlayer[{}]:{} / {}", game.getTenantId(), gameId, result.size());
 		return result;
 	}
@@ -86,10 +79,10 @@ public class PlayerController extends AuthController {
 		if(StringUtils.isEmpty(player.getObjectId())) {
 			player.setCreationDate(now);
 			player.setLastUpdate(now);
-			playerRepository.save(player);
 			if(!player.isTeam()) {
 				addNewRobot(player);
 			}
+			playerRepository.save(player);
 		} else {
 			// update existing one
 			player.setLastUpdate(now);
@@ -119,25 +112,21 @@ public class PlayerController extends AuthController {
 			throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
 		}
 		playerRepository.deleteById(id);
-		List<Robot> listRobots = robotRepository.findByPlayerId(player.getTenantId(), player.getObjectId());
-		robotRepository.deleteAll(listRobots);
 		logger.info("deletePlayer[{}]:{}", game.getTenantId(), id);
 		return player;
 	}
 	
 	private void addNewRobot(Player player) {
 		Robot robot = new Robot();
-		robot.setGameId(player.getGameId());
-		robot.setPlayerId(player.getObjectId());
 		List<Catalog> list = catalogResopitory.findAll();
 		Catalog catalog = list.get(0);
-		for(Component component : catalog.getComponents()) {
+		for(Component component : catalog.getComponents().values()) {
 			if(StringUtils.isEmpty(component.getParentId())) {
 				// default customization
-				robot.getComponents().add(component);
+				robot.getComponents().put(component.getId(), component);
 			}
 		}
-		robotRepository.save(robot);
+		player.setRobot(robot);
 	}
 	
 }

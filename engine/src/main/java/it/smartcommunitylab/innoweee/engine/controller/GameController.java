@@ -23,11 +23,18 @@ import org.springframework.web.bind.annotation.RestController;
 import it.smartcommunitylab.innoweee.engine.common.Const;
 import it.smartcommunitylab.innoweee.engine.exception.EntityNotFoundException;
 import it.smartcommunitylab.innoweee.engine.exception.UnauthorizedException;
+import it.smartcommunitylab.innoweee.engine.ge.GeManager;
+import it.smartcommunitylab.innoweee.engine.model.Catalog;
+import it.smartcommunitylab.innoweee.engine.model.Component;
 import it.smartcommunitylab.innoweee.engine.model.Game;
 import it.smartcommunitylab.innoweee.engine.model.GarbageCollection;
 import it.smartcommunitylab.innoweee.engine.model.Link;
+import it.smartcommunitylab.innoweee.engine.model.Player;
+import it.smartcommunitylab.innoweee.engine.model.Robot;
+import it.smartcommunitylab.innoweee.engine.repository.CatalogRepository;
 import it.smartcommunitylab.innoweee.engine.repository.GameRepository;
 import it.smartcommunitylab.innoweee.engine.repository.GarbageCollectionRepository;
+import it.smartcommunitylab.innoweee.engine.repository.PlayerRepository;
 
 @RestController
 public class GameController extends AuthController {
@@ -37,6 +44,12 @@ public class GameController extends AuthController {
 	private GameRepository gameRepository;
 	@Autowired
 	private GarbageCollectionRepository collectionRepository;
+	@Autowired
+	private PlayerRepository playerRepository;
+	@Autowired
+	private CatalogRepository catalogRepository;
+	@Autowired
+	private GeManager geManager;
 	
 	@GetMapping(value = "/api/game/{tenantId}/{instituteId}/{schoolId}")
 	public @ResponseBody List<Game> searchGame(
@@ -109,11 +122,34 @@ public class GameController extends AuthController {
 			throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
 		}
 		gameRepository.deleteById(gameId);
+		List<Player> playerList = playerRepository.findByGameId(game.getTenantId(), game.getObjectId());
+		playerRepository.deleteAll(playerList);
+		List<GarbageCollection> collectionList = collectionRepository.findByGameId(game.getTenantId(), game.getObjectId());
+		collectionRepository.deleteAll(collectionList);
 		logger.info("deleteGame[{}]:{}", game.getTenantId(), game.getObjectId());
 		return game;
 	}
 	
-	@GetMapping(value = "/api/game/{gameId}/link/")
+	@GetMapping(value = "/api/game/{gameId}/collection")
+	public @ResponseBody GarbageCollection getActualCollection(
+			@PathVariable String gameId,
+			HttpServletRequest request, 
+			HttpServletResponse response) throws Exception {
+		Optional<Game> optional = gameRepository.findById(gameId);
+		if(optional.isEmpty()) {
+			throw new EntityNotFoundException("entity not found");
+		}
+		Game game = optional.get();
+		if(!validateAuthorization(game.getTenantId(), game.getInstituteId(), game.getSchoolId(), 
+				game.getObjectId(), Const.AUTH_RES_Game_GarbageCollection, Const.AUTH_ACTION_READ, request)) {
+			throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
+		}
+		GarbageCollection collection = collectionRepository.findActualCollection(game.getTenantId(), gameId);
+		logger.info("getActualCollection[{}]:{}", game.getTenantId(), gameId);
+		return collection;
+	}
+	
+	@GetMapping(value = "/api/game/{gameId}/link")
 	public @ResponseBody List<Link> getGameMaterial(
 			@PathVariable String gameId, 
 			HttpServletRequest request, 
@@ -134,6 +170,39 @@ public class GameController extends AuthController {
 		}
 		logger.info("getGameMaterial[{}]:{} / {}", game.getTenantId(), game.getObjectId(), result.size());
 		return result;
+	}
+	
+	@GetMapping(value = "/api/game/{gameId}/robot/{playerId}/buy/{componentId}")
+	public @ResponseBody Robot buildRobot(
+			@PathVariable String gameId,
+			@PathVariable String playerId,
+			@PathVariable String componentId,
+			HttpServletRequest request, 
+			HttpServletResponse response) throws Exception {
+		Optional<Game> optionalGame = gameRepository.findById(gameId);
+		if(optionalGame.isEmpty()) {
+			throw new EntityNotFoundException("game not found");
+		}
+		Game game = optionalGame.get();
+		if(!validateAuthorization(game.getTenantId(), game.getInstituteId(), game.getSchoolId(), 
+				game.getObjectId(), Const.AUTH_RES_Game_Robot, Const.AUTH_ACTION_UPDATE, request)) {
+			throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
+		}
+		Optional<Player> optionalPlayer = playerRepository.findById(playerId);
+		if(optionalPlayer.isEmpty()) {
+			throw new EntityNotFoundException("player not found");
+		}
+		Player player = optionalPlayer.get();
+		Catalog catalog = catalogRepository.findAll().get(0);
+		Component newComponent = catalog.getComponents().get(componentId);
+		if(newComponent == null) {
+			throw new EntityNotFoundException("component not found");
+		}
+		geManager.buildRobot(game, player, newComponent);
+		player.getRobot().getComponents().put(newComponent.getId(), newComponent);
+		playerRepository.save(player);
+		logger.info("buildRobot[{}]:{} / {}", player.getTenantId(), playerId, componentId);
+		return player.getRobot();
 	}
 	
 }
