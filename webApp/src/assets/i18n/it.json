@@ -3,5 +3,10 @@
         "button_robot": "Il mio robot",
         "button_material": "Materiale educativo",
         "button_my_team": "La mia squadra",
-        "label_language_selection":"Lingua: "
+        "label_language_selection":"Lingua: ",
+        "label_game_selection":"Seleziona il profilo ",
+        "label_tenants":"Dominio: ",
+        "label_institute":"Istituto: ",
+        "label_school":"Scuola: ",
+        "label_game":"Sezione: "
 }
