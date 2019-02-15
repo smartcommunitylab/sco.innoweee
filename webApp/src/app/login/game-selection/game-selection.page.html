@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{'title_game_selection'|translate}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+    <ion-list-header>{{'label_game_selection'|translate}}</ion-list-header>
+
+    <ion-item>
+      <ion-label>{{'label_tenants'|translate}}</ion-label>
+      <ion-select [(ngModel)]="domain"  (ionChange)="getInstitute(domain)" placeholder="{{'label_tenants'|translate}}">
+        <ion-select-option *ngFor="let listDomain of domains" [value]="listDomain" >{{listDomain}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>{{'label_institute'|translate}}</ion-label>
+      <ion-select [(ngModel)]="institute" (ionChange)="getSchool(institute)" placeholder="{{'label_institute'|translate}}">
+        <ion-select-option *ngFor="let listInstitute of institutes" [value]="listInstitute.objectId" >{{listInstitute.name}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>{{'label_school'|translate}}</ion-label>
+      <ion-select [(ngModel)]="school"  (ionChange)="getGame(school)" placeholder="{{'label_school'|translate}}">
+        <ion-select-option *ngFor="let listSchool of schools" [value]="listSchool.objectId" >{{listSchool.name}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>{{'label_game'|translate}}</ion-label>
+      <ion-select [(ngModel)]="game"  (ionChange)="getPlayer(game)" placeholder="{{'label_game'|translate}}">
+        <ion-select-option *ngFor="let listGame of games" [value]="listGame.objectId">{{listGame.gameName}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+  <ion-button [routerLink]="['/home']" expand="block" fill="outline">Inizia raccolta</ion-button>
+
+</ion-content>

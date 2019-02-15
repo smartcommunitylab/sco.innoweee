@@ -1,0 +1,13 @@
+{
+        "button_recycle": "Begin Collection",
+        "button_robot": "My robot",
+        "button_material": "Education",
+        "button_my_team": "My Team",
+        "label_language_selection":"Language: ",
+        "label_game_selection":"Seleziona il profilo ",
+        "label_tenants":"Dominio: ",
+        "label_institute":"Istituto: ",
+        "label_school":"Scuola: ",
+        "label_game":"Sezione: "
+
+}
