@@ -11,7 +11,7 @@ public class ItemEvent {
 	private String playerId;
 	private String itemId;
 	private Map<String, Object> attributes = new HashMap<>();
-	private long updateTime;
+	private long timestamp;
 	
 	public String getId() {
 		return id;
@@ -25,12 +25,6 @@ public class ItemEvent {
 	public void setAttributes(Map<String, Object> attributes) {
 		this.attributes = attributes;
 	}
-	public long getUpdateTime() {
-		return updateTime;
-	}
-	public void setUpdateTime(long updateTime) {
-		this.updateTime = updateTime;
-	}
 	public String getPlayerId() {
 		return playerId;
 	}
@@ -42,5 +36,11 @@ public class ItemEvent {
 	}
 	public void setItemId(String itemId) {
 		this.itemId = itemId;
+	}
+	public long getTimestamp() {
+		return timestamp;
+	}
+	public void setTimestamp(long timestamp) {
+		this.timestamp = timestamp;
 	}
 }

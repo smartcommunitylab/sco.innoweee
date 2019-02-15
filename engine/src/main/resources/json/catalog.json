@@ -4,14 +4,79 @@
 			"id":"head0",
 			"type":"head",
 			"name":{"it":"testa base"},
-			"costMap":{"oro":1,"argento":2,"birra":3}
+			"costMap":{"reduceCoin":1,"reuseCoin":2,"recycleCoin":3}
 		},
 		"head1":{
 			"id":"head1",
 			"type":"head", 
 			"parentId":"head0", 
 			"name":{"it":"testa avanzata"},
-			"costMap":{"oro":2,"argento":3,"birra":4}
-		} 
+			"costMap":{"reduceCoin":2,"reuseCoin":3,"recycleCoin":4}
+		},
+		"chest0":{
+			"id":"chest0",
+			"type":"chest",
+			"name":{"it":"busto base"},
+			"costMap":{"reduceCoin":1,"reuseCoin":2,"recycleCoin":3}
+		},
+		"chest1":{
+			"id":"chest1",
+			"type":"chest", 
+			"parentId":"chest0", 
+			"name":{"it":"busto avanzato"},
+			"costMap":{"reduceCoin":2,"reuseCoin":3,"recycleCoin":4}
+		},
+		"armL0":{
+			"id":"armL0",
+			"type":"armL",
+			"name":{"it":"braccio sinistro base"},
+			"costMap":{"reduceCoin":1,"reuseCoin":2,"recycleCoin":3}
+		},
+		"armL1":{
+			"id":"armL1",
+			"type":"armL", 
+			"parentId":"armL0", 
+			"name":{"it":"braccio sinistro avanzato"},
+			"costMap":{"reduceCoin":2,"reuseCoin":3,"recycleCoin":4}
+		},  
+		"armR0":{
+			"id":"armR0",
+			"type":"armR",
+			"name":{"it":"braccio destro base"},
+			"costMap":{"reduceCoin":1,"reuseCoin":2,"recycleCoin":3}
+		},
+		"armR1":{
+			"id":"armR1",
+			"type":"armR", 
+			"parentId":"armR0", 
+			"name":{"it":"braccio destro avanzato"},
+			"costMap":{"reduceCoin":2,"reuseCoin":3,"recycleCoin":4}
+		}, 
+		"legs0":{
+			"id":"legs0",
+			"type":"legs",
+			"name":{"it":"gambe base"},
+			"costMap":{"reduceCoin":1,"reuseCoin":2,"recycleCoin":3}
+		},
+		"legs1":{
+			"id":"legs1",
+			"type":"legs", 
+			"parentId":"legs0", 
+			"name":{"it":"gambe avanzate"},
+			"costMap":{"reduceCoin":2,"reuseCoin":3,"recycleCoin":4}
+		}, 
+		"feet0":{
+			"id":"feet0",
+			"type":"feet",
+			"name":{"it":"piadi base"},
+			"costMap":{"reduceCoin":1,"reuseCoin":2,"recycleCoin":3}
+		},
+		"feet1":{
+			"id":"feet1",
+			"type":"feet", 
+			"parentId":"feet0", 
+			"name":{"it":"piadi avanzati"},
+			"costMap":{"reduceCoin":2,"reuseCoin":3,"recycleCoin":4}
+		} 		 
 	}
 }

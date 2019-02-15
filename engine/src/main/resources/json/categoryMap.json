@@ -1,0 +1,79 @@
+{
+	"categories":{
+		"Toys, leisure and sports equipment": {
+			"id":"Toys, leisure and sports equipment",
+			"materialsConversion":{
+				"plastic":0.6982,
+				"glass":0.0006,
+				"iron":0.0999,
+				"aluminium":0.0186,
+				"copper":0.0213,
+				"tin":0.0027,
+				"nickel":0.0001,
+				"silver":0.000028,
+				"gold":0.000006,
+				"platinum":0.000002
+			}
+		},
+		"Consumer electronics": {
+			"id":"Consumer electronics",
+			"materialsConversion":{
+				"plastic":0.3642,
+				"glass":0.0004,
+				"iron":0.339,
+				"aluminium":0.1214,
+				"copper":0.0674,
+				"tin":0.0057,
+				"nickel":0.0003,
+				"silver":0.00006,
+				"gold":0.000013,
+				"platinum":0.000004
+			}
+		},
+		"IT & telecommunications": {
+			"id":"IT & telecommunications",
+			"materialsConversion":{
+				"plastic":0.2753,
+				"glass":0.0032,
+				"iron":0.4231,
+				"aluminium":0.1981,
+				"copper":0.0892,
+				"tin":0.0048,
+				"nickel":0.0004,
+				"silver":0.00006,
+				"gold":0.00002,
+				"platinum":0.000001
+			}
+		},
+		"Small household appliances": {
+			"id":"Small household appliances",
+			"materialsConversion":{
+				"plastic":0.3668,
+				"glass":0.0,
+				"iron":0.4031,
+				"aluminium":0.1401,
+				"copper":0.0692,
+				"tin":0.0003,
+				"nickel":0.0001,
+				"silver":0.000004,
+				"gold":0.000002,
+				"platinum":0.000001
+			}
+		},
+		"Electrical and electronic tools": {
+			"id":"Electrical and electronic tools",
+			"materialsConversion":{
+				"plastic":0.4803,
+				"glass":0.0,
+				"iron":0.2914,
+				"aluminium":0.0901,
+				"copper":0.049,
+				"tin":0.0,
+				"nickel":0.0,
+				"silver":0.0,
+				"gold":0.0,
+				"platinum":0.0
+			}
+		}
+	}	
+}
