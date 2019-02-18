@@ -67,6 +67,7 @@ public class ResourceController extends AuthController {
 				result.add(component);
 			}
 		}
+		logger.info("getUpgradeComponents:{}", id);
 		return result;
 	}
 	

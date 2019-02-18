@@ -3,7 +3,7 @@
 		"tenantId":"TEST",
 		"gameId":"5c6412313258721ee8e70a88",
 		"from":1548975600000,
-		"to":1555192800000,
+		"to":1550358000000,
 		"nameGE":"R1",
 		"message":{"it":"Giochi e giocattoli elettrici ed elettronici", "en":"Toys and games"},
 		"items":["Joystick","Talking doll"],
@@ -28,12 +28,48 @@
 	{
 		"tenantId":"TEST",
 		"gameId":"5c6412313258721ee8e70a88",
-		"from":1555279200000,
+		"from":1550444400000,
 		"to":1557007200000,
 		"nameGE":"R2",
 		"message":{"it":"Cellulari, smartphone, tablet e computer portatili", "en":"Laptop, Notebook, Tablet, Smartphone (GreenIDEA)"},
-		"items":[],
-		"links":[]
+		"items":["Cellphone", "Tablet"],
+		"links":[
+			{
+	      "name" : "link1",
+	      "link" : "https://smartcommunitylab.it",
+	      "type" : "link"
+      }, 
+      {
+          "name" : "link2",
+          "link" : "https://smartcommunitylab.it",
+          "type" : "link"
+      }, 
+      {
+	      "name" : "link3",
+	      "link" : "https://smartcommunitylab.it",
+	      "type" : "link"
+      }, 
+      {
+	      "name" : "link4",
+	      "link" : "https://smartcommunitylab.it",
+	      "type" : "link"
+      }, 
+      {
+	      "name" : "link5",
+	      "link" : "https://smartcommunitylab.it",
+	      "type" : "link"
+      }, 
+      {
+	      "name" : "link6",
+	      "link" : "https://smartcommunitylab.it",
+	      "type" : "link"
+      }, 
+      {
+	      "name" : "link7",
+	      "link" : "https://smartcommunitylab.it",
+	      "type" : "link"
+      }			
+		]
 	},
 	{
 		"tenantId":"TEST",

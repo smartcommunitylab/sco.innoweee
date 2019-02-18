@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -77,8 +78,9 @@ public class ItemController extends AuthController {
 		return event;
 	}
 	
-	@PostMapping(value = "/api/event")
-	public @ResponseBody ResponseEntity<ItemEvent> itemDelivery(String content,
+	@PostMapping(value = "/api/item")
+	public @ResponseBody ResponseEntity<ItemEvent> itemDelivery(
+			@RequestBody String content,
 			@RequestParam(required = false) Long timestamp,
 			HttpServletRequest request, 
 			HttpServletResponse response) throws Exception {
@@ -103,8 +105,7 @@ public class ItemController extends AuthController {
 				throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
 			}
 
-			ItemEvent itemEvent = itemRepository.findByItemId(itemId);
-			if(itemEvent != null) {
+			if(itemRepository.findByItemId(itemId) != null) {
 				logger.warn("itemDelivery:item already used / {}", itemId);
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
 			}
@@ -131,28 +132,32 @@ public class ItemController extends AuthController {
 				logger.warn("itemDelivery:category not found / {}", itemType);
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
 			}			
-			//TODO set weee flag
-			boolean weee = false;
-			geManager.itemDelivery(game, player, itemEvent, actualCollection.getNameGE(), 
-					weee, garbage, category);
+			event.setWeee(getWeee(event, garbage));
+			geManager.itemDelivery(game, player, event, actualCollection.getNameGE(),
+					garbage, category);
 			itemRepository.save(event);
 			logger.debug("itemDelivery - event created:{}", jsonNode);
 			return ResponseEntity.ok(event);
 		} catch (EntityNotFoundException e) {
 			throw e;
 		} catch (UnauthorizedException e) {
-			throw e;
+			throw e; 
 		} catch (Exception e) {
 			logger.warn("itemDelivery error:{}", e.getMessage());
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
 		}
 	}
 	
+	private boolean getWeee(ItemEvent event, Garbage garbage) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 	private void setAttributes(ItemEvent event, JsonNode jsonNode) {
 		Iterator<String> fieldNames = jsonNode.fieldNames();
 		while (fieldNames.hasNext()) {
 			String filedName = fieldNames.next();
-			if(filedName.equals("playerId") || filedName.equals("eventType") ||
+			if(filedName.equals("playerId") || filedName.equals("itemId") ||
 					filedName.equals("id")) {
 				continue;
 			}

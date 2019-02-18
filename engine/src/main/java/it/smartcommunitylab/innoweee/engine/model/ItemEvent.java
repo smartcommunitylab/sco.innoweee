@@ -12,6 +12,7 @@ public class ItemEvent {
 	private String itemId;
 	private Map<String, Object> attributes = new HashMap<>();
 	private long timestamp;
+	private boolean weee;
 	
 	public String getId() {
 		return id;
@@ -42,5 +43,11 @@ public class ItemEvent {
 	}
 	public void setTimestamp(long timestamp) {
 		this.timestamp = timestamp;
+	}
+	public boolean isWeee() {
+		return weee;
+	}
+	public void setWeee(boolean weee) {
+		this.weee = weee;
 	}
 }
