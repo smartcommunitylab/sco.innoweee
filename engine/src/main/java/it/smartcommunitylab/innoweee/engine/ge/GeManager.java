@@ -70,7 +70,6 @@ public class GeManager {
 		double value = 0.0;
 		Map<String, Object> data = new HashMap<String, Object>();
 		data.put("raccoltaId", collectionName);
-		data.put("weee", event.isWeee());
 		data.put("weight", weight);
 		value = weight * category.getMaterialsConversion().get(Const.MATERIAL_PLASTIC);
 		data.put(Const.MATERIAL_PLASTIC, value);

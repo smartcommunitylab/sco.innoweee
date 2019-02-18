@@ -205,4 +205,8 @@ public class Utils {
     return cal.getTime();
 	}
 	
+	public static String getTopic(String tenantId, String playerId) {
+		return "/topic/item." + tenantId + "." + playerId;
+	}
+	
 }

@@ -12,7 +12,8 @@ public class ItemEvent {
 	private String itemId;
 	private Map<String, Object> attributes = new HashMap<>();
 	private long timestamp;
-	private boolean weee;
+	private boolean reusable;
+	private boolean valuable;
 	
 	public String getId() {
 		return id;
@@ -44,10 +45,16 @@ public class ItemEvent {
 	public void setTimestamp(long timestamp) {
 		this.timestamp = timestamp;
 	}
-	public boolean isWeee() {
-		return weee;
+	public boolean isReusable() {
+		return reusable;
 	}
-	public void setWeee(boolean weee) {
-		this.weee = weee;
+	public void setReusable(boolean reusable) {
+		this.reusable = reusable;
+	}
+	public boolean isValuable() {
+		return valuable;
+	}
+	public void setValuable(boolean valuable) {
+		this.valuable = valuable;
 	}
 }

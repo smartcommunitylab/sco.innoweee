@@ -7,16 +7,17 @@ import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -41,8 +42,9 @@ import it.smartcommunitylab.innoweee.engine.repository.GarbageCollectionReposito
 import it.smartcommunitylab.innoweee.engine.repository.GarbageMapRepository;
 import it.smartcommunitylab.innoweee.engine.repository.ItemEventRepository;
 import it.smartcommunitylab.innoweee.engine.repository.PlayerRepository;
+import it.smartcommunitylab.innoweee.engine.websocket.WebSocketManager;
 
-@Controller
+@RestController
 public class ItemController extends AuthController {
 	private static final transient Logger logger = LoggerFactory.getLogger(ItemController.class);
 	
@@ -60,6 +62,8 @@ public class ItemController extends AuthController {
 	private CategoryMapRepository categoryMapRepository;
 	@Autowired
 	private GeManager geManager;
+	@Autowired
+	private WebSocketManager webSocketManager;
 	
 	private ObjectMapper mapper = null;
 	
@@ -72,13 +76,38 @@ public class ItemController extends AuthController {
 		mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
 	}
  
-	//@MessageMapping("/item")
-  //@SendTo("/topic/item")
-	public ItemEvent itemIdentification(ItemEvent event) {
-		return event;
+//	@MessageMapping("/item/ws")
+//  @SendTo("/topic/item")
+//	public ItemEvent itemIdentification(ItemEvent event) {
+//		return event;
+//	}
+	
+	@PostMapping(value = "/api/item/recognized")
+	public @ResponseBody void startCollection(
+			@RequestBody ItemEvent itemEvent,
+			HttpServletRequest request, 
+			HttpServletResponse response) throws Exception {
+		Optional<Player> optionalPlayer = playerRepository.findById(itemEvent.getPlayerId());
+		if(optionalPlayer.isEmpty()) {
+			throw new EntityNotFoundException("player entity not found");
+		}
+		Player player = optionalPlayer.get();
+		Optional<Game> optionalGame = gameRepository.findById(player.getGameId());
+		if(optionalGame.isEmpty()) {
+			throw new EntityNotFoundException("game entity not found");
+		}
+		Game game = optionalGame.get();
+		if(!validateAuthorization(game.getTenantId(), game.getInstituteId(), game.getSchoolId(), 
+				game.getObjectId(), Const.AUTH_RES_Game_Item, Const.AUTH_ACTION_ADD, request)) {
+			throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
+		}
+		if(StringUtils.isEmpty(itemEvent.getItemId())) {
+			throw new EntityNotFoundException("item id not found");
+		}
+		webSocketManager.notifyItemEventoToPlayer(player.getTenantId(), player.getGameId(), itemEvent);
 	}
 	
-	@PostMapping(value = "/api/item")
+	@PostMapping(value = "/api/item/delivery")
 	public @ResponseBody ResponseEntity<ItemEvent> itemDelivery(
 			@RequestBody String content,
 			@RequestParam(required = false) Long timestamp,
@@ -132,7 +161,8 @@ public class ItemController extends AuthController {
 				logger.warn("itemDelivery:category not found / {}", itemType);
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
 			}			
-			event.setWeee(getWeee(event, garbage));
+			event.setReusable(getReusable(event, garbage));
+			event.setValuable(getValuable(event, garbage));
 			geManager.itemDelivery(game, player, event, actualCollection.getNameGE(),
 					garbage, category);
 			itemRepository.save(event);
@@ -148,7 +178,12 @@ public class ItemController extends AuthController {
 		}
 	}
 	
-	private boolean getWeee(ItemEvent event, Garbage garbage) {
+	private boolean getValuable(ItemEvent event, Garbage garbage) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	private boolean getReusable(ItemEvent event, Garbage garbage) {
 		// TODO Auto-generated method stub
 		return false;
 	}
