@@ -59,12 +59,12 @@ public class GeManager {
 		return null;
 	}
 	
-	public void itemDelivery(Game game, Player player, ItemEvent event,
+	public void itemDelivery(String gameId, String playerId, ItemEvent event,
 			String collectionName, Garbage garbage, Category category) throws Exception {
 		ExecutionDataDTO dataDTO = new ExecutionDataDTO();
 		dataDTO.setActionId("itemDelivery");
-		dataDTO.setGameId(game.getGeGameId());
-		dataDTO.setPlayerId(player.getObjectId());
+		dataDTO.setGameId(gameId);
+		dataDTO.setPlayerId(playerId);
 		dataDTO.setExecutionMoment(new Date(event.getTimestamp()));
 		
 		double weight = garbage.getWeight();
@@ -95,14 +95,14 @@ public class GeManager {
 		data.put(Const.MATERIAL_PLATINUM, value);
 		dataDTO.setData(data);
 
-		executionApi.executeActionUsingPOST(game.getGeGameId(), "itemDelivery", dataDTO);
+		executionApi.executeActionUsingPOST(gameId, "itemDelivery", dataDTO);
 	}
 	
-	public void buildRobot(Game game, Player player, Component component) throws Exception {
+	public void buildRobot(String gameId, String playerId, Component component) throws Exception {
 		ExecutionDataDTO dataDTO = new ExecutionDataDTO();
 		dataDTO.setActionId("buildRobot");
-		dataDTO.setGameId(game.getGeGameId());
-		dataDTO.setPlayerId(player.getObjectId());
+		dataDTO.setGameId(gameId);
+		dataDTO.setPlayerId(playerId);
 		
 		Map<String, Object> data = new HashMap<String, Object>();
 		data.put(Const.COIN_RECYCLE, component.getCostMap().get(Const.COIN_RECYCLE));
@@ -110,27 +110,26 @@ public class GeManager {
 		data.put(Const.COIN_REUSE, component.getCostMap().get(Const.COIN_REUSE));
 		dataDTO.setData(data);
 
-		executionApi.executeActionUsingPOST(game.getGeGameId(), "buildRobot", dataDTO);
+		executionApi.executeActionUsingPOST(gameId, "buildRobot", dataDTO);
 	}
 	
-	public void reduceReport(Game game, Player player, ReduceReport reduceReport,
+	public void reduceReport(String gameId, String playerId, ReduceReport reduceReport,
 			String collectionName) throws Exception {
 		ExecutionDataDTO dataDTO = new ExecutionDataDTO();
 		dataDTO.setActionId("reduceReport");
-		dataDTO.setGameId(game.getGeGameId());
-		dataDTO.setPlayerId(player.getObjectId());
+		dataDTO.setGameId(gameId);
+		dataDTO.setPlayerId(playerId);
 		
 		Map<String, Object> data = new HashMap<String, Object>();
 		data.put("raccoltaId", collectionName);
 		data.put("reduceCoin", reduceReport.getReduceCoin());
 		dataDTO.setData(data);
 
-		executionApi.executeActionUsingPOST(game.getGeGameId(), "reduceReport", dataDTO);		
+		executionApi.executeActionUsingPOST(gameId, "reduceReport", dataDTO);		
 	}
 	
-	public void getPlayerStatus(Game game, Player player) throws Exception {
-		PlayerStateDTO playerStateDTO = playerApi.readStateUsingGET(game.getGeGameId(), 
-				player.getObjectId());
+	public void getPlayerStatus(String gameId, String playerId) throws Exception {
+		PlayerStateDTO playerStateDTO = playerApi.readStateUsingGET(gameId, playerId);
 		
 	}
 }

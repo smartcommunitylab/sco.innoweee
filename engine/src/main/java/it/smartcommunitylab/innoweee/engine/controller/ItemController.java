@@ -139,7 +139,8 @@ public class ItemController extends AuthController {
 		}
 		report.setGarbageCollectionId(actualCollection.getObjectId());
 		//TODO add game action
-//		geManager.reduceReport(game, player, report, actualCollection.getNameGE());
+//		geManager.reduceReport(game.getGeGameId(), player.getObjectId(), report, 
+//				actualCollection.getNameGE());
 		reduceReportRepository.save(report);
 		return report;
 	}
@@ -190,8 +191,8 @@ public class ItemController extends AuthController {
 		itemEvent.setReusable(getReusable(itemEvent, garbage));
 		itemEvent.setValuable(getValuable(itemEvent, garbage, actualCollection));
 		//TODO add game action
-//		geManager.itemDelivery(game, player, itemEvent, actualCollection.getNameGE(),
-//				garbage, category);
+//		geManager.itemDelivery(game.getGeGameId(), player.getObjectId(), itemEvent, 
+//				actualCollection.getNameGE(), garbage, category);
 		itemRepository.save(itemEvent);
 		logger.debug("itemDelivery:{} / {}", itemEvent.getItemType(), itemEvent.getItemId());
 		return itemEvent;

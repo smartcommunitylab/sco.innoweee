@@ -200,7 +200,8 @@ public class GameController extends AuthController {
 		if(newComponent == null) {
 			throw new EntityNotFoundException("component not found");
 		}
-		geManager.buildRobot(game, player, newComponent);
+		//TODO add game action
+//		geManager.buildRobot(game.getGeGameId(), player.getObjectId(), newComponent);
 		player.getRobot().getComponents().put(newComponent.getId(), newComponent);
 		playerRepository.save(player);
 		logger.info("buildRobot[{}]:{} / {}", player.getTenantId(), playerId, componentId);
