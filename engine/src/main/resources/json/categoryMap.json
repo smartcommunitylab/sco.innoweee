@@ -30,8 +30,8 @@
 				"platinum":0.000004
 			}
 		},
-		"IT & telecommunications": {
-			"id":"IT & telecommunications",
+		"IT and telecommunications": {
+			"id":"IT and telecommunications",
 			"materialsConversion":{
 				"plastic":0.2753,
 				"glass":0.0032,

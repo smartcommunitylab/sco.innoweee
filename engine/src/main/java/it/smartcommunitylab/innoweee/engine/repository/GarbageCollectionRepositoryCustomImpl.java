@@ -18,12 +18,13 @@ public class GarbageCollectionRepositoryCustomImpl implements GarbageCollectionR
 	private MongoTemplate mongoTemplate;
 
 	@Override
-	public GarbageCollection findActualCollection(String tenantId, String gameId) {
+	public GarbageCollection findActualCollection(String tenantId, String gameId, 
+			long timestamp) {
 		Criteria criteria = Criteria.where("tenantId").is(tenantId).and("gameId").is(gameId);
 		Query query = new Query(criteria);
 		query.with(new Sort(Direction.DESC, "from"));
 		List<GarbageCollection> list = mongoTemplate.find(query, GarbageCollection.class);
-		Date now = new Date(); 
+		Date now = new Date(timestamp);
 		for(GarbageCollection collection : list) {
 			if(now.after(collection.getFrom())) {
 				return collection;
@@ -33,13 +34,14 @@ public class GarbageCollectionRepositoryCustomImpl implements GarbageCollectionR
 	}
 
 	@Override
-	public List<GarbageCollection> findActiveCollections(String tenantId, String gameId) {
+	public List<GarbageCollection> findActiveCollections(String tenantId, String gameId, 
+			long timestamp) {
 		List<GarbageCollection> result = new ArrayList<GarbageCollection>();
 		Criteria criteria = Criteria.where("tenantId").is(tenantId).and("gameId").is(gameId);
 		Query query = new Query(criteria);
 		query.with(new Sort(Direction.DESC, "from"));
 		List<GarbageCollection> list = mongoTemplate.find(query, GarbageCollection.class);
-		Date now = new Date(); 
+		Date now = new Date(timestamp);
 		for(GarbageCollection collection : list) {
 			if(now.after(collection.getFrom())) {
 				result.add(collection);

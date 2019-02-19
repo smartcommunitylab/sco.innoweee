@@ -21,6 +21,7 @@ import it.smartcommunitylab.innoweee.engine.model.Game;
 import it.smartcommunitylab.innoweee.engine.model.Garbage;
 import it.smartcommunitylab.innoweee.engine.model.ItemEvent;
 import it.smartcommunitylab.innoweee.engine.model.Player;
+import it.smartcommunitylab.innoweee.engine.model.ReduceReport;
 import it.smartcommunitylab.model.PlayerStateDTO;
 import it.smartcommunitylab.model.ext.ExecutionDataDTO;
 
@@ -71,6 +72,7 @@ public class GeManager {
 		Map<String, Object> data = new HashMap<String, Object>();
 		data.put("raccoltaId", collectionName);
 		data.put("weight", weight);
+		data.put("weee", !event.isReusable());
 		value = weight * category.getMaterialsConversion().get(Const.MATERIAL_PLASTIC);
 		data.put(Const.MATERIAL_PLASTIC, value);
 		value = weight * category.getMaterialsConversion().get(Const.MATERIAL_GLASS);
@@ -109,6 +111,21 @@ public class GeManager {
 		dataDTO.setData(data);
 
 		executionApi.executeActionUsingPOST(game.getGeGameId(), "buildRobot", dataDTO);
+	}
+	
+	public void reduceReport(Game game, Player player, ReduceReport reduceReport,
+			String collectionName) throws Exception {
+		ExecutionDataDTO dataDTO = new ExecutionDataDTO();
+		dataDTO.setActionId("reduceReport");
+		dataDTO.setGameId(game.getGeGameId());
+		dataDTO.setPlayerId(player.getObjectId());
+		
+		Map<String, Object> data = new HashMap<String, Object>();
+		data.put("raccoltaId", collectionName);
+		data.put("reduceCoin", reduceReport.getReduceCoin());
+		dataDTO.setData(data);
+
+		executionApi.executeActionUsingPOST(game.getGeGameId(), "reduceReport", dataDTO);		
 	}
 	
 	public void getPlayerStatus(Game game, Player player) throws Exception {

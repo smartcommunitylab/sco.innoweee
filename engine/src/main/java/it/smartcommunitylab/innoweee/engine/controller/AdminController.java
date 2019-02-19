@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 import it.smartcommunitylab.innoweee.engine.model.Catalog;
 import it.smartcommunitylab.innoweee.engine.model.CategoryMap;
 import it.smartcommunitylab.innoweee.engine.model.GarbageMap;
+import it.smartcommunitylab.innoweee.engine.model.ItemValuableMap;
 import it.smartcommunitylab.innoweee.engine.repository.CatalogRepository;
 import it.smartcommunitylab.innoweee.engine.repository.CategoryMapRepository;
 import it.smartcommunitylab.innoweee.engine.repository.GarbageMapRepository;
+import it.smartcommunitylab.innoweee.engine.repository.ItemValuableMapRepository;
 
 @RestController
 public class AdminController extends AuthController {
@@ -27,6 +29,8 @@ public class AdminController extends AuthController {
 	private GarbageMapRepository garbageMapRepository;
 	@Autowired
 	private CategoryMapRepository categoryMapRepository;
+	@Autowired
+	private ItemValuableMapRepository valuableMapRepository;
 	
 	@PostMapping(value = "/admin/catalog")
 	public Catalog saveCatalog(
@@ -58,4 +62,14 @@ public class AdminController extends AuthController {
 		return map;
 	}
 
+	@PostMapping(value = "/admin/itemvaluablemap")
+	public ItemValuableMap saveItemValuableMap(
+			@RequestBody ItemValuableMap map,
+			HttpServletRequest request, 
+			HttpServletResponse response) throws Exception {
+		valuableMapRepository.save(map);
+		logger.info("saveItemValuableMap:{}", map.getId());
+		return map;
+	}
+	
 }

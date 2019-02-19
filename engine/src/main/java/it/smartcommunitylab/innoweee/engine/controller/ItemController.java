@@ -1,6 +1,6 @@
 package it.smartcommunitylab.innoweee.engine.controller;
 
-import java.util.Iterator;
+import java.util.List;
 import java.util.Optional;
 
 import javax.annotation.PostConstruct;
@@ -11,8 +11,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,7 +18,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
@@ -35,13 +32,18 @@ import it.smartcommunitylab.innoweee.engine.model.Garbage;
 import it.smartcommunitylab.innoweee.engine.model.GarbageCollection;
 import it.smartcommunitylab.innoweee.engine.model.GarbageMap;
 import it.smartcommunitylab.innoweee.engine.model.ItemEvent;
+import it.smartcommunitylab.innoweee.engine.model.ItemValuable;
+import it.smartcommunitylab.innoweee.engine.model.ItemValuableMap;
 import it.smartcommunitylab.innoweee.engine.model.Player;
+import it.smartcommunitylab.innoweee.engine.model.ReduceReport;
 import it.smartcommunitylab.innoweee.engine.repository.CategoryMapRepository;
 import it.smartcommunitylab.innoweee.engine.repository.GameRepository;
 import it.smartcommunitylab.innoweee.engine.repository.GarbageCollectionRepository;
 import it.smartcommunitylab.innoweee.engine.repository.GarbageMapRepository;
 import it.smartcommunitylab.innoweee.engine.repository.ItemEventRepository;
+import it.smartcommunitylab.innoweee.engine.repository.ItemValuableMapRepository;
 import it.smartcommunitylab.innoweee.engine.repository.PlayerRepository;
+import it.smartcommunitylab.innoweee.engine.repository.ReduceReportRepository;
 import it.smartcommunitylab.innoweee.engine.websocket.WebSocketManager;
 
 @RestController
@@ -61,6 +63,10 @@ public class ItemController extends AuthController {
 	@Autowired
 	private CategoryMapRepository categoryMapRepository;
 	@Autowired
+	private ReduceReportRepository reduceReportRepository;
+	@Autowired
+	private ItemValuableMapRepository valuableMapRepository;
+	@Autowired
 	private GeManager geManager;
 	@Autowired
 	private WebSocketManager webSocketManager;
@@ -76,12 +82,6 @@ public class ItemController extends AuthController {
 		mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
 	}
  
-//	@MessageMapping("/item/ws")
-//  @SendTo("/topic/item")
-//	public ItemEvent itemIdentification(ItemEvent event) {
-//		return event;
-//	}
-	
 	@PostMapping(value = "/api/item/recognized")
 	public @ResponseBody void startCollection(
 			@RequestBody ItemEvent itemEvent,
@@ -107,108 +107,118 @@ public class ItemController extends AuthController {
 		webSocketManager.notifyItemEventoToPlayer(player.getTenantId(), player.getGameId(), itemEvent);
 	}
 	
-	@PostMapping(value = "/api/item/delivery")
-	public @ResponseBody ResponseEntity<ItemEvent> itemDelivery(
-			@RequestBody String content,
+	@PostMapping(value = "/api/item/reduce")
+	public @ResponseBody ReduceReport reduceReport(
+			@RequestBody ReduceReport report,
 			@RequestParam(required = false) Long timestamp,
 			HttpServletRequest request, 
 			HttpServletResponse response) throws Exception {
-		try {
-			JsonNode jsonNode = mapper.readTree(content);
-			String playerId = jsonNode.get("playerId").asText();
-			String itemId = jsonNode.get("itemId").asText();
-			String itemType = jsonNode.get("itemType").asText();
-			
-			Optional<Player> optionalPlayer = playerRepository.findById(playerId);
-			if(optionalPlayer.isEmpty()) {
-				throw new EntityNotFoundException("player entity not found");
-			}
-			Player player = optionalPlayer.get();
-			Optional<Game> optionalGame = gameRepository.findById(player.getGameId());
-			if(optionalGame.isEmpty()) {
-				throw new EntityNotFoundException("game entity not found");
-			}
-			Game game = optionalGame.get();
-			if(!validateAuthorization(game.getTenantId(), game.getInstituteId(), game.getSchoolId(), 
-					game.getObjectId(), Const.AUTH_RES_Game_Item, Const.AUTH_ACTION_ADD, request)) {
-				throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
-			}
-
-			if(itemRepository.findByItemId(itemId) != null) {
-				logger.warn("itemDelivery:item already used / {}", itemId);
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-			}
-			ItemEvent event = new ItemEvent();
-			event.setPlayerId(playerId);
-			event.setItemId(itemId);
-			setAttributes(event, jsonNode);
-			if(timestamp != null) {
-				event.setTimestamp(timestamp);
-			} else {
-				event.setTimestamp(System.currentTimeMillis());
-			}
-			GarbageCollection actualCollection = collectionRepository.findActualCollection(
-					game.getTenantId(), game.getObjectId());
-			GarbageMap garbageMap = garbageMapRepository.findAll().get(0);
-			Garbage garbage = garbageMap.getItems().get(itemType);
-			if(garbage == null) {
-				logger.warn("itemDelivery:garbage not found / {}", itemType);
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-			}
-			CategoryMap categoryMap = categoryMapRepository.findAll().get(0);
-			Category category = categoryMap.getCategories().get(garbage.getCategory());
-			if(category == null) {
-				logger.warn("itemDelivery:category not found / {}", itemType);
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-			}			
-			event.setReusable(getReusable(event, garbage));
-			event.setValuable(getValuable(event, garbage));
-			geManager.itemDelivery(game, player, event, actualCollection.getNameGE(),
-					garbage, category);
-			itemRepository.save(event);
-			logger.debug("itemDelivery - event created:{}", jsonNode);
-			return ResponseEntity.ok(event);
-		} catch (EntityNotFoundException e) {
-			throw e;
-		} catch (UnauthorizedException e) {
-			throw e; 
-		} catch (Exception e) {
-			logger.warn("itemDelivery error:{}", e.getMessage());
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+		Optional<Player> optionalPlayer = playerRepository.findById(report.getPlayerId());
+		if(optionalPlayer.isEmpty()) {
+			throw new EntityNotFoundException("player not found");
 		}
+		Player player = optionalPlayer.get();
+		Optional<Game> optionalGame = gameRepository.findById(player.getGameId());
+		if(optionalGame.isEmpty()) {
+			throw new EntityNotFoundException("game not found");
+		}
+		Game game = optionalGame.get();
+		if(!validateAuthorization(game.getTenantId(), game.getInstituteId(), game.getSchoolId(), 
+				game.getObjectId(), Const.AUTH_RES_Game_Item, Const.AUTH_ACTION_ADD, request)) {
+			throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
+		}
+		if(timestamp != null) {
+			report.setTimestamp(timestamp);
+		} else {
+			report.setTimestamp(System.currentTimeMillis());
+		}
+		GarbageCollection actualCollection = collectionRepository.findActualCollection(
+				game.getTenantId(), game.getObjectId(), report.getTimestamp());
+		if(actualCollection == null) {
+			throw new EntityNotFoundException("collection not found");
+		}
+		report.setGarbageCollectionId(actualCollection.getObjectId());
+		//TODO add game action
+//		geManager.reduceReport(game, player, report, actualCollection.getNameGE());
+		reduceReportRepository.save(report);
+		return report;
+	}
+		
+	@PostMapping(value = "/api/item/delivery")
+	public @ResponseBody ItemEvent itemDelivery(
+			@RequestBody ItemEvent itemEvent,
+			@RequestParam(required = false) Long timestamp,
+			HttpServletRequest request, 
+			HttpServletResponse response) throws Exception {
+		Optional<Player> optionalPlayer = playerRepository.findById(itemEvent.getPlayerId());
+		if(optionalPlayer.isEmpty()) {
+			throw new EntityNotFoundException("player not found");
+		}
+		Player player = optionalPlayer.get();
+		Optional<Game> optionalGame = gameRepository.findById(player.getGameId());
+		if(optionalGame.isEmpty()) {
+			throw new EntityNotFoundException("game not found");
+		}
+		Game game = optionalGame.get();
+		if(!validateAuthorization(game.getTenantId(), game.getInstituteId(), game.getSchoolId(), 
+				game.getObjectId(), Const.AUTH_RES_Game_Item, Const.AUTH_ACTION_ADD, request)) {
+			throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
+		}
+		if(itemRepository.findByItemId(itemEvent.getItemId()) != null) {
+			throw new EntityNotFoundException("item already used");
+		}
+		if(timestamp != null) {
+			itemEvent.setTimestamp(timestamp);
+		} else {
+			itemEvent.setTimestamp(System.currentTimeMillis());
+		}
+		GarbageCollection actualCollection = collectionRepository.findActualCollection(
+				game.getTenantId(), game.getObjectId(), itemEvent.getTimestamp());
+		if(actualCollection == null) {
+			throw new EntityNotFoundException("collection not found");
+		}
+		GarbageMap garbageMap = garbageMapRepository.findAll().get(0);
+		Garbage garbage = garbageMap.getItems().get(itemEvent.getItemType());
+		if(garbage == null) {
+			throw new EntityNotFoundException("garbage not found");
+		}
+		CategoryMap categoryMap = categoryMapRepository.findAll().get(0);
+		Category category = categoryMap.getCategories().get(garbage.getCategory());
+		if(category == null) {
+			throw new EntityNotFoundException("category not found");
+		}			
+		itemEvent.setReusable(getReusable(itemEvent, garbage));
+		itemEvent.setValuable(getValuable(itemEvent, garbage, actualCollection));
+		//TODO add game action
+//		geManager.itemDelivery(game, player, itemEvent, actualCollection.getNameGE(),
+//				garbage, category);
+		itemRepository.save(itemEvent);
+		logger.debug("itemDelivery:{} / {}", itemEvent.getItemType(), itemEvent.getItemId());
+		return itemEvent;
 	}
 	
-	private boolean getValuable(ItemEvent event, Garbage garbage) {
-		// TODO Auto-generated method stub
+	private boolean getValuable(ItemEvent event, Garbage garbage, 
+			GarbageCollection collection) {
+		ItemValuableMap valuableMap = valuableMapRepository.findByCollectionName(collection.getNameGE());
+		if(valuableMap == null) {
+			return false;
+		}
+		List<ItemValuable> list = valuableMap.getItems().get(garbage.getId());
+		for(ItemValuable itemValuable : list) {
+			if((itemValuable.isBroken() == event.isBroken()) &&
+					itemValuable.isSwitchingOn() == event.isSwitchingOn() &&
+					itemValuable.getAge() >= event.getAge()) {
+				return true;
+			}
+		}
 		return false;
 	}
 
 	private boolean getReusable(ItemEvent event, Garbage garbage) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	private void setAttributes(ItemEvent event, JsonNode jsonNode) {
-		Iterator<String> fieldNames = jsonNode.fieldNames();
-		while (fieldNames.hasNext()) {
-			String filedName = fieldNames.next();
-			if(filedName.equals("playerId") || filedName.equals("itemId") ||
-					filedName.equals("id")) {
-				continue;
-			}
-			JsonNode fieldNode = jsonNode.get(filedName);
-			if(fieldNode.isTextual()) {
-				event.getAttributes().put(filedName, fieldNode.get(filedName).asText());
-			} else if(fieldNode.isBoolean()) {
-				event.getAttributes().put(filedName, fieldNode.get(filedName).asBoolean());
-			} else if(fieldNode.isDouble() || jsonNode.isFloat()) {
-				event.getAttributes().put(filedName, fieldNode.get(filedName).asDouble());
-			} else if(fieldNode.canConvertToInt()) {
-				event.getAttributes().put(filedName, fieldNode.get(filedName).asInt());
-			} else if(fieldNode.canConvertToLong()) {
-				event.getAttributes().put(filedName, fieldNode.get(filedName).asLong());
-			}
+		if(event.isBroken() && !event.isSwitchingOn()) {
+			return false;
 		}
+		return true;
 	}
 
 }

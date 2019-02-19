@@ -1,8 +1,5 @@
 package it.smartcommunitylab.innoweee.engine.model;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.springframework.data.annotation.Id;
 
 public class ItemEvent {
@@ -10,7 +7,10 @@ public class ItemEvent {
 	private String id;
 	private String playerId;
 	private String itemId;
-	private Map<String, Object> attributes = new HashMap<>();
+	private String itemType;
+	private boolean broken;
+	private boolean switchingOn;
+	private int age;
 	private long timestamp;
 	private boolean reusable;
 	private boolean valuable;
@@ -20,12 +20,6 @@ public class ItemEvent {
 	}
 	public void setId(String id) {
 		this.id = id;
-	}
-	public Map<String, Object> getAttributes() {
-		return attributes;
-	}
-	public void setAttributes(Map<String, Object> attributes) {
-		this.attributes = attributes;
 	}
 	public String getPlayerId() {
 		return playerId;
@@ -56,5 +50,29 @@ public class ItemEvent {
 	}
 	public void setValuable(boolean valuable) {
 		this.valuable = valuable;
+	}
+	public String getItemType() {
+		return itemType;
+	}
+	public void setItemType(String itemType) {
+		this.itemType = itemType;
+	}
+	public boolean isBroken() {
+		return broken;
+	}
+	public void setBroken(boolean broken) {
+		this.broken = broken;
+	}
+	public boolean isSwitchingOn() {
+		return switchingOn;
+	}
+	public void setSwitchingOn(boolean switchingOn) {
+		this.switchingOn = switchingOn;
+	}
+	public int getAge() {
+		return age;
+	}
+	public void setAge(int age) {
+		this.age = age;
 	}
 }

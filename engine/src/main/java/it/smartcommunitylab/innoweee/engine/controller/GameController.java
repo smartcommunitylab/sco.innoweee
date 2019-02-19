@@ -144,7 +144,8 @@ public class GameController extends AuthController {
 				game.getObjectId(), Const.AUTH_RES_Game_GarbageCollection, Const.AUTH_ACTION_READ, request)) {
 			throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
 		}
-		GarbageCollection collection = collectionRepository.findActualCollection(game.getTenantId(), gameId);
+		GarbageCollection collection = collectionRepository.findActualCollection(game.getTenantId(), 
+				gameId, System.currentTimeMillis());
 		logger.info("getActualCollection[{}]:{}", game.getTenantId(), gameId);
 		return collection;
 	}
@@ -164,7 +165,8 @@ public class GameController extends AuthController {
 			throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
 		}
 		List<Link> result = new ArrayList<Link>();
-		List<GarbageCollection> activeCollections = collectionRepository.findActiveCollections(game.getTenantId(), game.getObjectId());
+		List<GarbageCollection> activeCollections = collectionRepository.findActiveCollections(
+				game.getTenantId(), game.getObjectId(), System.currentTimeMillis());
 		for(GarbageCollection collection : activeCollections) {
 			result.addAll(collection.getLinks());
 		}

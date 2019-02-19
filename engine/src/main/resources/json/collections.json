@@ -6,6 +6,8 @@
 		"to":1550358000000,
 		"nameGE":"R1",
 		"message":{"it":"Giochi e giocattoli elettrici ed elettronici", "en":"Toys and games"},
+		"reduceMessage":{"it":"???", "en":"???"},
+		"specialCollection":false,
 		"items":["Joystick","Talking doll"],
 		"links":[
 			{
@@ -32,6 +34,8 @@
 		"to":1557007200000,
 		"nameGE":"R2",
 		"message":{"it":"Cellulari, smartphone, tablet e computer portatili", "en":"Laptop, Notebook, Tablet, Smartphone (GreenIDEA)"},
+		"reduceMessage":{"it":"???", "en":"???"},
+		"specialCollection":true,
 		"items":["Cellphone", "Tablet"],
 		"links":[
 			{
@@ -78,6 +82,8 @@
 		"to":1557612000000,
 		"nameGE":"R3",
 		"message":{"it":"Piccoli elettrodomestici della cucina", "en":"Kitchen Appliances"},
+		"reduceMessage":{"it":"???", "en":"???"},
+		"specialCollection":false,
 		"items":[],
 		"links":[]
 	},
@@ -88,6 +94,8 @@
 		"to":1558216800000,
 		"nameGE":"R4",
 		"message":{"it":"Apparecchiature informatiche e per telecomunicazioni", "en":"Information and Communication Technologies"},
+		"reduceMessage":{"it":"???", "en":"???"},
+		"specialCollection":false,
 		"items":[],
 		"links":[]
 	},
@@ -98,6 +106,8 @@
 		"to":1558821600000,
 		"nameGE":"R5",
 		"message":{"it":"Piccoli elettrodomestici per la salute e il benessere", "en":"Health, Beauty and Wellness Appliances"},
+		"reduceMessage":{"it":"???", "en":"???"},
+		"specialCollection":false,
 		"items":[],
 		"links":[]
 	},
@@ -108,6 +118,8 @@
 		"to":1559426400000,
 		"nameGE":"R6",
 		"message":{"it":"Apparecchiature audio e video", "en":"Audio, video, consumer devices"},
+		"reduceMessage":{"it":"???", "en":"???"},
+		"specialCollection":false,
 		"items":[],
 		"links":[]
 	}

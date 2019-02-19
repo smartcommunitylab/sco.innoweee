@@ -2,13 +2,13 @@
 	"items":{
 		"Joystick":{
 			"id":"Joystick",
-			"category":"Toys, leisure & sport equipment",
+			"category":"Toys, leisure and sport equipment",
 			"name":{"it":"Joystick", "en":"Joystick"},
 			"weight":0.25
 		},
 		"Talking doll":{
 			"id":"Talking doll",
-			"category":"Toys, leisure & sport equipment",
+			"category":"Toys, leisure and sport equipment",
 			"name":{"it":"Bambola parlante", "en":"Talking doll"},
 			"weight":0.25
 		},

@@ -1,0 +1,29 @@
+{
+	"collectionName":"R2",
+	"items":{
+		"Cellphone":[
+			{
+				"broken":false,
+				"switchingOn":true,
+				"age":2
+			},
+			{
+				"broken":true,
+				"switchingOn":true,
+				"age":1
+			}			
+		],
+		"Tablet":[
+			{
+				"broken":false,
+				"switchingOn":true,
+				"age":3
+			},
+			{
+				"broken":true,
+				"switchingOn":true,
+				"age":2
+			}
+		]
+	}
+}
