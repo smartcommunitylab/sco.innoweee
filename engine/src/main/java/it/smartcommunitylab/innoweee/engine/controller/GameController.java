@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,6 +31,7 @@ import it.smartcommunitylab.innoweee.engine.model.Game;
 import it.smartcommunitylab.innoweee.engine.model.GarbageCollection;
 import it.smartcommunitylab.innoweee.engine.model.Link;
 import it.smartcommunitylab.innoweee.engine.model.Player;
+import it.smartcommunitylab.innoweee.engine.model.PlayerState;
 import it.smartcommunitylab.innoweee.engine.model.Robot;
 import it.smartcommunitylab.innoweee.engine.repository.CatalogRepository;
 import it.smartcommunitylab.innoweee.engine.repository.GameRepository;
@@ -206,6 +208,27 @@ public class GameController extends AuthController {
 		playerRepository.save(player);
 		logger.info("buildRobot[{}]:{} / {}", player.getTenantId(), playerId, componentId);
 		return player.getRobot();
+	}
+	
+	@GetMapping(value = "/api/game/{gameId}/state/{playerId}")
+	public @ResponseBody PlayerState getPlayerState(
+			@PathVariable String gameId,
+			@PathVariable String playerId,
+			@RequestParam(required = false) String nameGE,
+			HttpServletRequest request, 
+			HttpServletResponse response) throws Exception {
+		Optional<Game> optionalGame = gameRepository.findById(gameId);
+		if(optionalGame.isEmpty()) {
+			throw new EntityNotFoundException("game not found");
+		}
+		Game game = optionalGame.get();
+		if(!validateAuthorization(game.getTenantId(), game.getInstituteId(), game.getSchoolId(), 
+				game.getObjectId(), Const.AUTH_RES_Game_Player, Const.AUTH_ACTION_READ, request)) {
+			throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
+		}
+		PlayerState playerState = geManager.getPlayerState(gameId, playerId, nameGE);
+		logger.info("getPlayerState[{}]:{} / {} / {}", game.getTenantId(), gameId, playerId, nameGE);
+		return playerState;
 	}
 	
 }

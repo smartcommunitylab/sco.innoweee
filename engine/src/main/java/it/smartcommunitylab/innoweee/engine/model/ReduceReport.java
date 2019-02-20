@@ -2,7 +2,7 @@ package it.smartcommunitylab.innoweee.engine.model;
 
 public class ReduceReport extends BaseObject {
 	private String playerId;
-	private Integer reduceCoin;
+	private int reduceCoin;
 	private String garbageCollectionId;
 	private long timestamp;
 	
@@ -12,10 +12,10 @@ public class ReduceReport extends BaseObject {
 	public void setPlayerId(String playerId) {
 		this.playerId = playerId;
 	}
-	public Integer getReduceCoin() {
+	public int getReduceCoin() {
 		return reduceCoin;
 	}
-	public void setReduceCoin(Integer reduceCoin) {
+	public void setReduceCoin(int reduceCoin) {
 		this.reduceCoin = reduceCoin;
 	}
 	public String getGarbageCollectionId() {

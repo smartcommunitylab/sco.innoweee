@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import it.smartcommunitylab.innoweee.engine.model.Game;
 import it.smartcommunitylab.innoweee.engine.model.Garbage;
 import it.smartcommunitylab.innoweee.engine.model.ItemEvent;
 import it.smartcommunitylab.innoweee.engine.model.Player;
+import it.smartcommunitylab.innoweee.engine.model.PlayerState;
 import it.smartcommunitylab.innoweee.engine.model.ReduceReport;
 import it.smartcommunitylab.model.PlayerStateDTO;
 import it.smartcommunitylab.model.ext.ExecutionDataDTO;
@@ -128,8 +130,14 @@ public class GeManager {
 		executionApi.executeActionUsingPOST(gameId, "reduceReport", dataDTO);		
 	}
 	
-	public void getPlayerStatus(String gameId, String playerId) throws Exception {
-		PlayerStateDTO playerStateDTO = playerApi.readStateUsingGET(gameId, playerId);
-		
+	public PlayerState getPlayerState(String gameId, String playerId, String collectionName) throws Exception {
+		//TODO get player state
+//		PlayerStateDTO playerStateDTO = playerApi.readStateUsingGET(gameId, playerId);
+		PlayerState playerState = new PlayerState();
+		playerState.setPlayerId(playerId);
+		if(!StringUtils.isEmpty(collectionName)) {
+			playerState.setNameGE(collectionName);
+		}
+		return playerState;
 	}
 }
