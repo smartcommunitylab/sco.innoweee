@@ -3,6 +3,7 @@ package it.smartcommunitylab.innoweee.engine.ge;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 import javax.annotation.PostConstruct;
 
@@ -47,6 +48,8 @@ public class GeManager {
 	private PlayerControllerApi playerApi;
 	private ExecutionControllerApi executionApi;
 	
+	private Random random;
+	
 	@PostConstruct
 	public void init() {
 		apiClient = new ApiClient(gamificationURL);
@@ -54,6 +57,7 @@ public class GeManager {
 		apiClient.setPassword(gamificationPassword);
     playerApi = new PlayerControllerApi(apiClient);
     executionApi = new ExecutionControllerApi(apiClient);
+    random = new Random(System.currentTimeMillis());
 	}
 	
 	public String deployGame(Game game) {
@@ -138,6 +142,26 @@ public class GeManager {
 		if(!StringUtils.isEmpty(collectionName)) {
 			playerState.setNameGE(collectionName);
 		}
+		playerState.setRecycleCoin(50);
+		playerState.setReduceCoin(50);
+		playerState.setReuseCoin(50);
+		playerState.setAluminium(getRandomDouble(100, 5000));
+		playerState.setCopper(getRandomDouble(100, 5000));
+		playerState.setGlass(getRandomDouble(100, 1000));
+		playerState.setIron(getRandomDouble(500, 7500));
+		playerState.setPlastic(getRandomDouble(1000, 15000));
+		playerState.setTin(getRandomDouble(100, 5000));
+		playerState.setNickel(getRandomDouble(0.01, 0.1));
+		playerState.setSilver(getRandomDouble(0.01, 0.1));
+		playerState.setGold(getRandomDouble(0.01, 0.1));
+		playerState.setPlatinum(getRandomDouble(0.01, 0.1));
+		playerState.setItems(100);
+		playerState.setWeight(getRandomDouble(15000, 25000));
+		playerState.setCo2(getRandomDouble(100, 5000));
 		return playerState;
 	}
+	
+	private double getRandomDouble(double min, double max) {
+		return min + (random.nextDouble() * (max - min));
+  }
 }
