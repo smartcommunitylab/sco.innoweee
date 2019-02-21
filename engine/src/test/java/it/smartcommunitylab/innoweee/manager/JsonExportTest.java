@@ -1,6 +1,8 @@
 package it.smartcommunitylab.innoweee.manager;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -16,6 +18,8 @@ import it.smartcommunitylab.innoweee.engine.model.Category;
 import it.smartcommunitylab.innoweee.engine.model.CategoryMap;
 import it.smartcommunitylab.innoweee.engine.model.Garbage;
 import it.smartcommunitylab.innoweee.engine.model.GarbageMap;
+import it.smartcommunitylab.innoweee.engine.model.ItemValuable;
+import it.smartcommunitylab.innoweee.engine.model.ItemValuableMap;
 
 public class JsonExportTest {
 	@Test
@@ -93,5 +97,65 @@ public class JsonExportTest {
 		objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
 		objectMapper.setSerializationInclusion(Include.NON_NULL);
 		objectMapper.writeValue(new File("C:\\Users\\micnori\\Documents\\Progetti\\Innoweee\\categoryMap.json"), categoryMap);
+	}
+	
+	@Test
+	public void covertItemValuableMap() throws Exception {
+		ItemValuableMap valuableMap = new ItemValuableMap();
+		valuableMap.setCollectionName("R2");
+		File file = 
+				new File("C:\\Users\\micnori\\Documents\\Progetti\\Innoweee\\InnoWEEE-TrentinoPilot-items_weeks_materials.xlsx");
+		XSSFWorkbook wb = new XSSFWorkbook(file);
+		try {
+			XSSFSheet sheetNotBroken = wb.getSheet("EEE criteria (Not Broken)");
+			for(int i=2; i <= sheetNotBroken.getLastRowNum(); i++) {
+				System.out.println("converting not broken row " + i);
+				Row row = sheetNotBroken.getRow(i);
+				addItemValuable(valuableMap, row, false);
+			}
+			XSSFSheet sheetBroken = wb.getSheet("EEE criteria (Broken)");
+			for(int i=2; i <= sheetBroken.getLastRowNum(); i++) {
+				System.out.println("converting broken row " + i);
+				Row row = sheetBroken.getRow(i);
+				addItemValuable(valuableMap, row, true);				
+			}
+		} finally {
+			wb.close();
+		}
+		ObjectMapper objectMapper = new ObjectMapper();
+		objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
+		objectMapper.setSerializationInclusion(Include.NON_NULL);
+		objectMapper.writeValue(new File("C:\\Users\\micnori\\Documents\\Progetti\\Innoweee\\itemValuableMap.json"), valuableMap);
+	}
+
+	private void addItemValuable(ItemValuableMap valuableMap, Row row, boolean broken) {
+		String itemId = row.getCell(0, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK).getStringCellValue().trim();
+		String ageMin1 = row.getCell(1, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK).getStringCellValue().trim();
+		String age1to3 = row.getCell(2, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK).getStringCellValue().trim();
+		String age3to5 = row.getCell(3, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK).getStringCellValue().trim();
+		String ageMax5 = row.getCell(4, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK).getStringCellValue().trim();
+		int age = -1;
+		if("YES".equals(ageMin1)) {
+			age = 0;
+		}
+		if("YES".equals(age1to3)) {
+			age = 1;
+		}
+		if("YES".equals(age3to5)) {
+			age = 2;
+		}
+		if("YES".equals(ageMax5)) {
+			age = 3;
+		}
+		ItemValuable itemValuable = new ItemValuable();
+		itemValuable.setBroken(broken);
+		itemValuable.setSwitchingOn(true);
+		itemValuable.setAge(age);
+		List<ItemValuable> list = valuableMap.getItems().get(itemId);
+		if(list == null) {
+			list = new ArrayList<ItemValuable>();
+			valuableMap.getItems().put(itemId, list);
+		}
+		list.add(itemValuable);
 	}
 }
