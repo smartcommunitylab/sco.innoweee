@@ -205,6 +205,9 @@ public class ItemController extends AuthController {
 			return false;
 		}
 		List<ItemValuable> list = valuableMap.getItems().get(garbage.getId());
+		if(list == null) {
+			return false;
+		}
 		for(ItemValuable itemValuable : list) {
 			if((itemValuable.isBroken() == event.isBroken()) &&
 					itemValuable.isSwitchingOn() == event.isSwitchingOn() &&
