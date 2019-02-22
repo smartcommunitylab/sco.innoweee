@@ -101,7 +101,7 @@ public class GeManager {
 		data.put(Const.MATERIAL_PLATINUM, value);
 		dataDTO.setData(data);
 
-		executionApi.executeActionUsingPOST(gameId, "itemDelivery", dataDTO);
+//		executionApi.executeActionUsingPOST(gameId, "itemDelivery", dataDTO);
 	}
 	
 	public void buildRobot(String gameId, String playerId, Component component) throws Exception {
@@ -116,7 +116,7 @@ public class GeManager {
 		data.put(Const.COIN_REUSE, component.getCostMap().get(Const.COIN_REUSE));
 		dataDTO.setData(data);
 
-		executionApi.executeActionUsingPOST(gameId, "buildRobot", dataDTO);
+//		executionApi.executeActionUsingPOST(gameId, "buildRobot", dataDTO);
 	}
 	
 	public void reduceReport(String gameId, String playerId, ReduceReport reduceReport,
@@ -131,7 +131,7 @@ public class GeManager {
 		data.put("reduceCoin", reduceReport.getReduceCoin());
 		dataDTO.setData(data);
 
-		executionApi.executeActionUsingPOST(gameId, "reduceReport", dataDTO);		
+//		executionApi.executeActionUsingPOST(gameId, "reduceReport", dataDTO);		
 	}
 	
 	public PlayerState getPlayerState(String gameId, String playerId, String collectionName) throws Exception {

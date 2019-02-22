@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import it.smartcommunitylab.innoweee.engine.common.Const;
 import it.smartcommunitylab.innoweee.engine.exception.EntityNotFoundException;
 import it.smartcommunitylab.innoweee.engine.exception.UnauthorizedException;
+import it.smartcommunitylab.innoweee.engine.img.ImageManager;
 import it.smartcommunitylab.innoweee.engine.model.Catalog;
 import it.smartcommunitylab.innoweee.engine.model.Component;
 import it.smartcommunitylab.innoweee.engine.model.Game;
@@ -41,6 +42,8 @@ public class PlayerController extends AuthController {
 	private GameRepository gameRepository; 
 	@Autowired
 	private CatalogRepository catalogResopitory;
+	@Autowired
+	private ImageManager imageManager;
 	
 	@GetMapping(value = "/api/player/{gameId}")
 	public @ResponseBody List<Player> searchPlayer(
@@ -83,6 +86,9 @@ public class PlayerController extends AuthController {
 				addNewRobot(player);
 			}
 			playerRepository.save(player);
+			if(!player.isTeam()) {
+				imageManager.storeRobotImage(player);
+			}
 		} else {
 			// update existing one
 			player.setLastUpdate(now);

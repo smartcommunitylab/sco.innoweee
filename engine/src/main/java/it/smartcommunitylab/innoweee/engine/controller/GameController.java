@@ -25,6 +25,7 @@ import it.smartcommunitylab.innoweee.engine.common.Const;
 import it.smartcommunitylab.innoweee.engine.exception.EntityNotFoundException;
 import it.smartcommunitylab.innoweee.engine.exception.UnauthorizedException;
 import it.smartcommunitylab.innoweee.engine.ge.GeManager;
+import it.smartcommunitylab.innoweee.engine.img.ImageManager;
 import it.smartcommunitylab.innoweee.engine.model.Catalog;
 import it.smartcommunitylab.innoweee.engine.model.Component;
 import it.smartcommunitylab.innoweee.engine.model.Game;
@@ -52,6 +53,8 @@ public class GameController extends AuthController {
 	private CatalogRepository catalogRepository;
 	@Autowired
 	private GeManager geManager;
+	@Autowired
+	private ImageManager imageManager;
 	
 	@GetMapping(value = "/api/game/{tenantId}/{instituteId}/{schoolId}")
 	public @ResponseBody List<Game> searchGame(
@@ -206,6 +209,7 @@ public class GameController extends AuthController {
 //		geManager.buildRobot(game.getGeGameId(), player.getObjectId(), newComponent);
 		player.getRobot().getComponents().put(newComponent.getId(), newComponent);
 		playerRepository.save(player);
+		imageManager.storeRobotImage(player);
 		logger.info("buildRobot[{}]:{} / {}", player.getTenantId(), playerId, componentId);
 		return player.getRobot();
 	}

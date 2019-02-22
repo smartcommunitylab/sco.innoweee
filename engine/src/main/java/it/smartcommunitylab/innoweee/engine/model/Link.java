@@ -4,6 +4,7 @@ public class Link {
 	private String name;
 	private String link;
 	private String type;
+	private String previewUri;
 	
 	public String getName() {
 		return name;
@@ -22,5 +23,11 @@ public class Link {
 	}
 	public void setType(String type) {
 		this.type = type;
+	}
+	public String getPreviewUri() {
+		return previewUri;
+	}
+	public void setPreviewUri(String previewUri) {
+		this.previewUri = previewUri;
 	}
 }

@@ -50,5 +50,12 @@ public class Const {
 	public static final String COIN_REDUCE = "reduceCoin";
 	public static final String COIN_REUSE = "reuseCoin";
 	public static final String COIN_RECYCLE = "recycleCoin";
+	
+	public static final String ROBOT_HEAD = "head";
+	public static final String ROBOT_CHEST = "chest";
+	public static final String ROBOT_ARMR = "armR";
+	public static final String ROBOT_ARML = "armL";
+	public static final String ROBOT_LEGS = "legs";
+	public static final String ROBOT_FEET = "feet";
 }
 
