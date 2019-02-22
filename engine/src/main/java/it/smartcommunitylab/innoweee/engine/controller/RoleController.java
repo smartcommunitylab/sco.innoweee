@@ -41,7 +41,10 @@ public class RoleController extends AuthController {
 		if(!validateRole(Const.ROLE_ADMIN, request)) {
 			throw new UnauthorizedException("Unauthorized Exception: role not valid");
 		}
-		User user = getUserByEmail(request);
+		User user = userRepository.findByEmail(email);
+		if(user == null) {
+			throw new EntityNotFoundException("user not found");
+		}
 		List<Authorization> auths = new ArrayList<Authorization>();
 		Authorization auth = new Authorization();
 		auth.getActions().add(Const.AUTH_ACTION_READ);
@@ -59,6 +62,40 @@ public class RoleController extends AuthController {
 		user.getRoles().put(authKey, auths);
 		userRepository.save(user);
 		logger.info(String.format("addOwner[{}]:{}", tenantId, email));
+		return auths;
+	}
+	
+	@GetMapping(value = "/api/role/{tenantId}/schoolowner")
+	public @ResponseBody List<Authorization> addSchoolOwner(
+			@PathVariable String tenantId,
+			@RequestParam String email,
+			@RequestParam String instituteId,
+			@RequestParam String schoolId,
+			HttpServletRequest request) throws Exception {
+		if(!validateRole(Const.ROLE_OWNER, tenantId, request)) {
+			throw new UnauthorizedException("Unauthorized Exception: role not valid");
+		}
+		User user = userRepository.findByEmail(email);
+		if(user == null) {
+			throw new EntityNotFoundException("user not found");
+		}
+		List<Authorization> auths = new ArrayList<Authorization>();
+		Authorization auth = new Authorization();
+		auth.getActions().add(Const.AUTH_ACTION_READ);
+		auth.getActions().add(Const.AUTH_ACTION_ADD);
+		auth.getActions().add(Const.AUTH_ACTION_UPDATE);
+		auth.getActions().add(Const.AUTH_ACTION_DELETE);
+		auth.setRole(Const.ROLE_SCHOOL_OWNER);
+		auth.setTenantId(tenantId);
+		auth.setInstituteId(instituteId);
+		auth.setSchoolId(schoolId);
+		auth.setGameId("*");
+		auth.getResources().add("*");
+		auths.add(auth);
+		String authKey = Utils.getAuthKey(tenantId, Const.ROLE_SCHOOL_OWNER);
+		user.getRoles().put(authKey, auths);
+		userRepository.save(user);
+		logger.info(String.format("addSchoolOwner[{}]:{}", tenantId, email));
 		return auths;
 	}
 	

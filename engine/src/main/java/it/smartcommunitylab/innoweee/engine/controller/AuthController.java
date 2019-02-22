@@ -100,37 +100,36 @@ public class AuthController {
 	
 	private boolean validateAuthorization(String tenantId, String instituteId, String schoolId, 
 			String gameId, String resource, String action, User user) {
-		return true;
-//		if(user != null) {
-//			for(String authKey : user.getRoles().keySet()) {
-//				List<Authorization> authList = user.getRoles().get(authKey);
-//				for(Authorization auth : authList) {
-//					if(auth.getTenantId().equals(tenantId)) {
-//						if(auth.getResources().contains("*") || auth.getResources().contains(resource)) {
-//							if(auth.getActions().contains(action)) {
-//								if(!StringUtils.isEmpty(instituteId)) {
-//									if(!auth.getInstituteId().equals(instituteId) && !auth.getInstituteId().equals("*")) {
-//										continue;
-//									}
-//								}
-//								if(!StringUtils.isEmpty(schoolId)) {
-//									if(!auth.getSchoolId().equals(schoolId) && !auth.getSchoolId().equals("*")) {
-//										continue;
-//									}
-//								}
-//								if(!StringUtils.isEmpty(gameId)) {
-//									if(!auth.getGameId().equals(gameId) && !auth.getGameId().equals("*")) {
-//										continue;
-//									}
-//								}
-//								return true;
-//							}
-//						}						
-//					}
-//				}
-//			}
-//		}
-//		return false;
+		if(user != null) {
+			for(String authKey : user.getRoles().keySet()) {
+				List<Authorization> authList = user.getRoles().get(authKey);
+				for(Authorization auth : authList) {
+					if(auth.getTenantId().equals(tenantId)) {
+						if(auth.getResources().contains("*") || auth.getResources().contains(resource)) {
+							if(auth.getActions().contains(action)) {
+								if(!StringUtils.isEmpty(instituteId)) {
+									if(!auth.getInstituteId().equals(instituteId) && !auth.getInstituteId().equals("*")) {
+										continue;
+									}
+								}
+								if(!StringUtils.isEmpty(schoolId)) {
+									if(!auth.getSchoolId().equals(schoolId) && !auth.getSchoolId().equals("*")) {
+										continue;
+									}
+								}
+								if(!StringUtils.isEmpty(gameId)) {
+									if(!auth.getGameId().equals(gameId) && !auth.getGameId().equals("*")) {
+										continue;
+									}
+								}
+								return true;
+							}
+						}						
+					}
+				}
+			}
+		}
+		return false;
 	}
 	
 	public boolean validateRole(String role, String tenantId, HttpServletRequest request) throws Exception {
