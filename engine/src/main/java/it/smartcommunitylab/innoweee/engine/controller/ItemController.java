@@ -17,10 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-
 import it.smartcommunitylab.innoweee.engine.common.Const;
 import it.smartcommunitylab.innoweee.engine.exception.EntityNotFoundException;
 import it.smartcommunitylab.innoweee.engine.exception.UnauthorizedException;
@@ -71,15 +67,8 @@ public class ItemController extends AuthController {
 	@Autowired
 	private WebSocketManager webSocketManager;
 	
-	private ObjectMapper mapper = null;
-	
 	@PostConstruct
 	public void init() throws Exception {
-		mapper = new ObjectMapper();
-		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-		mapper.configure(DeserializationFeature.READ_ENUMS_USING_TO_STRING, true);
-		mapper.configure(SerializationFeature.WRITE_ENUMS_USING_TO_STRING, true);
-		mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
 	}
  
 	@PostMapping(value = "/api/item/recognized")

@@ -87,7 +87,8 @@ public class PlayerController extends AuthController {
 			}
 			playerRepository.save(player);
 			if(!player.isTeam()) {
-				imageManager.storeRobotImage(player);
+				//TODO create robot image
+//				imageManager.storeRobotImage(player);
 			}
 		} else {
 			// update existing one

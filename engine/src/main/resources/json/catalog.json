@@ -45,6 +45,14 @@
 			"name":{"it":"braccio sinistro avanzato"},
 			"costMap":{"reduceCoin":2,"reuseCoin":3,"recycleCoin":4}
 		},  
+		"armL2":{
+			"componentId":"armL2",
+			"type":"armL", 
+			"parentId":"armL0", 
+			"imageUri":"armL2.png",
+			"name":{"it":"braccio sinistro strong"},
+			"costMap":{"reduceCoin":2,"reuseCoin":3,"recycleCoin":4}
+		},  
 		"armR0":{
 			"componentId":"armR0",
 			"type":"armR",
@@ -58,7 +66,7 @@
 			"parentId":"armR0", 
 			"imageUri":"armR1.png",
 			"name":{"it":"braccio destro avanzato"},
-			"costMap":{"reduceCoin":2,"reuseCoin":3,"recycleCoin":4}
+			"costMap":{"reduceCoin":2,"reuseCoin":300,"recycleCoin":4}
 		}, 
 		"legs0":{
 			"componentId":"legs0",
