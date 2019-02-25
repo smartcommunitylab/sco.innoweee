@@ -8,6 +8,7 @@ import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -207,6 +208,15 @@ public class GameController extends AuthController {
 		}
 		//TODO add game action
 //		geManager.buildRobot(game.getGeGameId(), player.getObjectId(), newComponent);
+		String oldComponentId = null;
+		for(Component component : player.getRobot().getComponents().values()) {
+			if(component.getType().equals(newComponent.getType())) {
+				oldComponentId = component.getComponentId();
+			}
+		}
+		if(!StringUtils.isEmpty(oldComponentId)) {
+			player.getRobot().getComponents().remove(oldComponentId);
+		}
 		player.getRobot().getComponents().put(newComponent.getComponentId(), newComponent);
 		playerRepository.save(player);
 		//TODO create robot image
