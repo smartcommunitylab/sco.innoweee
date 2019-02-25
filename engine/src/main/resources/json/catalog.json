@@ -53,6 +53,14 @@
 			"name":{"it":"braccio sinistro strong"},
 			"costMap":{"reduceCoin":2,"reuseCoin":3,"recycleCoin":4}
 		},  
+		"armL3":{
+			"componentId":"armL3",
+			"type":"armL", 
+			"parentId":"armL2", 
+			"imageUri":"armL3.png",
+			"name":{"it":"braccio sinistro super"},
+			"costMap":{"reduceCoin":2,"reuseCoin":3,"recycleCoin":4}
+		},  
 		"armR0":{
 			"componentId":"armR0",
 			"type":"armR",

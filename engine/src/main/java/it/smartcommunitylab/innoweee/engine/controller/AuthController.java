@@ -3,17 +3,25 @@ package it.smartcommunitylab.innoweee.engine.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.client.RestTemplate;
+
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
 import it.smartcommunitylab.innoweee.engine.common.Utils;
 import it.smartcommunitylab.innoweee.engine.exception.EntityNotFoundException;
@@ -28,13 +36,61 @@ public class AuthController {
 	private static final transient Logger logger = LoggerFactory.getLogger(AuthController.class);
 	
 	@Autowired
+	@Value("${profile.serverUrl}")
+	private String profileServerUrl;
+
+	@Autowired
 	private UserRepository userRepository;
 
+	RestTemplate restTemplate;
+	ObjectMapper mapper;
+	
+	@PostConstruct
+	public void init() throws Exception {
+		mapper = new ObjectMapper();
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+		mapper.configure(DeserializationFeature.READ_ENUMS_USING_TO_STRING, true);
+		mapper.configure(SerializationFeature.WRITE_ENUMS_USING_TO_STRING, true);
+		mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+		
+		int timeout = 15000;
+    HttpComponentsClientHttpRequestFactory clientHttpRequestFactory
+      = new HttpComponentsClientHttpRequestFactory();
+    clientHttpRequestFactory.setConnectTimeout(timeout);
+		restTemplate = new RestTemplate(clientHttpRequestFactory);
+	}
+	
 	public User getUserByEmail(HttpServletRequest request) throws Exception {
+//		String email = null;
+//		String token = request.getHeader("Authorization");
+//		if(StringUtils.isEmpty(token)) {
+//			throw new UnauthorizedException("Unauthorized Exception: token not valid");
+//		}
+//		
+//		HttpHeaders headers = new HttpHeaders();
+//		headers.setContentType(MediaType.APPLICATION_JSON);
+//		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+//		headers.add("Authorization", token);
+//		HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
+//		
+//		ResponseEntity<String> response = restTemplate.exchange(profileServerUrl + "/accountprofile/me", 
+//				HttpMethod.GET, entity, String.class);
+//		JsonNode rootNode = mapper.readTree(response.getBody());
+//		if(rootNode.hasNonNull("accounts")) {
+//			JsonNode accountsNode = rootNode.get("accounts");
+//			if(accountsNode.hasNonNull("internal")) {
+//				email = accountsNode.get("internal").get("email").asText();
+//			} else if(accountsNode.hasNonNull("google")) {
+//				email = accountsNode.get("google").get("email").asText();
+//			}
+//		}
+//		if(StringUtils.isEmpty(email)) {
+//			throw new UnauthorizedException("Unauthorized Exception: email not valid");
+//		}
 		//TODO test only
 		User user = userRepository.findByEmail("admin@test.com");
 		if(user == null) {
-			throw new UnauthorizedException("Unauthorized Exception: token not valid or call not authorized");
+			throw new UnauthorizedException("Unauthorized Exception: user not found");
 		}
 		return user;
 	}
