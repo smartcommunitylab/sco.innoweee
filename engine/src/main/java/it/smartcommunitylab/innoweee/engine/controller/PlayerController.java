@@ -123,6 +123,31 @@ public class PlayerController extends AuthController {
 		return player;
 	}
 	
+	@GetMapping(value = "/api/player/{playerId}/robot/reset")
+	public @ResponseBody Robot resetRobot(
+			@PathVariable String playerId,
+			HttpServletRequest request, 
+			HttpServletResponse response) throws Exception {
+		Optional<Player> optionalPlayer = playerRepository.findById(playerId);
+		if(optionalPlayer.isEmpty()) {
+			throw new EntityNotFoundException("player not found");
+		}
+		Player player = optionalPlayer.get();
+		Optional<Game> optionalGame = gameRepository.findById(player.getGameId());
+		if(optionalGame.isEmpty()) {
+			throw new EntityNotFoundException("game not found");
+		}
+		Game game = optionalGame.get();
+		if(!validateAuthorization(game.getTenantId(), game.getInstituteId(), game.getSchoolId(), 
+				game.getObjectId(), Const.AUTH_RES_Game_Robot, Const.AUTH_ACTION_UPDATE, request)) {
+			throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
+		}
+		addNewRobot(player);
+		player.setLastUpdate(new Date());
+		playerRepository.save(player);
+		return player.getRobot();
+	}
+	
 	private void addNewRobot(Player player) {
 		Robot robot = new Robot();
 		List<Catalog> list = catalogResopitory.findAll();

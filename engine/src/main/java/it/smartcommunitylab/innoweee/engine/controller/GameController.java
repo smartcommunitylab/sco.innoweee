@@ -224,7 +224,7 @@ public class GameController extends AuthController {
 		logger.info("buildRobot[{}]:{} / {}", player.getTenantId(), playerId, componentId);
 		return player.getRobot();
 	}
-	
+		
 	@GetMapping(value = "/api/game/{gameId}/state/{playerId}")
 	public @ResponseBody PlayerState getPlayerState(
 			@PathVariable String gameId,
