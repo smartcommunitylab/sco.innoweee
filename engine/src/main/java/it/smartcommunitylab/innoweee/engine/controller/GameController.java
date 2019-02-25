@@ -207,7 +207,7 @@ public class GameController extends AuthController {
 		}
 		//TODO add game action
 //		geManager.buildRobot(game.getGeGameId(), player.getObjectId(), newComponent);
-		player.getRobot().getComponents().put(newComponent.getId(), newComponent);
+		player.getRobot().getComponents().put(newComponent.getComponentId(), newComponent);
 		playerRepository.save(player);
 		imageManager.storeRobotImage(player);
 		logger.info("buildRobot[{}]:{} / {}", player.getTenantId(), playerId, componentId);

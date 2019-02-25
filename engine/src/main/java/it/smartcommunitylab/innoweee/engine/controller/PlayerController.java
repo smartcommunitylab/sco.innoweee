@@ -129,7 +129,7 @@ public class PlayerController extends AuthController {
 		for(Component component : catalog.getComponents().values()) {
 			if(StringUtils.isEmpty(component.getParentId())) {
 				// default customization
-				robot.getComponents().put(component.getId(), component);
+				robot.getComponents().put(component.getComponentId(), component);
 			}
 		}
 		player.setRobot(robot);
