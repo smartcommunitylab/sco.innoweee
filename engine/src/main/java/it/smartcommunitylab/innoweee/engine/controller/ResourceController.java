@@ -117,7 +117,7 @@ public class ResourceController extends AuthController {
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream(); 
 		ImageIO.write(image, "png", outputStream);
 		byte[] data = outputStream.toByteArray();
-		response.setHeader("Cache-Control", "public, max-age=86400");
+//		response.setHeader("Cache-Control", "public, max-age=86400");
 		logger.info("downloadRobotImage:{}", id);
 		return ResponseEntity.ok()
 				.contentType(MediaType.IMAGE_PNG)
@@ -134,7 +134,7 @@ public class ResourceController extends AuthController {
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream(); 
 		ImageIO.write(image, "png", outputStream);
 		byte[] data = outputStream.toByteArray();
-		response.setHeader("Cache-Control", "public, max-age=86400");
+//		response.setHeader("Cache-Control", "public, max-age=86400");
 		logger.info("downloadRobotThumb:{}", id);
 		return ResponseEntity.ok()
 				.contentType(MediaType.IMAGE_PNG)
