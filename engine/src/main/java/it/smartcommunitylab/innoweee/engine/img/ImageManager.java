@@ -57,12 +57,12 @@ public class ImageManager {
 			}
 		}
 		Graphics2D graph = joined.createGraphics();
-		graph.drawImage(imageHead, 150, 0, null);
-		graph.drawImage(imageArmL, 0, 150, null);
-		graph.drawImage(imageChest, 150, 150, null);
-		graph.drawImage(imageArmR, 300, 150, null);
-		graph.drawImage(imageLegs, 150, 300, null);
-		graph.drawImage(imageFeet, 150, 450, null);
+		graph.drawImage(imageHead, 0, 0, null);
+		graph.drawImage(imageArmR, 0, 100, null);
+		graph.drawImage(imageChest, 100, 100, null);
+		graph.drawImage(imageArmL, 300, 100, null);
+		graph.drawImage(imageLegs, 0, 350, null);
+		graph.drawImage(imageFeet, 0, 450, null);
 		File joinedFile = new File(imagePath + "/" + player.getObjectId() + ".png");
     ImageIO.write(joined, "png", joinedFile);
     logger.info("storeRobotImage:{}", player.getObjectId());
@@ -70,9 +70,9 @@ public class ImageManager {
 	}
 	
 	private void storeRobotThumbnail(String playerId) throws Exception {
-		BufferedImage thumbnail = new BufferedImage(225, 300, BufferedImage.TYPE_INT_ARGB_PRE);
+		BufferedImage thumbnail = new BufferedImage(80, 100, BufferedImage.TYPE_INT_ARGB_PRE);
 		BufferedImage image = ImageIO.read(new File(imagePath + "/" + playerId + ".png"));
-		thumbnail.createGraphics().drawImage(image.getScaledInstance(225, 300, Image.SCALE_SMOOTH), 0, 0, null);
+		thumbnail.createGraphics().drawImage(image.getScaledInstance(80, 100, Image.SCALE_SMOOTH), 0, 0, null);
 		File thumbFile = new File(imagePath + "/" + playerId + "-thumb.png");
     ImageIO.write(thumbnail, "png", thumbFile);	
     logger.info("storeRobotThumbnail:{}", playerId);
