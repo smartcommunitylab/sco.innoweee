@@ -145,6 +145,7 @@ public class PlayerController extends AuthController {
 		addNewRobot(player);
 		player.setLastUpdate(new Date());
 		playerRepository.save(player);
+		logger.info("resetRobot[{}]:{}", player.getTenantId(), player.getObjectId());
 		return player.getRobot();
 	}
 	
