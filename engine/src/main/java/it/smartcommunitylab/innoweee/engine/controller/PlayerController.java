@@ -87,8 +87,7 @@ public class PlayerController extends AuthController {
 			}
 			playerRepository.save(player);
 			if(!player.isTeam()) {
-				//TODO create robot image
-//				imageManager.storeRobotImage(player);
+				imageManager.storeRobotImage(player);
 			}
 		} else {
 			// update existing one
@@ -145,6 +144,9 @@ public class PlayerController extends AuthController {
 		addNewRobot(player);
 		player.setLastUpdate(new Date());
 		playerRepository.save(player);
+		if(!player.isTeam()) {
+			imageManager.storeRobotImage(player);
+		}		
 		logger.info("resetRobot[{}]:{}", player.getTenantId(), player.getObjectId());
 		return player.getRobot();
 	}

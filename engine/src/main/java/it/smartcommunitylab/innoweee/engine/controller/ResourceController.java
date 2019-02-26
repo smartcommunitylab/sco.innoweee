@@ -1,14 +1,21 @@
 package it.smartcommunitylab.innoweee.engine.controller;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -26,6 +33,10 @@ import it.smartcommunitylab.innoweee.engine.repository.GarbageMapRepository;
 @RestController
 public class ResourceController extends AuthController {
 	private static final transient Logger logger = LoggerFactory.getLogger(ResourceController.class);
+	
+	@Autowired
+	@Value("${image.path}")
+	private String imagePath;
 	
 	@Autowired
 	private CatalogRepository catalogRepository;
@@ -95,6 +106,40 @@ public class ResourceController extends AuthController {
 		}
 		logger.info("getCategoryMap:{}", categoryMap);
 		return categoryMap;
+	}
+	
+	@GetMapping(value = "/api/image/robot/{id}")
+	public @ResponseBody ResponseEntity<byte[]> downloadRobotImage(
+			@PathVariable String id, 
+			HttpServletRequest request, 
+			HttpServletResponse response) throws Exception {
+		BufferedImage image = ImageIO.read(new File(imagePath + "/" + id + ".png"));
+		ByteArrayOutputStream outputStream = new ByteArrayOutputStream(); 
+		ImageIO.write(image, "png", outputStream);
+		byte[] data = outputStream.toByteArray();
+		response.setHeader("Cache-Control", "public, max-age=86400");
+		logger.info("downloadRobotImage:{}", id);
+		return ResponseEntity.ok()
+				.contentType(MediaType.IMAGE_PNG)
+				.contentLength(data.length)
+				.body(data);
+	}
+	
+	@GetMapping(value = "/api/image/robot/{id}/thumb")
+	public @ResponseBody ResponseEntity<byte[]> downloadRobotThumb(
+			@PathVariable String id, 
+			HttpServletRequest request, 
+			HttpServletResponse response) throws Exception {
+		BufferedImage image = ImageIO.read(new File(imagePath + "/" + id + "-thumb.png"));
+		ByteArrayOutputStream outputStream = new ByteArrayOutputStream(); 
+		ImageIO.write(image, "png", outputStream);
+		byte[] data = outputStream.toByteArray();
+		response.setHeader("Cache-Control", "public, max-age=86400");
+		logger.info("downloadRobotThumb:{}", id);
+		return ResponseEntity.ok()
+				.contentType(MediaType.IMAGE_PNG)
+				.contentLength(data.length)
+				.body(data);
 	}
 
 }

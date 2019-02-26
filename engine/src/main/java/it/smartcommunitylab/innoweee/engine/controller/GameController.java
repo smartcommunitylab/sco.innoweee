@@ -219,8 +219,7 @@ public class GameController extends AuthController {
 		}
 		player.getRobot().getComponents().put(newComponent.getComponentId(), newComponent);
 		playerRepository.save(player);
-		//TODO create robot image
-//		imageManager.storeRobotImage(player);
+		imageManager.storeRobotImage(player);
 		logger.info("buildRobot[{}]:{} / {}", player.getTenantId(), playerId, componentId);
 		return player.getRobot();
 	}
