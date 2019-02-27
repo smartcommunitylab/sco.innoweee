@@ -13,16 +13,19 @@
 			{
 				"name":"Tutto sui rifiuti elettronici (RAEE) in 3 minuti",
 				"type":"video",
+				"previewUri":"",
 				"link":"https://www.youtube.com/watch?v=zlY2FBumFwc"
 			},
 			{
 				"name":"Giocattoli in legno",
 				"type":"image",
+				"previewUri":"",
 				"link":"http://www.differenziamoci.bio/wp-content/uploads/2017/10/mattoncini-legno.jpg"
 			},			
 			{
 				"name":"Riciclo pile",
 				"type":"link",
+				"previewUri":"",
 				"link":"https://filecdn.nonsprecare.it/wp-content/uploads/2014/06/recupero-pile-usate-riciclo-dati-ricerca-duracell-1.jpg"
 			}
 		]

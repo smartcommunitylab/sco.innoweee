@@ -2,6 +2,7 @@ package it.smartcommunitylab.innoweee.engine.ge;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -16,17 +17,18 @@ import org.springframework.beans.factory.annotation.Value;
 import it.smartcommunitylab.ApiClient;
 import it.smartcommunitylab.basic.api.ExecutionControllerApi;
 import it.smartcommunitylab.basic.api.PlayerControllerApi;
+import it.smartcommunitylab.basic.api.TeamControllerApi;
 import it.smartcommunitylab.innoweee.engine.common.Const;
 import it.smartcommunitylab.innoweee.engine.model.Category;
 import it.smartcommunitylab.innoweee.engine.model.Component;
 import it.smartcommunitylab.innoweee.engine.model.Game;
 import it.smartcommunitylab.innoweee.engine.model.Garbage;
 import it.smartcommunitylab.innoweee.engine.model.ItemEvent;
-import it.smartcommunitylab.innoweee.engine.model.Player;
 import it.smartcommunitylab.innoweee.engine.model.PlayerState;
 import it.smartcommunitylab.innoweee.engine.model.ReduceReport;
 import it.smartcommunitylab.model.PlayerStateDTO;
 import it.smartcommunitylab.model.ext.ExecutionDataDTO;
+import it.smartcommunitylab.model.ext.TeamDTO;
 
 @org.springframework.stereotype.Component
 public class GeManager {
@@ -46,6 +48,7 @@ public class GeManager {
 	
 	private ApiClient apiClient;
 	private PlayerControllerApi playerApi;
+	private TeamControllerApi teamControllerApi;
 	private ExecutionControllerApi executionApi;
 	
 	private Random random;
@@ -57,12 +60,36 @@ public class GeManager {
 		apiClient.setPassword(gamificationPassword);
     playerApi = new PlayerControllerApi(apiClient);
     executionApi = new ExecutionControllerApi(apiClient);
+    teamControllerApi = new TeamControllerApi(apiClient);
     random = new Random(System.currentTimeMillis());
 	}
 	
 	public String deployGame(Game game) {
 		//TODO
 		return null;
+	}
+	
+	public void addPlayer(String gameId, String playerId) throws Exception {
+		PlayerStateDTO player = new PlayerStateDTO();
+		player.setGameId(gameId);
+		player.setPlayerId(playerId);
+		//TODO
+//		playerApi.createPlayerUsingPOST1(gameId, player);
+	}
+	
+	public void addTeam(String gameId, String playerId, 
+			List<String> members) throws Exception {
+		TeamDTO team = new TeamDTO();
+		team.setGameId(gameId);
+		team.setPlayerId(playerId);
+		team.setMembers(members);
+		//TODO
+//		teamControllerApi.createTeamUsingPOST1(gameId, team );
+	}
+	
+	public void deletePlayer(String gameId, String playerId) throws Exception {
+		//TODO
+//		playerApi.deletePlayerUsingDELETE1(gameId, playerId);
 	}
 	
 	public void itemDelivery(String gameId, String playerId, ItemEvent event,
@@ -100,7 +127,7 @@ public class GeManager {
 		value = weight * category.getMaterialsConversion().get(Const.MATERIAL_PLATINUM);
 		data.put(Const.MATERIAL_PLATINUM, value);
 		dataDTO.setData(data);
-
+		//TODO
 //		executionApi.executeActionUsingPOST(gameId, "itemDelivery", dataDTO);
 	}
 	
@@ -115,7 +142,7 @@ public class GeManager {
 		data.put(Const.COIN_REDUCE, component.getCostMap().get(Const.COIN_REDUCE));
 		data.put(Const.COIN_REUSE, component.getCostMap().get(Const.COIN_REUSE));
 		dataDTO.setData(data);
-
+		//TODO
 //		executionApi.executeActionUsingPOST(gameId, "buildRobot", dataDTO);
 	}
 	
@@ -130,7 +157,7 @@ public class GeManager {
 		data.put("raccoltaId", collectionName);
 		data.put("reduceCoin", reduceReport.getReduceCoin());
 		dataDTO.setData(data);
-
+		//TODO
 //		executionApi.executeActionUsingPOST(gameId, "reduceReport", dataDTO);		
 	}
 	

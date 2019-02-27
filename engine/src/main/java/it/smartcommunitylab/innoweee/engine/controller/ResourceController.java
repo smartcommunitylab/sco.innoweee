@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.imageio.ImageIO;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
@@ -46,9 +45,7 @@ public class ResourceController extends AuthController {
 	private CategoryMapRepository categoryMapRepository;
 	
 	@GetMapping(value = "/api/catalog")
-	public @ResponseBody Catalog getCatalog(
-			HttpServletRequest request, 
-			HttpServletResponse response) throws Exception {
+	public @ResponseBody Catalog getCatalog() throws Exception {
 		Catalog catalog = null;
 		List<Catalog> list = catalogRepository.findAll();
 		if(list.size() > 0) {
@@ -60,9 +57,7 @@ public class ResourceController extends AuthController {
 	
 	@GetMapping(value = "/api/catalog/component/{id}")
 	public @ResponseBody List<Component> getUpgradeComponents(
-			@PathVariable String id,
-			HttpServletRequest request, 
-			HttpServletResponse response) throws Exception {
+			@PathVariable String id) throws Exception {
 		List<Catalog> list = catalogRepository.findAll();
 		if(list.size() == 0) {
 			throw new EntityNotFoundException("catalog not found");
@@ -83,9 +78,7 @@ public class ResourceController extends AuthController {
 	}
 	
 	@GetMapping(value = "/api/garbageMap")
-	public @ResponseBody GarbageMap getGarbageMap(
-			HttpServletRequest request, 
-			HttpServletResponse response) throws Exception {
+	public @ResponseBody GarbageMap getGarbageMap() throws Exception {
 		GarbageMap garbageMap = null;
 		List<GarbageMap> list = garbageMapRepository.findAll();
 		if(list.size() > 0) {
@@ -96,9 +89,7 @@ public class ResourceController extends AuthController {
 	}
 
 	@GetMapping(value = "/api/categoryMap")
-	public @ResponseBody CategoryMap getCategoryMap(
-			HttpServletRequest request, 
-			HttpServletResponse response) throws Exception {
+	public @ResponseBody CategoryMap getCategoryMap() throws Exception {
 		CategoryMap categoryMap = null;
 		List<CategoryMap> list = categoryMapRepository.findAll();
 		if(list.size() > 0) {
@@ -111,7 +102,6 @@ public class ResourceController extends AuthController {
 	@GetMapping(value = "/api/image/robot/{id}")
 	public @ResponseBody ResponseEntity<byte[]> downloadRobotImage(
 			@PathVariable String id, 
-			HttpServletRequest request, 
 			HttpServletResponse response) throws Exception {
 		BufferedImage image = ImageIO.read(new File(imagePath + "/" + id + ".png"));
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream(); 
@@ -128,7 +118,6 @@ public class ResourceController extends AuthController {
 	@GetMapping(value = "/api/image/robot/{id}/thumb")
 	public @ResponseBody ResponseEntity<byte[]> downloadRobotThumb(
 			@PathVariable String id, 
-			HttpServletRequest request, 
 			HttpServletResponse response) throws Exception {
 		BufferedImage image = ImageIO.read(new File(imagePath + "/" + id + "-thumb.png"));
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream(); 

@@ -1,5 +1,6 @@
 package it.smartcommunitylab.innoweee.engine.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import it.smartcommunitylab.innoweee.engine.common.Const;
 import it.smartcommunitylab.innoweee.engine.exception.EntityNotFoundException;
 import it.smartcommunitylab.innoweee.engine.exception.UnauthorizedException;
+import it.smartcommunitylab.innoweee.engine.ge.GeManager;
 import it.smartcommunitylab.innoweee.engine.img.ImageManager;
 import it.smartcommunitylab.innoweee.engine.model.Catalog;
 import it.smartcommunitylab.innoweee.engine.model.Component;
@@ -44,6 +46,8 @@ public class PlayerController extends AuthController {
 	private CatalogRepository catalogResopitory;
 	@Autowired
 	private ImageManager imageManager;
+	@Autowired
+	private GeManager geManager;
 	
 	@GetMapping(value = "/api/player/{gameId}")
 	public @ResponseBody List<Player> searchPlayer(
@@ -89,6 +93,19 @@ public class PlayerController extends AuthController {
 			if(!player.isTeam()) {
 				imageManager.storeRobotImage(player);
 			}
+			//TODO add game action
+			if(player.isTeam()) {
+				List<String> members = new ArrayList<String>();
+				List<Player> list = playerRepository.findByGameId(game.getTenantId(), game.getObjectId());
+				for(Player pl : list) {
+					if(!pl.isTeam()) {
+						members.add(pl.getObjectId());
+					}
+				}
+//				geManager.addTeam(game.getGeGameId(), player.getObjectId(), members);
+			} else {
+//				geManager.addPlayer(game.getGeGameId(), player.getObjectId());
+			}
 		} else {
 			// update existing one
 			player.setLastUpdate(now);
@@ -117,6 +134,8 @@ public class PlayerController extends AuthController {
 				game.getObjectId(), Const.AUTH_RES_Game_Player, Const.AUTH_ACTION_DELETE, request)) {
 			throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
 		}
+		//TODO add game action
+//		geManager.deletePlayer(game.getGeGameId(), id);
 		playerRepository.deleteById(id);
 		logger.info("deletePlayer[{}]:{}", game.getTenantId(), id);
 		return player;
