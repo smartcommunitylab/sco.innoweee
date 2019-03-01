@@ -1,0 +1,31 @@
+.language {
+    ion-item {
+        min-width: 250px;
+    }
+}
+.classes-container {
+    display: table;
+    width: 50vh;
+
+    td {
+        position: relative;
+
+        .class-name {
+            // position: absolute;
+            width: 80%;
+            // bottom: 40px;
+            text-align: center;
+            background-color: white;
+            opacity: 0.6;
+            border: solid 2px black;
+
+        }
+
+        .single-class-container {
+            display: table-cell;
+        }
+    }
+}
+.total-resources{
+    text-align: center;
+}

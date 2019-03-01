@@ -1,12 +1,6 @@
 <ion-app>
-  <ion-header>
+  <!-- <ion-header>
     <ion-toolbar>
-      <ion-buttons slot="start">
-        <ion-button (click)="logout()">
-          <ion-icon slot="icon-only" name="log-out"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-      <ion-title>Nome Scuola Nome Classe</ion-title>
       <ion-buttons class="language" slot="end">
         <ion-item>
           <ion-label>{{'label_language_selection'|translate}}</ion-label>
@@ -15,8 +9,12 @@
               <ion-select-option value="it">Italiano</ion-select-option>
             </ion-select>
         </ion-item>
+        <ion-button (click)="logout()">
+            <ion-icon slot="icon-only" name="log-out"></ion-icon>
+          </ion-button>
       </ion-buttons>
     </ion-toolbar>
-  </ion-header>
+  </ion-header> -->
+  <!-- <ion-router-outlet (title)="onClassSelected=($event)"></ion-router-outlet> -->
   <ion-router-outlet></ion-router-outlet>
 </ion-app>

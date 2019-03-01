@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-back-button></ion-back-button>
+        </ion-buttons>
+    <ion-buttons class="language" slot="end">
+      <ion-item>
+        <ion-label>{{'label_language_selection'|translate}}</ion-label>
+          <ion-select [(ngModel)]="language" (ionChange)="changeLanguage()">
+            <ion-select-option value="en" selected="true">English</ion-select-option>
+            <ion-select-option value="it">Italiano</ion-select-option>
+          </ion-select>
+      </ion-item>
+      <ion-button (click)="logout()">
+          <ion-icon slot="icon-only" name="log-out"></ion-icon>
+        </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content padding>
+  <ion-grid class="grid-elements">
+    <ion-row>
+      <ion-col size="8" class="preview-element">
+        <ion-card class="preview" *ngIf="selected" (click)="openResource(selected)">
+          <ion-item>
+            <ion-thumbnail class="preview-image">
+                <img [src]="getPreview('big',selected)" onError="this.src='assets/images/white.png'">
+                <img [src]="getType(selected)" class="icon-player" >
+              </ion-thumbnail>
+          </ion-item>
+          <ion-card-content>
+            {{selected.name}}
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col size="4" class="list-element">
+        <ion-item (click)="scrollUp()" [disabled]="startList">
+          <ion-thumbnail class="arrow" slot="start">
+            <ion-icon name="arrow-dropup-circle"></ion-icon>
+          </ion-thumbnail>
+        </ion-item>
+        <ion-list id="gallery">
+          <ion-item *ngFor="let resource of resources" (click)="selectResource(resource)">
+            <ion-thumbnail slot="start">
+              <img [src]="getPreview('small',resource)">
+            </ion-thumbnail>
+            <ion-label>{{resource.name}}</ion-label>
+          </ion-item>
+        </ion-list>
+        <ion-item (click)="scrollDown()" [disabled]="endList" >
+          <ion-thumbnail class="arrow" slot="start">
+            <ion-icon name="arrow-dropdown-circle"></ion-icon>
+          </ion-thumbnail>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

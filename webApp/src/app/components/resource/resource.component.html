@@ -1,0 +1,15 @@
+<div>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="3">
+        {{pointValue|translate}}
+      </ion-col>
+      <ion-col size="6">
+        <ion-progress-bar value="{{barValue}}"></ion-progress-bar>
+      </ion-col>
+      <ion-col size="3">
+        {{getResourceValue(resourceValue)|number:'1.0-3':'it'}} {{getResourceUnit(resourceValue)}}
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</div>

@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-back-button></ion-back-button>
+        </ion-buttons>
+    <ion-buttons class="language" slot="end">
+      <ion-item>
+        <ion-label>{{'label_language_selection'|translate}}</ion-label>
+          <ion-select [(ngModel)]="language" (ionChange)="changeLanguage()">
+            <ion-select-option value="en" selected="true">English</ion-select-option>
+            <ion-select-option value="it">Italiano</ion-select-option>
+          </ion-select>
+      </ion-item>
+      <ion-button (click)="logout()">
+          <ion-icon slot="icon-only" name="log-out"></ion-icon>
+        </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  
+  <ion-button [routerLink]="['/members/item-classification']" expand="block" fill="outline">AVVICINA OGGETTO</ion-button>
+
+  <ion-button [routerLink]="['/members/recycle-results']" expand="block" fill="outline">Completa raccolta</ion-button>
+</ion-content>
