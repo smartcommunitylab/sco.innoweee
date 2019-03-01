@@ -4,8 +4,11 @@ public class PlayerState {
 	private String playerId;
 	private String nameGE;
 	private Integer reduceCoin;
+	private Integer totalReduceCoin;
 	private Integer reuseCoin;
+	private Integer totalReuseCoin;
 	private Integer recycleCoin;
+	private Integer totalRecycleCoin;
 	private Integer items;
 	private double weight;
 	private double co2;
@@ -127,6 +130,24 @@ public class PlayerState {
 	}
 	public void setPlatinum(double platinum) {
 		this.platinum = platinum;
+	}
+	public Integer getTotalReduceCoin() {
+		return totalReduceCoin;
+	}
+	public void setTotalReduceCoin(Integer totalReduceCoin) {
+		this.totalReduceCoin = totalReduceCoin;
+	}
+	public Integer getTotalReuseCoin() {
+		return totalReuseCoin;
+	}
+	public void setTotalReuseCoin(Integer totalReuseCoin) {
+		this.totalReuseCoin = totalReuseCoin;
+	}
+	public Integer getTotalRecycleCoin() {
+		return totalRecycleCoin;
+	}
+	public void setTotalRecycleCoin(Integer totalRecycleCoin) {
+		this.totalRecycleCoin = totalRecycleCoin;
 	}
 	
 	

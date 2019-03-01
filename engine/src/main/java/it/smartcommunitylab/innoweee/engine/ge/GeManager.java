@@ -170,8 +170,11 @@ public class GeManager {
 			playerState.setNameGE(collectionName);
 		}
 		playerState.setRecycleCoin(50);
+		playerState.setTotalRecycleCoin(100);
 		playerState.setReduceCoin(50);
+		playerState.setTotalReduceCoin(100);
 		playerState.setReuseCoin(50);
+		playerState.setTotalReuseCoin(100);
 		playerState.setAluminium(getRandomDouble(100, 5000));
 		playerState.setCopper(getRandomDouble(100, 5000));
 		playerState.setGlass(getRandomDouble(100, 1000));
@@ -182,7 +185,7 @@ public class GeManager {
 		playerState.setSilver(getRandomDouble(0.01, 0.1));
 		playerState.setGold(getRandomDouble(0.01, 0.1));
 		playerState.setPlatinum(getRandomDouble(0.01, 0.1));
-		playerState.setItems(100);
+		playerState.setItems(300);
 		playerState.setWeight(getRandomDouble(15000, 25000));
 		playerState.setCo2(getRandomDouble(100, 5000));
 		return playerState;

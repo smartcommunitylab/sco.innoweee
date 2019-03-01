@@ -14,6 +14,7 @@ public class ItemEvent {
 	private long timestamp;
 	private boolean reusable;
 	private boolean valuable;
+	private boolean manual;
 	
 	public String getId() {
 		return id;
@@ -74,5 +75,11 @@ public class ItemEvent {
 	}
 	public void setAge(int age) {
 		this.age = age;
+	}
+	public boolean isManual() {
+		return manual;
+	}
+	public void setManual(boolean manual) {
+		this.manual = manual;
 	}
 }
