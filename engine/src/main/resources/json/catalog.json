@@ -1,17 +1,111 @@
 {
+	"tenantId":"TEST",
 	"components":{
 		"head0":{
-			"id":"head0",
+			"componentId":"head0",
 			"type":"head",
+			"imageUri":"head0.png",
 			"name":{"it":"testa base"},
-			"costMap":{"oro":1,"argento":2,"birra":3}
+			"costMap":{"reduceCoin":1,"reuseCoin":2,"recycleCoin":3}
 		},
 		"head1":{
-			"id":"head1",
+			"componentId":"head1",
 			"type":"head", 
 			"parentId":"head0", 
+			"imageUri":"head1.png",
 			"name":{"it":"testa avanzata"},
-			"costMap":{"oro":2,"argento":3,"birra":4}
-		} 
+			"costMap":{"reduceCoin":2,"reuseCoin":3,"recycleCoin":4}
+		},
+		"chest0":{
+			"componentId":"chest0",
+			"type":"chest",
+			"imageUri":"chest0.png",
+			"name":{"it":"busto base"},
+			"costMap":{"reduceCoin":1,"reuseCoin":2,"recycleCoin":3}
+		},
+		"chest1":{
+			"componentId":"chest1",
+			"type":"chest", 
+			"parentId":"chest0", 
+			"imageUri":"chest1.png",
+			"name":{"it":"busto avanzato"},
+			"costMap":{"reduceCoin":2,"reuseCoin":3,"recycleCoin":4}
+		},
+		"armL0":{
+			"componentId":"armL0",
+			"type":"armL",
+			"imageUri":"armL0.png",
+			"name":{"it":"braccio sinistro base"},
+			"costMap":{"reduceCoin":1,"reuseCoin":2,"recycleCoin":3}
+		},
+		"armL1":{
+			"componentId":"armL1",
+			"type":"armL", 
+			"parentId":"armL0", 
+			"imageUri":"armL1.png",
+			"name":{"it":"braccio sinistro avanzato"},
+			"costMap":{"reduceCoin":2,"reuseCoin":3,"recycleCoin":4}
+		},  
+		"armL2":{
+			"componentId":"armL2",
+			"type":"armL", 
+			"parentId":"armL0", 
+			"imageUri":"armL2.png",
+			"name":{"it":"braccio sinistro strong"},
+			"costMap":{"reduceCoin":2,"reuseCoin":3,"recycleCoin":4}
+		},  
+		"armL3":{
+			"componentId":"armL3",
+			"type":"armL", 
+			"parentId":"armL2", 
+			"imageUri":"armL3.png",
+			"name":{"it":"braccio sinistro super"},
+			"costMap":{"reduceCoin":2,"reuseCoin":3,"recycleCoin":4}
+		},  
+		"armR0":{
+			"componentId":"armR0",
+			"type":"armR",
+			"imageUri":"armR0.png",
+			"name":{"it":"braccio destro base"},
+			"costMap":{"reduceCoin":1,"reuseCoin":2,"recycleCoin":3}
+		},
+		"armR1":{
+			"componentId":"armR1",
+			"type":"armR", 
+			"parentId":"armR0", 
+			"imageUri":"armR1.png",
+			"name":{"it":"braccio destro avanzato"},
+			"costMap":{"reduceCoin":2,"reuseCoin":300,"recycleCoin":4}
+		}, 
+		"legs0":{
+			"componentId":"legs0",
+			"type":"legs",
+			"imageUri":"legs0.png",
+			"name":{"it":"gambe base"},
+			"costMap":{"reduceCoin":1,"reuseCoin":2,"recycleCoin":3}
+		},
+		"legs1":{
+			"componentId":"legs1",
+			"type":"legs", 
+			"parentId":"legs0", 
+			"imageUri":"legs1.png",
+			"name":{"it":"gambe avanzate"},
+			"costMap":{"reduceCoin":2,"reuseCoin":3,"recycleCoin":4}
+		}, 
+		"feet0":{
+			"componentId":"feet0",
+			"type":"feet",
+			"imageUri":"feet0.png",
+			"name":{"it":"piadi base"},
+			"costMap":{"reduceCoin":1,"reuseCoin":2,"recycleCoin":3}
+		},
+		"feet1":{
+			"componentId":"feet1",
+			"type":"feet", 
+			"parentId":"feet0", 
+			"imageUri":"feet1.png",
+			"name":{"it":"piadi avanzati"},
+			"costMap":{"reduceCoin":2,"reuseCoin":3,"recycleCoin":4}
+		} 		 
 	}
 }

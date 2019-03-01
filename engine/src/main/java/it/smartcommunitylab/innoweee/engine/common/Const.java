@@ -20,11 +20,15 @@ public class Const {
 	public static final String AUTH_RES_Image = "Image";
 	public static final String AUTH_RES_School = "School";
 	public static final String AUTH_RES_Institute = "Institute";
+	public static final String AUTH_RES_CategoryMap = "CategoryMap";
+	public static final String AUTH_RES_GarbageMap = "GarbageMap";
+	public static final String AUTH_RES_Catalog = "Catalog";
 	public static final String AUTH_RES_Game = "Game";
 	public static final String AUTH_RES_Game_GarbageCollection = "Game-GarbageCollection";
 	public static final String AUTH_RES_Game_Link = "Game-Link";
 	public static final String AUTH_RES_Game_Player = "Game-Player";
 	public static final String AUTH_RES_Game_Robot = "Game-Robot";
+	public static final String AUTH_RES_Game_Item = "Game-Item";
 	
 	public static final String MEDIA_LINK = "link";
 	public static final String MEDIA_VIDEO = "video";
@@ -34,6 +38,27 @@ public class Const {
 	public static final String EVENT_START_COLL = "link";
 	public static final String EVENT_STOP_COLL = "link";
 	public static final String EVENT_ADD_GARBAGE = "video";
-
+	
+	public static final String MATERIAL_PLASTIC = "plastic";
+	public static final String MATERIAL_GLASS = "glass";
+	public static final String MATERIAL_IRON = "iron";
+	public static final String MATERIAL_ALUMINIUM = "aluminium";
+	public static final String MATERIAL_COPPER = "copper";
+	public static final String MATERIAL_TIN = "tin";
+	public static final String MATERIAL_NICKEL = "nickel";
+	public static final String MATERIAL_SILVER = "silver";
+	public static final String MATERIAL_GOLD = "gold";
+	public static final String MATERIAL_PLATINUM = "platinum";
+	
+	public static final String COIN_REDUCE = "reduceCoin";
+	public static final String COIN_REUSE = "reuseCoin";
+	public static final String COIN_RECYCLE = "recycleCoin";
+	
+	public static final String ROBOT_HEAD = "head";
+	public static final String ROBOT_CHEST = "chest";
+	public static final String ROBOT_ARMR = "armR";
+	public static final String ROBOT_ARML = "armL";
+	public static final String ROBOT_LEGS = "legs";
+	public static final String ROBOT_FEET = "feet";
 }
 

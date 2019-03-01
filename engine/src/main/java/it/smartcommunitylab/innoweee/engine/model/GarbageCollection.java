@@ -12,8 +12,10 @@ public class GarbageCollection extends BaseObject {
 	private Date to;
 	private String nameGE;
 	private Map<String, String> message = new HashMap<String, String>();
+	private Map<String, String> reduceMessage = new HashMap<String, String>();
 	private List<String> items = new ArrayList<>();
 	private List<Link> links = new ArrayList<>();
+	private boolean specialCollection;
 	
 	public Date getFrom() {
 		return from;
@@ -56,6 +58,18 @@ public class GarbageCollection extends BaseObject {
 	}
 	public void setMessage(Map<String, String> message) {
 		this.message = message;
+	}
+	public Map<String, String> getReduceMessage() {
+		return reduceMessage;
+	}
+	public void setReduceMessage(Map<String, String> reduceMessage) {
+		this.reduceMessage = reduceMessage;
+	}
+	public boolean isSpecialCollection() {
+		return specialCollection;
+	}
+	public void setSpecialCollection(boolean specialCollection) {
+		this.specialCollection = specialCollection;
 	}
 	
 }

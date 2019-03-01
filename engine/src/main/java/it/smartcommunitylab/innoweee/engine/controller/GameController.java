@@ -8,6 +8,7 @@ import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,12 +26,14 @@ import it.smartcommunitylab.innoweee.engine.common.Const;
 import it.smartcommunitylab.innoweee.engine.exception.EntityNotFoundException;
 import it.smartcommunitylab.innoweee.engine.exception.UnauthorizedException;
 import it.smartcommunitylab.innoweee.engine.ge.GeManager;
+import it.smartcommunitylab.innoweee.engine.img.ImageManager;
 import it.smartcommunitylab.innoweee.engine.model.Catalog;
 import it.smartcommunitylab.innoweee.engine.model.Component;
 import it.smartcommunitylab.innoweee.engine.model.Game;
 import it.smartcommunitylab.innoweee.engine.model.GarbageCollection;
 import it.smartcommunitylab.innoweee.engine.model.Link;
 import it.smartcommunitylab.innoweee.engine.model.Player;
+import it.smartcommunitylab.innoweee.engine.model.PlayerState;
 import it.smartcommunitylab.innoweee.engine.model.Robot;
 import it.smartcommunitylab.innoweee.engine.repository.CatalogRepository;
 import it.smartcommunitylab.innoweee.engine.repository.GameRepository;
@@ -50,6 +54,8 @@ public class GameController extends AuthController {
 	private CatalogRepository catalogRepository;
 	@Autowired
 	private GeManager geManager;
+	@Autowired
+	private ImageManager imageManager;
 	
 	@GetMapping(value = "/api/game/{tenantId}/{instituteId}/{schoolId}")
 	public @ResponseBody List<Game> searchGame(
@@ -144,7 +150,8 @@ public class GameController extends AuthController {
 				game.getObjectId(), Const.AUTH_RES_Game_GarbageCollection, Const.AUTH_ACTION_READ, request)) {
 			throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
 		}
-		GarbageCollection collection = collectionRepository.findActualCollection(game.getTenantId(), gameId);
+		GarbageCollection collection = collectionRepository.findActualCollection(game.getTenantId(), 
+				gameId, System.currentTimeMillis());
 		logger.info("getActualCollection[{}]:{}", game.getTenantId(), gameId);
 		return collection;
 	}
@@ -164,7 +171,8 @@ public class GameController extends AuthController {
 			throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
 		}
 		List<Link> result = new ArrayList<Link>();
-		List<GarbageCollection> activeCollections = collectionRepository.findActiveCollections(game.getTenantId(), game.getObjectId());
+		List<GarbageCollection> activeCollections = collectionRepository.findActiveCollections(
+				game.getTenantId(), game.getObjectId(), System.currentTimeMillis());
 		for(GarbageCollection collection : activeCollections) {
 			result.addAll(collection.getLinks());
 		}
@@ -193,16 +201,51 @@ public class GameController extends AuthController {
 			throw new EntityNotFoundException("player not found");
 		}
 		Player player = optionalPlayer.get();
-		Catalog catalog = catalogRepository.findAll().get(0);
+		Catalog catalog = catalogRepository.findByTenantId(game.getTenantId());
+		if(catalog == null) {
+			throw new EntityNotFoundException("catalog not found");
+		}
 		Component newComponent = catalog.getComponents().get(componentId);
 		if(newComponent == null) {
 			throw new EntityNotFoundException("component not found");
 		}
-		geManager.buildRobot(game, player, newComponent);
-		player.getRobot().getComponents().put(newComponent.getId(), newComponent);
+		//TODO add game action
+//		geManager.buildRobot(game.getGeGameId(), player.getObjectId(), newComponent);
+		String oldComponentId = null;
+		for(Component component : player.getRobot().getComponents().values()) {
+			if(component.getType().equals(newComponent.getType())) {
+				oldComponentId = component.getComponentId();
+			}
+		}
+		if(!StringUtils.isEmpty(oldComponentId)) {
+			player.getRobot().getComponents().remove(oldComponentId);
+		}
+		player.getRobot().getComponents().put(newComponent.getComponentId(), newComponent);
 		playerRepository.save(player);
+		imageManager.storeRobotImage(player);
 		logger.info("buildRobot[{}]:{} / {}", player.getTenantId(), playerId, componentId);
 		return player.getRobot();
+	}
+		
+	@GetMapping(value = "/api/game/{gameId}/state/{playerId}")
+	public @ResponseBody PlayerState getPlayerState(
+			@PathVariable String gameId,
+			@PathVariable String playerId,
+			@RequestParam(required = false) String nameGE,
+			HttpServletRequest request, 
+			HttpServletResponse response) throws Exception {
+		Optional<Game> optionalGame = gameRepository.findById(gameId);
+		if(optionalGame.isEmpty()) {
+			throw new EntityNotFoundException("game not found");
+		}
+		Game game = optionalGame.get();
+		if(!validateAuthorization(game.getTenantId(), game.getInstituteId(), game.getSchoolId(), 
+				game.getObjectId(), Const.AUTH_RES_Game_Player, Const.AUTH_ACTION_READ, request)) {
+			throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
+		}
+		PlayerState playerState = geManager.getPlayerState(gameId, playerId, nameGE);
+		logger.info("getPlayerState[{}]:{} / {} / {}", game.getTenantId(), gameId, playerId, nameGE);
+		return playerState;
 	}
 	
 }

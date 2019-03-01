@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Component {
-	private String id;
+	private String componentId;
 	private String parentId;
 	private String type;
 	private Map<String, String> name = new HashMap<String, String>();
@@ -29,12 +29,6 @@ public class Component {
 	public void setCostMap(Map<String, Integer> costMap) {
 		this.costMap = costMap;
 	}
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
 	public String getParentId() {
 		return parentId;
 	}
@@ -46,5 +40,11 @@ public class Component {
 	}
 	public void setName(Map<String, String> name) {
 		this.name = name;
+	}
+	public String getComponentId() {
+		return componentId;
+	}
+	public void setComponentId(String componentId) {
+		this.componentId = componentId;
 	}
 }

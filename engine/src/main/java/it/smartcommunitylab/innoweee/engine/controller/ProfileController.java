@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import it.smartcommunitylab.innoweee.engine.common.Const;
 import it.smartcommunitylab.innoweee.engine.security.Authorization;
 import it.smartcommunitylab.innoweee.engine.security.User;
 
@@ -26,7 +27,8 @@ public class ProfileController extends AuthController {
 			List<Authorization> authorizationList = user.getRoles().get(key);
 			for(Authorization authorization : authorizationList) {
 				String tenantId = authorization.getTenantId();
-				if(!user.getTenants().contains(tenantId)) {
+				if(!tenantId.equals(Const.SYSTEM_DOMAIN) && 
+						!user.getTenants().contains(tenantId)) {
 					user.getTenants().add(tenantId);
 				}
 			}

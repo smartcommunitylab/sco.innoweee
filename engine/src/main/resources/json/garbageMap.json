@@ -1,38 +1,65 @@
 {
+	"tenantId":"TEST",
 	"items":{
-		"1":{
-			"id":"1",
-			"category":"",
-			"name":{"it":""},
-			"description":{"it":""},
-			"weight":0.25,
-			"co2":0.0012,
-			"materialsConversion":{
-				"plastic":0.01,
-				"glass":0.01,
-				"iron":0.01,
-				"aluminium":0.01,
-				"copper":0.01,
-				"tin":0.01,
-				"precious":0.01
-			}
+		"Joystick":{
+			"id":"Joystick",
+			"category":"Toys, leisure and sport equipment",
+			"name":{"it":"Joystick", "en":"Joystick"},
+			"weight":0.25
 		},
-		"2":{
-			"id":"2",
-			"category":"",
-			"name":{"it":""},
-			"description":{"it":""},
-			"weight":0.25,
-			"co2":0.0012,
-			"materialsConversion":{
-				"plastic":0.01,
-				"glass":0.01,
-				"iron":0.01,
-				"aluminium":0.01,
-				"copper":0.01,
-				"tin":0.01,
-				"precious":0.01
-			}
+		"Talking doll":{
+			"id":"Talking doll",
+			"category":"Toys, leisure and sport equipment",
+			"name":{"it":"Bambola parlante", "en":"Talking doll"},
+			"weight":0.25
+		},
+		"Cellphone":{
+			"id":"Cellphone",
+			"category":"IT and telecommunications",
+			"name":{"it":"Telefono cellulare", "en":"Cellphone"},
+			"weight":0.25
+		},
+		"Tablet":{
+			"id":"Tablet",
+			"category":"IT and telecommunications",
+			"name":{"it":"Tablet", "en":"Tablet"},
+			"weight":0.25
+		},
+		"Blender":{
+			"id":"Blender",
+			"category":"Small household appliances",
+			"name":{"it":"Frullatore", "en":"Blender"},
+			"weight":0.25
+		},
+		"Minipimer":{
+			"id":"Minipimer",
+			"category":"Small household appliances",
+			"name":{"it":"Frullatore a immersione", "en":"Minipimer"},
+			"weight":0.25
+		},
+		"Aerosol machine":{
+			"id":"Aerosol machine",
+			"category":"Electrical and electronic tools",
+			"name":{"it":"Apparecchiature aerosol", "en":"Aerosol machine"},
+			"weight":0.25
+		},
+		"Electrical screwdriver":{
+			"id":"Electrical screwdriver",
+			"category":"Electrical and electronic tools",
+			"name":{"it":"Cacciavite elettrico", "en":"Electrical screwdriver"},
+			"weight":0.25
+		},
+		"Headphones":{
+			"id":"Headphones",
+			"category":"Consumer electronics",
+			"name":{"it":"Auricolari", "en":"Headphones"},
+			"weight":0.25
+		},
+		"Battery charger":{
+			"id":"Battery charger",
+			"category":"Consumer electronics",
+			"name":{"it":"Caricabatterie", "en":"Battery charger"},
+			"weight":0.25
 		}
 	}
 }

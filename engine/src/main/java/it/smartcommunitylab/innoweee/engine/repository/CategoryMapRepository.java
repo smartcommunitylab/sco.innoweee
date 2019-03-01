@@ -4,10 +4,10 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import it.smartcommunitylab.innoweee.engine.model.Catalog;
+import it.smartcommunitylab.innoweee.engine.model.CategoryMap;
 
 @Repository
-public interface CatalogRepository extends MongoRepository<Catalog, String> {
+public interface CategoryMapRepository extends MongoRepository<CategoryMap, String> {
 	@Query(value="{tenantId:?0}")
-	Catalog findByTenantId(String tenantId);
+	CategoryMap findByTenantId(String tenantId);
 }

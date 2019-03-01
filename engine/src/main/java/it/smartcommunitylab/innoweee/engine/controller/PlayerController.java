@@ -1,5 +1,6 @@
 package it.smartcommunitylab.innoweee.engine.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -22,6 +23,8 @@ import org.springframework.web.bind.annotation.RestController;
 import it.smartcommunitylab.innoweee.engine.common.Const;
 import it.smartcommunitylab.innoweee.engine.exception.EntityNotFoundException;
 import it.smartcommunitylab.innoweee.engine.exception.UnauthorizedException;
+import it.smartcommunitylab.innoweee.engine.ge.GeManager;
+import it.smartcommunitylab.innoweee.engine.img.ImageManager;
 import it.smartcommunitylab.innoweee.engine.model.Catalog;
 import it.smartcommunitylab.innoweee.engine.model.Component;
 import it.smartcommunitylab.innoweee.engine.model.Game;
@@ -41,6 +44,10 @@ public class PlayerController extends AuthController {
 	private GameRepository gameRepository; 
 	@Autowired
 	private CatalogRepository catalogResopitory;
+	@Autowired
+	private ImageManager imageManager;
+	@Autowired
+	private GeManager geManager;
 	
 	@GetMapping(value = "/api/player/{gameId}")
 	public @ResponseBody List<Player> searchPlayer(
@@ -83,6 +90,22 @@ public class PlayerController extends AuthController {
 				addNewRobot(player);
 			}
 			playerRepository.save(player);
+			if(!player.isTeam()) {
+				imageManager.storeRobotImage(player);
+			}
+			//TODO add game action
+			if(player.isTeam()) {
+				List<String> members = new ArrayList<String>();
+				List<Player> list = playerRepository.findByGameId(game.getTenantId(), game.getObjectId());
+				for(Player pl : list) {
+					if(!pl.isTeam()) {
+						members.add(pl.getObjectId());
+					}
+				}
+//				geManager.addTeam(game.getGeGameId(), player.getObjectId(), members);
+			} else {
+//				geManager.addPlayer(game.getGeGameId(), player.getObjectId());
+			}
 		} else {
 			// update existing one
 			player.setLastUpdate(now);
@@ -111,22 +134,54 @@ public class PlayerController extends AuthController {
 				game.getObjectId(), Const.AUTH_RES_Game_Player, Const.AUTH_ACTION_DELETE, request)) {
 			throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
 		}
+		//TODO add game action
+//		geManager.deletePlayer(game.getGeGameId(), id);
 		playerRepository.deleteById(id);
 		logger.info("deletePlayer[{}]:{}", game.getTenantId(), id);
 		return player;
 	}
 	
+	@GetMapping(value = "/api/player/{playerId}/robot/reset")
+	public @ResponseBody Robot resetRobot(
+			@PathVariable String playerId,
+			HttpServletRequest request, 
+			HttpServletResponse response) throws Exception {
+		Optional<Player> optionalPlayer = playerRepository.findById(playerId);
+		if(optionalPlayer.isEmpty()) {
+			throw new EntityNotFoundException("player not found");
+		}
+		Player player = optionalPlayer.get();
+		Optional<Game> optionalGame = gameRepository.findById(player.getGameId());
+		if(optionalGame.isEmpty()) {
+			throw new EntityNotFoundException("game not found");
+		}
+		Game game = optionalGame.get();
+		if(!validateAuthorization(game.getTenantId(), game.getInstituteId(), game.getSchoolId(), 
+				game.getObjectId(), Const.AUTH_RES_Game_Robot, Const.AUTH_ACTION_UPDATE, request)) {
+			throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
+		}
+		addNewRobot(player);
+		player.setLastUpdate(new Date());
+		playerRepository.save(player);
+		if(!player.isTeam()) {
+			imageManager.storeRobotImage(player);
+		}		
+		logger.info("resetRobot[{}]:{}", player.getTenantId(), player.getObjectId());
+		return player.getRobot();
+	}
+	
 	private void addNewRobot(Player player) {
 		Robot robot = new Robot();
-		List<Catalog> list = catalogResopitory.findAll();
-		Catalog catalog = list.get(0);
-		for(Component component : catalog.getComponents().values()) {
-			if(StringUtils.isEmpty(component.getParentId())) {
-				// default customization
-				robot.getComponents().put(component.getId(), component);
+		Catalog catalog = catalogResopitory.findByTenantId(player.getTenantId());
+		if(catalog != null) {
+			for(Component component : catalog.getComponents().values()) {
+				if(StringUtils.isEmpty(component.getParentId())) {
+					// default customization
+					robot.getComponents().put(component.getComponentId(), component);
+				}
 			}
+			player.setRobot(robot);			
 		}
-		player.setRobot(robot);
 	}
 	
 }

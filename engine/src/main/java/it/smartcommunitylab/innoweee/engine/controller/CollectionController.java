@@ -79,6 +79,31 @@ public class CollectionController extends AuthController {
 		return collection;
 	}
 	
+	@PostMapping(value = "/api/collection/multi")
+	public @ResponseBody void saveMultiCollection(
+			@RequestBody List<GarbageCollection> collections,
+			HttpServletRequest request, 
+			HttpServletResponse response) throws Exception {
+		for(GarbageCollection collection : collections) {
+			Optional<Game> optional = gameRepository.findById(collection.getGameId());
+			if(optional.isEmpty()) {
+				throw new EntityNotFoundException("entity not found");
+			}
+			Game game = optional.get();
+			if(!validateAuthorization(game.getTenantId(), game.getInstituteId(), game.getSchoolId(), 
+					game.getObjectId(), Const.AUTH_RES_Game_GarbageCollection, Const.AUTH_ACTION_ADD, request)) {
+				throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
+			}
+			Date now = new Date();
+			if(StringUtils.isEmpty(collection.getObjectId())) {
+				collection.setCreationDate(now);
+			}
+			collection.setLastUpdate(now);
+			collectionRepository.save(collection);
+			logger.info("saveMultiCollection[{}]:{} / {}", game.getTenantId(), game.getObjectId(), collection.getObjectId());
+		}
+	}
+	
 	@DeleteMapping(value = "/api/collection/{id}")
 	public @ResponseBody GarbageCollection deleteCollection(
 			@PathVariable String id,

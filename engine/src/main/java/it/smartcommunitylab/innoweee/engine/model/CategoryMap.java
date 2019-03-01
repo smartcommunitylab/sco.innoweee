@@ -5,11 +5,11 @@ import java.util.Map;
 
 import org.springframework.data.annotation.Id;
 
-public class Catalog {
+public class CategoryMap {
 	@Id
 	private String id;
 	private String tenantId;
-	private Map<String, Component> components = new HashMap<String, Component>();
+	private Map<String, Category> categories = new HashMap<>();
 	
 	public String getId() {
 		return id;
@@ -17,11 +17,11 @@ public class Catalog {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public Map<String, Component> getComponents() {
-		return components;
+	public Map<String, Category> getCategories() {
+		return categories;
 	}
-	public void setComponents(Map<String, Component> components) {
-		this.components = components;
+	public void setCategories(Map<String, Category> categories) {
+		this.categories = categories;
 	}
 	public String getTenantId() {
 		return tenantId;

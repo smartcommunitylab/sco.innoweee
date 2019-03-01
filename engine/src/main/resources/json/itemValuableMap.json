@@ -1,0 +1,343 @@
+{
+	"tenantId":"TEST",
+	"collectionName": "R2",
+	"items":
+	{
+		"Laptop": [
+			{
+				"broken": false,
+				"switchingOn": true,
+				"age": 3
+			},
+			{
+				"broken": true,
+				"switchingOn": true,
+				"age": 2
+			}
+		],
+		"Scanner": [
+			{
+				"broken": false,
+				"switchingOn": true,
+				"age": 2
+			},
+			{
+				"broken": true,
+				"switchingOn": true,
+				"age": -1
+			}
+		],
+		"Flash drive": [
+			{
+				"broken": false,
+				"switchingOn": true,
+				"age": 2
+			},
+			{
+				"broken": true,
+				"switchingOn": true,
+				"age": 0
+			}
+		],
+		"Decoder": [
+			{
+				"broken": false,
+				"switchingOn": true,
+				"age": 3
+			},
+			{
+				"broken": true,
+				"switchingOn": true,
+				"age": 0
+			}
+		],
+		"Printer": [
+			{
+				"broken": false,
+				"switchingOn": true,
+				"age": 2
+			},
+			{
+				"broken": true,
+				"switchingOn": true,
+				"age": -1
+			}
+		],
+		"Landline phone": [
+			{
+				"broken": false,
+				"switchingOn": true,
+				"age": 1
+			},
+			{
+				"broken": true,
+				"switchingOn": true,
+				"age": -1
+			}
+		],
+		"Monitor": [
+			{
+				"broken": false,
+				"switchingOn": true,
+				"age": 2
+			},
+			{
+				"broken": true,
+				"switchingOn": true,
+				"age": -1
+			}
+		],
+		"Docking station": [
+			{
+				"broken": false,
+				"switchingOn": true,
+				"age": 2
+			},
+			{
+				"broken": true,
+				"switchingOn": true,
+				"age": 0
+			}
+		],
+		"Calculator": [
+			{
+				"broken": false,
+				"switchingOn": true,
+				"age": 3
+			},
+			{
+				"broken": true,
+				"switchingOn": true,
+				"age": 1
+			}
+		],
+		"Copier": [
+			{
+				"broken": false,
+				"switchingOn": true,
+				"age": 1
+			},
+			{
+				"broken": true,
+				"switchingOn": true,
+				"age": -1
+			}
+		],
+		"Tablet": [
+			{
+				"broken": false,
+				"switchingOn": true,
+				"age": 2
+			},
+			{
+				"broken": true,
+				"switchingOn": true,
+				"age": 1
+			}
+		],
+		"Trackpad": [
+			{
+				"broken": false,
+				"switchingOn": true,
+				"age": 3
+			},
+			{
+				"broken": true,
+				"switchingOn": true,
+				"age": 1
+			}
+		],
+		"GPS system": [
+			{
+				"broken": false,
+				"switchingOn": true,
+				"age": 2
+			},
+			{
+				"broken": true,
+				"switchingOn": true,
+				"age": 1
+			}
+		],
+		"Notebook": [
+			{
+				"broken": false,
+				"switchingOn": true,
+				"age": 0
+			},
+			{
+				"broken": true,
+				"switchingOn": true,
+				"age": 1
+			}
+		],
+		"E-reader": [
+			{
+				"broken": false,
+				"switchingOn": true,
+				"age": 2
+			},
+			{
+				"broken": true,
+				"switchingOn": true,
+				"age": 1
+			}
+		],
+		"Computer components": [
+			{
+				"broken": false,
+				"switchingOn": true,
+				"age": 2
+			},
+			{
+				"broken": true,
+				"switchingOn": true,
+				"age": 1
+			}
+		],
+		"Keyboard": [
+			{
+				"broken": false,
+				"switchingOn": true,
+				"age": 2
+			},
+			{
+				"broken": true,
+				"switchingOn": true,
+				"age": -1
+			}
+		],
+		"Other IT and telecommunications": [
+			{
+				"broken": false,
+				"switchingOn": true,
+				"age": 0
+			},
+			{
+				"broken": true,
+				"switchingOn": true,
+				"age": -1
+			}
+		],
+		"Router": [
+			{
+				"broken": false,
+				"switchingOn": true,
+				"age": 1
+			},
+			{
+				"broken": true,
+				"switchingOn": true,
+				"age": 1
+			}
+		],
+		"Cordless": [
+			{
+				"broken": false,
+				"switchingOn": true,
+				"age": 2
+			},
+			{
+				"broken": true,
+				"switchingOn": true,
+				"age": 0
+			}
+		],
+		"Cellphone": [
+			{
+				"broken": false,
+				"switchingOn": true,
+				"age": 3
+			},
+			{
+				"broken": true,
+				"switchingOn": true,
+				"age": 1
+			}
+		],
+		"Answering machine": [
+			{
+				"broken": false,
+				"switchingOn": true,
+				"age": 0
+			},
+			{
+				"broken": true,
+				"switchingOn": true,
+				"age": -1
+			}
+		],
+		"Mouse": [
+			{
+				"broken": false,
+				"switchingOn": true,
+				"age": 2
+			},
+			{
+				"broken": true,
+				"switchingOn": true,
+				"age": -1
+			}
+		],
+		"Walkie Talkie": [
+			{
+				"broken": false,
+				"switchingOn": true,
+				"age": 2
+			},
+			{
+				"broken": true,
+				"switchingOn": true,
+				"age": -1
+			}
+		],
+		"Modem": [
+			{
+				"broken": false,
+				"switchingOn": true,
+				"age": 2
+			},
+			{
+				"broken": true,
+				"switchingOn": true,
+				"age": 1
+			}
+		],
+		"Fax": [
+			{
+				"broken": false,
+				"switchingOn": true,
+				"age": 2
+			},
+			{
+				"broken": true,
+				"switchingOn": true,
+				"age": 1
+			}
+		],
+		"Computer desktop": [
+			{
+				"broken": false,
+				"switchingOn": true,
+				"age": 3
+			},
+			{
+				"broken": true,
+				"switchingOn": true,
+				"age": 1
+			}
+		],
+		"Smartphone": [
+			{
+				"broken": false,
+				"switchingOn": true,
+				"age": 3
+			},
+			{
+				"broken": true,
+				"switchingOn": true,
+				"age": 2
+			}
+		]
+	}
+}
