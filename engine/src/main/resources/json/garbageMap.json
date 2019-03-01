@@ -1,4 +1,5 @@
 {
+	"tenantId":"TEST",
 	"items":{
 		"Joystick":{
 			"id":"Joystick",

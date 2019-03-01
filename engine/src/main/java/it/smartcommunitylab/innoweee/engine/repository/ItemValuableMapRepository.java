@@ -8,6 +8,6 @@ import it.smartcommunitylab.innoweee.engine.model.ItemValuableMap;
 
 @Repository
 public interface ItemValuableMapRepository extends MongoRepository<ItemValuableMap, String> {
-	@Query(value="{collectionName:?0}")
-	ItemValuableMap findByCollectionName(String collectionName);
+	@Query(value="{tenantId:?0, collectionName:?1}")
+	ItemValuableMap findByCollectionName(String tenantId, String collectionName);
 }

@@ -167,12 +167,12 @@ public class ItemController extends AuthController {
 		if(actualCollection == null) {
 			throw new EntityNotFoundException("collection not found");
 		}
-		GarbageMap garbageMap = garbageMapRepository.findAll().get(0);
+		GarbageMap garbageMap = garbageMapRepository.findByTenantId(game.getTenantId());
 		Garbage garbage = garbageMap.getItems().get(itemEvent.getItemType());
 		if(garbage == null) {
 			throw new EntityNotFoundException("garbage not found");
 		}
-		CategoryMap categoryMap = categoryMapRepository.findAll().get(0);
+		CategoryMap categoryMap = categoryMapRepository.findByTenantId(game.getTenantId());
 		Category category = categoryMap.getCategories().get(garbage.getCategory());
 		if(category == null) {
 			throw new EntityNotFoundException("category not found");
@@ -189,7 +189,8 @@ public class ItemController extends AuthController {
 	
 	private boolean getValuable(ItemEvent event, Garbage garbage, 
 			GarbageCollection collection) {
-		ItemValuableMap valuableMap = valuableMapRepository.findByCollectionName(collection.getNameGE());
+		ItemValuableMap valuableMap = valuableMapRepository.findByCollectionName(
+				collection.getTenantId(), collection.getNameGE());
 		if(valuableMap == null) {
 			return false;
 		}

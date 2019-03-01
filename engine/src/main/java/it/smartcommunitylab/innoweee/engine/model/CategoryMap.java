@@ -8,6 +8,7 @@ import org.springframework.data.annotation.Id;
 public class CategoryMap {
 	@Id
 	private String id;
+	private String tenantId;
 	private Map<String, Category> categories = new HashMap<>();
 	
 	public String getId() {
@@ -21,5 +22,11 @@ public class CategoryMap {
 	}
 	public void setCategories(Map<String, Category> categories) {
 		this.categories = categories;
+	}
+	public String getTenantId() {
+		return tenantId;
+	}
+	public void setTenantId(String tenantId) {
+		this.tenantId = tenantId;
 	}
 }

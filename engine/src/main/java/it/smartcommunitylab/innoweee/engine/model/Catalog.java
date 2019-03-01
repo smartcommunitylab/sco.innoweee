@@ -8,6 +8,7 @@ import org.springframework.data.annotation.Id;
 public class Catalog {
 	@Id
 	private String id;
+	private String tenantId;
 	private Map<String, Component> components = new HashMap<String, Component>();
 	
 	public String getId() {
@@ -21,5 +22,11 @@ public class Catalog {
 	}
 	public void setComponents(Map<String, Component> components) {
 		this.components = components;
+	}
+	public String getTenantId() {
+		return tenantId;
+	}
+	public void setTenantId(String tenantId) {
+		this.tenantId = tenantId;
 	}
 }

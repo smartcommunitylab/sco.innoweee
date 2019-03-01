@@ -20,6 +20,9 @@ public class Const {
 	public static final String AUTH_RES_Image = "Image";
 	public static final String AUTH_RES_School = "School";
 	public static final String AUTH_RES_Institute = "Institute";
+	public static final String AUTH_RES_CategoryMap = "CategoryMap";
+	public static final String AUTH_RES_GarbageMap = "GarbageMap";
+	public static final String AUTH_RES_Catalog = "Catalog";
 	public static final String AUTH_RES_Game = "Game";
 	public static final String AUTH_RES_Game_GarbageCollection = "Game-GarbageCollection";
 	public static final String AUTH_RES_Game_Link = "Game-Link";

@@ -201,7 +201,10 @@ public class GameController extends AuthController {
 			throw new EntityNotFoundException("player not found");
 		}
 		Player player = optionalPlayer.get();
-		Catalog catalog = catalogRepository.findAll().get(0);
+		Catalog catalog = catalogRepository.findByTenantId(game.getTenantId());
+		if(catalog == null) {
+			throw new EntityNotFoundException("catalog not found");
+		}
 		Component newComponent = catalog.getComponents().get(componentId);
 		if(newComponent == null) {
 			throw new EntityNotFoundException("component not found");

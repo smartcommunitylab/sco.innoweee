@@ -1,4 +1,5 @@
 {
+	"tenantId":"TEST",
 	"components":{
 		"head0":{
 			"componentId":"head0",

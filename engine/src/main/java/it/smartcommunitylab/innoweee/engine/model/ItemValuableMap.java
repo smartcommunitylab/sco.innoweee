@@ -9,6 +9,7 @@ import org.springframework.data.annotation.Id;
 public class ItemValuableMap {
 	@Id
 	private String id;
+	private String tenantId;
 	private String collectionName;
 	private Map<String, List<ItemValuable>> items = new HashMap<>();
 	
@@ -29,6 +30,12 @@ public class ItemValuableMap {
 	}
 	public void setItems(Map<String, List<ItemValuable>> items) {
 		this.items = items;
+	}
+	public String getTenantId() {
+		return tenantId;
+	}
+	public void setTenantId(String tenantId) {
+		this.tenantId = tenantId;
 	}
 	
 }

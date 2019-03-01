@@ -8,6 +8,7 @@ import org.springframework.data.annotation.Id;
 public class GarbageMap {
 	@Id
 	private String id;
+	private String tenantId;
 	private Map<String, Garbage> items = new HashMap<>();
 	
 	public String getId() {
@@ -21,5 +22,11 @@ public class GarbageMap {
 	}
 	public void setItems(Map<String, Garbage> items) {
 		this.items = items;
+	}
+	public String getTenantId() {
+		return tenantId;
+	}
+	public void setTenantId(String tenantId) {
+		this.tenantId = tenantId;
 	} 
 }

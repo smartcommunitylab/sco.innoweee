@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
@@ -20,7 +21,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import it.smartcommunitylab.innoweee.engine.common.Const;
 import it.smartcommunitylab.innoweee.engine.exception.EntityNotFoundException;
+import it.smartcommunitylab.innoweee.engine.exception.UnauthorizedException;
 import it.smartcommunitylab.innoweee.engine.model.Catalog;
 import it.smartcommunitylab.innoweee.engine.model.CategoryMap;
 import it.smartcommunitylab.innoweee.engine.model.Component;
@@ -44,25 +47,32 @@ public class ResourceController extends AuthController {
 	@Autowired
 	private CategoryMapRepository categoryMapRepository;
 	
-	@GetMapping(value = "/api/catalog")
-	public @ResponseBody Catalog getCatalog() throws Exception {
-		Catalog catalog = null;
-		List<Catalog> list = catalogRepository.findAll();
-		if(list.size() > 0) {
-			catalog = list.get(0);
-		}
-		logger.info("getCatalog:{}", catalog);
+	@GetMapping(value = "/api/catalog/{tenantId}")
+	public @ResponseBody Catalog getCatalog(
+			@PathVariable String tenantId,
+			HttpServletRequest request) throws Exception {
+		if(!validateAuthorization(tenantId, Const.AUTH_RES_Catalog, 
+				Const.AUTH_ACTION_READ, request)) {
+			throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
+		}		
+		Catalog catalog = catalogRepository.findByTenantId(tenantId);
+		logger.info("getCatalog[{}]:{}", tenantId, catalog);
 		return catalog;
 	}
 	
-	@GetMapping(value = "/api/catalog/component/{id}")
+	@GetMapping(value = "/api/catalog/{tenantId}/component/{id}")
 	public @ResponseBody List<Component> getUpgradeComponents(
-			@PathVariable String id) throws Exception {
-		List<Catalog> list = catalogRepository.findAll();
-		if(list.size() == 0) {
+			@PathVariable String tenantId,
+			@PathVariable String id,
+			HttpServletRequest request) throws Exception {
+		if(!validateAuthorization(tenantId, Const.AUTH_RES_Catalog, 
+				Const.AUTH_ACTION_READ, request)) {
+			throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
+		}		
+		Catalog catalog = catalogRepository.findByTenantId(tenantId);
+		if(catalog == null) {
 			throw new EntityNotFoundException("catalog not found");
 		}
-		Catalog catalog = list.get(0);
 		Component actualComponent = catalog.getComponents().get(id);
 		if(actualComponent == null) {
 			throw new EntityNotFoundException("component not found");
@@ -73,29 +83,33 @@ public class ResourceController extends AuthController {
 				result.add(component);
 			}
 		}
-		logger.info("getUpgradeComponents:{}", id);
+		logger.info("getUpgradeComponents[{}]:{}", tenantId, id);
 		return result;
 	}
 	
-	@GetMapping(value = "/api/garbageMap")
-	public @ResponseBody GarbageMap getGarbageMap() throws Exception {
-		GarbageMap garbageMap = null;
-		List<GarbageMap> list = garbageMapRepository.findAll();
-		if(list.size() > 0) {
-			garbageMap = list.get(0);
+	@GetMapping(value = "/api/garbageMap/{tenantId}")
+	public @ResponseBody GarbageMap getGarbageMap(
+			@PathVariable String tenantId,
+			HttpServletRequest request) throws Exception {
+		if(!validateAuthorization(tenantId, Const.AUTH_RES_GarbageMap, 
+				Const.AUTH_ACTION_READ, request)) {
+			throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
 		}
-		logger.info("getGarbageMap:{}", garbageMap);
+		GarbageMap garbageMap = garbageMapRepository.findByTenantId(tenantId);
+		logger.info("getGarbageMap[{}]:{}", tenantId, garbageMap);
 		return garbageMap;
 	}
 
-	@GetMapping(value = "/api/categoryMap")
-	public @ResponseBody CategoryMap getCategoryMap() throws Exception {
-		CategoryMap categoryMap = null;
-		List<CategoryMap> list = categoryMapRepository.findAll();
-		if(list.size() > 0) {
-			categoryMap = list.get(0);
+	@GetMapping(value = "/api/categoryMap/{tenantId}")
+	public @ResponseBody CategoryMap getCategoryMap(
+			@PathVariable String tenantId,
+			HttpServletRequest request) throws Exception {
+		if(!validateAuthorization(tenantId, Const.AUTH_RES_CategoryMap, 
+				Const.AUTH_ACTION_READ, request)) {
+			throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
 		}
-		logger.info("getCategoryMap:{}", categoryMap);
+		CategoryMap categoryMap = categoryMapRepository.findByTenantId(tenantId);
+		logger.info("getCategoryMap[{}]:{}", tenantId, categoryMap);
 		return categoryMap;
 	}
 	

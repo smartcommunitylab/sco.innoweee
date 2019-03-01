@@ -172,15 +172,16 @@ public class PlayerController extends AuthController {
 	
 	private void addNewRobot(Player player) {
 		Robot robot = new Robot();
-		List<Catalog> list = catalogResopitory.findAll();
-		Catalog catalog = list.get(0);
-		for(Component component : catalog.getComponents().values()) {
-			if(StringUtils.isEmpty(component.getParentId())) {
-				// default customization
-				robot.getComponents().put(component.getComponentId(), component);
+		Catalog catalog = catalogResopitory.findByTenantId(player.getTenantId());
+		if(catalog != null) {
+			for(Component component : catalog.getComponents().values()) {
+				if(StringUtils.isEmpty(component.getParentId())) {
+					// default customization
+					robot.getComponents().put(component.getComponentId(), component);
+				}
 			}
+			player.setRobot(robot);			
 		}
-		player.setRobot(robot);
 	}
 	
 }
