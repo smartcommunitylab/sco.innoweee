@@ -1,0 +1,67 @@
+.robot {
+    height: 500px;
+    width: 400px;
+
+    ion-col {
+        padding: 0px;
+    }
+
+    ion-grid {
+        padding: 0px;
+    }
+
+    .head-robot {
+        height: 100px;
+        width: 400px;
+    }
+
+    .armR-robot {
+        height: 250px;
+        width: 100px;
+    }
+
+    .chest-robot {
+        height: 250px;
+        width: 200px;
+    }
+
+    .armL-robot {
+        height: 250px;
+        width: 100px;
+    }
+
+    .legs-robot {
+        height: 100px;
+        width: 400px;
+    }
+
+    .feet-robot {
+        height: 50px;
+        width: 400px;
+    }
+}
+
+.market-container {
+
+    .market-pieces {
+        height: 50vh;
+
+        .not-active {
+            opacity: 0.3;
+
+        }
+        ion-img {
+            height: 100px;
+            
+
+            }
+    }
+
+    .piece-container {
+        height: 100%;
+
+        ion-img {
+            height: 90%;
+        }
+    }
+}

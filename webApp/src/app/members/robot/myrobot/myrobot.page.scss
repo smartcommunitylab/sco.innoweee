@@ -1,0 +1,56 @@
+.robot-container {
+
+    ion-row {
+        height: 100%;
+        ion-col {
+            height: 100%;
+            position: relative;
+            .point-container {
+                position: relative;
+                top: 20%;
+            }
+            .robot {
+                height: 500px;
+                width: 400px;
+                position: relative;
+                ion-col{
+                    padding: 0px;
+                }
+                ion-grid{
+                    padding: 0px;
+                }
+                .head-robot{
+                    height: 100px;
+                    width: 400px;
+                }
+                .armR-robot{
+                    height: 250px;
+                    width: 100px;
+                }
+                .chest-robot{
+                    height: 250px;
+                    width: 200px;
+                }
+                .armL-robot{
+                    height: 250px;
+                    width: 100px;
+                }
+                .legs-robot{
+                    height: 100px;
+                    width: 400px;
+                }
+                .feet-robot{
+                    height: 50px;
+                    width: 400px;
+                }
+            }
+            .resources-container {
+                position: relative;
+                top: 20%;
+                .total-resources{
+                    text-align: center;
+                }
+            }
+        }
+    }
+}

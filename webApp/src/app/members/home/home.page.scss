@@ -1,0 +1,29 @@
+ion-thumbnail {
+    min-height: 30vh;
+    width: 100%;
+
+    ion-img {
+        max-height: 30vh;
+    }
+}
+
+.language {
+    ion-item {
+        min-width: 250px;
+    }
+}
+.robot-home{
+    ion-img{
+    height: 500px;
+    width: 400px;
+    }
+}
+.material-content {
+    ion-badge {
+        position: absolute;
+        right: 3px;
+        top: 3px;
+        font-size: 57px;
+        border-radius: 56px;
+    }
+}
