@@ -215,6 +215,7 @@ public class GameController extends AuthController {
 		for(Component component : player.getRobot().getComponents().values()) {
 			if(component.getType().equals(newComponent.getType())) {
 				oldComponentId = component.getComponentId();
+				break;
 			}
 		}
 		if(!StringUtils.isEmpty(oldComponentId)) {

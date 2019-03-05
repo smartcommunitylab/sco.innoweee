@@ -93,6 +93,8 @@ public class ItemController extends AuthController {
 		if(StringUtils.isEmpty(itemEvent.getItemId())) {
 			throw new EntityNotFoundException("item id not found");
 		}
+		logger.info("startCollection[{}]:{} / {}", game.getTenantId(), 
+				itemEvent.getPlayerId(), itemEvent.getItemId());
 		webSocketManager.notifyItemEventoToPlayer(player.getTenantId(), player.getGameId(), itemEvent);
 	}
 	
@@ -131,6 +133,8 @@ public class ItemController extends AuthController {
 //		geManager.reduceReport(game.getGeGameId(), player.getObjectId(), report, 
 //				actualCollection.getNameGE());
 		reduceReportRepository.save(report);
+		logger.info("reduceReport[{}]:{} / {}", game.getTenantId(), 
+				report.getPlayerId(), report.getObjectId());		
 		return report;
 	}
 		
