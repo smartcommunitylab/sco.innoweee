@@ -72,7 +72,7 @@ public class ItemController extends AuthController {
 	}
  
 	@PostMapping(value = "/api/item/recognized")
-	public @ResponseBody void startCollection(
+	public @ResponseBody void recognizedEvent(
 			@RequestBody ItemEvent itemEvent,
 			HttpServletRequest request, 
 			HttpServletResponse response) throws Exception {
@@ -93,9 +93,9 @@ public class ItemController extends AuthController {
 		if(StringUtils.isEmpty(itemEvent.getItemId())) {
 			throw new EntityNotFoundException("item id not found");
 		}
-		logger.info("startCollection[{}]:{} / {}", game.getTenantId(), 
+		logger.info("recognizedEvent[{}]:{} / {}", game.getTenantId(), 
 				itemEvent.getPlayerId(), itemEvent.getItemId());
-		webSocketManager.notifyItemEventoToPlayer(player.getTenantId(), player.getGameId(), itemEvent);
+		webSocketManager.notifyItemEventoToPlayer(player.getTenantId(), player.getObjectId(), itemEvent);
 	}
 	
 	@PostMapping(value = "/api/item/reduce")
