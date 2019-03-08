@@ -1,26 +1,54 @@
 <ion-header>
   <ion-toolbar>
-      <ion-buttons slot="start">
-          <ion-back-button></ion-back-button>
-        </ion-buttons>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
     <ion-buttons class="language" slot="end">
       <ion-item>
         <ion-label>{{'label_language_selection'|translate}}</ion-label>
-          <ion-select [(ngModel)]="language" (ionChange)="changeLanguage()">
-            <ion-select-option value="en" selected="true">English</ion-select-option>
-            <ion-select-option value="it">Italiano</ion-select-option>
-          </ion-select>
+        <ion-select [(ngModel)]="language" (ionChange)="changeLanguage()">
+          <ion-select-option value="en" selected="true">English</ion-select-option>
+          <ion-select-option value="it">Italiano</ion-select-option>
+        </ion-select>
       </ion-item>
       <ion-button (click)="logout()">
-          <ion-icon slot="icon-only" name="log-out"></ion-icon>
-        </ion-button>
+        <ion-icon slot="icon-only" name="log-out"></ion-icon>
+      </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-  
-  <ion-button [routerLink]="['/members/item-classification']" expand="block" fill="outline">AVVICINA OGGETTO</ion-button>
-
-  <ion-button [routerLink]="['/members/recycle-results']" expand="block" fill="outline">Completa raccolta</ion-button>
+<ion-grid>
+  <ion-row class="row-object">
+    <ion-col class="close-object">
+      <div *ngIf="!message">
+        {{'label_close_item'|translate}}
+      </div>
+      <div *ngIf="message">
+        {{'label_identified'|translate}}
+        {{message.itemId}}
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row *ngIf="!message">
+    <ion-col>
+      {{'label_close_item'|translate}}
+    </ion-col>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating">{{'label_insert_itemId'|translate}}</ion-label>
+        <ion-input [(ngModel)]="manualItemId"></ion-input>
+      </ion-item>
+    </ion-col>
+    <ion-col>
+      <ion-button (click)="manualInsert()" expand="block" fill="outline">
+        {{'label_insert_item'|translate}}
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+  <ion-button [routerLink]="['/members/recycle-results']" expand="block" fill="outline">
+    {{'label_end_recycle'|translate}}
+  </ion-button>
 </ion-content>

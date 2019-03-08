@@ -12,6 +12,11 @@ export interface ApplicationConfig {
     buyComponentApi:string;
     robotApi:string;
     getRobotImageApi:string;
+    getItemApi:string;
+    getReduceApi:string;
+    itemSocketURL:string;
+    getDeliveryApi:string;
+    getGarbageApi:string;
 }
 
 // Configuration values for our app
@@ -27,7 +32,12 @@ export const APP_CONFIG: ApplicationConfig = {
     getCatalogApi:'api/catalog',
     buyComponentApi:'/buy/',
     robotApi:"/robot/",
-    getRobotImageApi:"api/image/robot/"
+    getRobotImageApi:"api/image/robot/",
+    getItemApi:"api/item",
+    getReduceApi:"/reduce",
+    itemSocketURL:"itemws",
+    getDeliveryApi:"/delivery",
+    getGarbageApi:"api/garbageMap/"
 };
 
 // Create a config token to avoid naming conflicts
