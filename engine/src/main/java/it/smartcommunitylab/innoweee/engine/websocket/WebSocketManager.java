@@ -20,6 +20,6 @@ public class WebSocketManager {
   		ItemEvent itemEvent) throws Exception {
   	String destination = Utils.getTopic(tenantId, playerId);
   	simpMessagingTemplate.convertAndSend(destination, itemEvent);
-  	logger.info("notifyItemEventoToPlayer:{}", destination);
+  	logger.info("notifyItemEventToPlayer:{}", destination);
   }
 }
