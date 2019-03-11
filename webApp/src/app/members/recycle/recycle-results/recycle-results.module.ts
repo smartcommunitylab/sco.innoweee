@@ -6,6 +6,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { RecycleResultsPage } from './recycle-results.page';
+import { TranslateModule } from '@ngx-translate/core';
+import { SharedModule } from 'src/app/shared.module';
 
 const routes: Routes = [
   {
@@ -19,6 +21,8 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
+    TranslateModule,
+    SharedModule,
     RouterModule.forChild(routes)
   ],
   declarations: [RecycleResultsPage]
