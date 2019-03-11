@@ -11,6 +11,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -136,6 +138,34 @@ public class ItemController extends AuthController {
 		logger.info("reduceReport[{}]:{} / {}", game.getTenantId(), 
 				report.getPlayerId(), report.getObjectId());		
 		return report;
+	}
+	
+	@GetMapping(value = "/api/item/{itemId}/used")
+	public @ResponseBody Boolean isItemUsed(
+			@PathVariable String itemId, 
+			@RequestParam String playerId,
+			HttpServletRequest request, 
+			HttpServletResponse response) throws Exception {
+		Optional<Player> optionalPlayer = playerRepository.findById(playerId);
+		if(optionalPlayer.isEmpty()) {
+			throw new EntityNotFoundException("player not found");
+		}
+		Player player = optionalPlayer.get();
+		Optional<Game> optionalGame = gameRepository.findById(player.getGameId());
+		if(optionalGame.isEmpty()) {
+			throw new EntityNotFoundException("game not found");
+		}
+		Game game = optionalGame.get();
+		if(!validateAuthorization(game.getTenantId(), game.getInstituteId(), game.getSchoolId(), 
+				game.getObjectId(), Const.AUTH_RES_Game_Item, Const.AUTH_ACTION_READ, request)) {
+			throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
+		}
+		boolean result = false;
+		if(itemRepository.findByItemId(itemId) != null) {
+			result = true;
+		}
+		logger.info("isItemUsed[{}]:{} / {}", game.getTenantId(), itemId, result);		
+		return result;
 	}
 		
 	@PostMapping(value = "/api/item/delivery")
