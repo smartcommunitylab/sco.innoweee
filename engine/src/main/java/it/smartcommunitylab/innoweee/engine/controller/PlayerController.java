@@ -94,17 +94,19 @@ public class PlayerController extends AuthController {
 				imageManager.storeRobotImage(player);
 			}
 			//TODO add game action
-			if(player.isTeam()) {
-				List<String> members = new ArrayList<String>();
-				List<Player> list = playerRepository.findByGameId(game.getTenantId(), game.getObjectId());
-				for(Player pl : list) {
-					if(!pl.isTeam()) {
-						members.add(pl.getObjectId());
+			if(!StringUtils.isEmpty(game.getGeGameId())) {
+				if(player.isTeam()) {
+					List<String> members = new ArrayList<String>();
+					List<Player> list = playerRepository.findByGameId(game.getTenantId(), game.getObjectId());
+					for(Player pl : list) {
+						if(!pl.isTeam()) {
+							members.add(pl.getObjectId());
+						}
 					}
-				}
-//				geManager.addTeam(game.getGeGameId(), player.getObjectId(), members);
-			} else {
-//				geManager.addPlayer(game.getGeGameId(), player.getObjectId());
+//					geManager.addTeam(game.getGeGameId(), player.getObjectId(), members);
+				} else {
+//					geManager.addPlayer(game.getGeGameId(), player.getObjectId());
+				}				
 			}
 		} else {
 			// update existing one
@@ -135,7 +137,9 @@ public class PlayerController extends AuthController {
 			throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
 		}
 		//TODO add game action
+		if(!StringUtils.isEmpty(game.getGeGameId())) {
 //		geManager.deletePlayer(game.getGeGameId(), id);
+		}
 		playerRepository.deleteById(id);
 		logger.info("deletePlayer[{}]:{}", game.getTenantId(), id);
 		return player;

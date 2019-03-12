@@ -140,9 +140,9 @@ public class ItemController extends AuthController {
 		return report;
 	}
 	
-	@GetMapping(value = "/api/item/{itemId}/used")
+	@GetMapping(value = "/api/item/used")
 	public @ResponseBody Boolean isItemUsed(
-			@PathVariable String itemId, 
+			@RequestParam String itemId, 
 			@RequestParam String playerId,
 			HttpServletRequest request, 
 			HttpServletResponse response) throws Exception {

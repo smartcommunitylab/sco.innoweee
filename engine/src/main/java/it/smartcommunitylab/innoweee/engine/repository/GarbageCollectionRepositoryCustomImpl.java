@@ -26,7 +26,7 @@ public class GarbageCollectionRepositoryCustomImpl implements GarbageCollectionR
 		List<GarbageCollection> list = mongoTemplate.find(query, GarbageCollection.class);
 		Date now = new Date(timestamp);
 		for(GarbageCollection collection : list) {
-			if(now.after(collection.getFrom())) {
+			if(now.after(collection.getFrom()) && now.before(collection.getTo())) {
 				return collection;
 			}
 		}

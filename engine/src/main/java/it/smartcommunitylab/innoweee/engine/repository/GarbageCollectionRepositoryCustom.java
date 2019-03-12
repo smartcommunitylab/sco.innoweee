@@ -1,6 +1,5 @@
 package it.smartcommunitylab.innoweee.engine.repository;
 
-import java.util.Date;
 import java.util.List;
 
 import it.smartcommunitylab.innoweee.engine.model.GarbageCollection;
