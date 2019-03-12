@@ -31,7 +31,7 @@ export class ChangePage extends MainPage implements OnInit {
     public profileService: ProfileService,
     public authService: AuthenticationService,
     public navCtrl: NavController,
-    private alertController:AlertController,
+    private alertController: AlertController,
     public catalogService: CatalogService) {
     super(translate, authService, storage);
   }
@@ -149,8 +149,8 @@ export class ChangePage extends MainPage implements OnInit {
   buyItem(item) {
     if (this.isBuyable(item)) {
       this.confirmBuy(item).then(res => {
-      //if not try, change it and buy it
-      console.log(res);
+
+        console.log(res);
 
       })
 
@@ -190,7 +190,11 @@ export class ChangePage extends MainPage implements OnInit {
           handler: () => {
             this.catalogService.buyComponent(item, this.profileData.gameId, this.profileData.objectId).then(newRobot => {
               // //robot changed 
-              // this.profileData.robot = res
+              //if not try, change it and buy it
+              if (!this.trying) {
+                this.tmprobot.components[item.parentId] = item;
+                this.mapUri[item.type] = item.imageUri;
+              }
               this.profileService.setNewRobot(newRobot).then(res => {
                 this.tmprobot = newRobot;
                 this.profileService.getLocalPlayerData().then(res => {
@@ -203,7 +207,8 @@ export class ChangePage extends MainPage implements OnInit {
                   //load new components
                 });
               })
-            })          }
+            })
+          }
         }
       ]
     });

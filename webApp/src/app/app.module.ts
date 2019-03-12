@@ -20,6 +20,7 @@ import { ResourceComponent } from './components/resource/resource.component';
 import { SharedModule } from './shared.module';
 import { registerLocaleData } from '@angular/common';
 import localeIt from '@angular/common/locales/it';
+import { WebsocketService } from './services/websocket.service';
 
 // the second parameter 'fr' is optional
 registerLocaleData(localeIt, 'it');
@@ -47,6 +48,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   providers: [
     StatusBar,
     SplashScreen,
+    WebsocketService,
     // {provide: LOCALE_ID, useValue: "it"},
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     {provide: APP_CONFIG_TOKEN, useValue: APP_CONFIG }

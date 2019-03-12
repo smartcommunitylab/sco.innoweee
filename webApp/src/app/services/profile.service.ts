@@ -105,7 +105,7 @@ export class ProfileService {
     //         .get(url, { responseType: ResponseContentType.Blob }).toPromise().then(res => {
     //           res.blob()});
   }
-  getPlayerState(gameId,playerId):Promise<any> {
+  getPlayerState(gameId,playerId, nameGE?:string):Promise<any> {
     let url: string = this.endPoint + this.getGameApi + gameId+"/state/"+playerId;
 
     return this.http.get(url)

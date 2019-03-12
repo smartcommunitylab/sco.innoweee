@@ -8,13 +8,22 @@ import { APP_CONFIG_TOKEN, ApplicationConfig } from '../app-config';
 export class GarbageCollectionService {
   endPoint;
   getGameApi;
+  actualCollection:any;
+  getItemApi: string;
+  getReduceApi: string;
+  getDeliveryApi:string;
+  getGarbageApi:string;
   constructor(private http: Http,
     @Inject(APP_CONFIG_TOKEN) private config: ApplicationConfig) {
       this.endPoint = config.apiEndpoint;
       this.getGameApi = config.getGameApi;
+      this.getItemApi = config.getItemApi;
+      this.getReduceApi = config.getReduceApi;
+      this.getDeliveryApi = config.getDeliveryApi;
+      this.getGarbageApi = config.getGarbageApi;
    }
    
-  getActualCollection(gameId): Promise<any> {
+   getActualCollection(gameId): Promise<any> {
     let url: string = this.endPoint + this.getGameApi + gameId + '/collection';
     return this.http.get(url).toPromise().then(response => {
       return response.json();
@@ -22,6 +31,38 @@ export class GarbageCollectionService {
       return this.handleError(response);
     });
   }
+    
+  getGargabeMap(tenantId): Promise<any> {
+    let url: string = this.endPoint + this.getGarbageApi + tenantId ;
+    return this.http.get(url).toPromise().then(response => {
+      return response.json();
+    }).catch(response => {
+      return this.handleError(response);
+    });
+  }
+  reduce(playerId,coins): Promise<any> {
+    let url: string = this.endPoint + this.getItemApi+this.getReduceApi;
+    let body = {
+      playerId:playerId,
+      reduceCoin:coins
+    }    
+    return this.http.post(url,body).toPromise().then(response => {
+      return response.json();
+    }).catch(response => {
+      return this.handleError(response);
+    });
+  }
+
+  itemDelivery(item): Promise<any> {
+    let url: string = this.endPoint + this.getItemApi+this.getDeliveryApi;
+    let body = item;    
+    return this.http.post(url,body).toPromise().then(response => {
+      return response.json();
+    }).catch(response => {
+      return this.handleError(response);
+    });
+  }
+  
 
   private handleError(error: any): Promise<any> {
 

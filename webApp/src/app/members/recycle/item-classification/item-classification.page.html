@@ -5,10 +5,10 @@
 </ion-header>
 
 <ion-content padding>
-Step 1
-Step 2
-Step 3
-Step 4
-<ion-button [routerLink]="['/members/item-loaded']" expand="block" fill="outline">AVVICINA OGGETTO</ion-button>
-
+  {{'label_item_reusable'|translate}} {{item.reusable}}
+  {{'label_item_valuable'|translate}}{{item.valuable}}
+  <ion-button [routerLink]="['/members/start']" expand="block" fill="outline">{{'label_new_item'|translate}}</ion-button>
+  <ion-button [routerLink]="['/members/recycle-results']" expand="block" fill="outline">
+    {{'label_end_recycle'|translate}}
+  </ion-button>
 </ion-content>

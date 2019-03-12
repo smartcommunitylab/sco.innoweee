@@ -1,0 +1,17 @@
+<ion-header>
+
+    <ion-toolbar>
+        <ion-title>Barcode/QR Scanner v1.0 </ion-title>
+    </ion-toolbar>
+    
+    </ion-header>
+    
+    
+    <ion-content padding>
+        <button ion-button (click)="scan()">Scan ... </button>
+        <div *ngIf="scanData">
+            <p>Scanned Text : </p>
+            <p>Scanned Format : </p>
+    
+        </div>
+    </ion-content>

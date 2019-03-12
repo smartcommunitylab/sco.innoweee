@@ -1,24 +1,42 @@
 <ion-header>
-    <ion-toolbar>
-        <ion-buttons slot="start">
-            <ion-back-button></ion-back-button>
-          </ion-buttons>
-      <ion-buttons class="language" slot="end">
-        <ion-item>
-          <ion-label>{{'label_language_selection'|translate}}</ion-label>
-            <ion-select [(ngModel)]="language" (ionChange)="changeLanguage()">
-              <ion-select-option value="en" selected="true">English</ion-select-option>
-              <ion-select-option value="it">Italiano</ion-select-option>
-            </ion-select>
-        </ion-item>
-        <ion-button (click)="logout()">
-            <ion-icon slot="icon-only" name="log-out"></ion-icon>
-          </ion-button>
-      </ion-buttons>
-    </ion-toolbar>
-  </ion-header>
-  
-  <ion-content padding>
-    CREDITI RIDUCO
-    <ion-button [routerLink]="['/members/start']" expand="block" fill="outline">Passa a raccolta</ion-button>
-  </ion-content>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-buttons class="language" slot="end">
+      <ion-item>
+        <ion-label>{{'label_language_selection'|translate}}</ion-label>
+        <ion-select [(ngModel)]="language" (ionChange)="changeLanguage()">
+          <ion-select-option value="en" selected="true">English</ion-select-option>
+          <ion-select-option value="it">Italiano</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-button (click)="logout()">
+        <ion-icon slot="icon-only" name="log-out"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-grid>
+    <ion-row>
+      <ion-col>immagine</ion-col>
+      <ion-col>{{'coins_label'|translate}}</ion-col>
+      <ion-col>immagine</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="question">{{getQuestionMessage()}}</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col *ngFor="let reply of replies | keyvalue">
+        <ion-button expand="block" fill="outline" (click)="addCoins(reply.key)">{{getReplyMessage(reply.key)|translate}}</ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="question">{{'number_replies'|translate}} {{getNumberReplies()}}</ion-col>
+      <ion-col class="question">{{'number_coins'|translate}} {{getNumberCoins()}}</ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-button (click)="goToStart()" expand="block" fill="outline">{{'go_to_recycle'|translate}}</ion-button>
+</ion-content>
