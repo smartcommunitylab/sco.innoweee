@@ -1,6 +1,8 @@
 package it.smartcommunitylab.innoweee.engine.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.annotation.PostConstruct;
@@ -11,8 +13,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -141,7 +143,7 @@ public class ItemController extends AuthController {
 	}
 	
 	@GetMapping(value = "/api/item/used")
-	public @ResponseBody Boolean isItemUsed(
+	public @ResponseBody Map<String, Boolean> isItemUsed(
 			@RequestParam String itemId, 
 			@RequestParam String playerId,
 			HttpServletRequest request, 
@@ -160,9 +162,10 @@ public class ItemController extends AuthController {
 				game.getObjectId(), Const.AUTH_RES_Game_Item, Const.AUTH_ACTION_READ, request)) {
 			throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
 		}
-		boolean result = false;
+		Map<String, Boolean> result = new HashMap<String, Boolean>();
+		result.put("result", Boolean.FALSE);
 		if(itemRepository.findByItemId(itemId) != null) {
-			result = true;
+			result.put("result", Boolean.TRUE);
 		}
 		logger.info("isItemUsed[{}]:{} / {}", game.getTenantId(), itemId, result);		
 		return result;
