@@ -1,5 +1,6 @@
 package it.smartcommunitylab.innoweee.engine.controller;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,7 +14,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -132,10 +132,13 @@ public class ItemController extends AuthController {
 		if(actualCollection == null) {
 			throw new EntityNotFoundException("collection not found");
 		}
+		Date now = new Date(); 
+		report.setTenantId(game.getTenantId());
+		report.setCreationDate(now);
+		report.setLastUpdate(now);
 		report.setGarbageCollectionId(actualCollection.getObjectId());
-		//TODO add game action
-//		geManager.reduceReport(game.getGeGameId(), player.getObjectId(), report, 
-//				actualCollection.getNameGE());
+		geManager.reduceReport(game.getGeGameId(), player.getObjectId(), report, 
+				actualCollection.getNameGE());
 		reduceReportRepository.save(report);
 		logger.info("reduceReport[{}]:{} / {}", game.getTenantId(), 
 				report.getPlayerId(), report.getObjectId());		
@@ -216,9 +219,8 @@ public class ItemController extends AuthController {
 		}			
 		itemEvent.setReusable(getReusable(itemEvent, garbage));
 		itemEvent.setValuable(getValuable(itemEvent, garbage, actualCollection));
-		//TODO add game action
-//		geManager.itemDelivery(game.getGeGameId(), player.getObjectId(), itemEvent, 
-//				actualCollection.getNameGE(), garbage, category);
+		geManager.itemDelivery(game.getGeGameId(), player.getObjectId(), itemEvent, 
+				actualCollection.getNameGE(), garbage, category);
 		itemRepository.save(itemEvent);
 		logger.debug("itemDelivery:{} / {}", itemEvent.getItemType(), itemEvent.getItemId());
 		return itemEvent;

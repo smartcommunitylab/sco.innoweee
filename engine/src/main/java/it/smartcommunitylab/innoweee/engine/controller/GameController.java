@@ -209,8 +209,7 @@ public class GameController extends AuthController {
 		if(newComponent == null) {
 			throw new EntityNotFoundException("component not found");
 		}
-		//TODO add game action
-//		geManager.buildRobot(game.getGeGameId(), player.getObjectId(), newComponent);
+		geManager.buildRobot(game.getGeGameId(), player.getObjectId(), newComponent);
 		String oldComponentId = null;
 		for(Component component : player.getRobot().getComponents().values()) {
 			if(component.getType().equals(newComponent.getType())) {
@@ -244,7 +243,7 @@ public class GameController extends AuthController {
 				game.getObjectId(), Const.AUTH_RES_Game_Player, Const.AUTH_ACTION_READ, request)) {
 			throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
 		}
-		PlayerState playerState = geManager.getPlayerState(gameId, playerId, nameGE);
+		PlayerState playerState = geManager.getPlayerState(game.getGeGameId(), playerId, nameGE);
 		logger.info("getPlayerState[{}]:{} / {} / {}", game.getTenantId(), gameId, playerId, nameGE);
 		return playerState;
 	}
