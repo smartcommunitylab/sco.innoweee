@@ -1,0 +1,7 @@
+<ion-grid>
+  <ng-container *ngFor="let listPlayer of classes">
+<ion-col *ngIf="listPlayer.team==false" >
+  <ion-button  class="cell-class" (click)="selectClass(listPlayer)">{{listPlayer.name}}</ion-button>
+</ion-col>
+</ng-container>
+</ion-grid>

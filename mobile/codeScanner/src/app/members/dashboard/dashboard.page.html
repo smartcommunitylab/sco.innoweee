@@ -1,17 +1,27 @@
 <ion-header>
+    <ion-toolbar>
+        <ion-title></ion-title>
+    </ion-toolbar>
+</ion-header>
 
-  <ion-toolbar>
-      <ion-title>Barcode/QR Scanner v1.0 </ion-title>
-  </ion-toolbar>
-  
-  </ion-header>
-  
-  
-  <ion-content padding>
-      <button ion-button (click)="scan()">Scan ... </button>
-      <div *ngIf="scanData">
-          <p>Scanned Text : </p>
-          <p>Scanned Format : </p>
-  
-      </div>
-  </ion-content>
+<ion-content padding>
+    <ion-row>
+        <ion-col>
+            {{'label_class_selected'|translate}}
+        </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col>
+            <ion-button ion-button (click)="changeClass()">{{playerName}} </ion-button>
+        </ion-col>
+    </ion-row>
+    <div>
+        <ion-button ion-button (click)="scan()">{{'label_scan'|translate}} </ion-button>
+    </div>
+    <div *ngIf="scanData">
+        <p>{{'label_id'|translate}} {{scanData.text}}</p>
+        <p *ngIf="itemPresent">{{'label_item_present'|translate}}</p>
+        <ion-button ion-button (click)="sendLim()" [disabled]="itemPresent">{{'label_send_to_lim'|translate}}
+        </ion-button>
+    </div>
+</ion-content>
