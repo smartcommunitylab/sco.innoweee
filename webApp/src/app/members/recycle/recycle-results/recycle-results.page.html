@@ -5,49 +5,51 @@
 </ion-header>
 
 <ion-content padding>
-  <div *ngIf="profileData">
-
-    <ion-grid>
-      <ion-row>
-
-        <ion-col>
-          {{profileState.totalRecycleCoin|number:'1.0-3':'it'}} {{'total_items'|translate}}
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>
-          {{profileState.totalReduceCoin|number:'1.0-3':'it'}} {{'total_weight'|translate}}</ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>
-          {{profileState.totalReuseCoin|number:'1.0-3':'it'}} {{'total_co2'|translate}}</ion-col>
-      </ion-row>
-      <ion-row>
-
-        <ion-col>
-          {{profileState.items|number:'1.0-3':'it'}} {{'total_items'|translate}}
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>
-          {{profileState.weight|number:'1.0-3':'it'}} {{'total_weight'|translate}}</ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>
-          {{profileState.co2|number:'1.0-3':'it'}} {{'total_co2'|translate}}</ion-col>
-      </ion-row>
-    </ion-grid>
+  <div class="resources">
+    <div *ngIf="profileState" class="total-resources">
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            {{profileState.totalRecycleCoin|number:'1.0-3':'it'}} {{'total_recycle_coins'|translate}}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            {{profileState.totalReduceCoin|number:'1.0-3':'it'}} {{'total_reduce_coins'|translate}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            {{profileState.totalReuseCoin|number:'1.0-3':'it'}} {{'total_reuse_coins'|translate}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            {{profileState.items|number:'1.0-3':'it'}} {{'total_items'|translate}}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            {{profileState.weight|number:'1.0-3':'it'}} {{'total_weight'|translate}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            {{profileState.co2|number:'1.0-3':'it'}} {{'total_co2'|translate}}</ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+    <app-resource *ngFor="let resource of resources" [resourcename]="getResourceLabel(resource.key)" [barvalue]="getResourceBar(resource.value)"
+    [resourcevalue]="getResourceValue(resource.key)"></app-resource>
+    <!-- <app-resource [resourcename]="getResourceLabel('plastic')" [barvalue]="getResourceBar('plastic')" [resourcevalue]="getResourceValue('plastic')"></app-resource>
+    <app-resource [resourcename]="getResourceLabel('glass')" [barvalue]="getResourceBar('glass')" [resourcevalue]="getResourceValue('glass')"></app-resource>
+    <app-resource [resourcename]="getResourceLabel('iron')" [barvalue]="getResourceBar('iron')" [resourcevalue]="getResourceValue('iron')"></app-resource>
+    <app-resource [resourcename]="getResourceLabel('aluminium')" [barvalue]="getResourceBar('aluminium')"
+      [resourcevalue]="getResourceValue('aluminium')"></app-resource>
+    <app-resource [resourcename]="getResourceLabel('copper')" [barvalue]="getResourceBar('copper')" [resourcevalue]="getResourceValue('copper')"></app-resource>
+    <app-resource [resourcename]="getResourceLabel('nickel')" [barvalue]="getResourceBar('nickel')" [resourcevalue]="getResourceValue('nickel')"></app-resource>
+    <app-resource [resourcename]="getResourceLabel('platinum')" [barvalue]="getResourceBar('platinum')" [resourcevalue]="getResourceValue('platinum')"></app-resource>
+    <app-resource [resourcename]="getResourceLabel('tin')" [barvalue]="getResourceBar('tin')" [resourcevalue]="getResourceValue('tin')"></app-resource>
+    <app-resource [resourcename]="getResourceLabel('silver')" [barvalue]="getResourceBar('silver')" [resourcevalue]="getResourceValue('silver')"></app-resource>
+    <app-resource [resourcename]="getResourceLabel('gold')" [barvalue]="getResourceBar('gold')" [resourcevalue]="getResourceValue('gold')"></app-resource> -->
   </div>
-  <app-resource [resourcename]="getResourceLabel('plastic')" [barvalue]="getResourceBar('plastic')" [resourcevalue]="getResourceValue('plastic')"></app-resource>
-  <app-resource [resourcename]="getResourceLabel('glass')" [barvalue]="getResourceBar('glass')" [resourcevalue]="getResourceValue('glass')"></app-resource>
-  <app-resource [resourcename]="getResourceLabel('iron')" [barvalue]="getResourceBar('iron')" [resourcevalue]="getResourceValue('iron')"></app-resource>
-  <app-resource [resourcename]="getResourceLabel('aluminium')" [barvalue]="getResourceBar('aluminium')" [resourcevalue]="getResourceValue('aluminium')"></app-resource>
-  <app-resource [resourcename]="getResourceLabel('copper')" [barvalue]="getResourceBar('copper')" [resourcevalue]="getResourceValue('copper')"></app-resource>
-  <app-resource [resourcename]="getResourceLabel('nickel')" [barvalue]="getResourceBar('nickel')" [resourcevalue]="getResourceValue('nickel')"></app-resource>
-  <app-resource [resourcename]="getResourceLabel('platinum')" [barvalue]="getResourceBar('platinum')" [resourcevalue]="getResourceValue('platinum')"></app-resource>
-  <app-resource [resourcename]="getResourceLabel('tin')" [barvalue]="getResourceBar('tin')" [resourcevalue]="getResourceValue('tin')"></app-resource>
-  <app-resource [resourcename]="getResourceLabel('silver')" [barvalue]="getResourceBar('silver')" [resourcevalue]="getResourceValue('silver')"></app-resource>
-  <app-resource [resourcename]="getResourceLabel('gold')" [barvalue]="getResourceBar('gold')" [resourcevalue]="getResourceValue('gold')"></app-resource>
   <ion-button [routerLink]="['/members/myrobot']" expand="block" fill="outline">{{'go_to_robot'|translate}}</ion-button>
   <ion-button [routerLink]="['/members/home']" expand="block" fill="outline">{{'go_to_home'|translate}}</ion-button>
 

@@ -3,5 +3,18 @@ ion-row {
 
     ion-progress-bar {
         height: 8px;
+        --buffer-background: none;
+
     }
+    .kilo {
+        --progress-background :red;
+    }
+    .grammo{
+        --progress-background :blue;
+
+    }
+   .miligrammo{
+        --progress-background :violet;
+    }
+
 }

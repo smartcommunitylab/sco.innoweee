@@ -4,6 +4,10 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Storage } from '@ionic/storage';
 import { getAllRouteGuards } from '@angular/router/src/utils/preactivation';
+import { async } from 'q';
+import { ModalController } from '@ionic/angular';
+import { ClassComponent } from './modals/class/class.component';
+import { OverlayEventDetail } from '@ionic/core';
 
 
 const PLAYER_DATA_KEY = 'playerData';
@@ -15,13 +19,15 @@ const REFRESH_TIME = 200;
   styleUrls: ['./game-selection.page.scss'],
 })
 export class GameSelectionPage implements OnInit {
+  playerName: any;
   // @Output() title = new EventEmitter<string>();
   // setTitle(title:string){
   //    this.title.emit(title);
   // }
   constructor(private profileService: ProfileService,
     private router: Router, private fb: FormBuilder,
-    private _cdr: ChangeDetectorRef) {
+    private _cdr: ChangeDetectorRef,
+    public modalController: ModalController) {
   }
   domain: string = "";
   domains: [];
@@ -125,9 +131,10 @@ export class GameSelectionPage implements OnInit {
 
   setPlayer(player) {
     this.playerId = player.objectId;
+    this.playerName= player.name;
   }
   getPlayerData() {
-    this.playerData = this.profileService.getPlayerDataFromList(this.playerId , this.players);
+    this.playerData = this.profileService.getPlayerDataFromList(this.playerId, this.players);
     this.profileService.getPlayerState(this.gameId, this.playerId).then(res => {
       this.playerState = res;
       this.profileService.setPlayerData(this.playerData);
@@ -135,5 +142,23 @@ export class GameSelectionPage implements OnInit {
       this.router.navigate(['members', 'home']);
     })
   }
+  async chooseClass() {
+    const modal: HTMLIonModalElement =
+      await this.modalController.create({
+        component: ClassComponent,
+        componentProps: {
+          classes:this.players
+        }
+      });
 
+    modal.onDidDismiss().then((detail: OverlayEventDetail) => {
+      if (detail !== null) {
+        console.log('The result:', detail.data);
+        this.setPlayer(detail.data);
+      }
+    });
+
+    await modal.present();
+
+  }
 }

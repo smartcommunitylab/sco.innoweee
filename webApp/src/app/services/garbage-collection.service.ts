@@ -2,6 +2,9 @@ import { Injectable, Inject } from '@angular/core';
 import { Http } from '@angular/http';
 import { APP_CONFIG_TOKEN, ApplicationConfig } from '../app-config';
 
+
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -13,6 +16,20 @@ export class GarbageCollectionService {
   getReduceApi: string;
   getDeliveryApi:string;
   getGarbageApi:string;
+  getUsedApi: any;
+
+  arrayResources = [
+    "plastic",
+    "glass",
+    "iron",
+    "aluminium",
+    "copper",
+    "nickel",
+    "platinum",
+    "tin",
+    "silver",
+    "gold"
+  ]
   constructor(private http: Http,
     @Inject(APP_CONFIG_TOKEN) private config: ApplicationConfig) {
       this.endPoint = config.apiEndpoint;
@@ -21,8 +38,11 @@ export class GarbageCollectionService {
       this.getReduceApi = config.getReduceApi;
       this.getDeliveryApi = config.getDeliveryApi;
       this.getGarbageApi = config.getGarbageApi;
+      this.getUsedApi = config.getUsedApi;
    }
-   
+   getArrayResources():any[] {
+     return this.arrayResources;
+   }
    getActualCollection(gameId): Promise<any> {
     let url: string = this.endPoint + this.getGameApi + gameId + '/collection';
     return this.http.get(url).toPromise().then(response => {
@@ -32,6 +52,18 @@ export class GarbageCollectionService {
     });
   }
     
+  checkIfPresent(id: string, idUser:string): Promise<any> {
+    let url: string = this.endPoint + this.getItemApi + this.getUsedApi+"?playerId="+idUser+"&itemId="+encodeURIComponent(id);
+
+    return this.http.get( url).toPromise().then(res => {
+      return res.json()
+
+    }).catch(response => {
+      return this.handleError(response)
+    });
+
+
+  }
   getGargabeMap(tenantId): Promise<any> {
     let url: string = this.endPoint + this.getGarbageApi + tenantId ;
     return this.http.get(url).toPromise().then(response => {

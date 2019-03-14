@@ -39,6 +39,10 @@ export class ChangePage extends MainPage implements OnInit {
   ngOnInit() {
     super.setRoute("myrobot");
     this.mapUri = {};
+
+  }
+
+  ionViewWillEnter() {
     this.profileService.getLocalPlayerData().then(res => {
       //get data and robot
       this.profileData = res
@@ -52,8 +56,6 @@ export class ChangePage extends MainPage implements OnInit {
       //get resources and coins
       this.profileState = res
     });
-
-
   }
   private resetetMapImage() {
     this.tmprobot = (JSON.parse(JSON.stringify(this.profileData.robot)));
@@ -149,13 +151,8 @@ export class ChangePage extends MainPage implements OnInit {
   buyItem(item) {
     if (this.isBuyable(item)) {
       this.confirmBuy(item).then(res => {
-
         console.log(res);
-
       })
-
-
-
     }
   }
   async confirmBuy(item) {
@@ -207,6 +204,10 @@ export class ChangePage extends MainPage implements OnInit {
                   //load new components
                 });
               })
+              this.profileService.getPlayerState(this.profileData.gameId, this.profileData.objectId).then(res => {
+                this.profileState = res;
+                this.profileService.setPlayerState(res);
+              });
             })
           }
         }

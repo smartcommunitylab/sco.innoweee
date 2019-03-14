@@ -17,7 +17,12 @@ export class RecycleResultsPage implements OnInit {
   playerData: any;
   nameGE: any;
   profileState: any;
-
+  resources: any[] = [];
+  max = {
+    'Kg': 0,
+    'g': 0,
+    'mg': 0
+  };
   constructor(public translate: TranslateService,
     public storage: Storage,
     public toastController: ToastController,
@@ -27,20 +32,42 @@ export class RecycleResultsPage implements OnInit {
     private alertController: AlertController,
     private garbageCollection: GarbageCollectionService,
     private router: Router,
+    private garbageService: GarbageCollectionService,
     public catalogService: CatalogService) {
   }
   ngOnInit() {
     this.profileService.getLocalPlayerData().then(res => {
       this.playerData = res;
-        this.garbageCollection.getActualCollection(this.playerData.gameId).then(res => {
-          this.nameGE = res.nameGE
-          this.profileService.getPlayerState(this.playerData.gameId, this.playerData.objectId,this.nameGE).then(res => {
-            this.profileState=res;
-            console.log(res);
-          });
+      this.garbageCollection.getActualCollection(this.playerData.gameId).then(res => {
+        this.nameGE = res.nameGE
+        this.profileService.getPlayerState(this.playerData.gameId, this.playerData.objectId, this.nameGE).then(res => {
+          this.profileState = res;
+          this.orderResources(this.profileState)
         });
       });
+    });
+  }
+  orderResources(map) {
+    var arrayResources = this.garbageService.getArrayResources();
+    for (const [key, value] of Object.entries(map)) {
+      if (arrayResources.indexOf(key) > -1) {
+        this.resources.push({ "key": key, "value": map[key] });
+        this.addMax(map[key]);
+      }
+    };
+    this.resources.sort((a, b) => {
+      return b.value - a.value
+    })
 
+
+  }
+  addMax(value) {
+    if (value > 1 && (this.max['Kg'] < value))
+      return this.max['Kg'] = value;
+    if (value < 1 && value > 0.001 && (this.max['g'] < value))
+      return this.max['g'] = value;
+    if (value < 0.001 && (this.max['mg'] < value))
+      return this.max['mg'] = value;
   }
   getResourceLabel(label) {
     return 'resource_' + label;
@@ -51,7 +78,13 @@ export class RecycleResultsPage implements OnInit {
     else return ""
   }
 
-  getResourceBar(resource) {
-    return '0.7';
+  getResourceBar(value) {
+    //take maximum of group and retun proportional
+    if (value > 1)
+      return value / this.max['Kg'];
+    if (value < 1 && value > 0.001)
+      return value / this.max['g'];
+    if (value < 0.001)
+      return value / this.max['mg'];
   }
 }

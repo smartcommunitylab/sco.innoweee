@@ -63,16 +63,16 @@
                 <ion-row>
 
                   <ion-col>
-                    {{profileState.totalRecycleCoin|number:'1.0-3':'it'}} {{'total_items'|translate}}
+                    {{profileState.totalRecycleCoin|number:'1.0-3':'it'}} {{'total_recycle_coins'|translate}}
                   </ion-col>
                 </ion-row>
                 <ion-row>
                   <ion-col>
-                    {{profileState.totalReduceCoin|number:'1.0-3':'it'}} {{'total_weight'|translate}}</ion-col>
+                    {{profileState.totalReduceCoin|number:'1.0-3':'it'}} {{'total_reduce_coins'|translate}}</ion-col>
                 </ion-row>
                 <ion-row>
                   <ion-col>
-                    {{profileState.totalReuseCoin|number:'1.0-3':'it'}} {{'total_co2'|translate}}</ion-col>
+                    {{profileState.totalReuseCoin|number:'1.0-3':'it'}} {{'total_reuse_coins'|translate}}</ion-col>
                 </ion-row>
                 <ion-row>
 
@@ -90,7 +90,11 @@
                 </ion-row>
               </ion-grid>
             </div>
-            <app-resource [resourcename]="getResourceLabel('plastic')" [barvalue]="getResourceBar('plastic')"
+
+            <app-resource *ngFor="let resource of resources" [resourcename]="getResourceLabel(resource.key)" [barvalue]="getResourceBar(resource.value)"
+              [resourcevalue]="getResourceValue(resource.key)"></app-resource>
+
+            <!-- <app-resource [resourcename]="getResourceLabel('plastic')" [barvalue]="getResourceBar('plastic')"
               [resourcevalue]="getResourceValue('plastic')"></app-resource>
             <app-resource [resourcename]="getResourceLabel('glass')" [barvalue]="getResourceBar('glass')"
               [resourcevalue]="getResourceValue('glass')"></app-resource>
@@ -106,7 +110,7 @@
             <app-resource [resourcename]="getResourceLabel('tin')" [barvalue]="getResourceBar('tin')" [resourcevalue]="getResourceValue('tin')"></app-resource>
             <app-resource [resourcename]="getResourceLabel('silver')" [barvalue]="getResourceBar('silver')"
               [resourcevalue]="getResourceValue('silver')"></app-resource>
-            <app-resource [resourcename]="getResourceLabel('gold')" [barvalue]="getResourceBar('gold')" [resourcevalue]="getResourceValue('gold')"></app-resource>
+            <app-resource [resourcename]="getResourceLabel('gold')" [barvalue]="getResourceBar('gold')" [resourcevalue]="getResourceValue('gold')"></app-resource> -->
           </div>
         </div>
       </ion-col>

@@ -67,6 +67,21 @@
         "label_send_item":"Send",
         "label_item_reusable":"The item is reusable",
         "label_item_valuable":"The item is valuable",
-        "label_new_item":"Insert a new item"
+        "label_new_item":"Insert a new item",
+        "label_recycle_value":"Put the item in the box VALORE",
+        "label_recycle_reuse":"Put the item in the box RIUSO",
+        "label_recycle_recycle":"Put the item in the box  RICICLO",
+        "label_point_reusable":"You get a point RIUTILIZZO",
+        "label_point_recicle":"You get a point RICICLO",
+        "label_insert_itemId":"Insert the ID of the object",
+        "label_insert_item":"Insert Manually",
+        "go_to_robot":"Go to My Robot",
+        "go_to_home":"Go to homepage",
+        "total_recycle_coins":"Total recycle coins",
+        "total_reduce_coins":"Total reduce coins",
+        "total_reuse_coins":"Total reuse coins",
+        "duplicate_id_header":"Error",
+        "duplicate_id_subtitle":"Id duplicated",
+        "duplicate_id_message":"This Id seems alredy used"
 
 }

@@ -7,6 +7,7 @@ import {TranslateModule} from '@ngx-translate/core';
 import { IonicModule } from '@ionic/angular';
 
 import { GameSelectionPage } from './game-selection.page';
+import { ClassComponent } from './modals/class/class.component';
 
 const routes: Routes = [
   {
@@ -24,6 +25,7 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [GameSelectionPage]
+  entryComponents: [ClassComponent],
+  declarations: [GameSelectionPage, ClassComponent]
 })
 export class GameSelectionPageModule {}

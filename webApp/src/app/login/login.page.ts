@@ -13,8 +13,14 @@ export class LoginPage implements OnInit {
   ngOnInit() {
   }
  
-  login() {
-    this.authService.login();
+  login(form){
+    this.authService.login(form.value)
+    // .subscribe((res)=>{
+    //   // this.router.navigateByUrl('home');
+    // });
   }
+  // login() {
+  //   this.authService.login();
+  // }
 
 }

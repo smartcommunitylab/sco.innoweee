@@ -37,21 +37,19 @@
         <div class="total-resources" *ngIf="profileState">
           <ion-grid>
             <ion-row>
-
-              <ion-col>
-                {{profileState.totalRecycleCoin|number:'1.0-3':'it'}} {{'total_items'|translate}}
-              </ion-col>
-            </ion-row>
+                <ion-col>
+                    {{profileState.totalRecycleCoin|number:'1.0-3':'it'}} {{'total_recycle_coins'|translate}}
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col>
+                    {{profileState.totalReduceCoin|number:'1.0-3':'it'}} {{'total_reduce_coins'|translate}}</ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col>
+                    {{profileState.totalReuseCoin|number:'1.0-3':'it'}} {{'total_reuse_coins'|translate}}</ion-col>
+                </ion-row>
             <ion-row>
-              <ion-col>
-                {{profileState.totalReduceCoin|number:'1.0-3':'it'}} {{'total_weight'|translate}}</ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col>
-                {{profileState.totalReuseCoin|number:'1.0-3':'it'}} {{'total_co2'|translate}}</ion-col>
-            </ion-row>
-            <ion-row>
-
               <ion-col>
                 {{profileState.items|number:'1.0-3':'it'}} {{'total_items'|translate}}
               </ion-col>
