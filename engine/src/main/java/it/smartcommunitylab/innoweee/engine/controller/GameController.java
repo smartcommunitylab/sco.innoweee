@@ -259,7 +259,7 @@ public class GameController extends AuthController {
 		}
 		Game game = optionalGame.get();
 		if(!validateAuthorization(game.getTenantId(), game.getInstituteId(), game.getSchoolId(), 
-				game.getObjectId(), Const.AUTH_RES_Game_Player, Const.AUTH_ACTION_UPDATE, request)) {
+				game.getObjectId(), Const.AUTH_RES_Game_Player, Const.AUTH_ACTION_DELETE, request)) {
 			throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
 		}
 		if(!StringUtils.isEmpty(game.getGeGameId())) {
@@ -287,5 +287,6 @@ public class GameController extends AuthController {
 				}
 			}			
 		}
+		logger.info("resetGeGame[{}]:{} / {}", game.getTenantId(), gameId, game.getGeGameId());
 	}
 }
