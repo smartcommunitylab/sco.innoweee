@@ -248,4 +248,44 @@ public class GameController extends AuthController {
 		return playerState;
 	}
 	
+	@GetMapping(value = "/api/game/{gameId}/gereset")
+	public void resetGeGame(
+			@PathVariable String gameId,
+			HttpServletRequest request, 
+			HttpServletResponse response) throws Exception {
+		Optional<Game> optionalGame = gameRepository.findById(gameId);
+		if(optionalGame.isEmpty()) {
+			throw new EntityNotFoundException("game not found");
+		}
+		Game game = optionalGame.get();
+		if(!validateAuthorization(game.getTenantId(), game.getInstituteId(), game.getSchoolId(), 
+				game.getObjectId(), Const.AUTH_RES_Game_Player, Const.AUTH_ACTION_UPDATE, request)) {
+			throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
+		}
+		if(!StringUtils.isEmpty(game.getGeGameId())) {
+			List<Player> list = playerRepository.findByGameId(game.getTenantId(), game.getObjectId());
+			List<String> members = new ArrayList<String>();
+			// delete players
+			for(Player pl : list) {
+				if(!pl.isTeam()) {
+					members.add(pl.getObjectId());
+					geManager.deletePlayer(game.getGeGameId(), pl.getObjectId());
+				}
+			}
+			// delete team
+			for(Player pl : list) {
+				if(pl.isTeam()) {
+					geManager.deletePlayer(game.getGeGameId(), pl.getObjectId());
+				}
+			}
+			// add players and team
+			for(Player pl : list) {
+				if(!pl.isTeam()) {
+					geManager.addPlayer(game.getGeGameId(), pl.getObjectId());
+				} else {
+					geManager.addTeam(game.getGeGameId(), pl.getObjectId(), pl.getName(), members);
+				}
+			}			
+		}
+	}
 }
