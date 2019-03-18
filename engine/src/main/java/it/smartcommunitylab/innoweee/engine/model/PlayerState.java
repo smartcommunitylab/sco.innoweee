@@ -3,13 +3,13 @@ package it.smartcommunitylab.innoweee.engine.model;
 public class PlayerState {
 	private String playerId;
 	private String nameGE;
-	private Integer reduceCoin;
-	private Integer totalReduceCoin;
-	private Integer reuseCoin;
-	private Integer totalReuseCoin;
-	private Integer recycleCoin;
-	private Integer totalRecycleCoin;
-	private Integer items;
+	private double reduceCoin;
+	private double totalReduceCoin;
+	private double reuseCoin;
+	private double totalReuseCoin;
+	private double recycleCoin;
+	private double totalRecycleCoin;
+	private double items;
 	private double weight;
 	private double co2;
 	private double plastic;
@@ -35,28 +35,46 @@ public class PlayerState {
 	public void setNameGE(String nameGE) {
 		this.nameGE = nameGE;
 	}
-	public Integer getReduceCoin() {
+	public double getReduceCoin() {
 		return reduceCoin;
 	}
-	public void setReduceCoin(Integer reduceCoin) {
+	public void setReduceCoin(double reduceCoin) {
 		this.reduceCoin = reduceCoin;
 	}
-	public Integer getReuseCoin() {
+	public double getTotalReduceCoin() {
+		return totalReduceCoin;
+	}
+	public void setTotalReduceCoin(double totalReduceCoin) {
+		this.totalReduceCoin = totalReduceCoin;
+	}
+	public double getReuseCoin() {
 		return reuseCoin;
 	}
-	public void setReuseCoin(Integer reuseCoin) {
+	public void setReuseCoin(double reuseCoin) {
 		this.reuseCoin = reuseCoin;
 	}
-	public Integer getRecycleCoin() {
+	public double getTotalReuseCoin() {
+		return totalReuseCoin;
+	}
+	public void setTotalReuseCoin(double totalReuseCoin) {
+		this.totalReuseCoin = totalReuseCoin;
+	}
+	public double getRecycleCoin() {
 		return recycleCoin;
 	}
-	public void setRecycleCoin(Integer recycleCoin) {
+	public void setRecycleCoin(double recycleCoin) {
 		this.recycleCoin = recycleCoin;
 	}
-	public Integer getItems() {
+	public double getTotalRecycleCoin() {
+		return totalRecycleCoin;
+	}
+	public void setTotalRecycleCoin(double totalRecycleCoin) {
+		this.totalRecycleCoin = totalRecycleCoin;
+	}
+	public double getItems() {
 		return items;
 	}
-	public void setItems(Integer items) {
+	public void setItems(double items) {
 		this.items = items;
 	}
 	public double getWeight() {
@@ -130,26 +148,5 @@ public class PlayerState {
 	}
 	public void setPlatinum(double platinum) {
 		this.platinum = platinum;
-	}
-	public Integer getTotalReduceCoin() {
-		return totalReduceCoin;
-	}
-	public void setTotalReduceCoin(Integer totalReduceCoin) {
-		this.totalReduceCoin = totalReduceCoin;
-	}
-	public Integer getTotalReuseCoin() {
-		return totalReuseCoin;
-	}
-	public void setTotalReuseCoin(Integer totalReuseCoin) {
-		this.totalReuseCoin = totalReuseCoin;
-	}
-	public Integer getTotalRecycleCoin() {
-		return totalRecycleCoin;
-	}
-	public void setTotalRecycleCoin(Integer totalRecycleCoin) {
-		this.totalRecycleCoin = totalRecycleCoin;
-	}
-	
-	
-	
+	}	
 }

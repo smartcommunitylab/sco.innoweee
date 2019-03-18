@@ -91,21 +91,6 @@
 			"imageUri":"legs1.png",
 			"name":{"it":"gambe avanzate"},
 			"costMap":{"reduceCoin":2,"reuseCoin":3,"recycleCoin":4}
-		}, 
-		"feet0":{
-			"componentId":"feet0",
-			"type":"feet",
-			"imageUri":"feet0.png",
-			"name":{"it":"piadi base"},
-			"costMap":{"reduceCoin":1,"reuseCoin":2,"recycleCoin":3}
-		},
-		"feet1":{
-			"componentId":"feet1",
-			"type":"feet", 
-			"parentId":"feet0", 
-			"imageUri":"feet1.png",
-			"name":{"it":"piadi avanzati"},
-			"costMap":{"reduceCoin":2,"reuseCoin":3,"recycleCoin":4}
-		} 		 
+		}		 
 	}
 }

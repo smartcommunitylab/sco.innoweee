@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import it.smartcommunitylab.innoweee.engine.common.Const;
+import it.smartcommunitylab.innoweee.engine.exception.UnauthorizedException;
 import it.smartcommunitylab.innoweee.engine.model.Catalog;
 import it.smartcommunitylab.innoweee.engine.model.CategoryMap;
 import it.smartcommunitylab.innoweee.engine.model.GarbageMap;
@@ -37,6 +39,9 @@ public class AdminController extends AuthController {
 			@RequestBody Catalog catalog,
 			HttpServletRequest request, 
 			HttpServletResponse response) throws Exception {
+		if(!validateRole(Const.ROLE_ADMIN, request)) {
+			throw new UnauthorizedException("Unauthorized Exception: role not valid");
+		}
 		catalogRepository.save(catalog);
 		logger.info("saveCatalog:{}", catalog.getId());
 		return catalog;
@@ -47,6 +52,9 @@ public class AdminController extends AuthController {
 			@RequestBody GarbageMap map,
 			HttpServletRequest request, 
 			HttpServletResponse response) throws Exception {
+		if(!validateRole(Const.ROLE_ADMIN, request)) {
+			throw new UnauthorizedException("Unauthorized Exception: role not valid");
+		}
 		garbageMapRepository.save(map);
 		logger.info("saveGarbageMap:{}", map.getId());
 		return map;
@@ -57,6 +65,9 @@ public class AdminController extends AuthController {
 			@RequestBody CategoryMap map,
 			HttpServletRequest request, 
 			HttpServletResponse response) throws Exception {
+		if(!validateRole(Const.ROLE_ADMIN, request)) {
+			throw new UnauthorizedException("Unauthorized Exception: role not valid");
+		}
 		categoryMapRepository.save(map);
 		logger.info("saveCategoryMap:{}", map.getId());
 		return map;
@@ -67,6 +78,9 @@ public class AdminController extends AuthController {
 			@RequestBody ItemValuableMap map,
 			HttpServletRequest request, 
 			HttpServletResponse response) throws Exception {
+		if(!validateRole(Const.ROLE_ADMIN, request)) {
+			throw new UnauthorizedException("Unauthorized Exception: role not valid");
+		}
 		valuableMapRepository.save(map);
 		logger.info("saveItemValuableMap:{}", map.getId());
 		return map;

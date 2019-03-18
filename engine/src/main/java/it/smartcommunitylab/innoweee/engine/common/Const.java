@@ -59,6 +59,5 @@ public class Const {
 	public static final String ROBOT_ARMR = "armR";
 	public static final String ROBOT_ARML = "armL";
 	public static final String ROBOT_LEGS = "legs";
-	public static final String ROBOT_FEET = "feet";
 }
 
