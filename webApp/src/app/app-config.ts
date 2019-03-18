@@ -18,12 +18,17 @@ export interface ApplicationConfig {
     getDeliveryApi:string;
     getGarbageApi:string;
     getUsedApi:string;
+    aacClientId:string;
+    redirectUrl:string;
+    scope:string;
+    aacUrl:string;
 }
 
 // Configuration values for our app
 export const APP_CONFIG: ApplicationConfig = {
     appName: 'InnoWee',
-    apiEndpoint: 'https://dev.smartcommunitylab.it/innoweee/4x3b0bti/',
+    // apiEndpoint: 'http://192.168.42.60:2020/',
+    apiEndpoint: 'https://dev.smartcommunitylab.it/innoweee-engine/',
     getDomainApi: 'api/profile',
     getInstituteApi: '/api/institute/',
     getSchoolApi: 'api/school',
@@ -39,7 +44,12 @@ export const APP_CONFIG: ApplicationConfig = {
     itemSocketURL:"itemws",
     getDeliveryApi:"/delivery",
     getGarbageApi:"api/garbageMap/",
-    getUsedApi:"/used"
+    getUsedApi:"/used",
+    aacClientId: '2be89b9c-4050-4e7e-9042-c02b0d9121c6',
+    redirectUrl: 'https://dev.smartcommunitylab.it/innoweee/',
+    scope: 'profile.basicprofile.me profile.accountprofile.me',
+    aacUrl: 'https://am-dev.smartcommunitylab.it/aac/',
+
 };
 
 // Create a config token to avoid naming conflicts

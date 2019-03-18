@@ -64,7 +64,10 @@
             </ion-row>
           </ion-grid>
         </div>
-        <app-comparison [resourcename]="getResourceLabel('plastic')"  [barvalue]="getResourceBar('plastic')"
+        <app-comparison *ngFor="let resource of resources" [resourcename]="getResourceLabel(resource.key)" [barvalue]="getResourceBar(resource.value)"
+        [resourcevalue]="getResourceValue(resource.key)" [barCompareValue]="getResourceClassBar(resource.key,resource.value)"
+        [resourceCompareValue]="getResourceClassValue(resource.key)" [className]="selectedClass"></app-comparison>
+        <!-- <app-comparison [resourcename]="getResourceLabel('plastic')"  [barvalue]="getResourceBar('plastic')"
         [resourcevalue]="getResourceValue('plastic')" [barCompareValue]="getResourceClassBar('plastic')"
         [resourceCompareValue]="getResourceClassValue('plastic')" [className]="selectedClass"></app-comparison>
         <app-comparison [resourcename]="getResourceLabel('glass')" [barvalue]="getResourceBar('glass')" [resourcevalue]="getResourceValue('glass')" [barCompareValue]="getResourceClassBar('glass')"
@@ -86,7 +89,7 @@
         <app-comparison [resourcename]="getResourceLabel('silver')" [barvalue]="getResourceBar('silver')" [resourcevalue]="getResourceValue('silver')" [barCompareValue]="getResourceClassBar('silver')"
         [resourceCompareValue]="getResourceClassValue('silver')" [className]="selectedClass"></app-comparison>
         <app-comparison [resourcename]="getResourceLabel('gold')" [barvalue]="getResourceBar('gold')" [resourcevalue]="getResourceValue('gold')" [barCompareValue]="getResourceClassBar('gold')"
-        [resourceCompareValue]="getResourceClassValue('gold')" [className]="selectedClass"></app-comparison>
+        [resourceCompareValue]="getResourceClassValue('gold')" [className]="selectedClass"></app-comparison> -->
       </ion-col>
     </ion-row>
   </ion-grid>

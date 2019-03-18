@@ -12,15 +12,16 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import { APP_CONFIG, APP_CONFIG_TOKEN } from './app-config';
-import { PointComponent } from './components/point/point.component';
-import { ResourceComponent } from './components/resource/resource.component';
 import { SharedModule } from './shared.module';
 import { registerLocaleData } from '@angular/common';
 import localeIt from '@angular/common/locales/it';
 import { WebsocketService } from './services/websocket.service';
+import { AuthenticationService } from './services/authentication.service';
+import { AuthGuard } from './guards/auth.guard';
+import { TokenInterceptor } from './interceptors/token-interceptor';
 
 // the second parameter 'fr' is optional
 registerLocaleData(localeIt, 'it');
@@ -31,8 +32,8 @@ export function HttpLoaderFactory(http: HttpClient) {
   declarations: [AppComponent],
   entryComponents: [],
   imports: [BrowserModule,
-    HttpClientModule,
     HttpModule,
+    HttpClientModule,
     SharedModule,
     TranslateModule.forRoot({
       loader: {
@@ -49,6 +50,13 @@ export function HttpLoaderFactory(http: HttpClient) {
     StatusBar,
     SplashScreen,
     WebsocketService,
+    AuthenticationService,
+    AuthGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    },
     // {provide: LOCALE_ID, useValue: "it"},
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     {provide: APP_CONFIG_TOKEN, useValue: APP_CONFIG }

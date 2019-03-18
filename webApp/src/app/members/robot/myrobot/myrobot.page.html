@@ -17,7 +17,7 @@
             <app-point [pointvalue]="getResourceValue('reduceCoin')" [iconname]="'cube'"></app-point>
             <app-point [pointvalue]="getResourceValue('reuseCoin')" [iconname]="'star'"></app-point>
 
-            <ion-button [routerLink]="['/members/change']" fill="outline">{{'change_robot'|translate}}</ion-button>
+            <ion-button [routerLink]="['/change']" fill="outline">{{'change_robot'|translate}}</ion-button>
           </div>
         </div>
       </ion-col>
@@ -25,7 +25,7 @@
         <div>
           <div class="robot" *ngIf="profileData">
             <ion-grid>
-              <ion-row>
+              <ion-row class="head-row">
                 <ion-col>
                   <ion-img [src]="getImg('head')" class="head-robot"></ion-img>
                 </ion-col>
@@ -41,14 +41,9 @@
                   <ion-img [src]="getImg('armL')" class="armL-robot"></ion-img>
                 </ion-col>
               </ion-row>
-              <ion-row>
+              <ion-row class="legs-row">
                 <ion-col>
                   <ion-img [src]="getImg('legs')" class="legs-robot"></ion-img>
-                </ion-col>
-              </ion-row>
-              <ion-row>
-                <ion-col>
-                  <ion-img [src]="getImg('feet')" class="feet-robot"></ion-img>
                 </ion-col>
               </ion-row>
             </ion-grid>

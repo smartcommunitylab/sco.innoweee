@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Storage } from '@ionic/storage';
 import { getAllRouteGuards } from '@angular/router/src/utils/preactivation';
 import { async } from 'q';
-import { ModalController } from '@ionic/angular';
+import { ModalController, LoadingController } from '@ionic/angular';
 import { ClassComponent } from './modals/class/class.component';
 import { OverlayEventDetail } from '@ionic/core';
 
@@ -27,7 +27,8 @@ export class GameSelectionPage implements OnInit {
   constructor(private profileService: ProfileService,
     private router: Router, private fb: FormBuilder,
     private _cdr: ChangeDetectorRef,
-    public modalController: ModalController) {
+    public modalController: ModalController,
+    private loadingCtrl: LoadingController) {
   }
   domain: string = "";
   domains: [];
@@ -46,12 +47,18 @@ export class GameSelectionPage implements OnInit {
   playerData: {};
   playerState: {};
   ngOnInit() {
-    this.getDomain()
   }
+  ionViewWillEnter() {
+    this.getDomain()
+
+  }
+  
   enter() {
     this.router.navigate(['/home']);
   }
+  
   getDomain() {
+    this.presentLoading();
 
     this.profileService.getDomain().then(res => {
       console.log(res);
@@ -139,7 +146,7 @@ export class GameSelectionPage implements OnInit {
       this.playerState = res;
       this.profileService.setPlayerData(this.playerData);
       this.profileService.setPlayerState(this.playerState);
-      this.router.navigate(['members', 'home']);
+      this.router.navigate(['home']);
     })
   }
   async chooseClass() {
@@ -160,5 +167,17 @@ export class GameSelectionPage implements OnInit {
 
     await modal.present();
 
+  }
+  
+  async presentLoading() {
+    const loadingController = document.querySelector('ion-loading-controller');
+    await loadingController.componentOnReady();
+  
+    const loadingElement = await loadingController.create({
+      message: 'Please wait...',
+      spinner: 'crescent',
+      duration: 2000
+    });
+    return await loadingElement.present();
   }
 }

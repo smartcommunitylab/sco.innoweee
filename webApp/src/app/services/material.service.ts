@@ -11,8 +11,8 @@ export class MaterialService {
   endPoint = "";
   getGameApi = "";
   getMaterialApi = "";
-  constructor(private httpClient: HttpClient,
-    private http: Http,
+  constructor(
+    private http: HttpClient,
     @Inject(APP_CONFIG_TOKEN) private config: ApplicationConfig) {
     this.getMaterialApi = config.getMaterialApi;
     this.getGameApi = config.getGameApi;
@@ -22,7 +22,7 @@ export class MaterialService {
   getMaterial(gameId): Promise<any> {
     let url: string = this.endPoint + this.getGameApi + gameId + this.getMaterialApi;
     return this.http.get(url).toPromise().then(response => {
-      return response.json()
+      return response
     }).catch(response => {
       return this.handleError(response)
     });

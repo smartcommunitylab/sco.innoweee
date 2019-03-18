@@ -49,21 +49,21 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
       this.initTranslate();
-      this.authenticationService.authenticationState.subscribe(state => {
-        if (state) {
-          this.storage.get(ROUTER_KEY).then(res => {
-            if (res)
-              // this.router.navigate(['members', res]);
-              this.router.navigate(['members', 'home']);
-              else 
-                this.router.navigate(['members', "game-selection"]);
+      // this.authenticationService.authenticationState.subscribe(state => {
+      //   if (state) {
+      //     this.storage.get(ROUTER_KEY).then(res => {
+      //       if (res)
+      //         // this.router.navigate(['members', res]);
+      //         this.router.navigate(['members', 'home']);
+      //         else 
+      //           this.router.navigate(['members', "game-selection"]);
                 
-          })
+      //     })
            
-        } else {
-          this.router.navigate(['login']);
-        }
-      });
+      //   } else {
+      //     this.router.navigate(['login']);
+      //   }
+      // });
 
     });
   }

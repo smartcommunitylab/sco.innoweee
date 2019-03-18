@@ -64,7 +64,7 @@ export class StartPage implements OnInit {
         that.message = JSON.parse(message.body);
         if (that.message && that.message.itemId) {
           //go to item-loaded
-          that.router.navigate(['members', 'item-loaded',that.message.itemId,false]);
+          that.router.navigate([ 'item-loaded',that.message.itemId,false]);
         }
       });
       that.disabled = true;
@@ -78,7 +78,7 @@ export class StartPage implements OnInit {
       this.checkIfPresent(this.manualItemId).then(res => {
         if (!res)
         {
-          this.router.navigate(['members', 'item-loaded',this.manualItemId,true]);
+          this.router.navigate([ 'item-loaded',this.manualItemId,true]);
 
         }
         else {

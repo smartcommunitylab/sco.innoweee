@@ -1,5 +1,6 @@
 <ion-header>
   <ion-toolbar>
+    <img src="../assets/images/recycle.png" class="logo-nav" />
     <ion-title>{{'title_game_selection'|translate}}</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -35,7 +36,8 @@
     </ion-item>
     <ion-item>
       <ion-label>{{'label_section'|translate}}</ion-label>
-      <ion-button  (click)="chooseClass()"><span *ngIf="!playerId">{{'label_choose_section'|translate}}</span><span *ngIf="playerId">{{playerName}}</span></ion-button>
+      <ion-button (click)="chooseClass()"><span *ngIf="!playerId">{{'label_choose_section'|translate}}</span><span
+          *ngIf="playerId">{{playerName}}</span></ion-button>
       <!-- <ion-select  [(ngModel)]="player"  (ionChange)="setPlayer(player)"  placeholder="{{'label_choose_section'|translate}}">
         <div *ngFor="let listPlayer of players">
         <ion-select-option  *ngIf="listPlayer.team==false" [value]="listPlayer">{{listPlayer.name}}</ion-select-option>

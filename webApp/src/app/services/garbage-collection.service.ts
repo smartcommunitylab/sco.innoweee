@@ -1,6 +1,7 @@
 import { Injectable, Inject } from '@angular/core';
 import { Http } from '@angular/http';
 import { APP_CONFIG_TOKEN, ApplicationConfig } from '../app-config';
+import { HttpClient } from '@angular/common/http';
 
 
 
@@ -30,7 +31,7 @@ export class GarbageCollectionService {
     "silver",
     "gold"
   ]
-  constructor(private http: Http,
+  constructor(private http: HttpClient,
     @Inject(APP_CONFIG_TOKEN) private config: ApplicationConfig) {
       this.endPoint = config.apiEndpoint;
       this.getGameApi = config.getGameApi;
@@ -46,7 +47,7 @@ export class GarbageCollectionService {
    getActualCollection(gameId): Promise<any> {
     let url: string = this.endPoint + this.getGameApi + gameId + '/collection';
     return this.http.get(url).toPromise().then(response => {
-      return response.json();
+      return response;
     }).catch(response => {
       return this.handleError(response);
     });
@@ -56,7 +57,7 @@ export class GarbageCollectionService {
     let url: string = this.endPoint + this.getItemApi + this.getUsedApi+"?playerId="+idUser+"&itemId="+encodeURIComponent(id);
 
     return this.http.get( url).toPromise().then(res => {
-      return res.json()
+      return res;
 
     }).catch(response => {
       return this.handleError(response)
@@ -67,7 +68,7 @@ export class GarbageCollectionService {
   getGargabeMap(tenantId): Promise<any> {
     let url: string = this.endPoint + this.getGarbageApi + tenantId ;
     return this.http.get(url).toPromise().then(response => {
-      return response.json();
+      return response;
     }).catch(response => {
       return this.handleError(response);
     });
@@ -79,7 +80,7 @@ export class GarbageCollectionService {
       reduceCoin:coins
     }    
     return this.http.post(url,body).toPromise().then(response => {
-      return response.json();
+      return response;
     }).catch(response => {
       return this.handleError(response);
     });
@@ -89,7 +90,7 @@ export class GarbageCollectionService {
     let url: string = this.endPoint + this.getItemApi+this.getDeliveryApi;
     let body = item;    
     return this.http.post(url,body).toPromise().then(response => {
-      return response.json();
+      return response;
     }).catch(response => {
       return this.handleError(response);
     });

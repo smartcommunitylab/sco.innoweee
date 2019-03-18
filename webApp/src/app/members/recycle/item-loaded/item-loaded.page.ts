@@ -87,7 +87,7 @@ export class ItemLoadedPage implements OnInit {
       //go to item classification
       this.item.reusable = res.reusable;
       this.item.valuable = res.valuable
-      this.router.navigate(['members', 'item-classification'],{ queryParams: { item: JSON.stringify(this.item) } });
+      this.router.navigate([ 'item-classification'],{ queryParams: { item: JSON.stringify(this.item) } });
   
       console.log("mandato");
     });

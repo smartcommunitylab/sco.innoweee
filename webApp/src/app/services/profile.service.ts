@@ -22,7 +22,7 @@ export class ProfileService {
   getRobotImageApi:string="";
   constructor(private httpClient: HttpClient,
     private storage:Storage,
-    private http: Http,
+    private http: HttpClient,
     @Inject(APP_CONFIG_TOKEN) private config: ApplicationConfig) {
     this.endPoint = config.apiEndpoint;
     this.getDomainApi = config.getDomainApi;
@@ -39,7 +39,7 @@ export class ProfileService {
     return this.http.get(url)
       .toPromise()
       .then(response => {
-        return response.json()
+        return response
       }
       ).catch(response => {
         return this.handleError(response)
@@ -51,7 +51,7 @@ export class ProfileService {
     return this.http.get(url)
       .toPromise()
       .then(response => {
-        return response.json()
+        return response
       }
       ).catch(response => {
         return this.handleError(response)
@@ -63,7 +63,7 @@ export class ProfileService {
     return this.http.get(url)
       .toPromise()
       .then(response => {
-        return response.json()
+        return response
       }
       ).catch(response => {
         return this.handleError(response)
@@ -75,7 +75,7 @@ export class ProfileService {
     return this.http.get(url)
       .toPromise()
       .then(response => {
-        return response.json()
+        return response
       }
       ).catch(response => {
         return this.handleError(response)
@@ -88,7 +88,7 @@ export class ProfileService {
     return this.http.get(url)
       .toPromise()
       .then(response => {
-        return response.json()
+        return response
       }
       ).catch(response => {
         return this.handleError(response)
@@ -111,7 +111,7 @@ export class ProfileService {
     return this.http.get(url)
       .toPromise()
       .then(response => {
-        return response.json()
+        return response
       }
       ).catch(response => {
         return this.handleError(response)

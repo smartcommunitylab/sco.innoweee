@@ -9,18 +9,14 @@ import { AuthenticationService } from '../services/authentication.service';
 export class LoginPage implements OnInit {
 
   constructor(private authService: AuthenticationService) { }
- 
+
   ngOnInit() {
   }
- 
-  login(form){
-    this.authService.login(form.value)
-    // .subscribe((res)=>{
-    //   // this.router.navigateByUrl('home');
-    // });
+
+  login(form) {
+    // this.authService.login(form.value)
+
   }
-  // login() {
-  //   this.authService.login();
-  // }
+
 
 }

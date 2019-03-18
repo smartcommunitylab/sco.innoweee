@@ -18,20 +18,18 @@ export class ComparisonComponent implements OnInit {
   }
 
   getResourceUnit(value) {
-
-    if (value > 1000)
+    if (value > 1)
       return "Kg"
-    if (value < 1000 && value > 1)
+    if (value < 1 && value > 0.001)
       return "g"
     return "mg"
   }
   getResourceValue(value) {
-
-    if (value > 1000)
-      return value/1000;
-    if (value < 1000 && value > 0)
+    if (value > 1)
       return value
-    return value*1000
+    if (value < 1 && value > 0.001)
+      return value*1000;
+    return value*1000000;
 
   }
 

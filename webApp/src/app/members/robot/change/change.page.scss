@@ -1,6 +1,7 @@
 .robot {
-    height: 500px;
-    width: 400px;
+    height: 541px;
+    width: 345px;
+    position: relative;
 
     ion-col {
         padding: 0px;
@@ -10,34 +11,42 @@
         padding: 0px;
     }
 
-    .head-robot {
-        height: 100px;
-        width: 400px;
+    .head-row {
+        margin-bottom: 8px;
+
+        .head-robot {
+            height: 120px;
+            width: 345px;
+        }
     }
 
     .armR-robot {
-        height: 250px;
+        height: 275px;
         width: 100px;
     }
 
     .chest-robot {
-        height: 250px;
-        width: 200px;
+        height: 275px;
+        width: 145px;
     }
 
     .armL-robot {
-        height: 250px;
+        height: 275px;
         width: 100px;
     }
 
-    .legs-robot {
-        height: 100px;
-        width: 400px;
+    .legs-row {
+        margin-bottom: 8px;
+
+        .legs-robot {
+            height: 130px;
+            width: 345px;
+        }
     }
 
     .feet-robot {
         height: 50px;
-        width: 400px;
+        width: 345px;
     }
 }
 
@@ -50,11 +59,12 @@
             opacity: 0.3;
 
         }
+
         ion-img {
             height: 100px;
-            
 
-            }
+
+        }
     }
 
     .piece-container {

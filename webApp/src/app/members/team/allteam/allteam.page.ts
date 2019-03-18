@@ -5,6 +5,7 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 import { ProfileService } from 'src/app/services/profile.service';
 import { Storage } from '@ionic/storage';
 import { ApplicationConfig, APP_CONFIG_TOKEN } from 'src/app/app-config';
+import { GarbageCollectionService } from 'src/app/services/garbage-collection.service';
 
 @Component({
   selector: 'app-allteam',
@@ -15,16 +16,23 @@ export class AllteamPage extends MainPage implements OnInit {
   listSections: any = [];
   imgUrl: string;
   profileState: any;
-  profileClassState:any;
+  profileClassState: any;
   school;
   gameId;
-  playerData:any={};
-  mapImg:any={};
+  playerData: any = {};
+  mapImg: any = {};
   selectedClass: any;
+  resources: any[] = [];
+  max = {
+    'Kg': 0,
+    'g': 0,
+    'mg': 0
+  };
 
   constructor(public translate: TranslateService,
     public storage: Storage,
     public authService: AuthenticationService,
+    public garbageService: GarbageCollectionService,
     @Inject(APP_CONFIG_TOKEN) private config: ApplicationConfig,
     public profileService: ProfileService) {
     super(translate, authService, storage);
@@ -37,14 +45,16 @@ export class AllteamPage extends MainPage implements OnInit {
       this.gameId = players[0].gameId;
       this.listSections = players.filter(item => item.team == false)
       this.school = players.find(item => item.team == true)
-        this.profileService.getPlayerState(this.gameId, this.school.objectId).then(res => {
-          this.profileState = res;
-  
+      this.profileService.getPlayerState(this.gameId, this.school.objectId).then(res => {
+        this.profileState = res;
+        this.orderResources(this.profileState)
+
+
       });
       this.profileService.getLocalPlayerData().then(res => {
-        this.playerData=res;
+        this.playerData = res;
         this.listSections.forEach(section => {
-          this.mapImg[section.objectId]=this.imgUrl + section.objectId + "/thumb"+((section.objectId!= this.playerData.objectId)?"": "?"+new Date().getTime());
+          this.mapImg[section.objectId] = this.imgUrl + section.objectId + "/thumb" + ((section.objectId != this.playerData.objectId) ? "" : "?" + new Date().getTime());
         });
       })
     })
@@ -74,7 +84,29 @@ export class AllteamPage extends MainPage implements OnInit {
     return item;
   };
 
+  orderResources(map) {
+    var arrayResources = this.garbageService.getArrayResources();
+    for (const [key, value] of Object.entries(map)) {
+      if (arrayResources.indexOf(key) > -1) {
+        this.resources.push({ "key": key, "value": map[key] });
+        this.addMax(map[key]);
+      }
+    };
+    this.resources.sort((a, b) => {
+      return b.value - a.value
+    })
 
+
+  }
+
+  addMax(value) {
+    if (value > 1 && (this.max['Kg'] < value))
+      return this.max['Kg'] = value;
+    if (value < 1 && value > 0.001 && (this.max['g'] < value))
+      return this.max['g'] = value;
+    if (value < 0.001 && (this.max['mg'] < value))
+      return this.max['mg'] = value;
+  }
   getResourceLabel(label) {
     return 'resource_' + label;
   }
@@ -83,22 +115,57 @@ export class AllteamPage extends MainPage implements OnInit {
       return this.profileState[label];
     else return ""
   }
-  getResourceBar(resource) {
-    return '0.7';
+
+  getResourceBar(value) {
+    //take maximum of group and retun proportional
+    if (value > 1)
+      return value / this.max['Kg'];
+    if (value < 1 && value > 0.001)
+      return value / this.max['g'];
+    if (value < 0.001)
+      return value / this.max['mg'];
   }
   getResourceClassValue(label) {
     if (this.profileClassState)
       return this.profileClassState[label];
     else return ""
   }
-  getResourceClassBar(resource) {
-    return '0.2';
+  getResourceClassBar(label, value) {
+    if (this.profileClassState) {
+      // if (this.profileClassState[label] > 1)
+      // return this.profileClassState[label] / value;
+      if (value > 1)
+        return this.profileClassState[label] / this.max['Kg'];
+      if (value < 1 && value > 0.001)
+        return this.profileClassState[label] / this.max['g'];
+      if (value < 0.001)
+        return this.profileClassState[label] / this.max['mg'];
+    }
   }
+  // getResourceLabel(label) {
+  //   return 'resource_' + label;
+  // }
+  // getResourceValue(label) {
+  //   if (this.profileState)
+  //     return this.profileState[label];
+  //   else return ""
+  // }
+  // getResourceBar(resource) {
+  //   return '0.7';
+  // }
+  // getResourceClassValue(label) {
+  //   if (this.profileClassState)
+  //     return this.profileClassState[label];
+  //   else return ""
+  // }
+  // getResourceClassBar(resource) {
+  //   return '0.2';
+  // }
   selectClass(selectedClass) {
-    this.selectedClass=selectedClass;
+    this.selectedClass = selectedClass;
     this.profileService.getPlayerState(this.gameId, this.selectedClass.objectId).then(res => {
       this.profileClassState = res;
 
-  });
+    });
   }
 }
