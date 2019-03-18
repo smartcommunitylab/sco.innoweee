@@ -25,11 +25,10 @@ public class ImageManager {
 	private String imagePath;
 
 	public void storeRobotImage(Player player) throws Exception {
-		BufferedImage joined = new BufferedImage(450, 600, BufferedImage.TYPE_INT_ARGB_PRE);
+		BufferedImage joined = new BufferedImage(345, 541, BufferedImage.TYPE_INT_ARGB_PRE);
 		BufferedImage imageArmL = null;
 		BufferedImage imageArmR = null;
 		BufferedImage imageHead = null;
-		BufferedImage imageFeet = null;
 		BufferedImage imageLegs = null;
 		BufferedImage imageChest = null;
 		for(Component component : player.getRobot().getComponents().values()) {
@@ -49,20 +48,16 @@ public class ImageManager {
 			case Const.ROBOT_LEGS:
 				imageLegs = ImageIO.read(new File(imagePath + "/" + component.getImageUri()));
 				break;
-			case Const.ROBOT_FEET:
-				imageFeet = ImageIO.read(new File(imagePath + "/" + component.getImageUri()));
-				break;
 			default:
 				break;
 			}
 		}
 		Graphics2D graph = joined.createGraphics();
 		graph.drawImage(imageHead, 0, 0, null);
-		graph.drawImage(imageArmR, 0, 100, null);
-		graph.drawImage(imageChest, 100, 100, null);
-		graph.drawImage(imageArmL, 300, 100, null);
-		graph.drawImage(imageLegs, 0, 350, null);
-		graph.drawImage(imageFeet, 0, 450, null);
+		graph.drawImage(imageArmR, 0, 128, null);
+		graph.drawImage(imageChest, 100, 128, null);
+		graph.drawImage(imageArmL, 245, 128, null);
+		graph.drawImage(imageLegs, 0, 411, null);
 		File joinedFile = new File(imagePath + "/" + player.getObjectId() + ".png");
     ImageIO.write(joined, "png", joinedFile);
     logger.info("storeRobotImage:{}", player.getObjectId());

@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -21,6 +23,11 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
+import it.smartcommunitylab.innoweee.engine.model.Catalog;
+import it.smartcommunitylab.innoweee.engine.model.Component;
+import it.smartcommunitylab.innoweee.engine.model.Player;
+import it.smartcommunitylab.innoweee.engine.model.Robot;
+import it.smartcommunitylab.innoweee.engine.repository.CatalogRepository;
 import it.smartcommunitylab.innoweee.engine.security.Authorization;
 import it.smartcommunitylab.innoweee.engine.security.User;
 
@@ -209,4 +216,17 @@ public class Utils {
 		return "/topic/item." + tenantId + "." + playerId;
 	}
 	
+	public static void addNewRobot(Player player, CatalogRepository catalogResopitory) {
+		Robot robot = new Robot();
+		Catalog catalog = catalogResopitory.findByTenantId(player.getTenantId());
+		if(catalog != null) {
+			for(Component component : catalog.getComponents().values()) {
+				if(StringUtils.isEmpty(component.getParentId())) {
+					// default customization
+					robot.getComponents().put(component.getComponentId(), component);
+				}
+			}
+			player.setRobot(robot);			
+		}
+	}
 }

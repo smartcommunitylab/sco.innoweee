@@ -21,12 +21,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.smartcommunitylab.innoweee.engine.common.Const;
+import it.smartcommunitylab.innoweee.engine.common.Utils;
 import it.smartcommunitylab.innoweee.engine.exception.EntityNotFoundException;
 import it.smartcommunitylab.innoweee.engine.exception.UnauthorizedException;
 import it.smartcommunitylab.innoweee.engine.ge.GeManager;
 import it.smartcommunitylab.innoweee.engine.img.ImageManager;
-import it.smartcommunitylab.innoweee.engine.model.Catalog;
-import it.smartcommunitylab.innoweee.engine.model.Component;
 import it.smartcommunitylab.innoweee.engine.model.Game;
 import it.smartcommunitylab.innoweee.engine.model.Player;
 import it.smartcommunitylab.innoweee.engine.model.Robot;
@@ -87,10 +86,8 @@ public class PlayerController extends AuthController {
 			player.setCreationDate(now);
 			player.setLastUpdate(now);
 			if(!player.isTeam()) {
-				addNewRobot(player);
-			}
-			playerRepository.save(player);
-			if(!player.isTeam()) {
+				Utils.addNewRobot(player, catalogResopitory);
+				playerRepository.save(player);
 				imageManager.storeRobotImage(player);
 			}
 			if(!StringUtils.isEmpty(game.getGeGameId())) {
@@ -162,28 +159,13 @@ public class PlayerController extends AuthController {
 				game.getObjectId(), Const.AUTH_RES_Game_Robot, Const.AUTH_ACTION_UPDATE, request)) {
 			throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
 		}
-		addNewRobot(player);
-		player.setLastUpdate(new Date());
-		playerRepository.save(player);
 		if(!player.isTeam()) {
+			Utils.addNewRobot(player, catalogResopitory);
+			player.setLastUpdate(new Date());
+			playerRepository.save(player);
 			imageManager.storeRobotImage(player);
-		}		
+		}
 		logger.info("resetRobot[{}]:{}", player.getTenantId(), player.getObjectId());
 		return player.getRobot();
-	}
-	
-	private void addNewRobot(Player player) {
-		Robot robot = new Robot();
-		Catalog catalog = catalogResopitory.findByTenantId(player.getTenantId());
-		if(catalog != null) {
-			for(Component component : catalog.getComponents().values()) {
-				if(StringUtils.isEmpty(component.getParentId())) {
-					// default customization
-					robot.getComponents().put(component.getComponentId(), component);
-				}
-			}
-			player.setRobot(robot);			
-		}
-	}
-	
+	}	
 }

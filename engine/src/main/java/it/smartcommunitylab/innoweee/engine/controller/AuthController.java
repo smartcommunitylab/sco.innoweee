@@ -35,13 +35,11 @@ public class AuthController {
 	private AuthManager authManager;
 	
 	public User getUserByEmail(HttpServletRequest request) throws Exception {
-		//TODO test only
 		String token = request.getHeader("Authorization");
 //		String token = "Bearer xxxxxx";
 		if(StringUtils.isEmpty(token)) {
 			throw new UnauthorizedException("Unauthorized Exception: token not valid");
 		}
-		//TODO test only
 		String email = authManager.getCache().get(token);
 //		String email = "admin@test.com";
 		if(StringUtils.isEmpty(email)) {

@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.smartcommunitylab.innoweee.engine.common.Const;
+import it.smartcommunitylab.innoweee.engine.common.Utils;
 import it.smartcommunitylab.innoweee.engine.exception.EntityNotFoundException;
 import it.smartcommunitylab.innoweee.engine.exception.UnauthorizedException;
 import it.smartcommunitylab.innoweee.engine.ge.GeManager;
@@ -258,25 +259,18 @@ public class GameController extends AuthController {
 			throw new EntityNotFoundException("game not found");
 		}
 		Game game = optionalGame.get();
-		if(!validateAuthorization(game.getTenantId(), game.getInstituteId(), game.getSchoolId(), 
-				game.getObjectId(), Const.AUTH_RES_Game_Player, Const.AUTH_ACTION_DELETE, request)) {
-			throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
+		if(!validateRole(Const.ROLE_OWNER, game.getTenantId(), request)) {
+			throw new UnauthorizedException("Unauthorized Exception: role not valid");
 		}
+		List<Player> list = playerRepository.findByGameId(game.getTenantId(), game.getObjectId());
 		if(!StringUtils.isEmpty(game.getGeGameId())) {
-			List<Player> list = playerRepository.findByGameId(game.getTenantId(), game.getObjectId());
 			List<String> members = new ArrayList<String>();
 			// delete players
 			for(Player pl : list) {
 				if(!pl.isTeam()) {
 					members.add(pl.getObjectId());
-					geManager.deletePlayer(game.getGeGameId(), pl.getObjectId());
 				}
-			}
-			// delete team
-			for(Player pl : list) {
-				if(pl.isTeam()) {
-					geManager.deletePlayer(game.getGeGameId(), pl.getObjectId());
-				}
+				geManager.deletePlayer(game.getGeGameId(), pl.getObjectId());
 			}
 			// add players and team
 			for(Player pl : list) {
@@ -285,7 +279,16 @@ public class GameController extends AuthController {
 				} else {
 					geManager.addTeam(game.getGeGameId(), pl.getObjectId(), pl.getName(), members);
 				}
-			}			
+			}
+		}
+		// reset robot
+		for(Player pl : list) {
+			if(!pl.isTeam()) {
+				Utils.addNewRobot(pl, catalogRepository);
+				pl.setLastUpdate(new Date());
+				playerRepository.save(pl);
+				imageManager.storeRobotImage(pl);
+			}
 		}
 		logger.info("resetGeGame[{}]:{} / {}", game.getTenantId(), gameId, game.getGeGameId());
 	}
