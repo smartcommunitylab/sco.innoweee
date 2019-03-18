@@ -35,11 +35,12 @@
     </ion-item>
     <ion-item>
       <ion-label>{{'label_section'|translate}}</ion-label>
-      <ion-select [(ngModel)]="player"  (ionChange)="setPlayer(player)"  placeholder="{{'label_choose_section'|translate}}">
+      <ion-button  (click)="chooseClass()"><span *ngIf="!playerId">{{'label_choose_section'|translate}}</span><span *ngIf="playerId">{{playerName}}</span></ion-button>
+      <!-- <ion-select  [(ngModel)]="player"  (ionChange)="setPlayer(player)"  placeholder="{{'label_choose_section'|translate}}">
         <div *ngFor="let listPlayer of players">
         <ion-select-option  *ngIf="listPlayer.team==false" [value]="listPlayer">{{listPlayer.name}}</ion-select-option>
       </div>
-      </ion-select>
+      </ion-select> -->
     </ion-item>
   </ion-list>
   <ion-button (click)="getPlayerData()" expand="block" fill="outline">Inizia raccolta</ion-button>

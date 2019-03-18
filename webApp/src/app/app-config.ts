@@ -17,12 +17,13 @@ export interface ApplicationConfig {
     itemSocketURL:string;
     getDeliveryApi:string;
     getGarbageApi:string;
+    getUsedApi:string;
 }
 
 // Configuration values for our app
 export const APP_CONFIG: ApplicationConfig = {
     appName: 'InnoWee',
-    apiEndpoint: 'http://localhost:2020/',
+    apiEndpoint: 'https://dev.smartcommunitylab.it/innoweee/4x3b0bti/',
     getDomainApi: 'api/profile',
     getInstituteApi: '/api/institute/',
     getSchoolApi: 'api/school',
@@ -37,7 +38,8 @@ export const APP_CONFIG: ApplicationConfig = {
     getReduceApi:"/reduce",
     itemSocketURL:"itemws",
     getDeliveryApi:"/delivery",
-    getGarbageApi:"api/garbageMap/"
+    getGarbageApi:"api/garbageMap/",
+    getUsedApi:"/used"
 };
 
 // Create a config token to avoid naming conflicts

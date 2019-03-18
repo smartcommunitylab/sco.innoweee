@@ -64,6 +64,21 @@
         "label_send_item":"Invia",
         "label_item_reusable":"L'oggetto è riutilizzabile",
         "label_item_valuable":"L'oggetto ha un valore",
-        "label_new_item":"Inserisci un nuovo oggetto"
+        "label_new_item":"Inserisci un nuovo oggetto",
+        "label_recycle_value":"L'oggetto va nel bidone VALORE",
+        "label_recycle_reuse":"L'oggetto va nel bidone RIUSO",
+        "label_recycle_recycle":"L'oggetto va nel bidone RICICLO",
+        "label_point_reusable":"Guadagni un punto RIUTILIZZO",
+        "label_point_recicle":"Guadagni un punto RICICLO",
+        "label_insert_itemId":"Inserisci l'identificatore dell'oggetto",
+        "label_insert_item":"Inserisci manualmente",
+        "go_to_robot":"Vai al mio robot",
+        "go_to_home":"Vai alla pagina principale",
+        "total_recycle_coins":"Totale monete riciclo",
+        "total_reduce_coins":"Totale monete riduco",
+        "total_reuse_coins":"Totale monete riuso",
+        "duplicate_id_header":"Errore",
+        "duplicate_id_subtitle":"Identificativo duplicato",
+        "duplicate_id_message":"Questo Identificativo sembra essere gia' utilizzato"
 
 }

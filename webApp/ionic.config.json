@@ -1,6 +1,8 @@
 {
   "name": "innoweeWebApp",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular",
   "id": "a649b65a"
 }

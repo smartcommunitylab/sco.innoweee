@@ -5,7 +5,9 @@ import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client';
 import { ProfileService } from 'src/app/services/profile.service';
 import { Router } from '@angular/router';
-
+import { GarbageCollectionService } from 'src/app/services/garbage-collection.service';
+import { AlertController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -28,12 +30,25 @@ export class StartPage implements OnInit {
   constructor(
     private profileService: ProfileService,
     private router: Router,
+    private translateService:TranslateService,
+    private garbageCollection:GarbageCollectionService,
+    private alertController: AlertController,
     @Inject(APP_CONFIG_TOKEN) private config: ApplicationConfig) {
     this.itemSocketURL = config.itemSocketURL;
     this.apiEndpoint = config.apiEndpoint;
   }
 
-
+  ionViewWillEnter() {
+    this.message = null;
+    this.manualItemId=new Date().getTime().toString();
+    this.profileService.getLocalPlayerData().then(res => {
+      this.playerData = res;
+      this.connect(this.playerData.tenantId,this.playerData.objectId);
+    })
+  }
+  ionViewWillLeave() {
+    this.disconnect();
+  }
   connect(tenantId,playerId) {
     //connect to stomp where stomp endpoint is exposed
     let sock = new SockJS(this.apiEndpoint + this.itemSocketURL);
@@ -47,21 +62,54 @@ export class StartPage implements OnInit {
       that.ws.subscribe("/topic/item."+tenantId+"." + playerId, function (message) {
         console.log(message)
         that.message = JSON.parse(message.body);
-        if (that.message.itemId) {
+        if (that.message && that.message.itemId) {
           //go to item-loaded
           that.router.navigate(['members', 'item-loaded',that.message.itemId,false]);
         }
       });
       that.disabled = true;
     }, function (error) {
-      alert("STOMP error " + error);
+      console.log("STOMP error " + error);
     });
   }
   manualInsert() {
     if (this.manualItemId) {
       //go to item-loaded
-      this.router.navigate(['members', 'item-loaded',this.manualItemId,true]);
+      this.checkIfPresent(this.manualItemId).then(res => {
+        if (!res)
+        {
+          this.router.navigate(['members', 'item-loaded',this.manualItemId,true]);
+
+        }
+        else {
+          this.showErrorItem();
+        }
+      })
+      //todo check if id is already present
+
     }  }
+  
+      async showErrorItem() {
+        let headerLabel = this.translateService.instant("duplicate_id_header");
+        let subtitleLabel = this.translateService.instant("duplicate_id_subtitle");
+        let messageLabel = this.translateService.instant("duplicate_id_message");
+
+        const alert = await this.alertController.create({
+          header: headerLabel,
+          subHeader: subtitleLabel,
+          message: messageLabel,
+          buttons: ['OK']
+        });
+    
+        await alert.present();
+    }
+  checkIfPresent(scanData):Promise<any> {
+    return this.garbageCollection.checkIfPresent(scanData, this.playerData.objectId).then(res => {
+      console.log(res);
+     return res.result
+    })
+  }
+
   disconnect() {
     if (this.ws != null) {
       this.ws.ws.close();
@@ -76,11 +124,8 @@ export class StartPage implements OnInit {
   }
   ngOnInit() {
     //tmp
-    this.manualItemId=new Date().getTime().toString();
-    this.profileService.getLocalPlayerData().then(res => {
-      this.playerData = res;
-      this.connect(this.playerData.tenantId,this.playerData.objectId);
-    })
+
   }
+
 
 }
