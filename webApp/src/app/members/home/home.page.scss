@@ -12,13 +12,39 @@ ion-thumbnail {
         min-width: 250px;
     }
 }
-.robot-home{
-    ion-img{
-    height: 541px;
-    width: 345px;
+
+ion-button {
+    width: 164px;
+    margin: auto;
+}
+ion-col{
+    padding: 0px;
+}
+.robot-content {
+    background-color: #fff7dd;
+
+    .robot-home {
+        ion-img {
+            height: 541px;
+            width: 345px;
+            margin: auto;
+        }
     }
 }
+
+.garbage-content {
+    background-color: #C4FCE4;
+
+}
+
+.team-content {
+    background-color: #E0F8FF;
+
+}
+
 .material-content {
+    background-color: #FADDD6;
+
     ion-badge {
         position: absolute;
         right: 3px;
