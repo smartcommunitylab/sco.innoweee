@@ -1,55 +1,79 @@
-ion-thumbnail {
-    min-height: 30vh;
-    width: 100%;
-
-    ion-img {
-        max-height: 30vh;
-    }
-}
-
 .language {
     ion-item {
         min-width: 250px;
     }
 }
 
-ion-button {
-    width: 164px;
-    margin: auto;
-}
-ion-col{
-    padding: 0px;
-}
-.robot-content {
-    background-color: #fff7dd;
+ion-grid {
+    height: 100%;
+    ion-row {
 
-    .robot-home {
+        height: 100%;
+
         ion-img {
-            height: 541px;
-            width: 345px;
-            margin: auto;
+            padding: 50px;
         }
-    }
-}
 
-.garbage-content {
-    background-color: #C4FCE4;
+        ion-button {
+            width: 164px;
+            left: 50%;
+            transform: translateX(-50%);
+            position: absolute;
+            bottom: 25px;
+        }
 
-}
+        ion-col {
+            padding: 0px;
+        }
 
-.team-content {
-    background-color: #E0F8FF;
+        .robot-content {
+            background-color: #fff7dd;
+            position: relative;
 
-}
+            .robot-home {
+                ion-img {
+                    height: 541px;
+                    width: 345px;
+                    margin: auto;
+                }
+            }
+        }
 
-.material-content {
-    background-color: #FADDD6;
+        .garbage-content {
+            background-color: #C4FCE4;
+            text-align: center;
+            position: relative;
 
-    ion-badge {
-        position: absolute;
-        right: 3px;
-        top: 3px;
-        font-size: 57px;
-        border-radius: 56px;
+            ion-img {
+                height: 450px;
+                margin: auto;
+            }
+
+            .wanted-title {
+                font-weight: bold;
+            }
+
+        }
+
+        .team-content {
+            background-color: #E0F8FF;
+            height: 50%;
+            position: relative;
+
+        }
+
+        .material-content {
+            background-color: #FADDD6;
+            height: 50%;
+            position: relative;
+
+            ion-badge {
+                position: absolute;
+                right: 3px;
+                top: 3px;
+                font-size: 57px;
+                border-radius: 56px;
+            }
+        }
     }
 }
