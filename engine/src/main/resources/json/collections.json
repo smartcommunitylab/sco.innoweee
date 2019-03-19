@@ -104,7 +104,7 @@
 			"it":"Quanti anni ha il computer che hai a casa?",
 			"en":"How old is the computer you have at home?"
 		},
-		"specialCollection":false,
+		"specialCollection":true,
 		"items":["Docking station","E-reader","Flash drive","Computer components","Router","Answering machine","Calculator","Cordless","Decoder","Fax","GPS system","Landline phone","Modem","Trackpad","Walkie Talkie","Keyboard","Mouse"],
 		"links":[]
 	},
