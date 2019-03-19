@@ -1,6 +1,6 @@
 {
-	"tenantId":"TEST",
-	"collectionName": "R2",
+	"tenantId": "TRENTO",
+	"collectionNames": ["R2","R3"],
 	"items":
 	{
 		"Laptop": [
