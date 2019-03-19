@@ -26,7 +26,7 @@ public class JsonExportTest {
 	public void convertGarbageMap() throws Exception {
 		GarbageMap garbageMap = new GarbageMap();
 		File file = 
-				new File("C:\\Users\\micnori\\Documents\\Progetti\\Innoweee\\InnoWEEE-TrentinoPilot-items_weeks_materials.xlsx");
+				new File("C:\\Users\\micnori\\Documents\\Progetti\\Innoweee\\My_InnoWEEE-TrentinoPilot-items_weeks_materials.xlsx");
 		XSSFWorkbook wb = new XSSFWorkbook(file);
 		try {
 			XSSFSheet sheet = wb.getSheet("Items & weeks");
@@ -57,8 +57,9 @@ public class JsonExportTest {
 	@Test
 	public void convertCategoryMap() throws Exception {
 		CategoryMap categoryMap = new CategoryMap();
+		categoryMap.setTenantId("TRENTO");
 		File file = 
-				new File("C:\\Users\\micnori\\Documents\\Progetti\\Innoweee\\InnoWEEE-TrentinoPilot-items_weeks_materials.xlsx");
+				new File("C:\\Users\\micnori\\Documents\\Progetti\\Innoweee\\My_InnoWEEE-TrentinoPilot-items_weeks_materials.xlsx");
 		XSSFWorkbook wb = new XSSFWorkbook(file);
 		try {
 			XSSFSheet sheet = wb.getSheet("Material Composition Trasposta");
@@ -102,9 +103,12 @@ public class JsonExportTest {
 	@Test
 	public void covertItemValuableMap() throws Exception {
 		ItemValuableMap valuableMap = new ItemValuableMap();
-		valuableMap.setCollectionName("R2");
+		List<String> collectionNames = new ArrayList<String>();
+		collectionNames.add("R2");
+		valuableMap.setCollectionNames(collectionNames);
+		valuableMap.setTenantId("TRENTO");
 		File file = 
-				new File("C:\\Users\\micnori\\Documents\\Progetti\\Innoweee\\InnoWEEE-TrentinoPilot-items_weeks_materials.xlsx");
+				new File("C:\\Users\\micnori\\Documents\\Progetti\\Innoweee\\My_InnoWEEE-TrentinoPilot-items_weeks_materials.xlsx");
 		XSSFWorkbook wb = new XSSFWorkbook(file);
 		try {
 			XSSFSheet sheetNotBroken = wb.getSheet("EEE criteria (Not Broken)");

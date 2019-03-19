@@ -1,14 +1,20 @@
 [
 	{
-		"tenantId":"TEST",
-		"gameId":"5c6412313258721ee8e70a88",
-		"from":1548975600000,
-		"to":1550358000000,
+		"tenantId":"TRENTO",
+		"gameId":"???",
+		"from":1554674400000,
+		"to":1555279199000,
 		"nameGE":"R1",
-		"message":{"it":"Giochi e giocattoli elettrici ed elettronici", "en":"Toys and games"},
-		"reduceMessage":{"it":"???", "en":"???"},
+		"message":{
+			"it":"Piccoli elettrodomestici della cucina", 
+			"en":"Kitchen Appliances"
+		},
+		"reduceMessage":{
+			"it":"Quanti anni ha il frigorifero che hai a casa?",
+			"en":"How old is the fridge you have at home?"
+		},
 		"specialCollection":false,
-		"items":["Joystick","Talking doll"],
+		"items":["Blender","Centrifuge","Electrical coffe grinder","Coffe machine","Electrical knife","Electrical grater","Tea kettle","Hand vacuum","Minipimer","Squeezer","Toaster"],
 		"links":[
 			{
 				"name":"Tutto sui rifiuti elettronici (RAEE) in 3 minuti",
@@ -31,15 +37,21 @@
 		]
 	},
 	{
-		"tenantId":"TEST",
-		"gameId":"5c6412313258721ee8e70a88",
-		"from":1550444400000,
-		"to":1557007200000,
+		"tenantId":"TRENTO",
+		"gameId":"???",
+		"from":1555279200000,
+		"to":1557093599000,
 		"nameGE":"R2",
-		"message":{"it":"Cellulari, smartphone, tablet e computer portatili", "en":"Laptop, Notebook, Tablet, Smartphone (GreenIDEA)"},
-		"reduceMessage":{"it":"???", "en":"???"},
+		"message":{
+			"it":"Cellulari, smartphone, tablet e computer portatili",
+			"en":"Laptop, Notebook, Tablet, Smartphone"
+		},
+		"reduceMessage":{
+			"it":"Fra i cellulari che usa quotidianamente la tua famiglia, quanti anni ha il più vecchio?",
+			"en":"How old is the oldest cell phone used daily in your family?"
+		},
 		"specialCollection":true,
-		"items":["Cellphone", "Tablet"],
+		"items":["Cellphone","Smartphone","Laptop","Tablet"],
 		"links":[
 			{
 	      "name" : "link1",
@@ -79,51 +91,75 @@
 		]
 	},
 	{
-		"tenantId":"TEST",
-		"gameId":"5c6412313258721ee8e70a88",
+		"tenantId":"TRENTO",
+		"gameId":"???",
 		"from":1557093600000,
-		"to":1557612000000,
+		"to":1557698399000,
 		"nameGE":"R3",
-		"message":{"it":"Piccoli elettrodomestici della cucina", "en":"Kitchen Appliances"},
-		"reduceMessage":{"it":"???", "en":"???"},
+		"message":{
+			"it":"Apparecchiature informatiche e per telecomunicazioni",
+			"en":"Information and Communication Technologies"
+		},
+		"reduceMessage":{
+			"it":"Quanti anni ha il computer che hai a casa?",
+			"en":"How old is the computer you have at home?"
+		},
 		"specialCollection":false,
-		"items":[],
+		"items":["Docking station","E-reader","Flash drive","Computer components","Router","Answering machine","Calculator","Cordless","Decoder","Fax","GPS system","Landline phone","Modem","Trackpad","Walkie Talkie","Keyboard","Mouse"],
 		"links":[]
 	},
 	{
-		"tenantId":"TEST",
-		"gameId":"5c6412313258721ee8e70a88",
+		"tenantId":"TRENTO",
+		"gameId":"???",
 		"from":1557698400000,
-		"to":1558216800000,
+		"to":1558303199000,
 		"nameGE":"R4",
-		"message":{"it":"Apparecchiature informatiche e per telecomunicazioni", "en":"Information and Communication Technologies"},
-		"reduceMessage":{"it":"???", "en":"???"},
+		"message":{
+			"it":"Piccoli elettrodomestici per la salute e il benessere",
+			"en":"Health, Beauty and Wellness Appliances"
+		},
+		"reduceMessage":{
+			"it":"Quanti anni ha l'asciugacapelli che hai a casa?",
+			"en":"How old is the hair dryer you have at home?"
+		},
 		"specialCollection":false,
-		"items":[],
+		"items":["Curling iron","Electric ear cleaner","Electric razor","Electric toothbrush","Hair cutter","Hair dryer","Aerosol machine","Other appliances for body care","Electrical weighing scale"],
 		"links":[]
 	},
 	{
-		"tenantId":"TEST",
-		"gameId":"5c6412313258721ee8e70a88",
+		"tenantId":"TRENTO",
+		"gameId":"???",
 		"from":1558303200000,
-		"to":1558821600000,
+		"to":1558907999000,
 		"nameGE":"R5",
-		"message":{"it":"Piccoli elettrodomestici per la salute e il benessere", "en":"Health, Beauty and Wellness Appliances"},
-		"reduceMessage":{"it":"???", "en":"???"},
+		"message":{
+			"it":"Apparecchiature audio e video",
+			"en":"Audio, video, consumer devices"
+		},
+		"reduceMessage":{
+			"it":"Quanti anni ha la televisione di casa tua?",
+			"en":"How old is the TV you have at home?"
+		},
 		"specialCollection":false,
-		"items":[],
+		"items":["Amplifier","Car radio","CD reader","Electrical clock","Headphones","Speaker","Mp3 reader","Radio","Record player","Recorder","Stereo","Electrical alarm clock","Battery charger","Camera","DVD reader","Video recorder","Web cam","Remote"],
 		"links":[]
 	},
 	{
-		"tenantId":"TEST",
-		"gameId":"5c6412313258721ee8e70a88",
+		"tenantId":"TRENTO",
+		"gameId":"???",
 		"from":1558908000000,
-		"to":1559426400000,
+		"to":1559512799000,
 		"nameGE":"R6",
-		"message":{"it":"Apparecchiature audio e video", "en":"Audio, video, consumer devices"},
-		"reduceMessage":{"it":"???", "en":"???"},
+		"message":{
+			"it":"Giochi e giocattoli elettrici ed elettronici",
+			"en":"Toys and games"
+		},
+		"reduceMessage":{
+			"it":"Quanti anni ha la tua console di videogiochi?",
+			"en":"How old is your video game console?"
+		},
 		"specialCollection":false,
-		"items":[],
+		"items":["Joystick","Portable and stationary console","Talking doll","Electrical musical instruments","Electrical toys"],
 		"links":[]
 	}
 ]
