@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 import java.util.Set;
 
 import javax.annotation.PostConstruct;
@@ -32,7 +31,6 @@ import it.smartcommunitylab.model.PlayerStateDTO;
 import it.smartcommunitylab.model.ext.ExecutionDataDTO;
 import it.smartcommunitylab.model.ext.GameConcept;
 import it.smartcommunitylab.model.ext.PointConcept;
-import it.smartcommunitylab.model.ext.PointConcept.PeriodInternal;
 import it.smartcommunitylab.model.ext.TeamDTO;
 
 @org.springframework.stereotype.Component
@@ -56,8 +54,6 @@ public class GeManager {
 	private TeamControllerApi teamControllerApi;
 	private ExecutionControllerApi executionApi;
 	
-	private Random random;
-	
 	@PostConstruct
 	public void init() {
 		apiClient = new ApiClient(gamificationURL);
@@ -66,7 +62,7 @@ public class GeManager {
     playerApi = new PlayerControllerApi(apiClient);
     executionApi = new ExecutionControllerApi(apiClient);
     teamControllerApi = new TeamControllerApi(apiClient);
-    random = new Random(System.currentTimeMillis());
+    logger.info("init GeManager");
 	}
 	
 	public String deployGame(Game game) {
@@ -153,6 +149,7 @@ public class GeManager {
 		dataDTO.setActionId("reduceReport");
 		dataDTO.setGameId(gameId);
 		dataDTO.setPlayerId(playerId);
+		dataDTO.setExecutionMoment(new Date(reduceReport.getTimestamp()));
 		
 		Map<String, Object> data = new HashMap<String, Object>();
 		data.put("raccoltaId", collectionName);
@@ -163,7 +160,6 @@ public class GeManager {
 	
 	public PlayerState getPlayerState(String gameId, String playerId, 
 			String collectionName) throws Exception {
-		//TODO get player state
 		PlayerStateDTO playerStateDTO = playerApi.readStateUsingGET(gameId, playerId);
 		PlayerState playerState = new PlayerState();
 		playerState.setPlayerId(playerId);
