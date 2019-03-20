@@ -26,27 +26,28 @@ public class ImageManager {
 
 	public void storeRobotImage(Player player) throws Exception {
 		BufferedImage joined = new BufferedImage(345, 541, BufferedImage.TYPE_INT_ARGB_PRE);
-		BufferedImage imageArmL = null;
-		BufferedImage imageArmR = null;
-		BufferedImage imageHead = null;
-		BufferedImage imageLegs = null;
-		BufferedImage imageChest = null;
+		BufferedImage imageHead = new BufferedImage(345, 120, BufferedImage.TYPE_INT_ARGB_PRE);
+		BufferedImage imageChest = new BufferedImage(145, 275, BufferedImage.TYPE_INT_ARGB_PRE);
+		BufferedImage imageArmL = new BufferedImage(100, 275, BufferedImage.TYPE_INT_ARGB_PRE);
+		BufferedImage imageArmR = new BufferedImage(100, 275, BufferedImage.TYPE_INT_ARGB_PRE);
+		BufferedImage imageLegs = new BufferedImage(345, 130, BufferedImage.TYPE_INT_ARGB_PRE);
 		for(Component component : player.getRobot().getComponents().values()) {
+			BufferedImage image = ImageIO.read(new File(imagePath + "/" + component.getImageUri()));
 			switch (component.getType()) {
 			case Const.ROBOT_HEAD:
-				imageHead = ImageIO.read(new File(imagePath + "/" + component.getImageUri()));
+				imageHead.createGraphics().drawImage(image.getScaledInstance(345, 120, Image.SCALE_SMOOTH), 0, 0, null);
 				break;
 			case Const.ROBOT_CHEST:
-				imageChest = ImageIO.read(new File(imagePath + "/" + component.getImageUri()));
+				imageChest.createGraphics().drawImage(image.getScaledInstance(145, 275, Image.SCALE_SMOOTH), 0, 0, null);
 				break;
 			case Const.ROBOT_ARML:
-				imageArmL = ImageIO.read(new File(imagePath + "/" + component.getImageUri()));
+				imageArmL.createGraphics().drawImage(image.getScaledInstance(100, 275, Image.SCALE_SMOOTH), 0, 0, null);
 				break;
 			case Const.ROBOT_ARMR:
-				imageArmR = ImageIO.read(new File(imagePath + "/" + component.getImageUri()));
+				imageArmR.createGraphics().drawImage(image.getScaledInstance(100, 275, Image.SCALE_SMOOTH), 0, 0, null);
 				break;
 			case Const.ROBOT_LEGS:
-				imageLegs = ImageIO.read(new File(imagePath + "/" + component.getImageUri()));
+				imageLegs.createGraphics().drawImage(image.getScaledInstance(345, 130, Image.SCALE_SMOOTH), 0, 0, null);
 				break;
 			default:
 				break;
@@ -65,9 +66,9 @@ public class ImageManager {
 	}
 	
 	private void storeRobotThumbnail(String playerId) throws Exception {
-		BufferedImage thumbnail = new BufferedImage(80, 100, BufferedImage.TYPE_INT_ARGB_PRE);
+		BufferedImage thumbnail = new BufferedImage(86, 135, BufferedImage.TYPE_INT_ARGB_PRE);
 		BufferedImage image = ImageIO.read(new File(imagePath + "/" + playerId + ".png"));
-		thumbnail.createGraphics().drawImage(image.getScaledInstance(80, 100, Image.SCALE_SMOOTH), 0, 0, null);
+		thumbnail.createGraphics().drawImage(image.getScaledInstance(86, 135, Image.SCALE_SMOOTH), 0, 0, null);
 		File thumbFile = new File(imagePath + "/" + playerId + "-thumb.png");
     ImageIO.write(thumbnail, "png", thumbFile);	
     logger.info("storeRobotThumbnail:{}", playerId);
