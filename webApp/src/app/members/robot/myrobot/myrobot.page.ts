@@ -6,7 +6,7 @@ import { ProfileService } from 'src/app/services/profile.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { GarbageCollectionService } from 'src/app/services/garbage-collection.service';
 
-const FOLDER_COMPONENTS = "../../../assets/images/components/";
+const FOLDER_COMPONENTS = "./assets/images/components/";
 @Component({
   selector: 'app-myrobot',
   templateUrl: './myrobot.page.html',

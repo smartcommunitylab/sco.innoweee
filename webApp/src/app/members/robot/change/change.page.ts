@@ -7,7 +7,7 @@ import { CatalogService } from 'src/app/services/catalog.service';
 import { ToastController, NavController, AlertController } from '@ionic/angular';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 
-const FOLDER_COMPONENTS = "../../../assets/images/components/";
+const FOLDER_COMPONENTS = "./assets/images/components/";
 
 @Component({
   selector: 'app-change',

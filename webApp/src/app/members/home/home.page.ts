@@ -15,10 +15,10 @@ const ROUTER_KEY = "router-key"
 })
 
 export class HomePage extends MainPage implements OnInit {
-  image1: String = '../assets/images/recycle.png';
-  imgRobot: String = '../assets/images/robot.png';
-  image3: String = '../assets/images/edu.png';
-  image4: String = '../assets/images/team.png';
+  image1: String = './assets/images/recycle.png';
+  imgRobot: String = './assets/images/robot.png';
+  image3: String = './assets/images/edu.png';
+  image4: String = './assets/images/team.png';
 
   playerData: any;
   materials: number;
@@ -37,19 +37,21 @@ export class HomePage extends MainPage implements OnInit {
     this.setRoute("home");
     this.profileService.getLocalPlayerData().then(res => {
       this.playerData = res;
+      this.ionViewDidEnter();
       this.materialService.getMaterial(this.playerData.gameId).then(res => {
         this.materials = res.length;
         this.garbageCollection.getActualCollection(this.playerData.gameId).then(res => {
           this.weeklyGarbage = res.message
         });
       });
-
     });
   }
   ionViewDidEnter() {
-    this.profileService.getRobotImage(this.playerData.objectId).then(res => {
-      this.imgRobot = res + '?' + (new Date().getTime());
-    })
+    if (this.playerData) {
+      this.profileService.getRobotImage(this.playerData.objectId).then(res => {
+        this.imgRobot = res + '?' + (new Date().getTime());
+      })
+    }
   }
 
   getWantedMessage() {
