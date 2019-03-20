@@ -35,7 +35,7 @@ export class GameSelectionPage implements OnInit {
   institute = {};
   instituteId: string = "";
   institutes: [];
-  school = {};
+  school:any = {};
   schoolId: string = "";
   schools: [];
   game = {};
@@ -146,6 +146,8 @@ export class GameSelectionPage implements OnInit {
       this.playerState = res;
       this.profileService.setPlayerData(this.playerData);
       this.profileService.setPlayerState(this.playerState);
+      this.profileService.setPlayerName(this.playerName);
+      this.profileService.setSchoolName(this.school["name"])
       this.router.navigate(['home']);
     })
   }

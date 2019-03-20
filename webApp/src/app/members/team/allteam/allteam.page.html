@@ -26,7 +26,7 @@
           <tr *ngFor="let row of table; trackBy: trackRow">
             <td *ngFor="let cell of row; trackBy: trackRecord" (click)="selectClass(cell)">
               <ion-img [src]=mapImg[cell.objectId]></ion-img>
-              <div class="class-name" >
+              <div class="class-name">
                 {{ cell.name }}
               </div>
             </td>
@@ -37,59 +37,31 @@
         <div class="total-resources" *ngIf="profileState">
           <ion-grid>
             <ion-row>
+              <ion-col>
+                {{'total_reduce_coins'|translate}}: {{profileState.totalReduceCoin|number:'1.0-3':'it'}} </ion-col>
+            </ion-row>
+            <ion-row>
                 <ion-col>
-                    {{profileState.totalRecycleCoin|number:'1.0-3':'it'}} {{'total_recycle_coins'|translate}}
-                  </ion-col>
-                </ion-row>
-                <ion-row>
-                  <ion-col>
-                    {{profileState.totalReduceCoin|number:'1.0-3':'it'}} {{'total_reduce_coins'|translate}}</ion-col>
-                </ion-row>
-                <ion-row>
-                  <ion-col>
-                    {{profileState.totalReuseCoin|number:'1.0-3':'it'}} {{'total_reuse_coins'|translate}}</ion-col>
-                </ion-row>
+                   {{'total_reuse_coins'|translate}}: {{profileState.totalReuseCoin|number:'1.0-3':'it'}}</ion-col>
+              </ion-row>
             <ion-row>
               <ion-col>
-                {{profileState.items|number:'1.0-3':'it'}} {{'total_items'|translate}}
+                  {{'total_recycle_coins'|translate}}: {{profileState.totalRecycleCoin|number:'1.0-3':'it'}} 
               </ion-col>
             </ion-row>
             <ion-row>
               <ion-col>
-                {{profileState.weight|number:'1.0-3':'it'}} {{'total_weight'|translate}}</ion-col>
+                  {{'total_weight'|translate}}: {{profileState.weight|number:'1.0-3':'it'}} {{getResourceUnit(profileState.weight)}}</ion-col>
             </ion-row>
             <ion-row>
               <ion-col>
-                {{profileState.co2|number:'1.0-3':'it'}} {{'total_co2'|translate}}</ion-col>
+                  {{'total_co2'|translate}}: {{profileState.co2|number:'1.0-3':'it'}} {{getResourceUnit(profileState.co2)}}</ion-col>
             </ion-row>
           </ion-grid>
         </div>
         <app-comparison *ngFor="let resource of resources" [resourcename]="getResourceLabel(resource.key)" [barvalue]="getResourceBar(resource.value)"
-        [resourcevalue]="getResourceValue(resource.key)" [barCompareValue]="getResourceClassBar(resource.key,resource.value)"
-        [resourceCompareValue]="getResourceClassValue(resource.key)" [className]="selectedClass"></app-comparison>
-        <!-- <app-comparison [resourcename]="getResourceLabel('plastic')"  [barvalue]="getResourceBar('plastic')"
-        [resourcevalue]="getResourceValue('plastic')" [barCompareValue]="getResourceClassBar('plastic')"
-        [resourceCompareValue]="getResourceClassValue('plastic')" [className]="selectedClass"></app-comparison>
-        <app-comparison [resourcename]="getResourceLabel('glass')" [barvalue]="getResourceBar('glass')" [resourcevalue]="getResourceValue('glass')" [barCompareValue]="getResourceClassBar('glass')"
-        [resourceCompareValue]="getResourceClassValue('glass')" [className]="selectedClass"></app-comparison>
-        <app-comparison [resourcename]="getResourceLabel('iron')" [barvalue]="getResourceBar('iron')" [resourcevalue]="getResourceValue('iron')" [barCompareValue]="getResourceClassBar('iron')"
-        [resourceCompareValue]="getResourceClassValue('iron')" [className]="selectedClass"></app-comparison>
-        <app-comparison [resourcename]="getResourceLabel('aluminium')" [barvalue]="getResourceBar('aluminium')"
-          [resourcevalue]="getResourceValue('aluminium')" [barCompareValue]="getResourceClassBar('aluminium')"
-          [resourceCompareValue]="getResourceClassValue('aluminium')" [className]="selectedClass"></app-comparison>
-        <app-comparison [resourcename]="getResourceLabel('copper')" [barvalue]="getResourceBar('copper')" [resourcevalue]="getResourceValue('copper')" [barCompareValue]="getResourceClassBar('copper')"
-        [resourceCompareValue]="getResourceClassValue('copper')" [className]="selectedClass"></app-comparison>
-        <app-comparison [resourcename]="getResourceLabel('nickel')" [barvalue]="getResourceBar('nickel')" [resourcevalue]="getResourceValue('nickel')" [barCompareValue]="getResourceClassBar('nickel')"
-        [resourceCompareValue]="getResourceClassValue('nickel')" [className]="selectedClass"></app-comparison>
-        <app-comparison [resourcename]="getResourceLabel('platinum')" [barvalue]="getResourceBar('platinum')"
-          [resourcevalue]="getResourceValue('platinum')" [barCompareValue]="getResourceClassBar('platinum')"
-          [resourceCompareValue]="getResourceClassValue('platinum')" [className]="selectedClass"></app-comparison>
-        <app-comparison [resourcename]="getResourceLabel('tin')" [barvalue]="getResourceBar('tin')" [resourcevalue]="getResourceValue('tin')" [barCompareValue]="getResourceClassBar('tin')"
-        [resourceCompareValue]="getResourceClassValue('tin')" [className]="selectedClass"></app-comparison>
-        <app-comparison [resourcename]="getResourceLabel('silver')" [barvalue]="getResourceBar('silver')" [resourcevalue]="getResourceValue('silver')" [barCompareValue]="getResourceClassBar('silver')"
-        [resourceCompareValue]="getResourceClassValue('silver')" [className]="selectedClass"></app-comparison>
-        <app-comparison [resourcename]="getResourceLabel('gold')" [barvalue]="getResourceBar('gold')" [resourcevalue]="getResourceValue('gold')" [barCompareValue]="getResourceClassBar('gold')"
-        [resourceCompareValue]="getResourceClassValue('gold')" [className]="selectedClass"></app-comparison> -->
+          [resourcevalue]="getResourceValue(resource.key)" [barCompareValue]="getResourceClassBar(resource.key,resource.value)"
+          [resourceCompareValue]="getResourceClassValue(resource.key)" [className]="selectedClass"></app-comparison>
       </ion-col>
     </ion-row>
   </ion-grid>

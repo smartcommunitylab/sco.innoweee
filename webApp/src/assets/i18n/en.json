@@ -50,6 +50,8 @@
         "cancel_popup":"Cancel",
         "ok_popup":"Ok",
         "coins_label":"Reduce coins",
+        "coins_reuse_label":"Credito riuso", 
+        "coins_recycle_label":"Credito riciclo", 
         "reply_0_question":"<1 year",
         "reply_1_question":"1-3 years",
         "reply_2_question":"3-5 years",
@@ -82,6 +84,8 @@
         "total_reuse_coins":"Total reuse coins",
         "duplicate_id_header":"Error",
         "duplicate_id_subtitle":"Id duplicated",
-        "duplicate_id_message":"This Id seems alredy used"
-
+        "duplicate_id_message":"This Id seems alredy used",
+        "label_enter":"Enter",
+        "footer_game_title":"WEEE-R-robots",
+        "title_material":"APPROFONDIMENTI"
 }

@@ -37,12 +37,12 @@ export class AppComponent {
   private initTranslate() {
     // Set the default language for translation strings, and the current language.
     this.translate.setDefaultLang('it');
-    if (this.translate.getBrowserLang() !== undefined) {
-      this.translate.use(this.translate.getBrowserLang());
-    }
-    else {
-      this.translate.use('en'); // Set your language here
-    }
+    // if (this.translate.getBrowserLang() !== undefined) {
+    //   this.translate.use(this.translate.getBrowserLang());
+    // }
+    // else {
+      this.translate.use('it'); // Set your language here
+    // }
   }
   initializeApp() {
     this.platform.ready().then(() => {
