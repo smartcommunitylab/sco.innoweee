@@ -22,6 +22,7 @@ export class ChangePage extends MainPage implements OnInit {
   filteredCatalog = [];
   selection = null;
   trying = false;
+  tryItemId=null;
   tmprobot = null;
   mapUri: any;
 
@@ -71,11 +72,13 @@ export class ChangePage extends MainPage implements OnInit {
 
   }
   backPage() {
-    this.selection = null;
+    this.deleteSelecttion();
+    this.cancelSelection();
 
   }
   cancelSelection() {
     this.trying = false;
+    this.tryItemId = null;
     this.resetetMapImage();
   }
   getResourceValue(label) {
@@ -121,6 +124,7 @@ export class ChangePage extends MainPage implements OnInit {
       this.tmprobot.components[item.parentId] = item;
       this.mapUri[item.type] = item.imageUri;
       this.trying = true;
+      this.tryItemId = item.componentId;
     }
     else {
       this.translate.get('cannot_try_resource').subscribe((res: string) => {
@@ -226,5 +230,11 @@ export class ChangePage extends MainPage implements OnInit {
   getClassName() {
     return this.profileService.getPlayerName();
 
+  }
+  tryingItem(item) {
+    return (this.trying && item.componentId ==this.tryItemId)
+  }
+  buyableItem(item) {
+    return (this.trying && item.componentId !=this.tryItemId)
   }
 }

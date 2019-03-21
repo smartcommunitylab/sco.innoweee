@@ -97,8 +97,8 @@
                     <app-point [pointvalue]="getResourceValueItem(item,'recycleCoin')" [iconname]="'photos'"></app-point>
                     <app-point [pointvalue]="getResourceValueItem(item,'reduceCoin')" [iconname]="'cube'"></app-point>
                     <app-point [pointvalue]="getResourceValueItem(item,'reuseCoin')" [iconname]="'star'"></app-point>
-                    <ion-button fill="outline" expand="block" [disabled]="trying" (click)="tryItem(item)">{{'change_robot_try'|translate}}</ion-button>
-                    <ion-button fill="outline" expand="block" (click)="buyItem(item)">{{'change_robot_buy'|translate}}</ion-button>
+                    <ion-button fill="outline" expand="block" [disabled]="tryingItem(item)" (click)="tryItem(item)">{{'change_robot_try'|translate}}</ion-button>
+                    <ion-button fill="outline" expand="block" [disabled]="buyableItem(item)" (click)="buyItem(item)">{{'change_robot_buy'|translate}}</ion-button>
                   </div>
                 </ion-col>
                 <ion-col *ngIf="filteredCatalog==0">
@@ -107,11 +107,11 @@
               </ion-row>
               <ion-row>
                 <ion-col>
-                  <ion-button *ngIf="!trying" fill="outline" expand="block" (click)="backPage()">{{'back_change_button'|translate}}</ion-button>
+                  <ion-button fill="outline" expand="block" (click)="backPage()">{{'back_change_button'|translate}}</ion-button>
                 </ion-col>
-                <ion-col *ngIf="trying">
+                <!-- <ion-col *ngIf="trying">
                   <ion-button fill="outline" expand="block" (click)="cancelSelection()">{{'dont_like_button'|translate}}</ion-button>
-                </ion-col>
+                </ion-col> -->
               </ion-row>
             </ion-grid>
           </ng-template>
