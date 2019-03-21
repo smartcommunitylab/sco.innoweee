@@ -1,6 +1,12 @@
-.language {
-    ion-item {
-        min-width: 250px;
+.color-bar {
+    --background: #ffe249;
+    .language {
+        ion-item {
+            min-width: 250px;
+            --background: #ffe249;
+
+
+        }
     }
 }
 
@@ -42,18 +48,22 @@ ion-grid {
         .garbage-content {
             background-color: #C4FCE4;
             text-align: center;
-            position: relative;s
-            ion-img {
+            position: relative;
+
+            s ion-img {
                 height: 450px;
                 margin: auto;
             }
+
             .wanted-container {
                 padding: 8px;
+
                 .wanted-title {
                     font-weight: bold;
                 }
             }
         }
+
         .team-content {
             background-color: #E0F8FF;
             height: 50%;
