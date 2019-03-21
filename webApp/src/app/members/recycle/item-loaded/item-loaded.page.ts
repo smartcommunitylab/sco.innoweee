@@ -80,8 +80,8 @@ export class ItemLoadedPage implements OnInit {
     //check values
     this.item.playerId = this.playerData.objectId;
     this.item.itemType = this.choices[0].value;
-    this.item.broken = this.choices[1].value;
-    this.item.switchingOn = this.choices[2].value;
+    this.item.switchingOn = this.choices[1].value;
+    this.item.broken = this.choices[2].value;
     this.item.age = this.choices[3].value;
     this.garbageCollection.itemDelivery(this.item).then(res => {
       //go to item classification
