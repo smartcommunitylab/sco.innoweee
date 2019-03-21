@@ -20,6 +20,9 @@ export class ProfileService {
   getPlayerApi: string = "";
   playerData: any;
   getRobotImageApi:string="";
+  schoolName: string="";
+  playerName:string="";
+
   constructor(private httpClient: HttpClient,
     private storage:Storage,
     private http: HttpClient,
@@ -106,7 +109,7 @@ export class ProfileService {
     //           res.blob()});
   }
   getPlayerState(gameId,playerId, nameGE?:string):Promise<any> {
-    let url: string = this.endPoint + this.getGameApi + gameId+"/state/"+playerId;
+    let url: string = this.endPoint + this.getGameApi + gameId+"/state/"+playerId+(nameGE?("?nameGE="+nameGE):"");
 
     return this.http.get(url)
       .toPromise()
@@ -152,7 +155,18 @@ export class ProfileService {
     return this.storage.get(PLAYER_STATE_KEY);
 
   }
-
+   setPlayerName(playerName) {
+    this.playerName = playerName;
+   }
+   getPlayerName() {
+     return this.playerName;
+   }
+setSchoolName(schoolName) {
+this.schoolName=schoolName;
+}
+getSchoolName() {
+return this.schoolName;
+}
 
   private handleError(error: any): Promise<any> {
 

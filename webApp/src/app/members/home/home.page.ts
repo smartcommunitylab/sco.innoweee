@@ -59,5 +59,17 @@ export class HomePage extends MainPage implements OnInit {
       return this.weeklyGarbage[this.translate.currentLang];
     else return ""
   }
+  getFooter() {
+    return (this.translate.instant('footer_game_title')+" | "+this.getSchoolName()+" | "+this.getClassName())
+  }
+
+  getSchoolName() {
+    return this.profileService.getSchoolName();
+  }
+
+  getClassName() {
+    return this.profileService.getPlayerName();
+
+  }
 
 }

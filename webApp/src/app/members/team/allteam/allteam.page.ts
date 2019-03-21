@@ -168,4 +168,24 @@ export class AllteamPage extends MainPage implements OnInit {
 
     });
   }
+
+  getResourceUnit(value) {
+    if (value > 1)
+      return "Kg"
+    if (value < 1 && value > 0.001)
+      return "g"
+    return "mg"
+  }
+  getFooter() {
+    return (this.translate.instant('footer_game_title')+" | "+this.getSchoolName()+" | "+this.getClassName())
+  }
+
+  getSchoolName() {
+    return this.profileService.getSchoolName();
+  }
+
+  getClassName() {
+    return this.profileService.getPlayerName();
+
+  }
 }

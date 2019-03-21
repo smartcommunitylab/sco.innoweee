@@ -6,8 +6,8 @@
 
 ion-grid {
     height: 100%;
-    ion-row {
 
+    ion-row {
         height: 100%;
 
         ion-img {
@@ -32,7 +32,7 @@ ion-grid {
 
             .robot-home {
                 ion-img {
-                    height: 541px;
+                    // height: 541px;
                     width: 345px;
                     margin: auto;
                 }
@@ -42,19 +42,18 @@ ion-grid {
         .garbage-content {
             background-color: #C4FCE4;
             text-align: center;
-            position: relative;
-
+            position: relative;s
             ion-img {
                 height: 450px;
                 margin: auto;
             }
-
-            .wanted-title {
-                font-weight: bold;
+            .wanted-container {
+                padding: 8px;
+                .wanted-title {
+                    font-weight: bold;
+                }
             }
-
         }
-
         .team-content {
             background-color: #E0F8FF;
             height: 50%;

@@ -3,6 +3,8 @@
       <ion-buttons slot="start">
           <ion-back-button></ion-back-button>
         </ion-buttons>
+        <ion-title class="title">{{'title_material'|translate}}</ion-title>
+
     <ion-buttons class="language" slot="end">
       <ion-item>
         <ion-label>{{'label_language_selection'|translate}}</ion-label>
@@ -56,3 +58,8 @@
     </ion-row>
   </ion-grid>
 </ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-title class="ion-text-center">{{ getFooter()}}</ion-title>
+  </ion-toolbar>
+</ion-footer>

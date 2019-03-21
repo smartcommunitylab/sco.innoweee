@@ -8,12 +8,15 @@ import { Component, OnInit, Input } from '@angular/core';
 export class PointComponent implements OnInit {
   @Input('pointvalue') pointValue;
   @Input('iconname') iconName;
+  @Input('label') label;
   constructor() { 
 
   }
 
   ngOnInit() {
-
+    console.log(this.label);
+    console.log(this.pointValue);
+    console.log(this.iconName);
   }
 
 }

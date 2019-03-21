@@ -14,7 +14,7 @@ export class MainPage implements OnInit {
     public storage:Storage) {
       this.initTranslate();
      }
-  public language: string = 'en';
+  public language: string = 'it';
 
   ngOnInit() {
   }

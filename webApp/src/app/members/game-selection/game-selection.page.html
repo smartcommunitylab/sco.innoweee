@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <img src="./assets/images/recycle.png" class="logo-nav" />
-    <ion-title>{{'title_game_selection'|translate}}</ion-title>
+    <ion-title class="game-title">{{'title_game_selection'|translate}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -45,6 +45,12 @@
       </ion-select> -->
     </ion-item>
   </ion-list>
-  <ion-button (click)="getPlayerData()" expand="block" fill="outline">Inizia raccolta</ion-button>
+  <ion-button (click)="getPlayerData()" expand="block" fill="outline">{{'label_enter'|translate}}</ion-button>
 
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-title>Footer</ion-title>
+  </ion-toolbar>
+</ion-footer>
