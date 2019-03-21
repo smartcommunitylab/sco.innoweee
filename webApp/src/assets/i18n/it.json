@@ -49,7 +49,7 @@
         "confirm_buy_message":"Vuoi veramente acquistare l'oggetto?",
         "cancel_popup":"Annulla",
         "ok_popup":"Ok",
-        "coins_label":"Credito riduco", 
+        "coins_reduce_label":"Credito riduco", 
         "coins_reuse_label":"Credito riuso", 
         "coins_recycle_label":"Credito riciclo", 
         "reply_0_question":"<1 ANNO",
@@ -87,5 +87,7 @@
         "duplicate_id_message":"Questo Identificativo sembra essere gia' utilizzato",
         "label_enter":"Accedi",
         "footer_game_title":"WEEE-R-robots",
-        "title_material":"APPROFONDIMENTI"
+        "title_material":"APPROFONDIMENTI",
+        "title_change":"COSTRUISCI"
+
 }
