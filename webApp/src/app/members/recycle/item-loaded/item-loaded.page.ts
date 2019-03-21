@@ -101,7 +101,6 @@ export class ItemLoadedPage implements OnInit {
       }, {
         "label": "reply_off_question",
         "value": false
-
       }],
       2: [{
         "label": "reply_working_question",

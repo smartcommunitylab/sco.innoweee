@@ -1,6 +1,8 @@
 ion-row {
     font-size: 14px;
-
+    .resource {
+        text-align: right;
+    }
     ion-progress-bar {
         height: 8px;
         --buffer-background: none;

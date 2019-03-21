@@ -1,75 +1,97 @@
-.robot-container {
+.color-bar {
+    --background: #ffe249;
+}
 
-    ion-row {
-        height: 100%;
+ion-content {
+    --background : #FFF7DD;
+    .robot-container {
 
-        ion-col {
+        ion-row {
             height: 100%;
-            position: relative;
 
-            .point-container {
-                position: relative;
-                top: 20%;
-            }
-
-            .robot {
-                height: 541px;
-                width: 345px;
+            ion-col {
+                height: 100%;
                 position: relative;
 
-                ion-col {
-                    padding: 0px;
-                }
+                .point-container {
+                    position: relative;
+                    top: 20%;
 
-                ion-grid {
-                    padding: 0px;
-                }
-
-                .head-row {
-                    margin-bottom: 8px;
-
-                    .head-robot {
-                        height: 120px;
-                        width: 345px;
+                    .point {
+                        width: 30%;
+                        position: absolute;
+                        background-color: #FFE249;
+                        border-radius: 8px;
+                        border: 2px white solid;
                     }
                 }
 
-                .armR-robot {
-                    height: 275px;
-                    width: 100px;
-                }
-
-                .chest-robot {
-                    height: 275px;
-                    width: 145px;
-                }
-
-                .armL-robot {
-                    height: 275px;
-                    width: 100px;
-                }
-
-                .legs-row {
-                    margin-bottom: 8px;
-
-                    .legs-robot {
-                        height: 130px;
-                        width: 345px;
-                    }
-                }
-
-                .feet-robot {
-                    height: 50px;
+                .robot {
+                    height: 541px;
                     width: 345px;
+                    position: relative;
+
+                    ion-col {
+                        padding: 0px;
+                    }
+
+                    ion-grid {
+                        padding: 0px;
+                    }
+
+                    .head-row {
+                        margin-bottom: 8px;
+
+                        .head-robot {
+                            height: 120px;
+                            width: 345px;
+                        }
+                    }
+
+                    .armR-robot {
+                        height: 275px;
+                        width: 100px;
+                    }
+
+                    .chest-robot {
+                        height: 275px;
+                        width: 145px;
+                    }
+
+                    .armL-robot {
+                        height: 275px;
+                        width: 100px;
+                    }
+
+                    .legs-row {
+                        margin-bottom: 8px;
+
+                        .legs-robot {
+                            height: 130px;
+                            width: 345px;
+                        }
+                    }
+
+                    .feet-robot {
+                        height: 50px;
+                        width: 345px;
+                    }
                 }
-            }
 
-            .resources-container {
-                position: relative;
-                top: 20%;
+                .resources-container {
+                    position: relative;
+                    top: 20%;
 
-                .total-resources {
-                    text-align: center;
+                    .resources {
+                        .app-resources {
+                            padding-left: 150px;
+                            padding-top: 60px;
+                        }
+                    }
+
+                    .total-resources {
+                        text-align: center;
+                    }
                 }
             }
         }
