@@ -49,7 +49,7 @@
         "confirm_buy_message":"Do you really wanna buy the item?",
         "cancel_popup":"CANCEL",
         "ok_popup":"OK",
-        "coins_label":"Reduce coins",
+        "coins_reduce_label":"Reduce coins",
         "coins_reuse_label":"Reuse coins", 
         "coins_recycle_label":"Recycle coins",
         "reply_0_question":"<1 YEAR",
