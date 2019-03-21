@@ -116,4 +116,16 @@ export class MyrobotPage extends MainPage implements OnInit {
       return "g"
     return "mg"
   }
+  getFooter() {
+    return (this.translate.instant('footer_game_title')+" | "+this.getSchoolName()+" | "+this.getClassName())
+  }
+
+  getSchoolName() {
+    return this.profileService.getSchoolName();
+  }
+
+  getClassName() {
+    return this.profileService.getPlayerName();
+
+  }
 }

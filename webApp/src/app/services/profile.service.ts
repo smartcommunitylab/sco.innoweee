@@ -109,7 +109,7 @@ export class ProfileService {
     //           res.blob()});
   }
   getPlayerState(gameId,playerId, nameGE?:string):Promise<any> {
-    let url: string = this.endPoint + this.getGameApi + gameId+"/state/"+playerId;
+    let url: string = this.endPoint + this.getGameApi + gameId+"/state/"+playerId+(nameGE?("?nameGE="+nameGE):"");
 
     return this.http.get(url)
       .toPromise()

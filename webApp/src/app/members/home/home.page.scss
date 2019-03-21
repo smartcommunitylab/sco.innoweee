@@ -6,11 +6,14 @@
 
 ion-grid {
     height: 100%;
+
     ion-row {
         height: 100%;
+
         ion-img {
             padding: 50px;
         }
+
         ion-button {
             width: 164px;
             left: 50%;
@@ -18,12 +21,15 @@ ion-grid {
             position: absolute;
             bottom: 25px;
         }
+
         ion-col {
             padding: 0px;
         }
+
         .robot-content {
             background-color: #fff7dd;
             position: relative;
+
             .robot-home {
                 ion-img {
                     // height: 541px;
@@ -32,22 +38,22 @@ ion-grid {
                 }
             }
         }
+
         .garbage-content {
             background-color: #C4FCE4;
             text-align: center;
-            position: relative;
-
+            position: relative;s
             ion-img {
                 height: 450px;
                 margin: auto;
             }
-
-            .wanted-title {
-                font-weight: bold;
+            .wanted-container {
+                padding: 8px;
+                .wanted-title {
+                    font-weight: bold;
+                }
             }
-
         }
-
         .team-content {
             background-color: #E0F8FF;
             height: 50%;

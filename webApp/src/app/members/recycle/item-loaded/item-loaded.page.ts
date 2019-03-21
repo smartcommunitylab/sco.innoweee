@@ -105,10 +105,10 @@ export class ItemLoadedPage implements OnInit {
       }],
       2: [{
         "label": "reply_working_question",
-        "value": true
+        "value": false
       }, {
         "label": "reply_broken_question",
-        "value": false
+        "value": true
       }],
       3: [{
         "label": "reply_0_question",

@@ -9,3 +9,15 @@
 @import '~@ionic/angular/css/text-alignment.css';
 @import '~@ionic/angular/css/text-transformation.css';
 @import '~@ionic/angular/css/flex-utils.css';
+
+.title {
+    height: 50px;
+    line-height: 50px;
+    white-space: nowrap;
+}
+
+.game-title {
+    height: 100px;
+    line-height: 100px;
+    white-space: nowrap;
+}

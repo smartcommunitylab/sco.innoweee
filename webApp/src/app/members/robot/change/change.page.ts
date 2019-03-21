@@ -215,4 +215,16 @@ export class ChangePage extends MainPage implements OnInit {
     });
     return await alert.present();
   }
+  getFooter() {
+    return (this.translate.instant('footer_game_title')+" | "+this.getSchoolName()+" | "+this.getClassName())
+  }
+
+  getSchoolName() {
+    return this.profileService.getSchoolName();
+  }
+
+  getClassName() {
+    return this.profileService.getPlayerName();
+
+  }
 }
