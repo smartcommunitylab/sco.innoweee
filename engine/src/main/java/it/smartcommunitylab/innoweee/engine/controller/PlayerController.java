@@ -89,6 +89,8 @@ public class PlayerController extends AuthController {
 				Utils.addNewRobot(player, catalogResopitory);
 				playerRepository.save(player);
 				imageManager.storeRobotImage(player);
+			} else {
+				playerRepository.save(player);
 			}
 			if(!StringUtils.isEmpty(game.getGeGameId())) {
 				if(player.isTeam()) {
