@@ -1,0 +1,17 @@
+ion-row {
+    font-size: 14px;
+    ion-col {
+        padding: 2px 5px;
+        p {
+            margin: 2px;
+        }
+    }
+    .resource {
+        text-align: right;
+    }
+    ion-progress-bar {
+        height: 8px;
+        --buffer-background: none;
+
+    }
+}

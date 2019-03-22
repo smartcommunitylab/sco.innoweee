@@ -10,7 +10,7 @@
 <ion-content padding>
   <ion-grid class="robot-container">
     <ion-row>
-      <ion-col size="5">
+      <div>
         <div>
           <div class="robot" *ngIf="profileData">
             <ion-grid>
@@ -37,13 +37,13 @@
               </ion-row>
               <ion-row>
                 <ion-col>
-                  <ion-button [routerLink]="['/change']" fill="outline">{{'change_robot'|translate}}</ion-button>
+                  <ion-button color="dark" (click)="change()" fill="outline">{{'change_robot'|translate}}</ion-button>
                 </ion-col>
               </ion-row>
             </ion-grid>
           </div>
         </div>
-      </ion-col>
+      </div>
       <ion-col>
         <!-- 
         </ion-col>
@@ -58,39 +58,41 @@
             </div>
           </div>
           <div class="resources">
-            <div class="app-resources">
+            <div class="app-resources-container">
+              <div class="app-resources">
               <app-resource *ngFor="let resource of resources" [resourcename]="getResourceLabel(resource.key)"
                 [barvalue]="getResourceBar(resource.value)" [resourcevalue]="getResourceValue(resource.key)"></app-resource>
-            </div>
             <div class="total-resources" *ngIf="profileState">
               <ion-grid>
+                  <ion-row>
+                      <ion-col>
+                        {{'total_weight'|translate}}: {{profileState.weight|number:'1.0-3':'it'}}
+                        {{getResourceUnit(profileState.weight)}}</ion-col>
+                    </ion-row>
+                    <ion-row>
+                      <ion-col>
+                        {{'total_co2'|translate}}: {{profileState.co2|number:'1.0-3':'it'}}
+                        {{getResourceUnit(profileState.co2)}}</ion-col>
+                    </ion-row>
                 <ion-row>
                   <ion-col>
-                    {{'total_reduce_coins'|translate}}: {{profileState.totalReduceCoin|number:'1.0-3':'it'}}
+                     <div class="value-resources">{{profileState.totalReduceCoin|number:'1.0-3':'it'}}</div>
+                     <div>{{'total_reduce_coins'|translate}}</div>
+                  </ion-col>
+                  <ion-col>
+                      <div class="value-resources">{{profileState.totalReuseCoin|number:'1.0-3':'it'}}</div>
+                    <div>{{'total_reuse_coins'|translate}}</div>
+                  </ion-col>
+                  <ion-col>
+                      <div class="value-resources"> {{profileState.totalRecycleCoin|number:'1.0-3':'it'}}</div>
+                    <div>{{'total_recycle_coins'|translate}}</div>
                   </ion-col>
                 </ion-row>
-                <ion-row>
-                  <ion-col>
-                    {{'total_reuse_coins'|translate}}: {{profileState.totalReuseCoin|number:'1.0-3':'it'}}
-                  </ion-col>
-                </ion-row>
-                <ion-row>
-                  <ion-col>
-                    {{'total_recycle_coins'|translate}}: {{profileState.totalRecycleCoin|number:'1.0-3':'it'}}
-                  </ion-col>
-                </ion-row>
-                <ion-row>
-                  <ion-col>
-                    {{'total_weight'|translate}}: {{profileState.weight|number:'1.0-3':'it'}}
-                    {{getResourceUnit(profileState.weight)}}</ion-col>
-                </ion-row>
-                <ion-row>
-                  <ion-col>
-                    {{'total_co2'|translate}}: {{profileState.co2|number:'1.0-3':'it'}}
-                    {{getResourceUnit(profileState.co2)}}</ion-col>
-                </ion-row>
+
               </ion-grid>
             </div>
+            </div>
+          </div>
           </div>
         </div>
       </ion-col>

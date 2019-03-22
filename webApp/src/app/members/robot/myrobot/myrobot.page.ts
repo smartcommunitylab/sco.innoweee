@@ -5,6 +5,7 @@ import { Storage } from '@ionic/storage';
 import { ProfileService } from 'src/app/services/profile.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { GarbageCollectionService } from 'src/app/services/garbage-collection.service';
+import { Router } from '@angular/router';
 
 const FOLDER_COMPONENTS = "./assets/images/components/";
 @Component({
@@ -25,6 +26,7 @@ export class MyrobotPage extends MainPage implements OnInit {
   };
   constructor(public translate: TranslateService,
     public storage: Storage,
+    private router: Router,
     public authService: AuthenticationService,
     private garbageService: GarbageCollectionService,
     public profileService: ProfileService) {
@@ -127,5 +129,9 @@ export class MyrobotPage extends MainPage implements OnInit {
   getClassName() {
     return this.profileService.getPlayerName();
 
+  }
+
+  change() {
+    this.router.navigate(["change"]);
   }
 }

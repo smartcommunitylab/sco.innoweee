@@ -1,17 +1,27 @@
 <div>
-    <ion-grid>
-      <ion-row>
-        <ion-col size="3">
-          {{pointValue|translate}}
-        </ion-col>
-        <ion-col size="6">
-            <ion-progress-bar value="{{barValue}}"></ion-progress-bar>
-            <ion-progress-bar  *ngIf="className" color="secondary" value="{{barCompareValue}}"></ion-progress-bar>
-          </ion-col>
-        <ion-col size="3">
-            <p>{{getResourceValue(resourceValue)|number:'1.0-3':'it'}} {{getResourceUnit(resourceValue)}}</p>
-            <p>{{getResourceValue(resourceCompareValue)|number:'1.0-3':'it'}} {{getResourceUnit(resourceCompareValue)}}</p>
-          </ion-col>
-      </ion-row>
-    </ion-grid>
-  </div>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="3" class="resource">
+        {{pointValue|translate}}
+      </ion-col>
+      <ion-col size="6">
+        <ion-progress-bar value="{{barValue}}"></ion-progress-bar>
+      </ion-col>
+      <ion-col size="3">
+        <p>{{getResourceValue(resourceValue)|number:'1.0-3':'it'}} {{getResourceUnit(resourceValue)}}</p>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="className">
+      <ion-col size="3">
+      </ion-col>
+      <ion-col size="6">
+
+        <ion-progress-bar color="secondary" value="{{barCompareValue}}"></ion-progress-bar>
+      </ion-col>
+      <ion-col size="3">
+
+        <p>{{getResourceValue(resourceCompareValue)|number:'1.0-3':'it'}} {{getResourceUnit(resourceCompareValue)}}</p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</div>

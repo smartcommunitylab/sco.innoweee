@@ -3,6 +3,7 @@
         min-width: 250px;
     }
 }
+
 .classes-container {
     display: table;
     width: 50vh;
@@ -26,6 +27,30 @@
         }
     }
 }
-.total-resources{
+
+.resources {
+    .app-resources-container {
+        padding: 20px;
+
+        .app-resources {
+            padding-left: 20px;
+            border-radius: 8px;
+            background-color: #FFE249;
+
+        }
+    }
+}
+
+.total-resources {
     text-align: center;
+    margin: 12px;
+    position: relative;
+    background-color: #FCD14D;
+    border-radius: 8px;
+    bottom: 12px;
+
+    .value-resources {
+        font-weight: bold;
+        font-size: 20px;
+    }
 }

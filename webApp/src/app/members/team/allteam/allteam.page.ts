@@ -48,8 +48,6 @@ export class AllteamPage extends MainPage implements OnInit {
       this.profileService.getPlayerState(this.gameId, this.school.objectId).then(res => {
         this.profileState = res;
         this.orderResources(this.profileState)
-
-
       });
       this.profileService.getLocalPlayerData().then(res => {
         this.playerData = res;
@@ -59,7 +57,9 @@ export class AllteamPage extends MainPage implements OnInit {
       })
     })
   }
-
+  ionViewWillEnter() {
+    this.selectedClass=null;
+  }
   /*create a table of 4 columns*/
   public columns = 5;
 
@@ -95,8 +95,6 @@ export class AllteamPage extends MainPage implements OnInit {
     this.resources.sort((a, b) => {
       return b.value - a.value
     })
-
-
   }
 
   addMax(value) {
