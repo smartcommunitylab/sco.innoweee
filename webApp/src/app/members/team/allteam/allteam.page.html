@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar class="color-bar">
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
@@ -19,9 +19,9 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-grid>
-    <ion-row>
-      <ion-col>
+  <ion-grid class="grid">
+    <ion-row class="grid-row">
+      <ion-col class="grid-col">
         <div class="resources">
           <div class="app-resources-container">
             <div class="app-resources">
@@ -33,20 +33,6 @@
                 <ion-grid>
                   <ion-row>
                     <ion-col>
-                      {{'total_reduce_coins'|translate}}: {{profileState.totalReduceCoin|number:'1.0-3':'it'}}
-                    </ion-col>
-                  </ion-row>
-                  <ion-row>
-                    <ion-col>
-                      {{'total_reuse_coins'|translate}}: {{profileState.totalReuseCoin|number:'1.0-3':'it'}}</ion-col>
-                  </ion-row>
-                  <ion-row>
-                    <ion-col>
-                      {{'total_recycle_coins'|translate}}: {{profileState.totalRecycleCoin|number:'1.0-3':'it'}}
-                    </ion-col>
-                  </ion-row>
-                  <ion-row>
-                    <ion-col>
                       {{'total_weight'|translate}}: {{profileState.weight|number:'1.0-3':'it'}}
                       {{getResourceUnit(profileState.weight)}}</ion-col>
                   </ion-row>
@@ -55,6 +41,20 @@
                       {{'total_co2'|translate}}: {{profileState.co2|number:'1.0-3':'it'}}
                       {{getResourceUnit(profileState.co2)}}</ion-col>
                   </ion-row>
+                  <ion-row>
+                    <ion-col>
+                      <div class="value-resources">{{profileState.totalReduceCoin|number:'1.0-3':'it'}}</div>
+                      <div>{{'total_reduce_coins'|translate}}</div>
+                    </ion-col>
+                    <ion-col>
+                      <div class="value-resources">{{profileState.totalReuseCoin|number:'1.0-3':'it'}}</div>
+                      <div>{{'total_reuse_coins'|translate}}</div>
+                    </ion-col>
+                    <ion-col>
+                      <div class="value-resources"> {{profileState.totalRecycleCoin|number:'1.0-3':'it'}}</div>
+                      <div>{{'total_recycle_coins'|translate}}</div>
+                    </ion-col>
+                  </ion-row>
                 </ion-grid>
               </div>
             </div>
@@ -62,23 +62,24 @@
         </div>
       </ion-col>
       <ion-col class="classes-container">
-        <table>
-          <tr *ngFor="let row of table; trackBy: trackRow">
-            <td *ngFor="let cell of row; trackBy: trackRecord" (click)="selectClass(cell)">
-              <ion-img [src]=mapImg[cell.objectId]></ion-img>
-              <div class="class-name">
-                {{ cell.name }}
-              </div>
-            </td>
-          </tr>
-        </table>
+        <div class="table-container">
+          <table class="table-classes">
+            <tr *ngFor="let row of table; trackBy: trackRow">
+              <td *ngFor="let cell of row; trackBy: trackRecord" (click)="selectClass(cell)">
+                <ion-img [src]=mapImg[cell.objectId]></ion-img>
+                <div class="class-name">
+                  {{ cell.name }}
+                </div>
+              </td>
+            </tr>
+          </table>
+        </div>
       </ion-col>
-
     </ion-row>
   </ion-grid>
 </ion-content>
 <ion-footer>
-  <ion-toolbar>
+  <ion-toolbar class="color-bar">
     <ion-title class="ion-text-center">{{ getFooter()}}</ion-title>
   </ion-toolbar>
 </ion-footer>

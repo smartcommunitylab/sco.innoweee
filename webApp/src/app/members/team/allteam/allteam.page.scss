@@ -1,56 +1,103 @@
+.color-bar {
+    --background: #008ED9;
+    color: white;
+}
+
 .language {
     ion-item {
         min-width: 250px;
+        --background: #008ED9;
+        color: white;
+
     }
 }
+.table-container{
+    border: solid #00A5D7;
+    border-radius: 12px;
+    position: absolute;
+    top: 50%;
+    // right: 0%;
+    left: -8px;
+    padding: 12px;
+    transform: translateY(-50%);
+.table-classes {
 
-.classes-container {
-    display: table;
-    width: 50vh;
-
-    td {
-        position: relative;
-
-        .class-name {
-            // position: absolute;
-            width: 80%;
-            // bottom: 40px;
-            text-align: center;
-            background-color: white;
-            opacity: 0.6;
-            border: solid 2px black;
-
-        }
-
-        .single-class-container {
-            display: table-cell;
-        }
+    .class-name {
+        // position: absolute;
+        width: 80%;
+        // bottom: 40px;
+        text-align: center;
+        background-color: white;
+        opacity: 0.6;
+        // border: solid 2px black;
+        margin: auto;
     }
 }
-
-.resources {
-    .app-resources-container {
-        padding: 20px;
-
-        .app-resources {
-            padding-left: 20px;
-            border-radius: 8px;
-            background-color: #FFE249;
-
-        }
-    }
 }
+.grid {
+    height: 100%;
 
-.total-resources {
-    text-align: center;
-    margin: 12px;
-    position: relative;
-    background-color: #FCD14D;
-    border-radius: 8px;
-    bottom: 12px;
+    .grid-row {
+        height: 100%;
 
-    .value-resources {
-        font-weight: bold;
-        font-size: 20px;
+        .grid-col {
+            position: relative;
+
+            .classes-container {
+                height: 100%;
+                // display: table;
+                // width: 50vh;
+                border: solid #00A5D7;
+                border-radius: 12px;
+
+
+
+                    td {
+                        position: relative;
+                        height: 8em;
+
+
+
+                        .single-class-container {
+                            display: table-cell;
+                        }
+                    }
+                
+            }
+
+            .resources {
+                position: absolute;
+                top: 50%;
+                right: 0%;
+                transform: translateY(-50%);
+
+                .app-resources-container {
+                    // padding: 20px;
+
+                    .app-resources {
+                        padding-left: 20px;
+                        border-radius: 8px;
+                        background-color: #00A5D7;
+                        color: white;
+
+                    }
+                }
+            }
+
+            .total-resources {
+                color: white;
+                text-align: center;
+                margin: 12px;
+                position: relative;
+                background-color: #008ED9;
+                border-radius: 8px;
+                bottom: 12px;
+
+                .value-resources {
+                    font-weight: bold;
+                    font-size: 20px;
+                }
+            }
+        }
     }
 }

@@ -61,7 +61,7 @@ export class AllteamPage extends MainPage implements OnInit {
     this.selectedClass=null;
   }
   /*create a table of 4 columns*/
-  public columns = 5;
+  public columns = 6;
 
   public get table(): number[][] {
     const rowCount = Math.floor(this.listSections.length / this.columns);
