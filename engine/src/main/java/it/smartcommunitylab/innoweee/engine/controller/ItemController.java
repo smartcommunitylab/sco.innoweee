@@ -90,10 +90,11 @@ public class ItemController extends AuthController {
 			throw new EntityNotFoundException("game entity not found");
 		}
 		Game game = optionalGame.get();
-		if(!validateAuthorization(game.getTenantId(), game.getInstituteId(), game.getSchoolId(), 
-				game.getObjectId(), Const.AUTH_RES_Game_Item, Const.AUTH_ACTION_ADD, request)) {
-			throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
-		}
+		//TODO TEST
+//		if(!validateAuthorization(game.getTenantId(), game.getInstituteId(), game.getSchoolId(), 
+//				game.getObjectId(), Const.AUTH_RES_Game_Item, Const.AUTH_ACTION_ADD, request)) {
+//			throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
+//		}
 		if(StringUtils.isEmpty(itemEvent.getItemId())) {
 			throw new EntityNotFoundException("item id not found");
 		}

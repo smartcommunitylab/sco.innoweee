@@ -59,10 +59,12 @@ public class InstituteController extends AuthController {
 		List<Institute> result = new ArrayList<>();
 		List<Institute> list = instituteRepository.findByTenantId(tenantId);
 		for(Institute institute : list) {
-			if(validateAuthorization(tenantId, institute.getObjectId(), null, null, 
-				Const.AUTH_RES_Institute, Const.AUTH_ACTION_READ, request)) {
-				result.add(institute);
-			}
+			//TODO TEST
+			result.add(institute);
+//			if(validateAuthorization(tenantId, institute.getObjectId(), null, null, 
+//				Const.AUTH_RES_Institute, Const.AUTH_ACTION_READ, request)) {
+//				result.add(institute);
+//			}
 		}
 		logger.info("searchInstitute[{}]:{}", tenantId, result.size());
 		return result;
