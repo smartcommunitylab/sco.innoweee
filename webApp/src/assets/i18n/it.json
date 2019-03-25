@@ -90,6 +90,11 @@
         "title_material":"APPROFONDIMENTI",
         "title_change":"COSTRUISCI",
         "which_piece":"Quale parte vuoi potenziare?",
-        "choose_piece":"Scegli un potenziamento"
+        "choose_piece":"Scegli un potenziamento",
+        "label_close_item_subtitle":"Usa l'app sul cellulare per  scannerizzare il QR code del tuo oggetto, guadagnare crediti e potenziare il tuo robot",
+        "label_use_id":"Utilizza questo ID",
+        "label_id":"ID dell'oggetto"
+
+
 
 }

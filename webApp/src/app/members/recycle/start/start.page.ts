@@ -25,31 +25,47 @@ export class StartPage implements OnInit {
   disabled: boolean;
   message: any;
   playerData: any;
-  manualItemId:string;
-
+  manualItemId: string;
+  garbageCollectionName: string;
+  weeklyGarbage: string;
+  manual:boolean;
   constructor(
     private profileService: ProfileService,
     private router: Router,
-    private translateService:TranslateService,
-    private garbageCollection:GarbageCollectionService,
+    private translateService: TranslateService,
+    private garbageCollection: GarbageCollectionService,
     private alertController: AlertController,
+    private translate: TranslateService,
     @Inject(APP_CONFIG_TOKEN) private config: ApplicationConfig) {
     this.itemSocketURL = config.itemSocketURL;
     this.apiEndpoint = config.apiEndpoint;
   }
 
   ionViewWillEnter() {
+    this.manual=false;
     this.message = null;
-    this.manualItemId=new Date().getTime().toString();
+    // this.manualItemId = new Date().getTime().toString();
+    this.manualItemId = "";
     this.profileService.getLocalPlayerData().then(res => {
       this.playerData = res;
-      this.connect(this.playerData.tenantId,this.playerData.objectId);
+      this.connect(this.playerData.tenantId, this.playerData.objectId);
+      this.garbageCollection.getActualCollection(this.playerData.gameId).then(res => {
+        this.garbageCollectionName = res.nameGE;
+        this.weeklyGarbage = res.message
+      });
     })
+  }
+
+
+  getWantedMessage() {
+    if (this.weeklyGarbage)
+      return this.weeklyGarbage[this.translate.currentLang];
+    else return ""
   }
   ionViewWillLeave() {
     this.disconnect();
   }
-  connect(tenantId,playerId) {
+  connect(tenantId, playerId) {
     //connect to stomp where stomp endpoint is exposed
     let sock = new SockJS(this.apiEndpoint + this.itemSocketURL);
     // let sock = new WebSocket("ws://localhost:2020/itemws/websocket");
@@ -59,12 +75,12 @@ export class StartPage implements OnInit {
       that.ws.subscribe("/errors", function (message) {
         alert("Error " + message.body);
       });
-      that.ws.subscribe("/topic/item."+tenantId+"." + playerId, function (message) {
+      that.ws.subscribe("/topic/item." + tenantId + "." + playerId, function (message) {
         console.log(message)
         that.message = JSON.parse(message.body);
         if (that.message && that.message.itemId) {
           //go to item-loaded
-          that.router.navigate([ 'item-loaded',that.message.itemId,false]);
+          that.router.navigate(['item-loaded', that.message.itemId, false]);
         }
       });
       that.disabled = true;
@@ -76,9 +92,8 @@ export class StartPage implements OnInit {
     if (this.manualItemId) {
       //go to item-loaded
       this.checkIfPresent(this.manualItemId).then(res => {
-        if (!res)
-        {
-          this.router.navigate([ 'item-loaded',this.manualItemId,true]);
+        if (!res) {
+          this.router.navigate(['item-loaded', this.manualItemId, true]);
 
         }
         else {
@@ -87,26 +102,27 @@ export class StartPage implements OnInit {
       })
       //todo check if id is already present
 
-    }  }
-  
-      async showErrorItem() {
-        let headerLabel = this.translateService.instant("duplicate_id_header");
-        let subtitleLabel = this.translateService.instant("duplicate_id_subtitle");
-        let messageLabel = this.translateService.instant("duplicate_id_message");
-
-        const alert = await this.alertController.create({
-          header: headerLabel,
-          subHeader: subtitleLabel,
-          message: messageLabel,
-          buttons: ['OK']
-        });
-    
-        await alert.present();
     }
-  checkIfPresent(scanData):Promise<any> {
+  }
+
+  async showErrorItem() {
+    let headerLabel = this.translateService.instant("duplicate_id_header");
+    let subtitleLabel = this.translateService.instant("duplicate_id_subtitle");
+    let messageLabel = this.translateService.instant("duplicate_id_message");
+
+    const alert = await this.alertController.create({
+      header: headerLabel,
+      subHeader: subtitleLabel,
+      message: messageLabel,
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
+  checkIfPresent(scanData): Promise<any> {
     return this.garbageCollection.checkIfPresent(scanData, this.playerData.objectId).then(res => {
       console.log(res);
-     return res.result
+      return res.result
     })
   }
 
@@ -125,6 +141,9 @@ export class StartPage implements OnInit {
   ngOnInit() {
     //tmp
 
+  }
+  getImgName() {
+    return './assets/images/collection/'+this.garbageCollectionName + ".png";
   }
 
 

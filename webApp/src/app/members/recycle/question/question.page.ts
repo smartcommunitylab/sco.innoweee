@@ -83,5 +83,17 @@ export class QuestionPage extends MainPage implements OnInit {
     })
     
   }
+  getSchoolName() {
+    return this.profileService.getSchoolName();
+  }
+
+  getClassName() {
+    return this.profileService.getPlayerName();
+
+  }
+
+  getFooter() {
+    return (this.translate.instant('footer_game_title')+" | "+this.getSchoolName()+" | "+this.getClassName())
+  }
 }
 

@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar class="color-bar">
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
@@ -19,8 +19,47 @@
 </ion-header>
 
 <ion-content padding>
-<ion-grid>
-  <ion-row class="row-object">
+  <ion-grid>
+
+    <ion-row class="question-screen">
+      <ion-col class="col-vertical-center">
+        <div class="vertical-center left-box">
+          <div>
+            <p class="title-collection">{{garbageCollectionName}}</p>
+            <p class="subtitle-collection">{{getWantedMessage()}}</p>
+          </div>
+          <ion-img [src]="getImgName()"></ion-img>
+        </div>
+      </ion-col>
+      <ion-col class="col-vertical-center">
+        <div class="vertical-center right-box">
+          <div>
+            <div *ngIf="!message">
+              <p class="title-collection">{{'label_close_item'|translate}}</p>
+              <p class="subtitle-collection">{{'label_close_item_subtitle'|translate}}</p>
+            </div>
+            <div *ngIf="message">
+              {{'label_identified'|translate}}
+              {{message.itemId}}
+            </div>
+            <ion-button *ngIf="!manual" color="light" (click)="manual = true;" expand="block" fill="outline">
+              {{'label_insert_item'|translate}}
+            </ion-button>
+            <div *ngIf="manual">
+              <ion-button color="light" (click)="manualInsert()" expand="block" fill="outline">
+                {{'label_use_id'|translate}}
+              </ion-button>
+              <ion-item>
+                <ion-label position="floating">{{'label_id'|translate}}</ion-label>
+                <ion-input [(ngModel)]="manualItemId"></ion-input>
+
+              </ion-item>
+            </div>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+    <!-- <ion-row class="row-object">
     <ion-col class="close-object">
       <div *ngIf="!message">
         {{'label_close_item'|translate}}
@@ -46,9 +85,15 @@
         {{'label_insert_item'|translate}}
       </ion-button>
     </ion-col>
-  </ion-row>
-</ion-grid>
-  <ion-button [routerLink]="['/recycle-results']" expand="block" fill="outline">
+  </ion-row> -->
+  </ion-grid>
+  <ion-button color="dark" [routerLink]="['/recycle-results']" expand="block" fill="outline">
     {{'label_end_recycle'|translate}}
   </ion-button>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar class="color-bar">
+    <ion-title class="ion-text-center">{{ getFooter()}}</ion-title>
+  </ion-toolbar>
+</ion-footer>

@@ -1,10 +1,61 @@
-ion-grid {
-    height: 90%;
-  }
+.color-bar {
+  --background: #009952;
+  --color: white;
 
-  ion-row {
-    height: 30%;
-    .question{
-        text-align: center;
+  .language {
+    ion-item {
+      min-width: 250px;
+      --background: #009952;
+      --color: white;
     }
   }
+}
+
+ion-content {
+  --background: #C8F1DE;
+  --padding-top	:0px;
+  --padding-bottom	:0px;
+}
+
+ion-grid {
+  height: 100%;
+  --ion-grid-padding	:0px;
+  .question-screen {
+    height: 100%;
+
+    .vertical-center {
+      width: 100%;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .col-vertical-center {
+      position: relative;
+
+      .question-box {
+        width: 100%;
+        text-align: center;
+      }
+    }
+
+    .col-dark {
+      background-color: #009952;
+      color: white;
+
+      .go-start {
+        margin: auto;
+        --color: white;
+        --border-color: white;
+      }
+    }
+  }
+}
+
+
+// ion-row {
+//   height: 30%;
+//   .question{
+//       text-align: center;
+//   }
+// }
