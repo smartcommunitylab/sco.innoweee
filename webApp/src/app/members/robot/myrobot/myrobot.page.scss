@@ -8,10 +8,62 @@ ion-content {
 
         ion-row {
             height: 100%;
+            .robot {
+                // height: 541px;
+                // width: 345px;
+                position: relative;
+                width: 43vh;
 
+                // ion-col {
+                //     padding: 0px;
+                // }
+
+                // ion-grid {
+                //     padding: 0px;
+                // }
+
+                // .head-row {
+                //     margin-bottom: 8px;
+
+                //     .head-robot {
+                //         height: 120px;
+                //         width: 345px;
+                //     }
+                // }
+
+                // .armR-robot {
+                //     height: 275px;
+                //     width: 100px;
+                // }
+
+                // .chest-robot {
+                //     height: 275px;
+                //     width: 145px;
+                // }
+
+                // .armL-robot {
+                //     height: 275px;
+                //     width: 100px;
+                // }
+
+                // .legs-row {
+                //     margin-bottom: 8px;
+
+                //     .legs-robot {
+                //         height: 130px;
+                //         width: 345px;
+                //     }
+                // }
+
+                // .feet-robot {
+                //     height: 50px;
+                //     width: 345px;
+                // }
+            }
             ion-col {
                 height: 100%;
                 position: relative;
+                text-align: center;
 
                 .point-container {
                     position: relative;
@@ -26,71 +78,36 @@ ion-content {
                     }
                 }
 
-                .robot {
-                    height: 541px;
-                    width: 345px;
-                    position: relative;
-
-                    ion-col {
-                        padding: 0px;
-                    }
-
-                    ion-grid {
-                        padding: 0px;
-                    }
-
-                    .head-row {
-                        margin-bottom: 8px;
-
-                        .head-robot {
-                            height: 120px;
-                            width: 345px;
-                        }
-                    }
-
-                    .armR-robot {
-                        height: 275px;
-                        width: 100px;
-                    }
-
-                    .chest-robot {
-                        height: 275px;
-                        width: 145px;
-                    }
-
-                    .armL-robot {
-                        height: 275px;
-                        width: 100px;
-                    }
-
-                    .legs-row {
-                        margin-bottom: 8px;
-
-                        .legs-robot {
-                            height: 130px;
-                            width: 345px;
-                        }
-                    }
-
-                    .feet-robot {
-                        height: 50px;
-                        width: 345px;
-                    }
-                }
+               
 
                 .resources-container {
                     position: relative;
                     top: 20%;
 
                     .resources {
-                        .app-resources {
-                            padding-left: 150px;
+                        .app-resources-container {
+                            padding-left: 120px;
                             padding-top: 60px;
+                            .app-resources{
+                                padding-left: 20px;
+                                border-radius: 8px;
+                                background-color: #FFE249;
+
+                            }
                         }
                     }
 
                     .total-resources {
                         text-align: center;
+                        margin: 12px;
+                        position: relative;
+                        background-color: #FCD14D;
+                        border-radius: 8px;
+                        bottom: 12px;
+                        .value-resources {
+                            font-weight: bold;
+                            font-size: 20px;
+                        }
                     }
                 }
             }

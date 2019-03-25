@@ -1,5 +1,8 @@
 ion-row {
     font-size: 14px;
+    ion-col {
+        padding: 2px 5px;
+    }
     .resource {
         text-align: right;
     }

@@ -10,7 +10,7 @@
 <ion-content padding>
   <ion-grid class="robot-container">
     <ion-row>
-      <ion-col size="3">
+      <!-- <ion-col size="3">
         <div class="point-container">
           <div class="point">
             <app-point [pointvalue]="getResourceValue('recycleCoin')" [iconname]="'photos'" [label]="translate.instant('coins_recycle_label')"></app-point>
@@ -18,8 +18,8 @@
             <app-point [pointvalue]="getResourceValue('reuseCoin')" [iconname]="'star'" [label]="translate.instant('coins_reuse_label')"></app-point>
           </div>
         </div>
-      </ion-col>
-      <ion-col size="5">
+      </ion-col> -->
+      <div>
         <div>
           <div class="robot" *ngIf="profileData">
             <ion-grid>
@@ -44,103 +44,124 @@
                   <ion-img [src]="getImg('legs')" class="legs-robot"></ion-img>
                 </ion-col>
               </ion-row>
+              <!-- <ion-row>
+                <ion-col>
+                  <ion-button color="dark" [routerLink]="['/change']" fill="outline">{{'change_robot'|translate}}</ion-button>
+                </ion-col>
+              </ion-row> -->
             </ion-grid>
           </div>
         </div>
-      </ion-col>
-      <ion-col size="4">
+      </div>
+      <ion-col>
         <div class="market-container">
-          <ion-grid *ngIf="!selection;else market">
-              <ion-row>
-                  <ion-col >
+          <div class="point-container">
+            <div class="point">
+              <app-point [pointvalue]="getResourceValue('recycleCoin')" [iconname]="'photos'" [label]="translate.instant('coins_recycle_label')"></app-point>
+              <app-point [pointvalue]="getResourceValue('reduceCoin')" [iconname]="'cube'" [label]="translate.instant('coins_reduce_label')"></app-point>
+              <app-point [pointvalue]="getResourceValue('reuseCoin')" [iconname]="'star'" [label]="translate.instant('coins_reuse_label')"></app-point>
+            </div>
+          </div>
+          <div class="resources">
+            <div class="app-resources-container">
+              <ion-grid *ngIf="!selection;else market">
+                <ion-row>
+                  <ion-col>
                     <div class="title-market">
-                        <ion-label text-wrap class="ion-text-center">
-                          {{'which_piece'|translate}}
-                        </ion-label>
+                      <ion-label class="choose-piece" text-wrap class="ion-text-center">
+                        {{'which_piece'|translate}}
+                      </ion-label>
                     </div>
                   </ion-col>
                 </ion-row>
-            <ion-row>
-              <ion-col >
-                <div class="piece-container">
-                  <!-- <ion-img [src]="getImgDefault('armR')"></ion-img> -->
-                  <ion-button fill="outline" expand="block" (click)="select('armR')">
-                    <ion-label text-wrap>
-                      {{'change_robot_armR'|translate}}
-                    </ion-label>
-                  </ion-button>
-                </div>
-              </ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col >
-                <div class="piece-container">
-                  <!-- <ion-img [src]="getImgDefault('armL')"></ion-img> -->
-                  <ion-button fill="outline" expand="block" (click)="select('armL')">
-                    <ion-label text-wrap>{{'change_robot_armL'|translate}}</ion-label>
-                  </ion-button>
-                </div>
-              </ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col >
-                <div class="piece-container">
-                  <!-- <ion-img [src]="getImgDefault('head')"></ion-img> -->
-                  <ion-button fill="outline" expand="block" (click)="select('head')">
-                    <ion-label text-wrap>{{'change_robot_head'|translate}}</ion-label>
-                  </ion-button>
-                </div>
-              </ion-col>
-            </ion-row>
+                <ion-row>
+                  <ion-col>
+                    <div class="piece-container">
+                      <!-- <ion-img [src]="getImgDefault('armR')"></ion-img> -->
+                      <ion-button fill="outline" expand="block" (click)="select('armR')">
+                        <ion-label text-wrap>
+                          {{'change_robot_armR'|translate}}
+                        </ion-label>
+                      </ion-button>
+                    </div>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col>
+                    <div class="piece-container">
+                      <!-- <ion-img [src]="getImgDefault('armL')"></ion-img> -->
+                      <ion-button fill="outline" expand="block" (click)="select('armL')">
+                        <ion-label text-wrap>{{'change_robot_armL'|translate}}</ion-label>
+                      </ion-button>
+                    </div>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col>
+                    <div class="piece-container">
+                      <!-- <ion-img [src]="getImgDefault('head')"></ion-img> -->
+                      <ion-button fill="outline" expand="block" (click)="select('head')">
+                        <ion-label text-wrap>{{'change_robot_head'|translate}}</ion-label>
+                      </ion-button>
+                    </div>
+                  </ion-col>
+                </ion-row>
 
-            <ion-row>
-              <ion-col >
-                <div class="piece-container">
-                  <!-- <ion-img [src]="getImgDefault('chest')"></ion-img> -->
-                  <ion-button fill="outline" expand="block" (click)="select('chest')">
-                    <ion-label text-wrap>{{'change_robot_chest'|translate}}</ion-label>
-                  </ion-button>
-                </div>
-              </ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col >
-                <div class="piece-container">
-                  <!-- <ion-img [src]="getImgDefault('legs')"></ion-img> -->
-                  <ion-button fill="outline" expand="block" (click)="select('legs')">
-                    <ion-label text-wrap>{{'change_robot_legs'|translate}}</ion-label>
-                  </ion-button>
-                </div>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-          <ng-template #market>
-            <ion-grid class="market-pieces">
-              <ion-row>
-                <ion-col size="4" *ngFor="let item of filteredCatalog">
-                  <div [ngClass]="{'not-active': !isBuyable(item)}">
-                    <ion-img [src]="getImgNewComponent(item)"></ion-img>
-                    <app-point [pointvalue]="getResourceValueItem(item,'recycleCoin')" [iconname]="'photos'"></app-point>
-                    <app-point [pointvalue]="getResourceValueItem(item,'reduceCoin')" [iconname]="'cube'"></app-point>
-                    <app-point [pointvalue]="getResourceValueItem(item,'reuseCoin')" [iconname]="'star'"></app-point>
-                    <ion-button fill="outline" expand="block" [disabled]="tryingItem(item)" (click)="tryItem(item)">{{'change_robot_try'|translate}}</ion-button>
-                    <ion-button fill="outline" expand="block" [disabled]="buyableItem(item)" (click)="buyItem(item)">{{'change_robot_buy'|translate}}</ion-button>
-                  </div>
-                </ion-col>
-                <ion-col *ngIf="filteredCatalog==0">
-                  {{'empty_list'|translate}}
-                </ion-col>
-              </ion-row>
-              <ion-row>
-                <ion-col>
-                  <ion-button fill="outline" expand="block" (click)="backPage()">{{'back_change_button'|translate}}</ion-button>
-                </ion-col>
-                <!-- <ion-col *ngIf="trying">
+                <ion-row>
+                  <ion-col>
+                    <div class="piece-container">
+                      <!-- <ion-img [src]="getImgDefault('chest')"></ion-img> -->
+                      <ion-button fill="outline" expand="block" (click)="select('chest')">
+                        <ion-label text-wrap>{{'change_robot_chest'|translate}}</ion-label>
+                      </ion-button>
+                    </div>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col>
+                    <div class="piece-container">
+                      <!-- <ion-img [src]="getImgDefault('legs')"></ion-img> -->
+                      <ion-button fill="outline" expand="block" (click)="select('legs')">
+                        <ion-label text-wrap>{{'change_robot_legs'|translate}}</ion-label>
+                      </ion-button>
+                    </div>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+              <ng-template #market>
+                <ion-grid class="market-pieces">
+                    <ion-row>
+                      <ion-col>
+                        <ion-label>{{'choose_piece'|translate}}</ion-label>
+                      </ion-col>
+                    </ion-row>
+                  <ion-row>
+                    <ion-col class="piece" size="4" *ngFor="let item of filteredCatalog">
+                      <div [ngClass]="{'not-active': !isBuyable(item)}">
+                        <ion-img [src]="getImgNewComponent(item)"></ion-img>
+                        <app-point [pointvalue]="getResourceValueItem(item,'recycleCoin')" [iconname]="'photos'"></app-point>
+                        <app-point [pointvalue]="getResourceValueItem(item,'reduceCoin')" [iconname]="'cube'"></app-point>
+                        <app-point [pointvalue]="getResourceValueItem(item,'reuseCoin')" [iconname]="'star'"></app-point>
+                        <ion-button color="dark" fill="outline" expand="block" [disabled]="tryingItem(item)" (click)="tryItem(item)">{{'change_robot_try'|translate}}</ion-button>
+                        <ion-button color="dark" fill="outline" expand="block" [disabled]="buyableItem(item)" (click)="buyItem(item)">{{'change_robot_buy'|translate}}</ion-button>
+                      </div>
+                    </ion-col>
+                    <ion-col *ngIf="filteredCatalog==0">
+                      {{'empty_list'|translate}}
+                    </ion-col>
+                  </ion-row>
+                  <ion-row>
+                    <ion-col>
+                      <ion-button class="back-page"color="dark" fill="outline" expand="block" (click)="backPage()">{{'back_change_button'|translate}}</ion-button>
+                    </ion-col>
+                    <!-- <ion-col *ngIf="trying">
                   <ion-button fill="outline" expand="block" (click)="cancelSelection()">{{'dont_like_button'|translate}}</ion-button>
                 </ion-col> -->
-              </ion-row>
-            </ion-grid>
-          </ng-template>
+                  </ion-row>
+                </ion-grid>
+              </ng-template>
+            </div>
+          </div>
         </div>
       </ion-col>
     </ion-row>

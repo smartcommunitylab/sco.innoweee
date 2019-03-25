@@ -2,88 +2,145 @@
     --background: #ffe249;
 }
 
-.robot {
-    height: 541px;
-    width: 345px;
-    position: relative;
+ion-content {
+    --background: #FFF7DD;
 
-    ion-col {
-        padding: 0px;
+    .robot {
+        width: 43vh;
+        // height: 541px;
+        // width: 345px;
+        // position: relative;
+
+        // ion-col {
+        //     padding: 0px;
+        // }
+
+        // ion-grid {
+        //     padding: 0px;
+        // }
+
+        // .head-row {
+        //     margin-bottom: 8px;
+
+        //     .head-robot {
+        //         height: 120px;
+        //         width: 345px;
+        //     }
+        // }
+
+        // .armR-robot {
+        //     height: 275px;
+        //     width: 100px;
+        // }
+
+        // .chest-robot {
+        //     height: 275px;
+        //     width: 145px;
+        // }
+
+        // .armL-robot {
+        //     height: 275px;
+        //     width: 100px;
+        // }
+
+        // .legs-row {
+        //     margin-bottom: 8px;
+
+        //     .legs-robot {
+        //         height: 130px;
+        //         width: 345px;
+        //     }
+        // }
+
+        // .feet-robot {
+        //     height: 50px;
+        //     width: 345px;
+        // }
     }
 
-    ion-grid {
-        padding: 0px;
-    }
+    .market-container {
+        // background-color: #FFE249;
+        border-radius: 8px;
 
-    .head-row {
-        margin-bottom: 8px;
+        .point-container {
+            position: relative;
+            top: 20%;
 
-        .head-robot {
-            height: 120px;
-            width: 345px;
+            .point {
+                width: 30%;
+                position: absolute;
+                background-color: #FFE249;
+                border-radius: 8px;
+                border: 2px white solid;
+                top: -20px;
+            }
         }
-    }
 
-    .armR-robot {
-        height: 275px;
-        width: 100px;
-    }
+        .resources {
+            .app-resources-container {
+                padding-left: 120px;
+                padding-top: 20px;
+                ion-grid {
+                    background-color: #FFE249;
+                    text-align: center;
+                    border-radius: 12px;
+                    padding: 20px 40px;
 
-    .chest-robot {
-        height: 275px;
-        width: 145px;
-    }
-
-    .armL-robot {
-        height: 275px;
-        width: 100px;
-    }
-
-    .legs-row {
-        margin-bottom: 8px;
-
-        .legs-robot {
-            height: 130px;
-            width: 345px;
-        }
-    }
-
-    .feet-robot {
-        height: 50px;
-        width: 345px;
-    }
-}
-
-.market-container {
-    background-color: #FFE249;
-    border-radius: 8px;
-
-    .market-pieces {
-        height: 50vh;
-
-        .not-active {
-            opacity: 0.3;
-
+                    .title-market {
+                        ion-label {
+                            font-size: 24px;
+                            font-weight: bold;
+                        }
+                    }
+                }
+            }
         }
 
-        ion-img {
-            height: 100px;
+        .market-pieces {
 
+            // height: 50vh;
 
-        }
-    }
+            
+                ion-label {
+                    font-size: 24px;
+                    font-weight: bold;
+                }
+            
+            .piece {
+                background-color: #FFF7DD;
+                border-radius: 12px;
+                margin: 8px;
+            }
 
-    .piece-container {
-        height: 100%;
+            .not-active {
+                opacity: 0.3;
 
-        ion-button {
-            --background: #FFFEFA;
-            --border-radius: 8px;
-            --color: black;
-            --border-width: 0px;
+            }
+
+            .back-page {
+                background-color: #FFF7DD;
+            }
 
             ion-img {
-                height: 90%;
+                height: 100px;
+
+
+            }
+        }
+
+        .piece-container {
+            height: 100%;
+
+            ion-button {
+                --background: #FFF7DD;
+                ;
+                --border-radius: 8px;
+                --color: black;
+                --border-width: 0px;
+
+                ion-img {
+                    height: 90%;
+                }
             }
         }
     }
