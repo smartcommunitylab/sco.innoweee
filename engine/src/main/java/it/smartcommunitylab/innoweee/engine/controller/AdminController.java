@@ -55,14 +55,14 @@ public class AdminController extends AuthController {
 	}
 	
 	@PostMapping(value = "/admin/catalog/{tenantId}/csv")
-	public Catalog saveCatalogByCsv(
+	public Catalog saveCatalogFromCsv(
 			@PathVariable String tenantId,
 			@RequestBody String csv,
 			HttpServletRequest request, 
 			HttpServletResponse response) throws Exception {
-//		if(!validateRole(Const.ROLE_ADMIN, request)) {
-//			throw new UnauthorizedException("Unauthorized Exception: role not valid");
-//		}
+		if(!validateRole(Const.ROLE_ADMIN, request)) {
+			throw new UnauthorizedException("Unauthorized Exception: role not valid");
+		}
 		Catalog catalog = catalogRepository.findByTenantId(tenantId);
 		if(catalog == null) {
 			catalog = new Catalog();
@@ -92,7 +92,7 @@ public class AdminController extends AuthController {
 		}
 		scanner.close();
 		catalogRepository.save(catalog);
-		logger.info("saveCatalogByCsv:{}", catalog.getId());
+		logger.info("saveCatalogFromCsv:{}", catalog.getId());
 		return catalog;
 	}
 	
