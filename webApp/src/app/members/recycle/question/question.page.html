@@ -1,8 +1,11 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar class="color-bar">
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
+
+    <ion-title>{{'change_robot'|translate}}</ion-title>
+
     <ion-buttons class="language" slot="end">
       <ion-item>
         <ion-label>{{'label_language_selection'|translate}}</ion-label>
@@ -20,12 +23,49 @@
 
 <ion-content padding>
   <ion-grid>
-    <ion-row>
+    <ion-row class="question-screen">
+      <ion-col class="col-vertical-center">
+        <div class="vertical-center">
+          <ion-row>
+            <div class="question-box">
+              {{getQuestionMessage()}}
+            </div>
+          </ion-row>
+          <ion-row>
+            <ion-col size="6" *ngFor="let reply of replies | keyvalue">
+              <ion-button color="dark" expand="block" fill="outline" (click)="addCoins(reply.key)">
+                {{getReplyMessage(reply.key)|translate}}</ion-button>
+            </ion-col>
+          </ion-row>
+        </div>
+      </ion-col>
+      <ion-col class="col-dark col-vertical-center">
+        <div class="vertical-center">
+          <ion-row>
+            <ion-col class="ion-text-center">
+              {{'number_replies'|translate}} {{getNumberReplies()}}
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col class="ion-text-center">
+              {{'number_coins'|translate}} {{getNumberCoins()}}
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-button color="light" class="ion-text-center" class="go-start" (click)="goToStart()" expand="block"
+              fill="outline">
+              {{'go_to_recycle'|translate}}
+            </ion-button>
+          </ion-row>
+        </div>
+      </ion-col>
+    </ion-row>
+    <!-- <ion-row>
       <ion-col>immagine</ion-col>
       <ion-col>{{'coins_label'|translate}}</ion-col>
       <ion-col>immagine</ion-col>
-    </ion-row>
-    <ion-row>
+    </ion-row> -->
+    <!-- <ion-row>
       <ion-col class="question">{{getQuestionMessage()}}</ion-col>
     </ion-row>
     <ion-row>
@@ -36,7 +76,13 @@
     <ion-row>
       <ion-col class="question">{{'number_replies'|translate}} {{getNumberReplies()}}</ion-col>
       <ion-col class="question">{{'number_coins'|translate}} {{getNumberCoins()}}</ion-col>
-    </ion-row>
+    </ion-row> -->
   </ion-grid>
-  <ion-button (click)="goToStart()" expand="block" fill="outline">{{'go_to_recycle'|translate}}</ion-button>
+  <!-- <ion-button (click)="goToStart()" expand="block" fill="outline">{{'go_to_recycle'|translate}}</ion-button> -->
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar class="color-bar">
+    <ion-title class="ion-text-center">{{ getFooter()}}</ion-title>
+  </ion-toolbar>
+</ion-footer>

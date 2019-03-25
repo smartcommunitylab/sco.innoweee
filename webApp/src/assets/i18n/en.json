@@ -90,5 +90,8 @@
         "title_material":"APPROFONDIMENTI",
         "title_change":"BUILD",
         "which_piece":"Which piece do you want change?",
-        "choose_piece":"Choose a piece"
+        "choose_piece":"Choose a piece",
+        "label_close_item_subtitle":"Use the app on the smarthphone for scanning the QR code on the object, get credits and upgrade your robot",
+        "label_use_id":"Use this ID",
+        "label_id":"ID of the item"
 }
