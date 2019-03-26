@@ -1,5 +1,6 @@
 package it.smartcommunitylab.innoweee.engine.controller;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -11,6 +12,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,12 +23,20 @@ import it.smartcommunitylab.innoweee.engine.exception.UnauthorizedException;
 import it.smartcommunitylab.innoweee.engine.model.Catalog;
 import it.smartcommunitylab.innoweee.engine.model.CategoryMap;
 import it.smartcommunitylab.innoweee.engine.model.Component;
+import it.smartcommunitylab.innoweee.engine.model.Game;
 import it.smartcommunitylab.innoweee.engine.model.GarbageMap;
+import it.smartcommunitylab.innoweee.engine.model.Institute;
 import it.smartcommunitylab.innoweee.engine.model.ItemValuableMap;
+import it.smartcommunitylab.innoweee.engine.model.Player;
+import it.smartcommunitylab.innoweee.engine.model.School;
 import it.smartcommunitylab.innoweee.engine.repository.CatalogRepository;
 import it.smartcommunitylab.innoweee.engine.repository.CategoryMapRepository;
+import it.smartcommunitylab.innoweee.engine.repository.GameRepository;
 import it.smartcommunitylab.innoweee.engine.repository.GarbageMapRepository;
+import it.smartcommunitylab.innoweee.engine.repository.InstituteRepository;
 import it.smartcommunitylab.innoweee.engine.repository.ItemValuableMapRepository;
+import it.smartcommunitylab.innoweee.engine.repository.PlayerRepository;
+import it.smartcommunitylab.innoweee.engine.repository.SchoolRepository;
 
 @RestController
 public class AdminController extends AuthController {
@@ -40,7 +50,15 @@ public class AdminController extends AuthController {
 	private CategoryMapRepository categoryMapRepository;
 	@Autowired
 	private ItemValuableMapRepository valuableMapRepository;
-	
+	@Autowired
+	private InstituteRepository instituteRepository;
+	@Autowired
+	private SchoolRepository schoolRepository;
+	@Autowired
+	private GameRepository gameRepository;
+	@Autowired
+	private PlayerRepository playerRepository;
+
 	@PostMapping(value = "/admin/catalog")
 	public Catalog saveCatalog(
 			@RequestBody Catalog catalog,
@@ -133,6 +151,54 @@ public class AdminController extends AuthController {
 		valuableMapRepository.save(map);
 		logger.info("saveItemValuableMap:{}", map.getId());
 		return map;
+	}
+	
+	@GetMapping(value = "/admin/init/trento")
+	public void initTrento(HttpServletRequest request) throws Exception {
+		if(!validateRole(Const.ROLE_ADMIN, request)) {
+			throw new UnauthorizedException("Unauthorized Exception: role not valid");
+		}
+		Date now = new Date();
+		
+		Institute institute = new Institute();
+		institute.setTenantId("TRENTO");
+		institute.setName("Istituto Comprensivo Rovereto-Nord");
+		institute.setCreationDate(now);
+		institute.setLastUpdate(now);
+		instituteRepository.save(institute);
+		
+		School school = new School();
+		school.setTenantId("TRENTO");
+		school.setName("Scuola Primaria Gandhi");
+		school.setInstituteId(institute.getObjectId());
+		school.setCreationDate(now);
+		school.setLastUpdate(now);
+		schoolRepository.save(school);
+		
+		Game game = new Game();
+		game.setTenantId("TRENTO");
+		game.setGameName("Gioco Innoweee");
+		game.setInstituteId(institute.getObjectId());
+		game.setSchoolId(school.getObjectId());
+		game.setCreationDate(now);
+		game.setLastUpdate(now);
+		gameRepository.save(game);
+		
+		String[] classes = new String[] {"1A","1B","1C","1D","2A","2B","2C","3A","3B","3C","4A","4B","4C","5A","5B","5C"};
+		for (int i = 0; i < classes.length; i++) {
+			Player player = new Player();
+			player.setTenantId("TRENTO");
+			player.setName(classes[i]);
+			player.setGameId(game.getObjectId());
+			player.setTeam(false);
+			playerRepository.save(player);
+		}
+		Player player = new Player();
+		player.setTenantId("TRENTO");
+		player.setName("Scuola");
+		player.setGameId(game.getObjectId());
+		player.setTeam(true);
+		playerRepository.save(player);				
 	}
 	
 }
