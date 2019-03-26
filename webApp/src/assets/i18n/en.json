@@ -107,6 +107,6 @@
         "label_bring_stuff":"Bring to school other items you dn't use anymore and get some credits upgrading your robot",
         "label_recycle_string_value":"Questo oggetto HA VALORE",
         "label_recycle_string_reuse":"Questo oggetto puo' essere RIUTILIZZATO",
-        "label_recycle_string_recycle":"Questo oggetto puo' essere RICICLATO"
-
+        "label_recycle_string_recycle":"Questo oggetto puo' essere RICICLATO",
+        "total_collection":"Your collection"
 }
