@@ -1,37 +1,28 @@
 #!/bin/bash
 set +x
+#ssh key
+cat $key > sshkey
+chmod 600 sshkey
 statusCode=1
-APP="innoweee-frontend-prod"
+APP="innoweee-backend-prod"
 TSTAMP=$(date +%Y.%m.%d-%H.%M.%S)
 TSSRV="$TSTAMP $APP:"
+cd engine
+RELEASE=$(sed -E -n '/<artifactId>(engine)<\/artifactId>.*/{n;p}' pom.xml | grep -Eo '\d\.\d')
+echo $RELEASE
+Msg="$TSSRV Build in corso"
 URL="https://api.telegram.org/bot${TG_TOKEN}/sendMessage"
 CHAT="chat_id=${CHAT_ID}"
-Msg="$TSSRV Build in corso"
 curl -s -X POST $URL -d $CHAT -d "text=$Msg"
-docker build -t innoweee:latest .
+ssh -i sshkey -o "StrictHostKeyChecking no" $USR@$IP "sudo service innoweee-engine stop && /home/$USR/sources/deploy-innoweee-engine.sh && echo VER=${RELEASE} > /home/dev/innoweee-engine-env && sudo service innoweee-engine start "
 statusCode=$?
 if [[ $statusCode -eq 0 ]]; then
-  Msg="$TSSRV Immagine Docker creata con successo"
+  Msg="$TSSRV Aggiornamento completato"
   curl -s -X POST $URL -d $CHAT -d "text=$Msg"
-  echo 0
 else
-  Msg="$TSSRV Immagine Docker creazione errore $?"
+  Msg="$TSSRV Aggiornamento non riuscito"
   curl -s -X POST $URL -d $CHAT -d "text=$Msg"
-  echo 1
 fi
-mkdir /shared/tmp
-docker run --rm -v /home/ubuntu/jenkins/shared/tmp:/tmp/build innoweee:latest sh -c "ionic cordova build browser; if [[ $? -eq 0 ]]; then cp -r www/* build/ && statusCode=0; else statusCode=1; fi; exit $statusCode;"
-statusCode=$?
-if [[ $statusCode -eq 0 ]]; then
-  Msg="$TSSRV Build webapp completo"
-  curl -s -X POST $URL -d $CHAT -d "text=$Msg"
-  echo 0
-else
-  Msg="$TSSRV Build webapp errore $?"
-  curl -s -X POST $URL -d $CHAT -d "text=$Msg"
-  echo 1
-fi
-docker system prune -a -f
-docker volume prune -f
+rm sshkey
 echo $statusCode
 exit $statusCode
