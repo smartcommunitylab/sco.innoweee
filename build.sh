@@ -1,13 +1,13 @@
 #!/bin/bash
 set +x
 #ssh key
+cd engine
 cat $key > sshkey
 chmod 600 sshkey
 statusCode=1
 APP="innoweee-backend-prod"
 TSTAMP=$(date +%Y.%m.%d-%H.%M.%S)
 TSSRV="$TSTAMP $APP:"
-cd engine
 RELEASE=$(sed -E -n '/<artifactId>(engine)<\/artifactId>.*/{n;p}' pom.xml | grep -Eo '\d\.\d')
 echo $RELEASE
 Msg="$TSSRV Build in corso"
