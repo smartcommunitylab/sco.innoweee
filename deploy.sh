@@ -11,13 +11,12 @@ URL="https://api.telegram.org/bot${TG_TOKEN}/sendMessage"
 CHAT="chat_id=${CHAT_ID}"
 Msg="$TSSRV Deploy in corso"
 curl -s -X POST $URL -d $CHAT -d "text=$Msg"
-scp -r -i sshkey -o "StrictHostKeyChecking no" tmp/ $USR@$INTIP:/home/$USR/innoweee/webApp/www
+scp -r -i sshkey -o "StrictHostKeyChecking no" tmp/* $USR@$INTIP:/home/$USR/innoweee/webApp/www
 if [[ $? -eq 0 ]]; then
   statusCode=0
   Msg="$TSSRV Deploy ok"
   curl -s -X POST $URL -d $CHAT -d "text=$Msg"
 fi
 rm sshkey
-rm -r tmp/
 echo $statusCode
 exit $statusCode
