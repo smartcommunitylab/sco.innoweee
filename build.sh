@@ -19,7 +19,7 @@ else
   curl -s -X POST $URL -d $CHAT -d "text=$Msg"
   echo 1
 fi
-mkdir /home/ubuntu/jenkins/shared/tmp
+mkdir /shared/tmp
 docker run --rm -v /home/ubuntu/jenkins/shared/tmp:/tmp/build innoweee:latest sh -c "ionic cordova build browser; if [[ $? -eq 0 ]]; then cp -r www/* build/ && statusCode=0; else statusCode=1; fi; exit $statusCode;"
 statusCode=$?
 if [[ $statusCode -eq 0 ]]; then

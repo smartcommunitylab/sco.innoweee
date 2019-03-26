@@ -18,6 +18,6 @@ if [[ $? -eq 0 ]]; then
   curl -s -X POST $URL -d $CHAT -d "text=$Msg"
 fi
 rm sshkey
-
+rm -rf shared/tmp/
 echo $statusCode
 exit $statusCode
