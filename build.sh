@@ -20,7 +20,7 @@ else
   echo 1
 fi
 mkdir tmp
-docker run --rm -it -v "$(pwd)"/tmp:/tmp/build innoweee:latest sh -c "ionic cordova build browser; if [[ $? -eq 0 ]]; then cp -r www/* build/ && statusCode=0; else statusCode=1; fi; exit $statusCode;"
+docker run --rm -v "$(pwd)"/tmp:/tmp/build innoweee:latest sh -c "ionic cordova build browser; if [[ $? -eq 0 ]]; then cp -r www/* build/ && statusCode=0; else statusCode=1; fi; exit $statusCode;"
 statusCode=$?
 if [[ $statusCode -eq 0 ]]; then
   Msg="$TSSRV Build webapp completo"
