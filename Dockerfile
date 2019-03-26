@@ -1,4 +1,6 @@
 FROM node:lts-alpine
-COPY ./webApp /tmp
+RUN npm install -g cordova ionic
+USER node
+COPY --chown=node:node ./webApp /tmp
 WORKDIR /tmp
-RUN npm install -g cordova ionic && npm install && ionic cordova platform add browser
+RUN npm install && ionic cordova platform add browser
