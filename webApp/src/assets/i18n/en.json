@@ -108,5 +108,6 @@
         "label_recycle_string_value":"Questo oggetto HA VALORE",
         "label_recycle_string_reuse":"Questo oggetto puo' essere RIUTILIZZATO",
         "label_recycle_string_recycle":"Questo oggetto puo' essere RICICLATO",
-        "total_collection":"Your collection"
+        "total_collection":"Your collection",
+        "title_result":"Collection result"
 }
