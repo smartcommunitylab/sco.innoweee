@@ -1,11 +1,62 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar class="color-bar">
     <ion-title>recycle-results</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-  <div class="resources">
+    <div class="resources-container">
+
+        <!-- <div class="point-container">
+          <div class="point">
+            <app-point [pointvalue]="getResourceValue('recycleCoin')" [iconname]="'photos'" [label]="translate.instant('coins_recycle_label')"></app-point>
+            <app-point [pointvalue]="getResourceValue('reduceCoin')" [iconname]="'cube'" [label]="translate.instant('coins_reduce_label')"></app-point>
+            <app-point [pointvalue]="getResourceValue('reuseCoin')" [iconname]="'star'" [label]="translate.instant('coins_reuse_label')"></app-point>
+          </div>
+        </div> -->
+        <div class="resources">
+          <div class="app-resources-container">
+              <p class="total-collection">                      {{'total_collection'|translate}}
+                </p>
+            <div class="app-resources">
+            <app-resource *ngFor="let resource of resources" [resourcename]="getResourceLabel(resource.key)"
+              [barvalue]="getResourceBar(resource.value)" [resourcevalue]="getResourceValue(resource.key)"></app-resource>
+          <div class="total-resources" *ngIf="profileState">
+            <ion-grid>
+                <ion-row>
+                    <ion-col>
+                      {{'total_weight'|translate}}: {{profileState.weight|number:'1.0-3':'it'}}
+                      {{getResourceUnit(profileState.weight)}}</ion-col>
+                  </ion-row>
+                  <ion-row>
+                    <ion-col>
+                      {{'total_co2'|translate}}: {{profileState.co2|number:'1.0-3':'it'}}
+                      {{getResourceUnit(profileState.co2)}}</ion-col>
+                  </ion-row>
+              <ion-row>
+                <ion-col>
+                   <div class="value-resources">{{profileState.totalReduceCoin|number:'1.0-3':'it'}}</div>
+                   <div>{{'total_reduce_coins'|translate}}</div>
+                </ion-col>
+                <ion-col>
+                    <div class="value-resources">{{profileState.totalReuseCoin|number:'1.0-3':'it'}}</div>
+                  <div>{{'total_reuse_coins'|translate}}</div>
+                </ion-col>
+                <ion-col>
+                    <div class="value-resources"> {{profileState.totalRecycleCoin|number:'1.0-3':'it'}}</div>
+                  <div>{{'total_recycle_coins'|translate}}</div>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </div>
+          <ion-button color="dark" [routerLink]="['/myrobot']" expand="block" fill="outline">{{'go_to_robot'|translate}}</ion-button>
+          <ion-button color="dark" [routerLink]="['/home']" expand="block" fill="outline">{{'go_to_home'|translate}}</ion-button>
+        </div>
+        </div>
+      
+        </div>
+    </div>
+  <!-- <div class="resources">
     <div *ngIf="profileState" class="total-resources">
       <ion-grid>
         <ion-row>
@@ -38,19 +89,11 @@
     </div>
     <app-resource *ngFor="let resource of resources" [resourcename]="getResourceLabel(resource.key)" [barvalue]="getResourceBar(resource.value)"
     [resourcevalue]="getResourceValue(resource.key)"></app-resource>
-    <!-- <app-resource [resourcename]="getResourceLabel('plastic')" [barvalue]="getResourceBar('plastic')" [resourcevalue]="getResourceValue('plastic')"></app-resource>
-    <app-resource [resourcename]="getResourceLabel('glass')" [barvalue]="getResourceBar('glass')" [resourcevalue]="getResourceValue('glass')"></app-resource>
-    <app-resource [resourcename]="getResourceLabel('iron')" [barvalue]="getResourceBar('iron')" [resourcevalue]="getResourceValue('iron')"></app-resource>
-    <app-resource [resourcename]="getResourceLabel('aluminium')" [barvalue]="getResourceBar('aluminium')"
-      [resourcevalue]="getResourceValue('aluminium')"></app-resource>
-    <app-resource [resourcename]="getResourceLabel('copper')" [barvalue]="getResourceBar('copper')" [resourcevalue]="getResourceValue('copper')"></app-resource>
-    <app-resource [resourcename]="getResourceLabel('nickel')" [barvalue]="getResourceBar('nickel')" [resourcevalue]="getResourceValue('nickel')"></app-resource>
-    <app-resource [resourcename]="getResourceLabel('platinum')" [barvalue]="getResourceBar('platinum')" [resourcevalue]="getResourceValue('platinum')"></app-resource>
-    <app-resource [resourcename]="getResourceLabel('tin')" [barvalue]="getResourceBar('tin')" [resourcevalue]="getResourceValue('tin')"></app-resource>
-    <app-resource [resourcename]="getResourceLabel('silver')" [barvalue]="getResourceBar('silver')" [resourcevalue]="getResourceValue('silver')"></app-resource>
-    <app-resource [resourcename]="getResourceLabel('gold')" [barvalue]="getResourceBar('gold')" [resourcevalue]="getResourceValue('gold')"></app-resource> -->
-  </div>
-  <ion-button [routerLink]="['/myrobot']" expand="block" fill="outline">{{'go_to_robot'|translate}}</ion-button>
-  <ion-button [routerLink]="['/home']" expand="block" fill="outline">{{'go_to_home'|translate}}</ion-button>
-
+  </div> -->
+ 
 </ion-content>
+<ion-footer>
+    <ion-toolbar class="color-bar">
+      <ion-title class="ion-text-center">{{ getFooter()}}</ion-title>
+    </ion-toolbar>
+  </ion-footer>

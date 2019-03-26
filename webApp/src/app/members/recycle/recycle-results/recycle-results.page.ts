@@ -87,4 +87,25 @@ export class RecycleResultsPage implements OnInit {
     if (value < 0.001)
       return value / this.max['mg'];
   }
+
+  getSchoolName() {
+    return this.profileService.getSchoolName();
+  }
+
+  getClassName() {
+    return this.profileService.getPlayerName();
+
+  }
+
+  getFooter() {
+    return (this.translate.instant('footer_game_title')+" | "+this.getSchoolName()+" | "+this.getClassName())
+  }
+
+  getResourceUnit(value) {
+    if (value > 1)
+      return "Kg"
+    if (value < 1 && value > 0.001)
+      return "g"
+    return "mg"
+  }
 }

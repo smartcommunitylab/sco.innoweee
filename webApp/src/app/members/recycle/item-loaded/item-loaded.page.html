@@ -1,46 +1,83 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar class="color-bar">
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
-    </ion-buttons>
-    <ion-buttons class="language" slot="end">
-      <ion-item>
-        <ion-label>{{'label_language_selection'|translate}}</ion-label>
-        <ion-select [(ngModel)]="language" (ionChange)="changeLanguage()">
-          <ion-select-option value="en" selected="true">English</ion-select-option>
-          <ion-select-option value="it">Italiano</ion-select-option>
-        </ion-select>
-      </ion-item>
-      <ion-button (click)="logout()">
-        <ion-icon slot="icon-only" name="log-out"></ion-icon>
-      </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-  <ion-row>
-    <ion-col>
-      <div *ngIf="item">
-        {{item.itemId}}
-      </div>
-    </ion-col>
-  </ion-row>
-  <ion-row>
-    <ion-col *ngFor="let choice of choices">
-      <div>
-       {{getChoiceLabel(choice.label)}} 
-      </div>
-    </ion-col>
-  </ion-row>
-  <ion-row *ngIf="questionTime()">
-    <ion-col *ngFor="let item of steps[actualStep]| keyvalue">
-      <ion-button (click)="chooseCategory(item.value)" expand="block" fill="outline">{{getLabel(item.key)}}</ion-button>
-    </ion-col>
-  </ion-row>
-  <ion-row *ngIf="!questionTime()">
-    <ion-col>
-      <ion-button (click)="sendItem()" expand="block" fill="outline">{{'label_send_item'|translate}}</ion-button>
-    </ion-col>
-  </ion-row>
+  <ion-grid>
+    <ion-row class="question-screen">
+      <ion-col class="col-vertical-center" *ngIf="lastStep()">
+        <div class="vertical-center left-box">
+          <ion-img [src]="getImgName()"></ion-img>
+          <div class="answers" *ngIf="item">
+            <p class="item-title">{{'label_your_item'|translate}}</p>
+            <div>
+              <span class="recap"> {{'label_id'|translate}}</span>{{item.itemId}}
+            </div>
+            <div *ngFor="let choice of choices ; let i = index">
+              <span class="recap"> {{getRecap(i)}}</span>
+              {{getChoiceLabel(choice.label)}}
+            </div>
+          </div>
+          <div class="send-item">
+            <ion-col>
+              <ion-button color="dark" (click)="cancel()" fill="outline">
+                {{'cancel_popup'|translate}}
+              </ion-button>
+            </ion-col>
+            <ion-col>
+              <ion-button color="dark" (click)="sendItem()" fill="outline">
+                {{'label_send_item'|translate}}
+              </ion-button>
+            </ion-col>
+          </div>
+        </div>
+
+      </ion-col>
+      <ion-col class="col-vertical-center" *ngIf="!lastStep()">
+        <div class="vertical-center left-box">
+          <ion-img [src]="getImgName()"></ion-img>
+          <div class="answers" *ngIf="item">
+            <p class="item-title">{{'label_your_item'|translate}}</p>
+            <div>
+              <span class="recap"> {{'label_id'|translate}}</span>{{item.itemId}}
+            </div>
+            <div *ngFor="let choice of choices ; let i = index">
+              <span class="recap"> {{getRecap(i)}}</span>
+              {{getChoiceLabel(choice.label)}}
+            </div>
+          </div>
+
+        </div>
+      </ion-col>
+      <ion-col class="col-dark col-vertical-center" *ngIf="!lastStep()">
+        <div class="vertical-center right-box">
+          <ion-row *ngIf="questionTime()">
+            <div class="title-question">{{getQuestion()}}</div>
+            <ion-row>
+              <ion-col *ngFor="let item of steps[actualStep]| keyvalue">
+                <ion-button color="light" (click)="chooseCategory(item.value)" expand="block" fill="outline">
+                  {{getLabel(item.key)}}</ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-row>
+          <ion-row *ngIf="!questionTime()">
+            <ion-col>
+              <ion-button color="light" (click)="sendItem()" expand="block" fill="outline">
+                {{'label_send_item'|translate}}
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
+<ion-footer>
+  <ion-toolbar class="color-bar">
+    <ion-title class="ion-text-center">{{ getFooter()}}</ion-title>
+  </ion-toolbar>
+</ion-footer>

@@ -26,11 +26,14 @@ export class ItemLoadedPage implements OnInit {
   choices: any[] = [];
   categorie: any;
   steps: any;
+  questions: any;
+  recap: any;
   actualStep: number = 0;
   playerData: any;
   items: string[];
   garbageMap: any;
   item: ItemGarbage = new ItemGarbage();
+  garbageCollectionName: string;
   constructor(private route: ActivatedRoute,
     private translate: TranslateService,
     private profileService: ProfileService,
@@ -46,6 +49,7 @@ export class ItemLoadedPage implements OnInit {
       this.playerData = res;
       this.garbageCollection.getActualCollection(this.playerData.gameId).then(res => {
         this.items = res.items
+        this.garbageCollectionName = res.nameGE;
         this.garbageCollection.getGargabeMap(this.playerData.tenantId).then(res => {
           this.garbageMap = res;
           this.fillSteps();
@@ -59,6 +63,9 @@ export class ItemLoadedPage implements OnInit {
   chooseCategory(item) {
     this.choices.push(item);
     this.actualStep++;
+  }
+  getRecap(index) {
+    return this.translate.instant(this.recap[index]);
   }
   getLabel(item) {
     if (this.actualStep >= 1) {
@@ -87,12 +94,27 @@ export class ItemLoadedPage implements OnInit {
       //go to item classification
       this.item.reusable = res.reusable;
       this.item.valuable = res.valuable
-      this.router.navigate([ 'item-classification'],{ queryParams: { item: JSON.stringify(this.item) } });
-  
+      this.router.navigate(['item-classification'], { queryParams: { item: JSON.stringify(this.item) } });
+
       console.log("mandato");
     });
   }
+  getQuestion() {
+    return this.translate.instant(this.questions[this.actualStep]);
+  }
   fillSteps() {
+    this.recap = {
+      0: "recap_type",
+      1: "recap_on_off",
+      2: "recap_broken",
+      3: "recap_year"
+    }
+    this.questions = {
+      0: "question_type",
+      1: "question_on_off",
+      2: "question_broken",
+      3: "question_year"
+    }
     this.steps = {
       0: [],
       1: [{
@@ -132,6 +154,28 @@ export class ItemLoadedPage implements OnInit {
         "value": element
       })
     });
+  }
+
+  getImgName() {
+    return './assets/images/collection/' + this.garbageCollectionName + ".png";
+  }
+  getFooter() {
+    return (this.translate.instant('footer_game_title')+" | "+this.getSchoolName()+" | "+this.getClassName())
+  }
+  getSchoolName() {
+    return this.profileService.getSchoolName();
+  }
+
+  getClassName() {
+    return this.profileService.getPlayerName();
+
+  }
+  lastStep() {
+    return (this.actualStep==4)
+  }
+  cancel() {
+    this.router.navigate(['start']);
+
   }
 
 }

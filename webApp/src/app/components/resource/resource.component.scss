@@ -1,25 +1,35 @@
-ion-row {
-    font-size: 14px;
-    ion-col {
-        padding: 2px 5px;
-    }
-    .resource {
-        text-align: right;
-    }
-    ion-progress-bar {
-        height: 8px;
-        --buffer-background: none;
+ion-grid {
+    padding-top: 1px;
+    padding-bottom: 1px;
+    ion-row {
+        font-size: 14px;
+
+        ion-col {
+            padding: 2px 5px;
+        }
+
+        .resource {
+            text-align: right;
+        }
+
+        ion-progress-bar {
+            height: 8px;
+            --background :none;
+            --buffer-background :none;
+        }
+
+        .kilo {
+            --progress-background: red;
+     }
+
+        .grammo {
+            --progress-background: blue;
+
+        }
+
+        .miligrammo {
+            --progress-background: violet;
+        }
 
     }
-    .kilo {
-        --progress-background :red;
-    }
-    .grammo{
-        --progress-background :blue;
-
-    }
-   .miligrammo{
-        --progress-background :violet;
-    }
-
 }

@@ -1,3 +1,53 @@
-.total-resources{
-    text-align: center;
-}
+.color-bar {
+    --background: #009952;
+    --color: white;
+  
+    .language {
+      ion-item {
+        min-width: 250px;
+        --background: #009952;
+        --color: white;
+      }
+    }
+  }
+  
+  ion-content {
+    --background: white;
+    --padding-top	:0px;
+    --padding-bottom	:0px;
+    .resources-container {
+        position: relative;
+        // top: 20%;
+
+        .resources {
+            .app-resources-container {
+                width: 50%;
+                margin: auto;
+                .total-collection{
+                    font-size: 24px;
+                    text-align: center;
+                }
+                .app-resources{
+                    padding-left: 20px;
+                    border-radius: 8px;
+                    background-color: #C8F1DE;
+
+                }
+            }
+        }
+
+        .total-resources {
+            text-align: center;
+            margin: 12px;
+            position: relative;
+            background-color: #009952;
+            color: white;
+            border-radius: 8px;
+            bottom: 12px;
+            .value-resources {
+                font-weight: bold;
+                font-size: 20px;
+            }
+        }
+    }
+  }

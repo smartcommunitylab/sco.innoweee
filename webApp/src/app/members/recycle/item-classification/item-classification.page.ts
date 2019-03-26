@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { ProfileService } from 'src/app/services/profile.service';
 
 @Component({
   selector: 'app-item-classification',
@@ -11,6 +12,7 @@ export class ItemClassificationPage implements OnInit {
   item: any;
 
   constructor(private route: ActivatedRoute,
+    private profileService:ProfileService,
     private translateService: TranslateService) { }
 
   ngOnInit() {
@@ -22,6 +24,19 @@ export class ItemClassificationPage implements OnInit {
         console.log(this.item); // popular
       });
   }
+  getValueString():string {
+    if (this.item.valuable) {
+
+      return this.translateService.instant("label_recycle_string_value");
+
+    }
+    if (this.item.reusable) {
+      return  this.translateService.instant("label_recycle_string_reuse");
+    }
+    return  this.translateService.instant("label_recycle_string_recycle");
+
+  
+  }
   getValueItem():string {
     if (this.item.valuable) {
 
@@ -32,8 +47,7 @@ export class ItemClassificationPage implements OnInit {
       return  this.translateService.instant("label_recycle_reuse");
     }
     return  this.translateService.instant("label_recycle_recycle");
-    // {{'label_item_reusable'|translate}} {{item.reusable}}
-    // {{'label_item_valuable'|translate}}{{item.valuable}}
+
   }
   getPoints():string {
     if (this.item.reusable)
@@ -41,4 +55,15 @@ export class ItemClassificationPage implements OnInit {
     return  this.translateService.instant("label_point_recicle");
   }
 
+  getFooter() {
+    return (this.translateService.instant('footer_game_title')+" | "+this.getSchoolName()+" | "+this.getClassName())
+  }
+  getSchoolName() {
+    return this.profileService.getSchoolName();
+  }
+
+  getClassName() {
+    return this.profileService.getPlayerName();
+
+  }
 }

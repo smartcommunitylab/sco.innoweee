@@ -1,18 +1,45 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>item-classification</ion-title>
+  <ion-toolbar class="color-bar">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-  <ion-item>
-    {{getValueItem()}}
-  </ion-item>
-  <ion-item>
-    {{getPoints()}}
-  </ion-item>
-  <ion-button [routerLink]="['/start']" expand="block" fill="outline">{{'label_new_item'|translate}}</ion-button>
-  <ion-button [routerLink]="['/recycle-results']" expand="block" fill="outline">
-    {{'label_end_recycle'|translate}}
-  </ion-button>
+  <ion-grid>
+    <ion-row class="question-screen">
+      <ion-col class="col-vertical-center">
+        <div class="vertical-center">
+          <div class="result">
+          <div class="title-result ion-padding">
+            {{'label_well_done'|translate}}
+          </div>
+          <div class="subtitle-result ion-padding">
+            {{getValueString()}}
+          </div>
+          <div class="ion-padding">
+            {{getValueItem()}}
+          </div>
+          <div class="ion-padding">
+            {{getPoints()}}
+          </div>
+          <div class="ion-padding">
+            {{'label_bring_stuff'|translate}}
+          </div>
+          <ion-button color="dark" [routerLink]="['/start']"  fill="outline">{{'label_new_item'|translate}}
+          </ion-button>
+          <ion-button color="dark" [routerLink]="['/recycle-results']" fill="outline">
+            {{'label_end_recycle'|translate}}
+          </ion-button>
+        </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
+<ion-footer>
+  <ion-toolbar class="color-bar">
+    <ion-title class="ion-text-center">{{ getFooter()}}</ion-title>
+  </ion-toolbar>
+</ion-footer>

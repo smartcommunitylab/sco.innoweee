@@ -93,5 +93,20 @@
         "choose_piece":"Choose a piece",
         "label_close_item_subtitle":"Use the app on the smarthphone for scanning the QR code on the object, get credits and upgrade your robot",
         "label_use_id":"Use this ID",
-        "label_id":"ID of the item"
+        "label_id":"ID of the item",
+        "label_your_item":"Your item:",
+        "question_type":"Choose the type:",
+       "question_on_off":"Does it turn on:",
+        "question_broken":"Is it broken:",
+        "question_year":"Lifetime:",
+        "recap_type":"Type:",
+        "recap_on_off":"Working:",
+        "recap_broken":"Integrity:",
+        "recap_year":"Lifetime:",
+        "label_well_done":"Well done!",
+        "label_bring_stuff":"Bring to school other items you dn't use anymore and get some credits upgrading your robot",
+        "label_recycle_string_value":"Questo oggetto HA VALORE",
+        "label_recycle_string_reuse":"Questo oggetto puo' essere RIUTILIZZATO",
+        "label_recycle_string_recycle":"Questo oggetto puo' essere RICICLATO"
+
 }
