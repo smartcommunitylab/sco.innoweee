@@ -8,6 +8,7 @@ import { async } from 'q';
 import { ModalController, LoadingController } from '@ionic/angular';
 import { ClassComponent } from './modals/class/class.component';
 import { OverlayEventDetail } from '@ionic/core';
+import { TranslateService } from '@ngx-translate/core';
 
 
 const PLAYER_DATA_KEY = 'playerData';
@@ -25,6 +26,7 @@ export class GameSelectionPage implements OnInit {
   //    this.title.emit(title);
   // }
   constructor(private profileService: ProfileService,
+    private translate: TranslateService,
     private router: Router, private fb: FormBuilder,
     private _cdr: ChangeDetectorRef,
     public modalController: ModalController,
@@ -181,5 +183,18 @@ export class GameSelectionPage implements OnInit {
       duration: 2000
     });
     return await loadingElement.present();
+  }
+  
+  getSchoolName() {
+    return this.profileService.getSchoolName();
+  }
+
+  getClassName() {
+    return this.profileService.getPlayerName();
+
+  }
+
+  getFooter() {
+    return (this.translate.instant('footer_game_title'))
   }
 }

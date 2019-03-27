@@ -1,7 +1,7 @@
 [
 	{
-		"tenantId":"TRENTO",
-		"gameId":"???",
+		"tenantId":"TRENTINO",
+		"gameId":"",
 		"from":1554674400000,
 		"to":1555279199000,
 		"nameGE":"R1",
@@ -17,28 +17,22 @@
 		"items":["Blender","Centrifuge","Electrical coffe grinder","Coffe machine","Electrical knife","Electrical grater","Tea kettle","Hand vacuum","Minipimer","Squeezer","Toaster"],
 		"links":[
 			{
-				"name":"Tutto sui rifiuti elettronici (RAEE) in 3 minuti",
-				"type":"video",
-				"previewUri":"",
-				"link":"https://www.youtube.com/watch?v=zlY2FBumFwc"
-			},
-			{
-				"name":"Giocattoli in legno",
-				"type":"image",
-				"previewUri":"",
-				"link":"http://www.differenziamoci.bio/wp-content/uploads/2017/10/mattoncini-legno.jpg"
-			},			
-			{
-				"name":"Riciclo pile",
+				"name":"Greta Thunberg: una piccola eroina che lotta per la difesa del nostro pianeta",
 				"type":"link",
-				"previewUri":"",
-				"link":"https://filecdn.nonsprecare.it/wp-content/uploads/2014/06/recupero-pile-usate-riciclo-dati-ricerca-duracell-1.jpg"
+				"previewUri":"https://drive.google.com/file/d/1XoLxDJ5MmkDtjpqqCU29IQq4GrSBcLAt/view?usp=sharing",
+				"link":"https://drive.google.com/file/d/1xiJL7BI9rzpiOcYsNd7BbejkILOrebF0/view?usp=sharing"
+			},		
+			{
+				"name":"Alla scoperta dei RAEE",
+				"type":"video",
+				"previewUri":"https://drive.google.com/file/d/1rbpWKorD5FacnLTymiuFPg3k9s0q4Xhm/view?usp=sharing",
+				"link":"https://drive.google.com/file/d/1VX4aD4nOIvoy4O0LAzjGHtY3TzjXp4wh/view?usp=sharing" 
 			}
 		]
 	},
 	{
-		"tenantId":"TRENTO",
-		"gameId":"???",
+		"tenantId":"TRENTINO",
+		"gameId":"",
 		"from":1555279200000,
 		"to":1557093599000,
 		"nameGE":"R2",
@@ -52,47 +46,11 @@
 		},
 		"specialCollection":true,
 		"items":["Cellphone","Smartphone","Laptop","Tablet"],
-		"links":[
-			{
-	      "name" : "link1",
-	      "link" : "https://smartcommunitylab.it",
-	      "type" : "link"
-      }, 
-      {
-          "name" : "link2",
-          "link" : "https://smartcommunitylab.it",
-          "type" : "link"
-      }, 
-      {
-	      "name" : "link3",
-	      "link" : "https://smartcommunitylab.it",
-	      "type" : "link"
-      }, 
-      {
-	      "name" : "link4",
-	      "link" : "https://smartcommunitylab.it",
-	      "type" : "link"
-      }, 
-      {
-	      "name" : "link5",
-	      "link" : "https://smartcommunitylab.it",
-	      "type" : "link"
-      }, 
-      {
-	      "name" : "link6",
-	      "link" : "https://smartcommunitylab.it",
-	      "type" : "link"
-      }, 
-      {
-	      "name" : "link7",
-	      "link" : "https://smartcommunitylab.it",
-	      "type" : "link"
-      }			
-		]
+		"links":[]
 	},
 	{
-		"tenantId":"TRENTO",
-		"gameId":"???",
+		"tenantId":"TRENTINO",
+		"gameId":"",
 		"from":1557093600000,
 		"to":1557698399000,
 		"nameGE":"R3",
@@ -109,8 +67,8 @@
 		"links":[]
 	},
 	{
-		"tenantId":"TRENTO",
-		"gameId":"???",
+		"tenantId":"TRENTINO",
+		"gameId":"",
 		"from":1557698400000,
 		"to":1558303199000,
 		"nameGE":"R4",
@@ -127,8 +85,8 @@
 		"links":[]
 	},
 	{
-		"tenantId":"TRENTO",
-		"gameId":"???",
+		"tenantId":"TRENTINO",
+		"gameId":"",
 		"from":1558303200000,
 		"to":1558907999000,
 		"nameGE":"R5",
@@ -145,8 +103,8 @@
 		"links":[]
 	},
 	{
-		"tenantId":"TRENTO",
-		"gameId":"???",
+		"tenantId":"TRENTINO",
+		"gameId":"",
 		"from":1558908000000,
 		"to":1559512799000,
 		"nameGE":"R6",
