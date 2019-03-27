@@ -5,7 +5,7 @@
         "button_material": "EDUCATION",
         "button_my_team": "MY TEAM",
         "label_language_selection": "Language: ",
-        "label_game_selection": "Choose your profile",
+        "label_game_selection": "WEEE-R-Robots",
         "label_tenants": "Domain: ",
         "label_institute": "Institute: ",
         "label_school": "School: ",
@@ -109,5 +109,7 @@
         "label_recycle_string_reuse":"Questo oggetto puo' essere RIUTILIZZATO",
         "label_recycle_string_recycle":"Questo oggetto puo' essere RICICLATO",
         "total_collection":"Your collection",
-        "title_result":"Collection result"
+        "title_result":"Collection result",
+        "class_popup_title":"Select the class"
+
 }
