@@ -19,17 +19,19 @@
                   <ion-img [src]="getImg('head')" class="head-robot"></ion-img>
                 </ion-col>
               </ion-row>
-              <ion-row>
-                <ion-col>
-                  <ion-img [src]="getImg('armR')" class="armR-robot"></ion-img>
-                </ion-col>
-                <ion-col>
-                  <ion-img [src]="getImg('chest')" class="chest-robot"></ion-img>
-                </ion-col>
-                <ion-col>
-                  <ion-img [src]="getImg('armL')" class="armL-robot"></ion-img>
-                </ion-col>
-              </ion-row>
+              <div class="body-robot-container" >
+                <div class="body-robot">
+                  <div class="body-robot-arm">
+                    <ion-img [src]="getImg('armR')" class="armR-robot"></ion-img>
+                  </div>
+                  <div class="body-robot-chest">
+                    <ion-img [src]="getImg('chest')" class="chest-robot"></ion-img>
+                  </div>
+                  <div class="body-robot-arm">
+                    <ion-img [src]="getImg('armL')" class="armL-robot"></ion-img>
+                  </div>
+                </div>
+              </div>
               <ion-row class="legs-row">
                 <ion-col>
                   <ion-img [src]="getImg('legs')" class="legs-robot"></ion-img>
@@ -52,19 +54,23 @@
         <div class="resources-container">
           <div class="point-container">
             <div class="point">
-              <app-point [pointvalue]="getResourceValue('recycleCoin')" [iconname]="'photos'" [label]="translate.instant('coins_recycle_label')"></app-point>
-              <app-point [pointvalue]="getResourceValue('reduceCoin')" [iconname]="'cube'" [label]="translate.instant('coins_reduce_label')"></app-point>
-              <app-point [pointvalue]="getResourceValue('reuseCoin')" [iconname]="'star'" [label]="translate.instant('coins_reuse_label')"></app-point>
+              <app-point [pointvalue]="getResourceValue('recycleCoin')" [iconname]="'photos'"
+                [label]="translate.instant('coins_recycle_label')"></app-point>
+              <app-point [pointvalue]="getResourceValue('reduceCoin')" [iconname]="'cube'"
+                [label]="translate.instant('coins_reduce_label')"></app-point>
+              <app-point [pointvalue]="getResourceValue('reuseCoin')" [iconname]="'star'"
+                [label]="translate.instant('coins_reuse_label')"></app-point>
             </div>
           </div>
           <div class="resources">
             <div class="app-resources-container">
               <div class="app-resources">
-              <app-resource *ngFor="let resource of resources" [resourcename]="getResourceLabel(resource.key)"
-                [barvalue]="getResourceBar(resource.value)" [resourcevalue]="getResourceValue(resource.key)"></app-resource>
-            <div class="total-resources" *ngIf="profileState">
-              <ion-grid>
-                  <ion-row>
+                <app-resource *ngFor="let resource of resources" [resourcename]="getResourceLabel(resource.key)"
+                  [barvalue]="getResourceBar(resource.value)" [resourcevalue]="getResourceValue(resource.key)">
+                </app-resource>
+                <div class="total-resources" *ngIf="profileState">
+                  <ion-grid>
+                    <ion-row>
                       <ion-col>
                         {{'total_weight'|translate}}: {{profileState.weight|number:'1.0-3':'it'}}
                         {{getResourceUnit(profileState.weight)}}</ion-col>
@@ -74,24 +80,24 @@
                         {{'total_co2'|translate}}: {{profileState.co2|number:'1.0-3':'it'}}
                         {{getResourceUnit(profileState.co2)}}</ion-col>
                     </ion-row>
-                <ion-row>
-                  <ion-col>
-                     <div class="value-resources">{{profileState.totalReduceCoin|number:'1.0-3':'it'}}</div>
-                     <div>{{'total_reduce_coins'|translate}}</div>
-                  </ion-col>
-                  <ion-col>
-                      <div class="value-resources">{{profileState.totalReuseCoin|number:'1.0-3':'it'}}</div>
-                    <div>{{'total_reuse_coins'|translate}}</div>
-                  </ion-col>
-                  <ion-col>
-                      <div class="value-resources"> {{profileState.totalRecycleCoin|number:'1.0-3':'it'}}</div>
-                    <div>{{'total_recycle_coins'|translate}}</div>
-                  </ion-col>
-                </ion-row>
-              </ion-grid>
+                    <ion-row>
+                      <ion-col>
+                        <div class="value-resources">{{profileState.totalReduceCoin|number:'1.0-3':'it'}}</div>
+                        <div>{{'total_reduce_coins'|translate}}</div>
+                      </ion-col>
+                      <ion-col>
+                        <div class="value-resources">{{profileState.totalReuseCoin|number:'1.0-3':'it'}}</div>
+                        <div>{{'total_reuse_coins'|translate}}</div>
+                      </ion-col>
+                      <ion-col>
+                        <div class="value-resources"> {{profileState.totalRecycleCoin|number:'1.0-3':'it'}}</div>
+                        <div>{{'total_recycle_coins'|translate}}</div>
+                      </ion-col>
+                    </ion-row>
+                  </ion-grid>
+                </div>
+              </div>
             </div>
-            </div>
-          </div>
           </div>
         </div>
       </ion-col>

@@ -7,6 +7,27 @@ ion-content {
 
     .robot {
         width: 43vh;
+        .body-robot-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .body-robot {
+                display: table;
+
+                .body-robot-arm {
+                    width: 11vh;
+                    display: table-cell;
+                    vertical-align: top;
+                }
+
+                .body-robot-chest {
+                    width: 16vh;
+                    display: table-cell;
+                    vertical-align: top;
+                }
+            }
+        }
         // height: 541px;
         // width: 345px;
         // position: relative;

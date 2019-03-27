@@ -6,6 +6,7 @@ import { MainPage } from '../../class/MainPage'
 import { MaterialService } from 'src/app/services/material.service';
 import { ProfileService } from 'src/app/services/profile.service';
 import { GarbageCollectionService } from 'src/app/services/garbage-collection.service';
+import { Route, Router } from '@angular/router';
 const ROUTER_KEY = "router-key"
 
 @Component({
@@ -26,6 +27,7 @@ export class HomePage extends MainPage implements OnInit {
   constructor(
     translate: TranslateService,
     storage: Storage,
+    private router:Router,
     private materialService: MaterialService,
     private profileService: ProfileService,
     private garbageCollection: GarbageCollectionService,
@@ -71,5 +73,7 @@ export class HomePage extends MainPage implements OnInit {
     return this.profileService.getPlayerName();
 
   }
-
+  goTo(link) {
+    this.router.navigate([link]);
+  }
 }

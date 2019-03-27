@@ -3,16 +3,40 @@
 }
 
 ion-content {
-    --background : #FFF7DD;
+    --background: #FFF7DD;
+
     .robot-container {
 
         ion-row {
             height: 100%;
+
             .robot {
                 // height: 541px;
                 // width: 345px;
                 position: relative;
                 width: 43vh;
+
+                .body-robot-container {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    .body-robot {
+                        display: table;
+
+                        .body-robot-arm {
+                            width: 11vh;
+                            display: table-cell;
+                            vertical-align: top;
+                        }
+
+                        .body-robot-chest {
+                            width: 16vh;
+                            display: table-cell;
+                            vertical-align: top;
+                        }
+                    }
+                }
 
                 // ion-col {
                 //     padding: 0px;
@@ -60,6 +84,7 @@ ion-content {
                 //     width: 345px;
                 // }
             }
+
             ion-col {
                 height: 100%;
                 position: relative;
@@ -78,7 +103,7 @@ ion-content {
                     }
                 }
 
-               
+
 
                 .resources-container {
                     position: relative;
@@ -88,7 +113,8 @@ ion-content {
                         .app-resources-container {
                             padding-left: 120px;
                             padding-top: 60px;
-                            .app-resources{
+
+                            .app-resources {
                                 padding-left: 20px;
                                 border-radius: 8px;
                                 background-color: #FFE249;
@@ -104,6 +130,7 @@ ion-content {
                         background-color: #FCD14D;
                         border-radius: 8px;
                         bottom: 12px;
+
                         .value-resources {
                             font-weight: bold;
                             font-size: 20px;
