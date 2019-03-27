@@ -35,8 +35,10 @@ export class SelectClassPage implements OnInit {
   constructor(private profileService: ProfileService,
     private router: Router, private fb: FormBuilder,
     private _cdr: ChangeDetectorRef,
+    private translate: TranslateService,
     private modalController: ModalController,
     private translateService: TranslateService) {
+      console.log('select-class')
   }
 
   ngOnInit() {
@@ -129,12 +131,14 @@ export class SelectClassPage implements OnInit {
   }
   getPlayerData() {
     this.playerData = this.profileService.getPlayerDataFromList(this.playerId, this.players);
-    this.profileService.getPlayerState(this.gameId, this.playerId).then(res => {
-      this.playerState = res;
-      this.profileService.setPlayerData(this.playerData);
-      this.profileService.setPlayerState(this.playerState);
-      this.router.navigate(['members', 'dashboard'], { queryParams: { playerId: this.playerId, playerName: this.playerName } });
-    })
+    // this.profileService.getPlayerState(this.gameId, this.playerId).then(res => {
+      // this.playerState = res;
+      // this.profileService.setPlayerData(this.playerData);
+      // this.profileService.setPlayerState(this.playerState);
+      this.profileService.setPlayerName(this.playerName);
+      this.profileService.setSchoolName(this.school["name"]);
+      this.router.navigate(['dashboard'], { queryParams: { playerId: this.playerId, playerName: this.playerName } });
+    // })
   }
   async chooseClass() {
     const modal: HTMLIonModalElement =
@@ -154,6 +158,11 @@ export class SelectClassPage implements OnInit {
 
     await modal.present();
 
+  }
+
+
+  getFooter() {
+    return (this.translate.instant('footer_game_title'))
   }
 
 }
