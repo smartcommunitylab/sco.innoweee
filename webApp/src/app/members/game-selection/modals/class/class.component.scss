@@ -1,0 +1,11 @@
+ion-grid {
+    background-color: #dcf5fa;
+    .title{
+        text-align: center;
+        font-size: 24px;
+        font-weight: bold;
+    }
+    ion-button {
+        --background: #0fb4d7;
+        --color: white;    }
+}

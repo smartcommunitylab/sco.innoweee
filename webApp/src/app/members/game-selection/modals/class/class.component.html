@@ -1,5 +1,11 @@
+
 <ion-grid>
-<ion-col *ngFor="let listPlayer of classes">
-  <ion-button  *ngIf="listPlayer.team==false" (click)="selectClass(listPlayer)">{{listPlayer.name}}</ion-button>
-</ion-col>
+  <ion-row>
+    <ion-col class="title">
+      {{'class_popup_title'|translate}}
+    </ion-col>
+  </ion-row>
+  <ion-col *ngFor="let listPlayer of classes">
+    <ion-button *ngIf="listPlayer.team==false" (click)="selectClass(listPlayer)">{{listPlayer.name}}</ion-button>
+  </ion-col>
 </ion-grid>

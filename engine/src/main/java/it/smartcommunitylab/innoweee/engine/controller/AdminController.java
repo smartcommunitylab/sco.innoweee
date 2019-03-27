@@ -161,14 +161,14 @@ public class AdminController extends AuthController {
 		Date now = new Date();
 		
 		Institute institute = new Institute();
-		institute.setTenantId("TRENTO");
+		institute.setTenantId("TRENTINO");
 		institute.setName("Istituto Comprensivo Rovereto-Nord");
 		institute.setCreationDate(now);
 		institute.setLastUpdate(now);
 		instituteRepository.save(institute);
 		
 		School school = new School();
-		school.setTenantId("TRENTO");
+		school.setTenantId("TRENTINO");
 		school.setName("Scuola Primaria Gandhi");
 		school.setInstituteId(institute.getObjectId());
 		school.setCreationDate(now);
@@ -176,7 +176,7 @@ public class AdminController extends AuthController {
 		schoolRepository.save(school);
 		
 		Game game = new Game();
-		game.setTenantId("TRENTO");
+		game.setTenantId("TRENTINO");
 		game.setGameName("Gioco Innoweee");
 		game.setInstituteId(institute.getObjectId());
 		game.setSchoolId(school.getObjectId());
@@ -187,14 +187,14 @@ public class AdminController extends AuthController {
 		String[] classes = new String[] {"1A","1B","1C","1D","2A","2B","2C","3A","3B","3C","4A","4B","4C","5A","5B","5C"};
 		for (int i = 0; i < classes.length; i++) {
 			Player player = new Player();
-			player.setTenantId("TRENTO");
+			player.setTenantId("TRENTINO");
 			player.setName(classes[i]);
 			player.setGameId(game.getObjectId());
 			player.setTeam(false);
 			playerRepository.save(player);
 		}
 		Player player = new Player();
-		player.setTenantId("TRENTO");
+		player.setTenantId("TRENTINO");
 		player.setName("Scuola");
 		player.setGameId(game.getObjectId());
 		player.setTeam(true);

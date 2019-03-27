@@ -250,7 +250,7 @@ public class ItemController extends AuthController {
 	}
 
 	private boolean getReusable(ItemEvent event, Garbage garbage) {
-		if(event.isBroken() && !event.isSwitchingOn()) {
+		if(event.isBroken() || !event.isSwitchingOn()) {
 			return false;
 		}
 		return true;
