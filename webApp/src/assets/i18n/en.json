@@ -118,7 +118,9 @@
         "title_broken":"State",
         "title_year":"Lifetime",
         "title_end":"Confirm data",
-        "well_done_title":"Collection results"
+        "well_done_title":"Collection results",
+        "label_garbage_collection":"Collection",
+        "allteam_title":"My team"
 
 
 }

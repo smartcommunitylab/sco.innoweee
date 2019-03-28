@@ -24,7 +24,7 @@
   <div class="resources-container">
     <div class="resources">
       <div class="app-resources-container">
-        <p class="total-collection"> {{'total_collection'|translate}}
+        <p class="total-collection"> {{'total_collection'|translate|uppercase}}
         </p>
         <div class="app-resources">
           <app-resource *ngFor="let resource of resources" [resourcename]="getResourceLabel(resource.key)"
