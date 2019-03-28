@@ -40,6 +40,7 @@ export class AllteamPage extends MainPage implements OnInit {
   }
 
   ngOnInit() {
+    super.ngOnInit();
     super.setRoute("allteam");
     this.profileService.getAllPlayers().then(players => {
       this.gameId = players[0].gameId;

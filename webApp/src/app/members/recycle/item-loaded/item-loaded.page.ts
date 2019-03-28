@@ -3,6 +3,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { GarbageCollectionService } from 'src/app/services/garbage-collection.service';
 import { ProfileService } from 'src/app/services/profile.service';
+import { MainPage } from 'src/app/class/MainPage';
+import { AuthenticationService } from 'src/app/services/authentication.service';
+import { Storage } from '@ionic/storage';
 
 export class ItemGarbage {
 
@@ -22,7 +25,7 @@ export class ItemGarbage {
   templateUrl: './item-loaded.page.html',
   styleUrls: ['./item-loaded.page.scss'],
 })
-export class ItemLoadedPage implements OnInit {
+export class ItemLoadedPage extends MainPage implements OnInit {
   choices: any[] = [];
   categorie: any;
   steps: any;
@@ -34,13 +37,19 @@ export class ItemLoadedPage implements OnInit {
   garbageMap: any;
   item: ItemGarbage = new ItemGarbage();
   garbageCollectionName: string;
+  title: { 0: string; 1: string; 2: string; 3: string; 4:string };
   constructor(private route: ActivatedRoute,
-    private translate: TranslateService,
+    public translate: TranslateService,
+    public authService:AuthenticationService,
+    public storage : Storage,
     private profileService: ProfileService,
     private router: Router,
-    private garbageCollection: GarbageCollectionService) { }
+    private garbageCollection: GarbageCollectionService) {
+      super(translate,authService,storage)
+     }
 
   ngOnInit() {
+    super.ngOnInit();
     if (this.route.snapshot && this.route.snapshot.paramMap) {
       this.item["itemId"] = this.route.snapshot.paramMap.get("idItem")
       this.item["manual"] = JSON.parse(this.route.snapshot.paramMap.get("manual"));
@@ -83,6 +92,9 @@ export class ItemLoadedPage implements OnInit {
       return true;
     return false
   }
+  getTitle() {
+    return this.translate.instant(this.title[this.actualStep]);
+  }
   sendItem() {
     //check values
     this.item.playerId = this.playerData.objectId;
@@ -108,6 +120,13 @@ export class ItemLoadedPage implements OnInit {
       1: "recap_on_off",
       2: "recap_broken",
       3: "recap_year"
+    }
+    this.title = {
+      0: "title_type",
+      1: "title_on_off",
+      2: "title_broken",
+      3: "title_year",
+      4: "title_end"
     }
     this.questions = {
       0: "question_type",

@@ -1,18 +1,18 @@
 .color-bar {
-  --background: #009952;
+  --background: #1ea046;
   --color: white;
 
   .language {
     ion-item {
       min-width: 250px;
-      --background: #009952;
+      --background: #1ea046;
       --color: white;
     }
   }
 }
 
 ion-content {
-  --background: #C8F1DE;
+  --background: #b4e6c8;
   --padding-top	:0px;
   --padding-bottom	:0px;
 }
@@ -40,7 +40,7 @@ ion-grid {
     }
 
     .col-dark {
-      background-color: #009952;
+      background-color: #1ea046;
       color: white;
 
       .go-start {

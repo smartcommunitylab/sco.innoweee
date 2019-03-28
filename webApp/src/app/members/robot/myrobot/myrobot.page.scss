@@ -1,9 +1,10 @@
 .color-bar {
-    --background: #ffe249;
+    --background: #0fb4d7;
+    color: white;
 }
 
 ion-content {
-    --background: #FFF7DD;
+    --background: #dcf4fa;
 
     .robot-container {
 
@@ -37,52 +38,6 @@ ion-content {
                         }
                     }
                 }
-
-                // ion-col {
-                //     padding: 0px;
-                // }
-
-                // ion-grid {
-                //     padding: 0px;
-                // }
-
-                // .head-row {
-                //     margin-bottom: 8px;
-
-                //     .head-robot {
-                //         height: 120px;
-                //         width: 345px;
-                //     }
-                // }
-
-                // .armR-robot {
-                //     height: 275px;
-                //     width: 100px;
-                // }
-
-                // .chest-robot {
-                //     height: 275px;
-                //     width: 145px;
-                // }
-
-                // .armL-robot {
-                //     height: 275px;
-                //     width: 100px;
-                // }
-
-                // .legs-row {
-                //     margin-bottom: 8px;
-
-                //     .legs-robot {
-                //         height: 130px;
-                //         width: 345px;
-                //     }
-                // }
-
-                // .feet-robot {
-                //     height: 50px;
-                //     width: 345px;
-                // }
             }
 
             ion-col {
@@ -97,7 +52,7 @@ ion-content {
                     .point {
                         width: 30%;
                         position: absolute;
-                        background-color: #FFE249;
+                        background-color: #bee6f5;
                         border-radius: 8px;
                         border: 2px white solid;
                     }
@@ -117,7 +72,7 @@ ion-content {
                             .app-resources {
                                 padding-left: 20px;
                                 border-radius: 8px;
-                                background-color: #FFE249;
+                                background-color: #bee6f5;
 
                             }
                         }
@@ -127,10 +82,10 @@ ion-content {
                         text-align: center;
                         margin: 12px;
                         position: relative;
-                        background-color: #FCD14D;
+                        background-color: #0fb4d7;
                         border-radius: 8px;
                         bottom: 12px;
-
+                        color: white;
                         .value-resources {
                             font-weight: bold;
                             font-size: 20px;

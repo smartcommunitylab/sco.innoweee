@@ -1,6 +1,6 @@
 {
         "title_game_selection": "WEEE-R-robots: seleziona la classe e inizia a giocare",
-        "button_recycle": "ACCEDI",
+        "button_recycle": "Inizia raccolta",
         "button_robot": "IL MIO ROBOT",
         "button_material": "APPROFONDIMENTI",
         "button_my_team": "IL MIO TEAM",
@@ -110,7 +110,15 @@
         "label_recycle_string_recycle":"Questo oggetto puo' essere RICICLATO",
         "total_collection":"La tua raccolta",
         "title_result":"Risultato raccolta",
-        "class_popup_title":"Seleziona la classe"
+        "class_popup_title":"Seleziona la classe",
+        "question_title":"Domanda Riduco",
+        "collection_title":"Raccolta oggetti",
+        "title_type":"Scelta tipologia",
+        "title_on_off":"Funzionamento oggetto",
+        "title_broken":"Condizioni oggetto",
+        "title_year":"Vita oggetto",
+        "title_end":"Conferma dati",
+        "well_done_title":"Risultato raccolta"
 
 
 

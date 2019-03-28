@@ -1,9 +1,11 @@
 .color-bar {
-    --background: #ffe249;
+    --background: #0fb4d7;
+    color: white;
     .language {
         ion-item {
             min-width: 250px;
-            --background: #ffe249;
+            --background: #0fb4d7;
+            color: white
 
 
         }
@@ -31,7 +33,7 @@ ion-grid {
             padding: 0px;
         }
         .robot-content {
-            background-color: #fff7dd;
+            background-color: #dcf5fa;
             position: relative;
             .robot-home {
                 ion-img {
@@ -42,7 +44,7 @@ ion-grid {
             }
         }
         .garbage-content {
-            background-color: #C4FCE4;
+            background-color: #b4e6c8;
             text-align: center;
             position: relative;
              ion-img {
@@ -59,12 +61,12 @@ ion-grid {
             }
         }
         .team-content {
-            background-color: #E0F8FF;
+            background-color: #dcf5fa;
             height: 50%;
             position: relative;
         }
         .material-content {
-            background-color: #FADDD6;
+            background-color: #ffe6e6;
             height: 50%;
             position: relative;
             ion-badge {

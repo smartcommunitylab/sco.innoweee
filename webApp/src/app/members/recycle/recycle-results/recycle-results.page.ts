@@ -7,13 +7,14 @@ import { GarbageCollectionService } from 'src/app/services/garbage-collection.se
 import { Router } from '@angular/router';
 import { CatalogService } from 'src/app/services/catalog.service';
 import { Storage } from '@ionic/storage';
+import { MainPage } from 'src/app/class/MainPage';
 
 @Component({
   selector: 'app-recycle-results',
   templateUrl: './recycle-results.page.html',
   styleUrls: ['./recycle-results.page.scss'],
 })
-export class RecycleResultsPage implements OnInit {
+export class RecycleResultsPage extends MainPage implements OnInit {
   playerData: any;
   nameGE: any;
   profileState: any;
@@ -34,8 +35,10 @@ export class RecycleResultsPage implements OnInit {
     private router: Router,
     private garbageService: GarbageCollectionService,
     public catalogService: CatalogService) {
-  }
+      super(translate,authService,storage);
+      }
   ngOnInit() {
+    super.ngOnInit();
     this.profileService.getLocalPlayerData().then(res => {
       this.playerData = res;
       this.garbageCollection.getActualCollection(this.playerData.gameId).then(res => {
@@ -107,5 +110,9 @@ export class RecycleResultsPage implements OnInit {
     if (value < 1 && value > 0.001)
       return "g"
     return "mg"
+  }
+  goHome() {
+    this.navCtrl.navigateRoot('/home');
+
   }
 }

@@ -8,6 +8,9 @@ import { Router } from '@angular/router';
 import { GarbageCollectionService } from 'src/app/services/garbage-collection.service';
 import { AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
+import { MainPage } from 'src/app/class/MainPage';
+import { AuthenticationService } from 'src/app/services/authentication.service';
+import { Storage } from '@ionic/storage';
 
 
 @Component({
@@ -15,7 +18,7 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: './start.page.html',
   styleUrls: ['./start.page.scss'],
 })
-export class StartPage implements OnInit {
+export class StartPage extends MainPage implements OnInit {
   private itemSocketURL;
   private apiEndpoint;
   greetings: string[] = [];
@@ -28,21 +31,24 @@ export class StartPage implements OnInit {
   manualItemId: string;
   garbageCollectionName: string;
   weeklyGarbage: string;
-  manual:boolean;
+  manual: boolean;
   constructor(
     private profileService: ProfileService,
     private router: Router,
-    private translateService: TranslateService,
+    public translate: TranslateService,
+    public authService: AuthenticationService,
+    public storage: Storage,
     private garbageCollection: GarbageCollectionService,
     private alertController: AlertController,
-    private translate: TranslateService,
     @Inject(APP_CONFIG_TOKEN) private config: ApplicationConfig) {
+    super(translate, authService, storage);
+
     this.itemSocketURL = config.itemSocketURL;
     this.apiEndpoint = config.apiEndpoint;
   }
 
   ionViewWillEnter() {
-    this.manual=false;
+    this.manual = false;
     this.message = null;
     // this.manualItemId = new Date().getTime().toString();
     this.manualItemId = "";
@@ -106,9 +112,9 @@ export class StartPage implements OnInit {
   }
 
   async showErrorItem() {
-    let headerLabel = this.translateService.instant("duplicate_id_header");
-    let subtitleLabel = this.translateService.instant("duplicate_id_subtitle");
-    let messageLabel = this.translateService.instant("duplicate_id_message");
+    let headerLabel = this.translate.instant("duplicate_id_header");
+    let subtitleLabel = this.translate.instant("duplicate_id_subtitle");
+    let messageLabel = this.translate.instant("duplicate_id_message");
 
     const alert = await this.alertController.create({
       header: headerLabel,
@@ -139,11 +145,10 @@ export class StartPage implements OnInit {
     this.greetings = [];
   }
   ngOnInit() {
-    //tmp
-
+    super.ngOnInit();
   }
   getImgName() {
-    return './assets/images/collection/'+this.garbageCollectionName + ".png";
+    return './assets/images/collection/' + this.garbageCollectionName + ".png";
   }
   getSchoolName() {
     return this.profileService.getSchoolName();
@@ -155,7 +160,7 @@ export class StartPage implements OnInit {
   }
 
   getFooter() {
-    return (this.translate.instant('footer_game_title')+" | "+this.getSchoolName()+" | "+this.getClassName())
+    return (this.translate.instant('footer_game_title') + " | " + this.getSchoolName() + " | " + this.getClassName())
   }
 
 }

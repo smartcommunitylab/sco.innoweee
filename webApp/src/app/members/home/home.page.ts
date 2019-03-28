@@ -36,6 +36,7 @@ export class HomePage extends MainPage implements OnInit {
   }
 
   ngOnInit() {
+    super.ngOnInit();
     this.setRoute("home");
     this.profileService.getLocalPlayerData().then(res => {
       this.playerData = res;

@@ -1,53 +1,70 @@
 <ion-header>
-  <ion-toolbar class="color-bar">
-    <ion-title>{{'title_result'|translate}}</ion-title>
-  </ion-toolbar>
-</ion-header>
+    <ion-toolbar class="color-bar">
+      <ion-buttons slot="start">
+        <ion-back-button></ion-back-button>
+      </ion-buttons>
+      <ion-title>{{'collection_title'|translate}}</ion-title>
+   
+      <ion-buttons class="language" slot="end">
+        <ion-item>
+          <ion-label>{{'label_language_selection'|translate}}</ion-label>
+          <ion-select [(ngModel)]="language" (ionChange)="changeLanguage()">
+            <ion-select-option value="en" selected="true">English</ion-select-option>
+            <ion-select-option value="it">Italiano</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-button (click)="logout()">
+          <ion-icon slot="icon-only" name="log-out"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
 
 <ion-content padding>
-    <div class="resources-container">
-        <div class="resources">
-          <div class="app-resources-container">
-              <p class="total-collection">                      {{'total_collection'|translate}}
-                </p>
-            <div class="app-resources">
-            <app-resource *ngFor="let resource of resources" [resourcename]="getResourceLabel(resource.key)"
-              [barvalue]="getResourceBar(resource.value)" [resourcevalue]="getResourceValue(resource.key)"></app-resource>
+  <div class="resources-container">
+    <div class="resources">
+      <div class="app-resources-container">
+        <p class="total-collection"> {{'total_collection'|translate}}
+        </p>
+        <div class="app-resources">
+          <app-resource *ngFor="let resource of resources" [resourcename]="getResourceLabel(resource.key)"
+            [barvalue]="getResourceBar(resource.value)" [resourcevalue]="getResourceValue(resource.key)"></app-resource>
           <div class="total-resources" *ngIf="profileState">
             <ion-grid>
-                <ion-row>
-                    <ion-col>
-                      {{'total_weight'|translate}}: {{profileState.weight|number:'1.0-3':'it'}}
-                      {{getResourceUnit(profileState.weight)}}</ion-col>
-                  </ion-row>
-                  <ion-row>
-                    <ion-col>
-                      {{'total_co2'|translate}}: {{profileState.co2|number:'1.0-3':'it'}}
-                      {{getResourceUnit(profileState.co2)}}</ion-col>
-                  </ion-row>
               <ion-row>
                 <ion-col>
-                   <div class="value-resources">{{profileState.totalReduceCoin|number:'1.0-3':'it'}}</div>
-                   <div>{{'total_reduce_coins'|translate}}</div>
+                  {{'total_weight'|translate}}: {{profileState.weight|number:'1.0-3':'it'}}
+                  {{getResourceUnit(profileState.weight)}}</ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  {{'total_co2'|translate}}: {{profileState.co2|number:'1.0-3':'it'}}
+                  {{getResourceUnit(profileState.co2)}}</ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <div class="value-resources">{{profileState.totalReduceCoin|number:'1.0-3':'it'}}</div>
+                  <div>{{'total_reduce_coins'|translate}}</div>
                 </ion-col>
                 <ion-col>
-                    <div class="value-resources">{{profileState.totalReuseCoin|number:'1.0-3':'it'}}</div>
+                  <div class="value-resources">{{profileState.totalReuseCoin|number:'1.0-3':'it'}}</div>
                   <div>{{'total_reuse_coins'|translate}}</div>
                 </ion-col>
                 <ion-col>
-                    <div class="value-resources"> {{profileState.totalRecycleCoin|number:'1.0-3':'it'}}</div>
+                  <div class="value-resources"> {{profileState.totalRecycleCoin|number:'1.0-3':'it'}}</div>
                   <div>{{'total_recycle_coins'|translate}}</div>
                 </ion-col>
               </ion-row>
             </ion-grid>
           </div>
-          <ion-button color="dark" [routerLink]="['/myrobot']" expand="block" fill="outline">{{'go_to_robot'|translate}}</ion-button>
-          <ion-button color="dark" [routerLink]="['/home']" expand="block" fill="outline">{{'go_to_home'|translate}}</ion-button>
+          <!-- <ion-button color="dark" [routerLink]="['/myrobot']" expand="block" fill="outline">{{'go_to_robot'|translate}}</ion-button> -->
+          <ion-button color="dark" (click)="goHome()" expand="block" fill="outline">{{'go_to_home'|translate}}
+          </ion-button>
         </div>
-        </div>
-      
-        </div>
+      </div>
+
     </div>
+  </div>
   <!-- <div class="resources">
     <div *ngIf="profileState" class="total-resources">
       <ion-grid>
@@ -82,10 +99,10 @@
     <app-resource *ngFor="let resource of resources" [resourcename]="getResourceLabel(resource.key)" [barvalue]="getResourceBar(resource.value)"
     [resourcevalue]="getResourceValue(resource.key)"></app-resource>
   </div> -->
- 
+
 </ion-content>
 <ion-footer>
-    <ion-toolbar class="color-bar">
-      <ion-title class="ion-text-center">{{ getFooter()}}</ion-title>
-    </ion-toolbar>
-  </ion-footer>
+  <ion-toolbar class="color-bar">
+    <ion-title class="ion-text-center">{{ getFooter()}}</ion-title>
+  </ion-toolbar>
+</ion-footer>

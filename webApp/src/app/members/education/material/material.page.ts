@@ -26,6 +26,7 @@ export class MaterialPage extends MainPage implements OnInit {
     super(translate, authService, storage);
   }
   ngOnInit() {
+    super.ngOnInit();
     this.profileService.getLocalPlayerData().then(res => {
       this.playerData = res;
       this.materialService.getMaterial(this.playerData.gameId).then(res => {

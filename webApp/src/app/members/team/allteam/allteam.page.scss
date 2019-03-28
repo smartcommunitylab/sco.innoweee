@@ -1,18 +1,18 @@
 .color-bar {
-    --background: #008ED9;
+    --background: #0fb4d7;
     color: white;
 }
 
 .language {
     ion-item {
         min-width: 250px;
-        --background: #008ED9;
+        --background: #0fb4d7;
         color: white;
 
     }
 }
 .table-container{
-    border: solid #00A5D7;
+    border: solid #0fb4d7;
     border-radius: 12px;
     position: absolute;
     top: 50%;
@@ -47,7 +47,7 @@
                 height: 100%;
                 // display: table;
                 // width: 50vh;
-                border: solid #00A5D7;
+                border: solid #0fb4d7;
                 border-radius: 12px;
 
 
@@ -70,15 +70,15 @@
                 top: 50%;
                 right: 0%;
                 transform: translateY(-50%);
-
+                z-index: 99;
                 .app-resources-container {
                     // padding: 20px;
 
                     .app-resources {
                         padding-left: 20px;
                         border-radius: 8px;
-                        background-color: #00A5D7;
-                        color: white;
+                        background-color: #bee6f5;
+                        color: black;
 
                     }
                 }
@@ -89,7 +89,7 @@
                 text-align: center;
                 margin: 12px;
                 position: relative;
-                background-color: #008ED9;
+                background-color: #0fb4d7;
                 border-radius: 8px;
                 bottom: 12px;
 

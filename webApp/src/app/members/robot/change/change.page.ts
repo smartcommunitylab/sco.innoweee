@@ -39,6 +39,7 @@ export class ChangePage extends MainPage implements OnInit {
   }
 
   ngOnInit() {
+    super.ngOnInit();
     super.setRoute("myrobot");
     this.mapUri = {};
 
@@ -188,7 +189,6 @@ export class ChangePage extends MainPage implements OnInit {
           text: a.ok,
           handler: async () => {
             const loading = await this.loadingController.create({
-              message: 'Please wait...'
             });
             this.presentLoading(loading);
             this.catalogService.buyComponent(item, this.profileData.gameId, this.profileData.objectId).then(newRobot => {

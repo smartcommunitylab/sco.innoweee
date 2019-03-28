@@ -30,8 +30,8 @@
         "resource_tin": "Tin",
         "change_robot": "CHANGE",
         "total_items": "items",
-        "total_weight": "Item’s weight:",
-        "total_co2": "CO2 saving:",
+        "total_weight": "Item’s weight",
+        "total_co2": "CO2 saving",
         "change_robot_armR": "RIGHT ARM",
         "change_robot_armL": "LEFT ARM",
         "change_robot_head": "HEAD",
@@ -110,6 +110,15 @@
         "label_recycle_string_recycle":"Questo oggetto puo' essere RICICLATO",
         "total_collection":"Your collection",
         "title_result":"Collection result",
-        "class_popup_title":"Select the class"
+        "class_popup_title":"Select the class",
+        "question_title":"Question",
+        "collection_title":"Collection",
+        "title_type":"Choose type",
+        "title_on_off":"Function",
+        "title_broken":"State",
+        "title_year":"Lifetime",
+        "title_end":"Confirm data",
+        "well_done_title":"Collection results"
+
 
 }
