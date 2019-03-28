@@ -17,7 +17,7 @@ const ROUTER_KEY = "router-key"
 
 export class HomePage extends MainPage implements OnInit {
   image1: String = './assets/images/recycle.png';
-  imgRobot: String = './assets/images/robot.png';
+  imgRobot: String = '';
   image3: String = './assets/images/edu.png';
   image4: String = './assets/images/team.png';
 

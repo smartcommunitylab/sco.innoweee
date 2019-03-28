@@ -4,7 +4,7 @@ import { ProfileService } from 'src/app/services/profile.service';
 import { MainPage } from 'src/app/class/MainPage';
 import { Storage } from '@ionic/storage';
 import { CatalogService } from 'src/app/services/catalog.service';
-import { ToastController, NavController, AlertController } from '@ionic/angular';
+import { ToastController, NavController, AlertController, LoadingController } from '@ionic/angular';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 
 const FOLDER_COMPONENTS = "./assets/images/components/";
@@ -32,6 +32,7 @@ export class ChangePage extends MainPage implements OnInit {
     public profileService: ProfileService,
     public authService: AuthenticationService,
     public navCtrl: NavController,
+    private loadingController: LoadingController,
     private alertController: AlertController,
     public catalogService: CatalogService) {
     super(translate, authService, storage);
@@ -53,10 +54,7 @@ export class ChangePage extends MainPage implements OnInit {
       this.resetetMapImage();
 
     });
-    this.profileService.getLocalPlayerState().then(res => {
-      //get resources and coins
-      this.profileState = res
-    });
+    this.updateState();
   }
   private resetetMapImage() {
     this.tmprobot = (JSON.parse(JSON.stringify(this.profileData.robot)));
@@ -188,7 +186,11 @@ export class ChangePage extends MainPage implements OnInit {
           }
         }, {
           text: a.ok,
-          handler: () => {
+          handler: async () => {
+            const loading = await this.loadingController.create({
+              message: 'Please wait...'
+            });
+            this.presentLoading(loading);
             this.catalogService.buyComponent(item, this.profileData.gameId, this.profileData.objectId).then(newRobot => {
               // //robot changed 
               //if not try, change it and buy it
@@ -196,6 +198,7 @@ export class ChangePage extends MainPage implements OnInit {
                 this.tmprobot.components[item.parentId] = item;
                 this.mapUri[item.type] = item.imageUri;
               }
+              this.updateState();
               this.profileService.setNewRobot(newRobot).then(res => {
                 this.tmprobot = newRobot;
                 this.profileService.getLocalPlayerData().then(res => {
@@ -206,11 +209,19 @@ export class ChangePage extends MainPage implements OnInit {
                     this.trying = false;
                   }
                   //load new components
+                  loading.dismiss();
+                }, err => {
+                  loading.dismiss();
                 });
+              }, err => {
+                loading.dismiss();
               })
               this.profileService.getPlayerState(this.profileData.gameId, this.profileData.objectId).then(res => {
                 this.profileState = res;
                 this.profileService.setPlayerState(res);
+                loading.dismiss();
+              }, err => {
+                loading.dismiss();
               });
             })
           }
@@ -218,6 +229,18 @@ export class ChangePage extends MainPage implements OnInit {
       ]
     });
     return await alert.present();
+  }
+  async presentLoading(loading) {
+    return await loading.present();
+  }
+  updateState(): Promise<any> {
+    return this.profileService.getLocalPlayerState().then(res => {
+      //get resources and coins
+      this.profileState = res
+      return Promise.resolve();
+    }, err => {
+      return Promise.reject();
+    });
   }
   getFooter() {
     return (this.translate.instant('footer_game_title')+" | "+this.getSchoolName()+" | "+this.getClassName())
