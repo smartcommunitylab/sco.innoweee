@@ -26,6 +26,7 @@ export class MaterialPage extends MainPage implements OnInit {
     super(translate, authService, storage);
   }
   ngOnInit() {
+    super.ngOnInit();
     this.profileService.getLocalPlayerData().then(res => {
       this.playerData = res;
       this.materialService.getMaterial(this.playerData.gameId).then(res => {
@@ -115,6 +116,8 @@ export class MaterialPage extends MainPage implements OnInit {
         case "video":
           {
             //if youtube preview otherwise default
+            if (resource.previewUri)
+              return resource.previewUri;
             if (resource.link)
               return this.getThumb(size, resource.link);
             else return "assets/images/ic_video.png"
@@ -123,6 +126,8 @@ export class MaterialPage extends MainPage implements OnInit {
         case "image":
           {
             //use default
+            if (resource.previewUri)
+              return resource.previewUri;
             if (resource.link)
               return resource.link;
             else return "assets/images/ic_link.png"
@@ -132,6 +137,8 @@ export class MaterialPage extends MainPage implements OnInit {
         case "link":
           {
             //use default
+            if (resource.previewUri)
+              return resource.previewUri;
             return "assets/images/ic_link.png"
 
           }
@@ -145,6 +152,8 @@ export class MaterialPage extends MainPage implements OnInit {
         case "video":
           {
             //if youtube preview otherwise default
+            if (resource.previewUri)
+              return resource.previewUri;
             if (resource.link)
               return this.getThumb(size, resource.link);
           }
@@ -152,6 +161,8 @@ export class MaterialPage extends MainPage implements OnInit {
         case "image":
           {
             //use default
+            if (resource.previewUri)
+              return resource.previewUri;
             if (resource.link)
               return resource.link;
 
@@ -160,6 +171,8 @@ export class MaterialPage extends MainPage implements OnInit {
         case "link":
           {
             //use default
+            if (resource.previewUri)
+              return resource.previewUri;
 
           }
           break;
@@ -170,7 +183,7 @@ export class MaterialPage extends MainPage implements OnInit {
     }
   }
   getFooter() {
-    return (this.translate.instant('footer_game_title')+" | "+this.getSchoolName()+" | "+this.getClassName())
+    return (this.translate.instant('footer_game_title') + " | " + this.getSchoolName() + " | " + this.getClassName())
   }
 
   getSchoolName() {

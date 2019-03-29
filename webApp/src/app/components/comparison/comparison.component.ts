@@ -32,5 +32,11 @@ export class ComparisonComponent implements OnInit {
     return value*1000000;
 
   }
-
+  getClass(value) {
+    if ( value > 1)
+      return 'kilo'
+    if (value < 1 && value > 0.001)
+      return 'grammo'
+    return 'miligrammo'
+  }
 }

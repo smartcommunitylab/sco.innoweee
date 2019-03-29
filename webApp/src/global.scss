@@ -10,6 +10,21 @@
 @import '~@ionic/angular/css/text-transformation.css';
 @import '~@ionic/angular/css/flex-utils.css';
 
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('./assets/font/Montserrat/Montserrat-Regular.ttf');
+  }
+  $font-family-base: "Montserrat"; 
+  $font-family-md-base: "Montserrat"; 
+  $font-family-ios-base: "Montserrat"; 
+  $font-family-wp-base: "Montserrat"; 
+  * {
+    font-family: 'Montserrat';
+  }
+.bold {
+    font-weight: bold;
+}
 .title {
     height: 50px;
     line-height: 50px;

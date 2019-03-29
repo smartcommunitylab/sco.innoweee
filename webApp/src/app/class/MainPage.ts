@@ -17,6 +17,7 @@ export class MainPage implements OnInit {
   public language: string = 'it';
 
   ngOnInit() {
+    this.language=this.translate.currentLang;
   }
   
   public setRoute(route) {

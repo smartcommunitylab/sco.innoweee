@@ -1,7 +1,3 @@
-// .logo-nav {
-//     width: 40px;
-//     float: left;
-// }
 .color-bar {
     --background: #0fb4d7;
     --color: white;
@@ -43,7 +39,8 @@ ion-content {
 
                 img {
                     max-height: 30vh;
-
+                    display: block;
+                    margin: auto;
                 }
             }
 

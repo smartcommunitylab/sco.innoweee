@@ -49,6 +49,7 @@ export class GameSelectionPage implements OnInit {
   playerData: {};
   playerState: {};
   ngOnInit() {
+    
   }
   ionViewWillEnter() {
     this.getDomain()

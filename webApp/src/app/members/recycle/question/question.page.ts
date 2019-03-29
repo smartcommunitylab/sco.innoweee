@@ -50,6 +50,7 @@ export class QuestionPage extends MainPage implements OnInit {
     super(translate, authService, storage);
   }
   ngOnInit() {
+    super.ngOnInit();
     this.setRoute("home");
     this.profileService.getLocalPlayerData().then(res => {
       this.playerData = res;

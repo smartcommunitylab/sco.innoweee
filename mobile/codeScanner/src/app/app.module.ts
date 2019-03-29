@@ -10,12 +10,17 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { IonicStorageModule } from '@ionic/storage';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import { APP_CONFIG_TOKEN, APP_CONFIG } from './app-config';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { registerLocaleData } from '@angular/common';
 import localeIt from '@angular/common/locales/it';
+import { GooglePlus } from '@ionic-native/google-plus/ngx';
+import { NativeStorage } from '@ionic-native/native-storage/ngx';
+import { AuthenticationService } from './services/authentication.service';
+import { AuthGuard } from './guards/auth.guard';
+import {TokenInterceptor} from './interceptors/token-interceptor'
 
 registerLocaleData(localeIt, 'it');
 export function HttpLoaderFactory(http: HttpClient) {
@@ -43,6 +48,15 @@ export function HttpLoaderFactory(http: HttpClient) {
     StatusBar,
     SplashScreen,
     BarcodeScanner,
+    GooglePlus,
+    NativeStorage,
+    AuthenticationService,
+    AuthGuard,
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: TokenInterceptor,
+    //   multi: true
+    // },
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     {provide: APP_CONFIG_TOKEN, useValue: APP_CONFIG }
 

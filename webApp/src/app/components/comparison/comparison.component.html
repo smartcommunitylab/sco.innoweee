@@ -5,7 +5,7 @@
         {{pointValue|translate}}
       </ion-col>
       <ion-col size="6">
-        <ion-progress-bar value="{{barValue}}"></ion-progress-bar>
+        <ion-progress-bar value="{{barValue}}" [ngClass]="getClass(resourceValue)"></ion-progress-bar>
       </ion-col>
       <ion-col size="3">
         <p>{{getResourceValue(resourceValue)|number:'1.0-3':'it'}} {{getResourceUnit(resourceValue)}}</p>
@@ -16,7 +16,7 @@
       </ion-col>
       <ion-col size="6">
 
-        <ion-progress-bar color="secondary" value="{{barCompareValue}}"></ion-progress-bar>
+        <ion-progress-bar color="secondary" value="{{barCompareValue}}" [ngClass]="getClass(resourceValue)"></ion-progress-bar>
       </ion-col>
       <ion-col size="3">
 

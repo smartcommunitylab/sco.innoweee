@@ -1,18 +1,18 @@
 .color-bar {
-    --background: #009952;
+    --background: #1ea046;
     --color: white;
 
     .language {
         ion-item {
             min-width: 250px;
-            --background: #009952;
+            --background: #1ea046;
             --color: white;
         }
     }
 }
 
 ion-content {
-    --background: #C8F1DE;
+    --background: #b4e6c8;
     --padding-top: 0px;
     --padding-bottom: 0px;
 }
@@ -29,7 +29,7 @@ ion-content {
 }
 
 ion-grid {
-    height: 100%;
+    height: 90%;
     --ion-grid-padding: 0px;
 
     .question-screen {
@@ -43,24 +43,28 @@ ion-grid {
             background-color: white;
         }
         .left-box {
-            border: solid 3px #009952;
+            border: solid 3px #1ea046;
             border-radius: 12px;
             padding: 8px;
+            ion-img {
+                width: 20vh;
+    margin: auto;
+            }
         }
         .right-box {
             border-radius: 12px;
             padding: 48px;
-            background-color: #009952;
+            background-color: #1ea046;
             color: white;
             ion-item{
-                --background : #009952;
+                --background : #1ea046;
             ion-input {
-                --background :#009952;
+                --background :#1ea046;
                 --color :white;
             }
             ion-label {
                 color: white;
-                background-color: #009952;
+                background-color: #1ea046;
                 z-index: 999;
             }
         }

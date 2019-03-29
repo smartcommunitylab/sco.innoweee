@@ -1,18 +1,18 @@
 .color-bar {
-    --background: #009952;
+    --background: #1ea046;
     --color: white;
   
     .language {
       ion-item {
         min-width: 250px;
-        --background: #009952;
+        --background: #1ea046;
         --color: white;
       }
     }
   }
   
   ion-content {
-    --background: #C8F1DE;
+    --background: #b4e6c8;
     --padding-top	:0px;
     --padding-bottom	:0px;
     .resources-container {
@@ -29,7 +29,7 @@
                 .app-resources{
                     padding-left: 20px;
                     border-radius: 8px;
-                    background-color: #C8F1DE;
+                    background-color: #96d296;
 
                 }
             }
@@ -39,7 +39,7 @@
             text-align: center;
             margin: 12px;
             position: relative;
-            background-color: #009952;
+            background-color: #1ea046;
             color: white;
             border-radius: 8px;
             bottom: 12px;
