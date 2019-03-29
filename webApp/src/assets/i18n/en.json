@@ -93,7 +93,7 @@
         "choose_piece":"Choose a piece",
         "label_close_item_subtitle":"Use the app on the smarthphone for scanning the QR code on the object, get credits and upgrade your robot",
         "label_use_id":"Use this ID",
-        "label_id":"ID of the item",
+        "label_id":"Code",
         "label_your_item":"Your item:",
         "question_type":"Choose the type:",
        "question_on_off":"Does it turn on:",
@@ -120,7 +120,9 @@
         "title_end":"Confirm data",
         "well_done_title":"Collection results",
         "label_garbage_collection":"Collection",
-        "allteam_title":"My team"
+        "allteam_title":"My team",
+        "label_title_recap":"Confirm your data!",
+        "label_subtitle_recap":"Che the correctness of your data"
 
 
 }

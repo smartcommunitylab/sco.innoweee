@@ -25,11 +25,10 @@
     <ion-row class="question-screen">
       <ion-col class="col-vertical-center" *ngIf="lastStep()">
         <div class="vertical-center left-box">
-          <ion-img [src]="getImgName()"></ion-img>
           <div class="answers" *ngIf="item">
-            <p class="item-title">{{'label_your_item'|translate}}</p>
-            <div>
-              <span class="recap"> {{'label_id'|translate}}</span>{{item.itemId}}
+              <p class="title-recap">{{'label_title_recap'|translate}}</p>
+              <p class="subtitle-recap">{{'label_subtitle_recap'|translate}}</p>            <div>
+              <span class="recap"> {{'label_id'|translate}}:</span>{{item.itemId}}
             </div>
             <div *ngFor="let choice of choices ; let i = index">
               <span class="recap"> {{getRecap(i)}}</span>
@@ -49,15 +48,22 @@
             </ion-col>
           </div>
         </div>
+      </ion-col>
+      <ion-col class="col-vertical-center" *ngIf="lastStep()">
+          <div class="vertical-center left-box">
+        <div class="vertical-center right-box last-step">
+            <ion-img [src]="getImgName()"></ion-img>
 
+         </div>
+</div>
       </ion-col>
       <ion-col class="col-vertical-center" *ngIf="!lastStep()">
         <div class="vertical-center left-box">
           <ion-img [src]="getImgName()"></ion-img>
           <div class="answers" *ngIf="item">
-            <p class="item-title">{{'label_your_item'|translate}}</p>
-            <div>
-              <span class="recap"> {{'label_id'|translate}}</span>{{item.itemId}}
+              <p class="item-title">{{'label_your_item'|translate|uppercase}}</p>
+              <div>
+              <span class="recap"> {{'label_id'|translate}}:</span>{{item.itemId}}
             </div>
             <div *ngFor="let choice of choices ; let i = index">
               <span class="recap"> {{getRecap(i)}}</span>

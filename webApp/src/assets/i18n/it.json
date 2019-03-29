@@ -62,7 +62,7 @@
         "reply_broken_question":"HA PARTI ROTTE",
         "number_replies":"Numero risposte",
         "number_coins":"Credito riduco",
-        "go_to_recycle":"Passa a raccolta oggetti",
+        "go_to_recycle":"Inizia raccolta oggetti",
         "label_close_item":"Avvicina l'oggetto",
         "label_identified":"Oggetto riconosciuto",
         "label_end_recycle":"Completa la raccolta",
@@ -93,16 +93,16 @@
         "choose_piece":"Scegli un potenziamento",
         "label_close_item_subtitle":"Usa l'app sul cellulare per  scannerizzare il QR code del tuo oggetto, guadagnare crediti e potenziare il tuo robot",
         "label_use_id":"Utilizza questo ID",
-        "label_id":"ID dell'oggetto",
+        "label_id":"Codice",
         "label_your_item":"Il tuo oggetto:",
         "question_type":"Scegli la tipologia di oggetto:",
        "question_on_off":"Funzionamento oggetto:",
         "question_broken":"Condizioni oggetto:",
         "question_year":"Vita oggetto:",
-        "recap_type":"Tipologia",
-        "recap_on_off":"Funzionamento",
-        "recap_broken":"Condizioni",
-        "recap_year":"Vita",
+        "recap_type":"Tipologia: ",
+        "recap_on_off":"Funzionamento: ",
+        "recap_broken":"Condizioni: ",
+        "recap_year":"Vita: ",
         "label_well_done":"Ben fatto!",
         "label_bring_stuff":"Porta a scuola oggetti che non usi più per guadagnare crediti ed evolvere il tuo robot",
         "label_recycle_string_value":"Questo oggetto HA VALORE",
@@ -120,7 +120,9 @@
         "title_end":"Conferma dati",
         "well_done_title":"Risultato raccolta",
         "label_garbage_collection":"Raccolta",
-        "allteam_title":"Il mio team"
+        "allteam_title":"Il mio team",
+        "label_title_recap":"Conferma i dati!",
+        "label_subtitle_recap":"Verifica che le informazioni inserite siano corrette"
 
 
 

@@ -37,16 +37,16 @@ export class ItemLoadedPage extends MainPage implements OnInit {
   garbageMap: any;
   item: ItemGarbage = new ItemGarbage();
   garbageCollectionName: string;
-  title: { 0: string; 1: string; 2: string; 3: string; 4:string };
+  title: { 0: string; 1: string; 2: string; 3: string; 4: string };
   constructor(private route: ActivatedRoute,
     public translate: TranslateService,
-    public authService:AuthenticationService,
-    public storage : Storage,
+    public authService: AuthenticationService,
+    public storage: Storage,
     private profileService: ProfileService,
     private router: Router,
     private garbageCollection: GarbageCollectionService) {
-      super(translate,authService,storage)
-     }
+    super(translate, authService, storage)
+  }
 
   ngOnInit() {
     super.ngOnInit();
@@ -93,7 +93,10 @@ export class ItemLoadedPage extends MainPage implements OnInit {
     return false
   }
   getTitle() {
-    return this.translate.instant(this.title[this.actualStep]);
+    if (this.title) {
+      return this.translate.instant(this.title[this.actualStep]);
+    }
+    return ""
   }
   sendItem() {
     //check values
@@ -176,10 +179,14 @@ export class ItemLoadedPage extends MainPage implements OnInit {
   }
 
   getImgName() {
-    return './assets/images/collection/' + this.garbageCollectionName + ".png";
+    if (this.garbageCollectionName) {
+      return './assets/images/collection/' + this.garbageCollectionName + ".png";
+    }
+    else
+      return ""
   }
   getFooter() {
-    return (this.translate.instant('footer_game_title')+" | "+this.getSchoolName()+" | "+this.getClassName())
+    return (this.translate.instant('footer_game_title') + " | " + this.getSchoolName() + " | " + this.getClassName())
   }
   getSchoolName() {
     return this.profileService.getSchoolName();
@@ -190,7 +197,7 @@ export class ItemLoadedPage extends MainPage implements OnInit {
 
   }
   lastStep() {
-    return (this.actualStep==4)
+    return (this.actualStep == 4)
   }
   cancel() {
     this.router.navigate(['start']);
