@@ -43,7 +43,7 @@
               {{'label_identified'|translate}}
               {{message.itemId}}
             </div>
-            <ion-button *ngIf="!manual" color="light" (click)="manual = true;" expand="block" fill="outline">
+            <ion-button *ngIf="!manual" color="light" (click)="enableManual()" expand="block" fill="outline">
               {{'label_insert_item'|translate}}
             </ion-button>
             <div *ngIf="manual">
@@ -52,7 +52,7 @@
               </ion-button>
               <ion-item>
                 <ion-label position="floating">{{'label_id'|translate}}</ion-label>
-                <ion-input [(ngModel)]="manualItemId"></ion-input>
+                <ion-input #manualID [(ngModel)]="manualItemId"></ion-input>
               </ion-item>
             </div>
           </div>

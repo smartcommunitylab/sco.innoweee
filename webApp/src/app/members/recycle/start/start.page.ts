@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { WebsocketService } from 'src/app/services/websocket.service';
 import { APP_CONFIG_TOKEN, ApplicationConfig } from 'src/app/app-config';
 import * as Stomp from 'stompjs';
@@ -19,6 +19,8 @@ import { Storage } from '@ionic/storage';
   styleUrls: ['./start.page.scss'],
 })
 export class StartPage extends MainPage implements OnInit {
+  @ViewChild('manualID') manualID;
+
   private itemSocketURL;
   private apiEndpoint;
   greetings: string[] = [];
@@ -94,6 +96,13 @@ export class StartPage extends MainPage implements OnInit {
       console.log("STOMP error " + error);
     });
   }
+  enableManual() {
+    this.manual = true;
+    setTimeout(() => {
+      this.manualID.setFocus();
+    },150);
+    // this.manualID.setFocus();
+  }
   manualInsert() {
     if (this.manualItemId) {
       //go to item-loaded
@@ -148,7 +157,10 @@ export class StartPage extends MainPage implements OnInit {
     super.ngOnInit();
   }
   getImgName() {
-    return './assets/images/collection/' + this.garbageCollectionName + ".png";
+    if (this.garbageCollectionName) {
+      return './assets/images/collection/' + this.garbageCollectionName.toLowerCase() + ".png";
+    }
+    return ""
   }
   getSchoolName() {
     return this.profileService.getSchoolName();

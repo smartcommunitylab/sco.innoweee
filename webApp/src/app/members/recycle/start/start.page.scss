@@ -46,6 +46,10 @@ ion-grid {
             border: solid 3px #1ea046;
             border-radius: 12px;
             padding: 8px;
+            ion-img {
+                width: 20vh;
+    margin: auto;
+            }
         }
         .right-box {
             border-radius: 12px;
