@@ -100,7 +100,7 @@ export class StartPage extends MainPage implements OnInit {
     this.manual = true;
     setTimeout(() => {
       this.manualID.setFocus();
-    },150);
+    },300);
     // this.manualID.setFocus();
   }
   manualInsert() {

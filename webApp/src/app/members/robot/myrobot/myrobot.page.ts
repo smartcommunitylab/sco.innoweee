@@ -34,6 +34,7 @@ export class MyrobotPage extends MainPage implements OnInit {
   }
 
   ngOnInit() {
+    super.ngOnInit();
     super.setRoute("myrobot");
     this.mapUri = {};
 
