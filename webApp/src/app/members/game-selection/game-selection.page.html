@@ -31,7 +31,7 @@
 
               <ion-item>
                 <ion-label>{{'label_institute'|translate}}</ion-label>
-                <ion-select [(ngModel)]="institute" (ionChange)="getSchool(institute)"
+                <ion-select [(ngModel)]="institute" [disabled]="!domain" (ionChange)="getSchool(institute)"
                   placeholder="{{'label_institute'|translate}}">
                   <ion-select-option *ngFor="let listInstitute of institutes" [value]="listInstitute">
                     {{listInstitute.name}}</ion-select-option>
@@ -39,7 +39,7 @@
               </ion-item>
               <ion-item>
                 <ion-label>{{'label_school'|translate}}</ion-label>
-                <ion-select [(ngModel)]="school" (ionChange)="getGame(school)"
+                <ion-select [(ngModel)]="school" [disabled]="!instituteId" (ionChange)="getGame(school)"
                   placeholder="{{'label_school'|translate}}">
                   <ion-select-option *ngFor="let listSchool of schools" [value]="listSchool">{{listSchool.name}}
                   </ion-select-option>
@@ -47,19 +47,19 @@
               </ion-item>
               <ion-item>
                 <ion-label>{{'label_game'|translate}}</ion-label>
-                <ion-select [(ngModel)]="game" (ionChange)="getPlayer(game)" placeholder="{{'label_game'|translate}}">
+                <ion-select [(ngModel)]="game" (ionChange)="getPlayer(game)" [disabled]="!schoolId"  placeholder="{{'label_game'|translate}}">
                   <ion-select-option *ngFor="let listGame of games" [value]="listGame">{{listGame.gameName}}
                   </ion-select-option>
                 </ion-select>
               </ion-item>
               <ion-item>
                 <ion-label>{{'label_section'|translate}}</ion-label>
-                <ion-button color="light" fill="outline" (click)="chooseClass()"><span
+                <ion-button color="light" fill="outline" class="class-selected" [disabled]="!gameId" (click)="chooseClass()"><span
                     *ngIf="!playerId">{{'label_choose_section'|translate}}</span><span
                     *ngIf="playerId">{{playerName}}</span></ion-button>
               </ion-item>
               <!-- <ion-item> -->
-                <ion-button color="light" (click)="getPlayerData()" expand="block" fill="outline">
+                <ion-button  color="light"  (click)="getPlayerData()" expand="block" fill="outline">
                   {{'label_enter'|translate}}</ion-button>
               <!-- </ion-item> -->
             </ion-list>
