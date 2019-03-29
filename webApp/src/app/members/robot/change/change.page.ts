@@ -46,6 +46,7 @@ export class ChangePage extends MainPage implements OnInit {
   }
 
   ionViewWillEnter() {
+    super.ionViewDidEnter();
     this.profileService.getLocalPlayerData().then(res => {
       //get data and robot
       this.profileData = res

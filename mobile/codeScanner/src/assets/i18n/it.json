@@ -1,5 +1,5 @@
 {
-        "title_game_selection": "WEEE-R-robots",
+        "title_game_selection": "WEEE R Robots",
         "button_recycle": "Inizia raccolta",
         "button_robot": "Il mio robot",
         "button_material": "Materiale educativo",
@@ -19,7 +19,7 @@
         "label_id":"Identificatore",
         "label_item_present":"Oggetto gia' inserito",
         "label_enter":"Accedi",
-        "footer_game_title":"WEEE-R-robots",
+        "footer_game_title":"WEEE R Robots",
         "label_cancel":"Annulla",
         "class_popup_title":"Seleziona la classe",
         "toast_ok":"Oggetto inviato alla lavagna",

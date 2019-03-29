@@ -50,6 +50,7 @@ export class HomePage extends MainPage implements OnInit {
     });
   }
   ionViewDidEnter() {
+    super.ionViewDidEnter();
     if (this.playerData) {
       this.profileService.getRobotImage(this.playerData.objectId).then(res => {
         this.imgRobot = res + '?' + (new Date().getTime());

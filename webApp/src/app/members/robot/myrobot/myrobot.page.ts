@@ -42,6 +42,7 @@ export class MyrobotPage extends MainPage implements OnInit {
   }
 
   ionViewWillEnter() {
+    super.ionViewDidEnter();
     this.resources=[];
     this.profileService.getLocalPlayerData().then(res => {
       this.profileData = res

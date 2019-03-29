@@ -30,6 +30,10 @@ export class ItemClassificationPage extends MainPage implements OnInit {
         console.log(this.item); // popular
       });
   }
+
+  ionViewDidEnter() {
+    super.ionViewDidEnter();
+  }
   getValueString(): string {
     if (this.item.valuable) {
 

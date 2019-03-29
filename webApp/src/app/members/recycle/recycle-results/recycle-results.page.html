@@ -3,7 +3,7 @@
       <ion-buttons slot="start">
         <ion-back-button></ion-back-button>
       </ion-buttons>
-      <ion-title class="ion-text-center">{{'collection_title'|translate}}</ion-title>
+      <ion-title class="ion-text-center">{{'collection_title'|translate|uppercase}}</ion-title>
    
       <ion-buttons class="language" slot="end">
         <ion-item>
@@ -57,7 +57,7 @@
               </ion-row>
             </ion-grid>
           </div>
-          <!-- <ion-button color="dark" [routerLink]="['/myrobot']" expand="block" fill="outline">{{'go_to_robot'|translate}}</ion-button> -->
+          <ion-button color="dark" (click)="goToRobot()" expand="block" fill="outline">{{'go_to_robot'|translate}}</ion-button>
           <ion-button color="dark" (click)="goHome()" expand="block" fill="outline">{{'go_to_home'|translate}}
           </ion-button>
         </div>

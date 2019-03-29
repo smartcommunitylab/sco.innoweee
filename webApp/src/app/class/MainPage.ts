@@ -19,7 +19,9 @@ export class MainPage implements OnInit {
   ngOnInit() {
     this.language=this.translate.currentLang;
   }
-  
+  ionViewDidEnter() {
+    this.language=this.translate.currentLang;
+  }
   public setRoute(route) {
     this.storage.set(ROUTER_KEY,route);
 

@@ -39,6 +39,9 @@ export class MaterialPage extends MainPage implements OnInit {
     });
 
   }
+  ionViewDidEnter() {
+    super.ionViewDidEnter();
+  }
   selectResource(resource) {
     this.selected = resource;
 

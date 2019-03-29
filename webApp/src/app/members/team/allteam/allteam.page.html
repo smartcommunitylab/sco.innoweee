@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title class="ion-text-center">{{'allteam_title'|translate}}</ion-title>
+    <ion-title class="ion-text-center">{{'allteam_title'|translate|uppercase}}</ion-title>
 
     <ion-buttons class="language" slot="end">
       <ion-item>
@@ -35,25 +35,25 @@
                 <ion-grid>
                   <ion-row>
                     <ion-col>
-                      {{'total_weight'|translate}}: {{profileState.weight|number:'1.0-3':'it'}}
+                      {{'total_weight'|translate}}: {{profileState.weight|number:'1.0-1':'it'}}
                       {{getResourceUnit(profileState.weight)}}</ion-col>
                   </ion-row>
                   <ion-row>
                     <ion-col>
-                      {{'total_co2'|translate}}: {{profileState.co2|number:'1.0-3':'it'}}
+                      {{'total_co2'|translate}}: {{profileState.co2|number:'1.0-1':'it'}}
                       {{getResourceUnit(profileState.co2)}}</ion-col>
                   </ion-row>
                   <ion-row>
                     <ion-col>
-                      <div class="value-resources">{{profileState.totalReduceCoin|number:'1.0-3':'it'}}</div>
+                      <div class="value-resources">{{profileState.totalReduceCoin|number:'1.0-1':'it'}}</div>
                       <div>{{'total_reduce_coins'|translate}}</div>
                     </ion-col>
                     <ion-col>
-                      <div class="value-resources">{{profileState.totalReuseCoin|number:'1.0-3':'it'}}</div>
+                      <div class="value-resources">{{profileState.totalReuseCoin|number:'1.0-1':'it'}}</div>
                       <div>{{'total_reuse_coins'|translate}}</div>
                     </ion-col>
                     <ion-col>
-                      <div class="value-resources"> {{profileState.totalRecycleCoin|number:'1.0-3':'it'}}</div>
+                      <div class="value-resources"> {{profileState.totalRecycleCoin|number:'1.0-1':'it'}}</div>
                       <div>{{'total_recycle_coins'|translate}}</div>
                     </ion-col>
                   </ion-row>

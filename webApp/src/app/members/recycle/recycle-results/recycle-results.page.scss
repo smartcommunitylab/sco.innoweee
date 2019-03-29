@@ -23,7 +23,8 @@
                 width: 50%;
                 margin: auto;
                 .total-collection{
-                    font-size: 24px;
+                    // font-size: 24px;
+                    font-weight: bold;
                     text-align: center;
                 }
                 .app-resources{
@@ -38,6 +39,7 @@
         .total-resources {
             text-align: center;
             margin: 12px;
+            margin-bottom: 0px;
             position: relative;
             background-color: #1ea046;
             color: white;

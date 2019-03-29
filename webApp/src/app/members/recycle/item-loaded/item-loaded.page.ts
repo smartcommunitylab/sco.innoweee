@@ -69,6 +69,10 @@ export class ItemLoadedPage extends MainPage implements OnInit {
 
 
   }
+
+  ionViewDidEnter() {
+    super.ionViewDidEnter();
+  }
   chooseCategory(item) {
     this.choices.push(item);
     this.actualStep++;

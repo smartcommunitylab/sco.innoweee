@@ -60,6 +60,10 @@ export class QuestionPage extends MainPage implements OnInit {
     });
 
   }
+
+  ionViewDidEnter() {
+    super.ionViewDidEnter();
+  }
   getQuestionMessage() {
     if (this.weeklyQuestion)
       return this.weeklyQuestion[this.translate.currentLang];

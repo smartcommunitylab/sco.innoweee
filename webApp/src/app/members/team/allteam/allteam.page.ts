@@ -59,6 +59,7 @@ export class AllteamPage extends MainPage implements OnInit {
     })
   }
   ionViewWillEnter() {
+    super.ionViewDidEnter();
     this.selectedClass=null;
   }
   /*create a table of 4 columns*/
