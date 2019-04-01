@@ -34,6 +34,7 @@ export class MyrobotPage extends MainPage implements OnInit {
   }
 
   ngOnInit() {
+    super.ngOnInit();
     super.setRoute("myrobot");
     this.mapUri = {};
 
@@ -41,6 +42,7 @@ export class MyrobotPage extends MainPage implements OnInit {
   }
 
   ionViewWillEnter() {
+    super.ionViewDidEnter();
     this.resources=[];
     this.profileService.getLocalPlayerData().then(res => {
       this.profileData = res

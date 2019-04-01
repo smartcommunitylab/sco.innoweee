@@ -1,18 +1,18 @@
 .color-bar {
-  --background: #009952;
+  --background: #1ea046;
   --color: white;
 
   .language {
     ion-item {
       min-width: 250px;
-      --background: #009952;
+      --background: #1ea046;
       --color: white;
     }
   }
 }
 
 ion-content {
-  --background: #C8F1DE;
+  --background: #b4e6c8;
   --padding-top	:0px;
   --padding-bottom	:0px;
 }
@@ -36,17 +36,21 @@ ion-grid {
       .question-box {
         width: 100%;
         text-align: center;
+        font-weight: bold;
       }
     }
 
     .col-dark {
-      background-color: #009952;
+      background-color: #1ea046;
       color: white;
 
       .go-start {
         margin: auto;
         --color: white;
         --border-color: white;
+        margin-top: 20px;
+        text-transform: none;
+        font-size: 18px;
       }
     }
   }

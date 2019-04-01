@@ -1,27 +1,52 @@
 <ion-header>
-    <ion-toolbar>
-        <ion-title></ion-title>
+    <ion-toolbar class="color-bar">
+        <ion-buttons class="language" slot="end">
+                <ion-label> {{'label_logout'|translate}}                </ion-label>
+
+            <ion-button (click)="changeClass()">
+                <ion-icon slot="icon-only" name="log-out"></ion-icon>
+            </ion-button>
+        </ion-buttons>
     </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-    <ion-row>
-        <ion-col>
-            {{'label_class_selected'|translate}}
-        </ion-col>
-    </ion-row>
-    <ion-row>
-        <ion-col>
-            <ion-button ion-button (click)="changeClass()">{{playerName}} </ion-button>
-        </ion-col>
-    </ion-row>
-    <div>
-        <ion-button ion-button (click)="scan()">{{'label_scan'|translate}} </ion-button>
-    </div>
-    <div *ngIf="scanData">
+    <ion-grid>
+        <ion-row>
+            <ion-col class="class-selected">
+                {{'label_class_selected'|translate}}
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col class="class-name">
+                <ion-label>{{playerName}} </ion-label>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col class="procedure">
+                <ion-label>
+                    {{'label_scan_procedure'|translate}}
+                </ion-label>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <div class="scan-button">
+                    <ion-button size="large" ion-button (click)="scan()">{{'label_scan'|translate}} </ion-button>
+                </div>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <!-- <div *ngIf="scanData">
         <p>{{'label_id'|translate}} {{scanData.text}}</p>
         <p *ngIf="itemPresent">{{'label_item_present'|translate}}</p>
         <ion-button ion-button (click)="sendLim()" [disabled]="itemPresent">{{'label_send_to_lim'|translate}}
         </ion-button>
-    </div>
+    </div> -->
 </ion-content>
+<ion-footer>
+    <ion-toolbar class="color-bar">
+        <ion-title class="ion-text-center">{{ getFooter()}}</ion-title>
+    </ion-toolbar>
+</ion-footer>

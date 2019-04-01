@@ -1,19 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { ToastController, NavController, AlertController } from '@ionic/angular';
+import { ToastController, NavController, AlertController, LoadingController } from '@ionic/angular';
 import { ProfileService } from 'src/app/services/profile.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { GarbageCollectionService } from 'src/app/services/garbage-collection.service';
 import { Router } from '@angular/router';
 import { CatalogService } from 'src/app/services/catalog.service';
 import { Storage } from '@ionic/storage';
+import { MainPage } from 'src/app/class/MainPage';
+import { loadInternal } from '@angular/core/src/render3/util';
 
 @Component({
   selector: 'app-recycle-results',
   templateUrl: './recycle-results.page.html',
   styleUrls: ['./recycle-results.page.scss'],
 })
-export class RecycleResultsPage implements OnInit {
+export class RecycleResultsPage extends MainPage implements OnInit {
   playerData: any;
   nameGE: any;
   profileState: any;
@@ -32,10 +34,13 @@ export class RecycleResultsPage implements OnInit {
     private alertController: AlertController,
     private garbageCollection: GarbageCollectionService,
     private router: Router,
+    private loadingController: LoadingController,
     private garbageService: GarbageCollectionService,
     public catalogService: CatalogService) {
+    super(translate, authService, storage);
   }
   ngOnInit() {
+    super.ngOnInit();
     this.profileService.getLocalPlayerData().then(res => {
       this.playerData = res;
       this.garbageCollection.getActualCollection(this.playerData.gameId).then(res => {
@@ -47,6 +52,12 @@ export class RecycleResultsPage implements OnInit {
       });
     });
   }
+
+
+  ionViewDidEnter() {
+    super.ionViewDidEnter();
+  }
+
   orderResources(map) {
     var arrayResources = this.garbageService.getArrayResources();
     for (const [key, value] of Object.entries(map)) {
@@ -98,7 +109,7 @@ export class RecycleResultsPage implements OnInit {
   }
 
   getFooter() {
-    return (this.translate.instant('footer_game_title')+" | "+this.getSchoolName()+" | "+this.getClassName())
+    return (this.translate.instant('footer_game_title') + " | " + this.getSchoolName() + " | " + this.getClassName())
   }
 
   getResourceUnit(value) {
@@ -107,5 +118,23 @@ export class RecycleResultsPage implements OnInit {
     if (value < 1 && value > 0.001)
       return "g"
     return "mg"
+  }
+  goHome() {
+    this.navCtrl.navigateRoot('/home');
+
+  }
+  async goToRobot() {
+    const loading = await this.loadingController.create({
+    });
+    this.presentLoading(loading);
+        this.navCtrl.navigateRoot('/home').then(res => {
+      this.navCtrl.navigateForward('/myrobot').then(res => {
+        loading.dismiss();
+      })
+    });
+    
+  }
+  async presentLoading(loading) {
+    return await loading.present();
   }
 }

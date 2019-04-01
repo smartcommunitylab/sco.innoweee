@@ -40,6 +40,7 @@ export class AllteamPage extends MainPage implements OnInit {
   }
 
   ngOnInit() {
+    super.ngOnInit();
     super.setRoute("allteam");
     this.profileService.getAllPlayers().then(players => {
       this.gameId = players[0].gameId;
@@ -58,6 +59,7 @@ export class AllteamPage extends MainPage implements OnInit {
     })
   }
   ionViewWillEnter() {
+    super.ionViewDidEnter();
     this.selectedClass=null;
   }
   /*create a table of 4 columns*/

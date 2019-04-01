@@ -6,6 +6,7 @@ import { MainPage } from '../../class/MainPage'
 import { MaterialService } from 'src/app/services/material.service';
 import { ProfileService } from 'src/app/services/profile.service';
 import { GarbageCollectionService } from 'src/app/services/garbage-collection.service';
+import { Route, Router } from '@angular/router';
 const ROUTER_KEY = "router-key"
 
 @Component({
@@ -16,7 +17,7 @@ const ROUTER_KEY = "router-key"
 
 export class HomePage extends MainPage implements OnInit {
   image1: String = './assets/images/recycle.png';
-  imgRobot: String = './assets/images/robot.png';
+  imgRobot: String = '';
   image3: String = './assets/images/edu.png';
   image4: String = './assets/images/team.png';
 
@@ -26,6 +27,7 @@ export class HomePage extends MainPage implements OnInit {
   constructor(
     translate: TranslateService,
     storage: Storage,
+    private router:Router,
     private materialService: MaterialService,
     private profileService: ProfileService,
     private garbageCollection: GarbageCollectionService,
@@ -34,6 +36,7 @@ export class HomePage extends MainPage implements OnInit {
   }
 
   ngOnInit() {
+    super.ngOnInit();
     this.setRoute("home");
     this.profileService.getLocalPlayerData().then(res => {
       this.playerData = res;
@@ -47,6 +50,7 @@ export class HomePage extends MainPage implements OnInit {
     });
   }
   ionViewDidEnter() {
+    super.ionViewDidEnter();
     if (this.playerData) {
       this.profileService.getRobotImage(this.playerData.objectId).then(res => {
         this.imgRobot = res + '?' + (new Date().getTime());
@@ -71,5 +75,7 @@ export class HomePage extends MainPage implements OnInit {
     return this.profileService.getPlayerName();
 
   }
-
+  goTo(link) {
+    this.router.navigate([link]);
+  }
 }

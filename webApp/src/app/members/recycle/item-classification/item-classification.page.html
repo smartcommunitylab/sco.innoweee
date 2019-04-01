@@ -1,10 +1,23 @@
 <ion-header>
-  <ion-toolbar class="color-bar">
-    <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
+    <ion-toolbar class="color-bar">
+      <ion-buttons slot="start">
+        <ion-back-button></ion-back-button>
+      </ion-buttons>
+      <ion-title class="ion-text-center">{{'well_done_title'|translate|uppercase}}</ion-title>
+      <ion-buttons class="language" slot="end">
+        <ion-item>
+          <ion-label>{{'label_language_selection'|translate}}</ion-label>
+          <ion-select [(ngModel)]="language" (ionChange)="changeLanguage()">
+            <ion-select-option value="en" selected="true">English</ion-select-option>
+            <ion-select-option value="it">Italiano</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-button (click)="logout()">
+          <ion-icon slot="icon-only" name="log-out"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
 
 <ion-content padding>
   <ion-grid>
@@ -13,7 +26,7 @@
         <div class="vertical-center">
           <div class="result">
           <div class="title-result ion-padding">
-            {{'label_well_done'|translate}}
+            {{'label_well_done'|translate|uppercase}}
           </div>
           <div class="subtitle-result ion-padding">
             {{getValueString()}}

@@ -11,8 +11,20 @@ ion-row {
     }
     ion-progress-bar {
         height: 8px;
-        --buffer-background: none;
+        --progress-background:#0fb4d7;
         
 
+    }
+    .kilo {
+        --progress-background: #e65f46;
+ }
+
+    .grammo {
+        --progress-background: #f5aa00;
+
+    }
+
+    .miligrammo {
+        --progress-background: #1ea046;
     }
 }
