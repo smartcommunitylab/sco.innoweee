@@ -1,5 +1,5 @@
 import { Injectable, Inject } from '@angular/core';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { APP_CONFIG_TOKEN, ApplicationConfig } from '../app-config';
 
 @Injectable({
@@ -25,7 +25,7 @@ export class DataServerService {
     });
 
   }
-  constructor(private http: Http,
+  constructor(private http: HttpClient,
     @Inject(APP_CONFIG_TOKEN) private config: ApplicationConfig) {
       this.endPoint=config.apiEndpoint;
       this.getItemApi=config.getItemApi;
@@ -37,7 +37,7 @@ export class DataServerService {
     let url: string = this.endPoint + this.getItemApi + this.getUsedApi+"?playerId="+idUser+"&itemId="+encodeURIComponent(id);
 
     return this.http.get( url).toPromise().then(res => {
-      return res.json()
+      return res
 
     }).catch(response => {
       return this.handleError(response)

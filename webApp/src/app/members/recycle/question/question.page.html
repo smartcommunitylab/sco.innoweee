@@ -4,7 +4,7 @@
       <ion-back-button></ion-back-button>
     </ion-buttons>
 
-    <ion-title>{{'change_robot'|translate}}</ion-title>
+    <ion-title class="ion-text-center">{{'question_title'|translate|uppercase}}</ion-title>
 
     <ion-buttons class="language" slot="end">
       <ion-item>
@@ -43,16 +43,16 @@
         <div class="vertical-center">
           <ion-row>
             <ion-col class="ion-text-center">
-              {{'number_replies'|translate}} {{getNumberReplies()}}
+              <span class="bold">{{'number_replies'|translate}} </span> {{getNumberReplies()}}
             </ion-col>
           </ion-row>
           <ion-row>
             <ion-col class="ion-text-center">
-              {{'number_coins'|translate}} {{getNumberCoins()}}
+                <span class="bold">{{'number_coins'|translate}} </span>{{getNumberCoins()}}
             </ion-col>
           </ion-row>
           <ion-row>
-            <ion-button color="light" class="ion-text-center" class="go-start" (click)="goToStart()" expand="block"
+            <ion-button color="light" class="ion-text-center go-start" (click)="goToStart()" expand="block"
               fill="outline">
               {{'go_to_recycle'|translate}}
             </ion-button>

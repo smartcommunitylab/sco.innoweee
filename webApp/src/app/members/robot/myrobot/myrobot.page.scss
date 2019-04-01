@@ -1,65 +1,52 @@
 .color-bar {
-    --background: #ffe249;
+    --background: #0fb4d7;
+    color: white;
+    .language {
+        ion-item {
+            min-width: 250px;
+            --background: #0fb4d7;
+            --color: white;
+        }
+    }
 }
 
 ion-content {
-    --background : #FFF7DD;
+    --background: #dcf4fa;
+
     .robot-container {
 
         ion-row {
             height: 100%;
+
             .robot {
                 // height: 541px;
                 // width: 345px;
                 position: relative;
                 width: 43vh;
 
-                // ion-col {
-                //     padding: 0px;
-                // }
+                .body-robot-container {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
 
-                // ion-grid {
-                //     padding: 0px;
-                // }
+                    .body-robot {
+                        display: table;
 
-                // .head-row {
-                //     margin-bottom: 8px;
+                        .body-robot-arm {
+                            width: 11vh;
+                            display: table-cell;
+                            vertical-align: top;
+                        }
 
-                //     .head-robot {
-                //         height: 120px;
-                //         width: 345px;
-                //     }
-                // }
-
-                // .armR-robot {
-                //     height: 275px;
-                //     width: 100px;
-                // }
-
-                // .chest-robot {
-                //     height: 275px;
-                //     width: 145px;
-                // }
-
-                // .armL-robot {
-                //     height: 275px;
-                //     width: 100px;
-                // }
-
-                // .legs-row {
-                //     margin-bottom: 8px;
-
-                //     .legs-robot {
-                //         height: 130px;
-                //         width: 345px;
-                //     }
-                // }
-
-                // .feet-robot {
-                //     height: 50px;
-                //     width: 345px;
-                // }
+                        .body-robot-chest {
+                            width: 16vh;
+                            display: table-cell;
+                            vertical-align: top;
+                        }
+                    }
+                }
             }
+
             ion-col {
                 height: 100%;
                 position: relative;
@@ -72,13 +59,13 @@ ion-content {
                     .point {
                         width: 30%;
                         position: absolute;
-                        background-color: #FFE249;
+                        background-color: #bee6f5;
                         border-radius: 8px;
                         border: 2px white solid;
                     }
                 }
 
-               
+
 
                 .resources-container {
                     position: relative;
@@ -88,10 +75,11 @@ ion-content {
                         .app-resources-container {
                             padding-left: 120px;
                             padding-top: 60px;
-                            .app-resources{
+
+                            .app-resources {
                                 padding-left: 20px;
                                 border-radius: 8px;
-                                background-color: #FFE249;
+                                background-color: #bee6f5;
 
                             }
                         }
@@ -101,9 +89,10 @@ ion-content {
                         text-align: center;
                         margin: 12px;
                         position: relative;
-                        background-color: #FCD14D;
+                        background-color: #0fb4d7;
                         border-radius: 8px;
                         bottom: 12px;
+                        color: white;
                         .value-resources {
                             font-weight: bold;
                             font-size: 20px;

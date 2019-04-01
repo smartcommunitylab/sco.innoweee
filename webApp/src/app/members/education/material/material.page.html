@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title class="title">{{'title_material'|translate}}</ion-title>
+    <ion-title class="title ion-text-center">{{'title_material'|translate|uppercase}}</ion-title>
 
     <ion-buttons class="language" slot="end">
       <ion-item>
@@ -29,7 +29,7 @@
             <ion-item>
               <ion-thumbnail class="preview-image">
                 <img [src]="getPreview('big',selected)" onError="this.src='assets/images/white.png'">
-                <img [src]="getType(selected)" class="icon-player">
+                <img *ngIf="!selected.previewUri"[src]="getType(selected)" class="icon-player">
               </ion-thumbnail>
             </ion-item>
             <div class="name-selected">

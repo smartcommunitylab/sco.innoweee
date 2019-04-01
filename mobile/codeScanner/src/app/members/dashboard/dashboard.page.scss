@@ -1,0 +1,36 @@
+.color-bar {
+    --background: #0fb4d7;
+    --color:white;
+    .language {
+        ion-item {
+            min-width: 250px;
+            --background: #0fb4d7;
+
+
+        }
+    }
+}
+ion-grid {
+    .class-selected {
+        text-align: center;
+        // font-weight: bold;
+        font-size: 24px;
+    }
+    .class-name {
+        text-align: center;
+        font-weight: bold;
+        font-size: 24px;
+    }
+    .procedure{
+        text-align: center;
+        font-weight: bold;
+        padding: 50px;
+    }
+    .scan-button{
+        text-align: center;
+    }
+    ion-button {
+        --background: #0fb4d7;
+        --color:white;
+    }
+}

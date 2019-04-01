@@ -32,13 +32,13 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
       this.initTranslate();
-      this.authenticationService.authenticationState.subscribe(state => {
-        if (state) {
-          this.router.navigate(['members', 'select-class']);
-        } else {
-          this.router.navigate(['login']);
-        }
-      });
+      // this.authenticationService.authenticationState.subscribe(state => {
+      //   if (state) {
+      //     this.router.navigate(['members', 'select-class']);
+      //   } else {
+      //     this.router.navigate(['login']);
+      //   }
+      // });
  
     });
   }

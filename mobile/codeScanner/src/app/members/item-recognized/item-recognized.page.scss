@@ -1,0 +1,33 @@
+.color-bar {
+    --background: #0fb4d7;
+    --color: white;
+
+    .language {
+        ion-item {
+            min-width: 250px;
+            --background: #0fb4d7;
+
+
+        }
+    }
+}
+
+ion-grid {
+    .qr-code {
+        width: 128px;
+        margin: auto;
+    }
+
+    .interaction {
+        text-align: center;
+
+        .bold {
+            font-weight: bold;
+        }
+    }
+
+    ion-button {
+        --background: #0fb4d7;
+        --color: white;
+    }
+}

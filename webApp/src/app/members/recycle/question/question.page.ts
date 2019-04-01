@@ -16,9 +16,9 @@ import { Router } from '@angular/router';
 export class QuestionPage extends MainPage implements OnInit {
   playerData: any;
   weeklyQuestion: any;
-  coinsGained:number=0;
-  numberReplies:number=0;
-  
+  coinsGained: number = 0;
+  numberReplies: number = 0;
+
   replies = {
     0: {
       answer: "reply_0_question",
@@ -29,11 +29,11 @@ export class QuestionPage extends MainPage implements OnInit {
       value: 3
     },
     2: {
-      answer:"reply_2_question",
+      answer: "reply_2_question",
       value: 5
     },
     3: {
-      answer:"reply_3_question",
+      answer: "reply_3_question",
       value: 10
     }
   }
@@ -50,14 +50,21 @@ export class QuestionPage extends MainPage implements OnInit {
     super(translate, authService, storage);
   }
   ngOnInit() {
+    super.ngOnInit();
     this.setRoute("home");
     this.profileService.getLocalPlayerData().then(res => {
       this.playerData = res;
       this.garbageCollection.getActualCollection(this.playerData.gameId).then(res => {
-        this.weeklyQuestion = res.reduceMessage
+        if (res && res.reduceMessage) {
+          this.weeklyQuestion = res.reduceMessage
+        }
       });
     });
 
+  }
+
+  ionViewDidEnter() {
+    super.ionViewDidEnter();
   }
   getQuestionMessage() {
     if (this.weeklyQuestion)
@@ -74,14 +81,14 @@ export class QuestionPage extends MainPage implements OnInit {
     return this.coinsGained;
   }
   addCoins(key) {
-    this.coinsGained+=this.replies[key].value;
+    this.coinsGained += this.replies[key].value;
     this.numberReplies++;
   }
   goToStart() {
-    this.garbageCollection.reduce(this.playerData.objectId,this.coinsGained).then(res => {
+    this.garbageCollection.reduce(this.playerData.objectId, this.coinsGained).then(res => {
       this.router.navigate(['start']);
     })
-    
+
   }
   getSchoolName() {
     return this.profileService.getSchoolName();
@@ -93,7 +100,7 @@ export class QuestionPage extends MainPage implements OnInit {
   }
 
   getFooter() {
-    return (this.translate.instant('footer_game_title')+" | "+this.getSchoolName()+" | "+this.getClassName())
+    return (this.translate.instant('footer_game_title') + " | " + this.getSchoolName() + " | " + this.getClassName())
   }
 }
 

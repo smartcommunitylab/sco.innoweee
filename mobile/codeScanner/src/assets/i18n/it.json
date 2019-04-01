@@ -1,5 +1,5 @@
 {
-        "title_game_selection": "Seleziona il profilo",
+        "title_game_selection": "WEEE R Robots",
         "button_recycle": "Inizia raccolta",
         "button_robot": "Il mio robot",
         "button_material": "Materiale educativo",
@@ -17,7 +17,17 @@
         "label_send_to_lim":" Invia oggetto alla lavagna",
         "label_class_selected":"Classe selezionata:",
         "label_id":"Identificatore",
-        "label_item_present":"Oggetto gia' inserito"
+        "label_item_present":"Oggetto gia' inserito",
+        "label_enter":"Accedi",
+        "footer_game_title":"WEEE R Robots",
+        "label_cancel":"Annulla",
+        "class_popup_title":"Seleziona la classe",
+        "toast_ok":"Oggetto inviato alla lavagna",
+        "toast_error":"Errore durante la comunicazione con il server",
+        "toast_back":"Invio annullato",
+        "label_scan_procedure":"Preparare l'oggetto con il QR-code, premere il tasto IDENTIFICA OGGETTO e mettere a fuoco il codice.",
+        "label_logout":"Esci"
+        
         
 
 }

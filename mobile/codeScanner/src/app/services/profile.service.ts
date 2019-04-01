@@ -20,9 +20,11 @@ export class ProfileService {
   getPlayerApi: string = "";
   playerData: any;
   getRobotImageApi:string="";
-  constructor(private httpClient: HttpClient,
+  playerName: any;
+  schoolName: any;
+  constructor(
     private storage:Storage,
-    private http: Http,
+    private http: HttpClient,
     @Inject(APP_CONFIG_TOKEN) private config: ApplicationConfig) {
     this.endPoint = config.apiEndpoint;
     this.getDomainApi = config.getDomainApi;
@@ -35,15 +37,15 @@ export class ProfileService {
 
   getDomain(): Promise<any> {
     let url: string = this.endPoint + this.getDomainApi;
-
-    return this.http.get(url)
-      .toPromise()
-      .then(response => {
-        return response.json()
-      }
-      ).catch(response => {
-        return this.handleError(response)
-      });
+    return Promise.resolve({"tenants":["TEST","TRENTO"]});
+    // return this.http.get(url)
+    //   .toPromise()
+    //   .then(response => {
+    //     return response
+    //   }
+    //   ).catch(response => {
+    //     return this.handleError(response)
+    //   });
   }
   getInstitute(domain: string): Promise<any> {
     let url: string = this.endPoint + this.getInstituteApi + "/" + domain;
@@ -51,7 +53,7 @@ export class ProfileService {
     return this.http.get(url)
       .toPromise()
       .then(response => {
-        return response.json()
+        return response
       }
       ).catch(response => {
         return this.handleError(response)
@@ -63,7 +65,7 @@ export class ProfileService {
     return this.http.get(url)
       .toPromise()
       .then(response => {
-        return response.json()
+        return response
       }
       ).catch(response => {
         return this.handleError(response)
@@ -75,7 +77,7 @@ export class ProfileService {
     return this.http.get(url)
       .toPromise()
       .then(response => {
-        return response.json()
+        return response
       }
       ).catch(response => {
         return this.handleError(response)
@@ -88,35 +90,35 @@ export class ProfileService {
     return this.http.get(url)
       .toPromise()
       .then(response => {
-        return response.json()
+        return response
       }
       ).catch(response => {
         return this.handleError(response)
       });
   }
-  getRobotImage(userId): Promise<any>{
-    let url: string = this.endPoint + this.getRobotImageApi + "/" + userId;
-    var promise = new Promise((resolve, reject) => {
-        console.log("Async Work Complete");
-        resolve(url);
-    });
-    return promise;
-    // return this.http
-    //         .get(url, { responseType: ResponseContentType.Blob }).toPromise().then(res => {
-    //           res.blob()});
-  }
-  getPlayerState(gameId,playerId, nameGE?:string):Promise<any> {
-    let url: string = this.endPoint + this.getGameApi + gameId+"/state/"+playerId;
+  // getRobotImage(userId): Promise<any>{
+  //   let url: string = this.endPoint + this.getRobotImageApi + "/" + userId;
+  //   var promise = new Promise((resolve, reject) => {
+  //       console.log("Async Work Complete");
+  //       resolve(url);
+  //   });
+  //   return promise;
+  //   // return this.http
+  //   //         .get(url, { responseType: ResponseContentType.Blob }).toPromise().then(res => {
+  //   //           res.blob()});
+  // }
+  // getPlayerState(gameId,playerId, nameGE?:string):Promise<any> {
+  //   let url: string = this.endPoint + this.getGameApi + gameId+"/state/"+playerId;
 
-    return this.http.get(url)
-      .toPromise()
-      .then(response => {
-        return response.json()
-      }
-      ).catch(response => {
-        return this.handleError(response)
-      });
-  }
+  //   return this.http.get(url)
+  //     .toPromise()
+  //     .then(response => {
+  //       return response
+  //     }
+  //     ).catch(response => {
+  //       return this.handleError(response)
+  //     });
+  // }
   
   getPlayerDataFromList(playerId, players): Object {
 
@@ -127,19 +129,19 @@ export class ProfileService {
     return this.storage.get(PLAYER_DATA_KEY);
 
   }
-  setPlayerData(data) {
-    this.storage.set(PLAYER_DATA_KEY,data);
-    // this.playerData = data;
-  }
-  setPlayerState(state) {
-    this.storage.set(PLAYER_STATE_KEY,state);
-  }
-  setNewRobot(robot):Promise<any> {
-    return this.getLocalPlayerData().then(res => {
-      res.robot = robot
-      this.setPlayerData(res);
-    })
-  }
+  // setPlayerData(data) {
+  //   this.storage.set(PLAYER_DATA_KEY,data);
+  //   // this.playerData = data;
+  // }
+  // setPlayerState(state) {
+  //   this.storage.set(PLAYER_STATE_KEY,state);
+  // }
+  // setNewRobot(robot):Promise<any> {
+  //   return this.getLocalPlayerData().then(res => {
+  //     res.robot = robot
+  //     this.setPlayerData(res);
+  //   })
+  // }
   setAllPlayers(players) {
     this.storage.set(ALL_PLAYERS_KEY,players);
 
@@ -153,7 +155,18 @@ export class ProfileService {
 
   }
 
-
+  setPlayerName(playerName) {
+    this.playerName = playerName;
+   }
+   getPlayerName() {
+     return this.playerName;
+   }
+setSchoolName(schoolName) {
+this.schoolName=schoolName;
+}
+getSchoolName() {
+return this.schoolName;
+}
   private handleError(error: any): Promise<any> {
 
     return new Promise<string>((resolve, reject) => {

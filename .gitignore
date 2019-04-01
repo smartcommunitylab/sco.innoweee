@@ -61,3 +61,10 @@ typings/
 
 # next.js build output
 .next
+
+mobile/platforms/
+mobile/plugins
+webApp/platforms/
+webApp/plugins
+webApp/www
+ionic.config.json
