@@ -184,7 +184,7 @@ export class ItemLoadedPage extends MainPage implements OnInit {
 
   getImgName() {
     if (this.garbageCollectionName) {
-      return './assets/images/collection/' + this.garbageCollectionName + ".png";
+      return './assets/images/collection/' + this.garbageCollectionName.toLowerCase() + ".png";
     }
     else
       return ""
