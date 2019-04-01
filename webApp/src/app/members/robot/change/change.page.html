@@ -157,12 +157,12 @@
                       <div class="piece">
                         <div [ngClass]="{'not-active': !isBuyable(item)}">
                           <ion-img [src]="getImgNewComponent(item)"></ion-img>
-                          <app-point [pointvalue]="getResourceValue('recycleCoin')"
+                          <app-point [pointvalue]="getResourceValueItem(item,'recycleCoin')"
                             [srcicon]="'/assets/icon/recycle.svg'" [label]="translate.instant('coins_recycle_label')">
                           </app-point>
-                          <app-point [pointvalue]="getResourceValue('reduceCoin')" [srcicon]="'/assets/icon/reduce.svg'"
+                          <app-point [pointvalue]="getResourceValueItem(item,'reduceCoin')" [srcicon]="'/assets/icon/reduce.svg'"
                             [label]="translate.instant('coins_reduce_label')"></app-point>
-                          <app-point [pointvalue]="getResourceValue('reuseCoin')" [srcicon]="'/assets/icon/reuse.svg'"
+                          <app-point [pointvalue]="getResourceValueItem(item,'reuseCoin')" [srcicon]="'/assets/icon/reuse.svg'"
                             [label]="translate.instant('coins_reuse_label')"></app-point>
                           <ion-button color="dark" fill="outline" expand="block" [disabled]="tryingItem(item)"
                             (click)="tryItem(item)">{{'change_robot_try'|translate}}</ion-button>
