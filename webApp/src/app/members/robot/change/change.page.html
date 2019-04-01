@@ -5,17 +5,17 @@
     </ion-buttons>
     <ion-title class="ion-text-center">{{'change_robot'|translate|uppercase}}</ion-title>
     <ion-buttons class="language" slot="end">
-        <ion-item>
-          <ion-label>{{'label_language_selection'|translate}}</ion-label>
-          <ion-select [(ngModel)]="language" (ionChange)="changeLanguage()">
-            <ion-select-option value="en" selected="true">English</ion-select-option>
-            <ion-select-option value="it">Italiano</ion-select-option>
-          </ion-select>
-        </ion-item>
-        <ion-button (click)="logout()">
-          <ion-icon slot="icon-only" name="log-out"></ion-icon>
-        </ion-button>
-      </ion-buttons>
+      <ion-item>
+        <ion-label>{{'label_language_selection'|translate}}</ion-label>
+        <ion-select [(ngModel)]="language" (ionChange)="changeLanguage()">
+          <ion-select-option value="en" selected="true">English</ion-select-option>
+          <ion-select-option value="it">Italiano</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-button (click)="logout()">
+        <ion-icon slot="icon-only" name="log-out"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -71,11 +71,11 @@
         <div class="market-container">
           <div class="point-container">
             <div class="point">
-              <app-point [pointvalue]="getResourceValue('recycleCoin')" [iconname]="'photos'"
+              <app-point [pointvalue]="getResourceValue('recycleCoin')" [srcicon]="'/assets/icon/recycle.svg'"
                 [label]="translate.instant('coins_recycle_label')"></app-point>
-              <app-point [pointvalue]="getResourceValue('reduceCoin')" [iconname]="'cube'"
+              <app-point [pointvalue]="getResourceValue('reduceCoin')" [srcicon]="'/assets/icon/reduce.svg'"
                 [label]="translate.instant('coins_reduce_label')"></app-point>
-              <app-point [pointvalue]="getResourceValue('reuseCoin')" [iconname]="'star'"
+              <app-point [pointvalue]="getResourceValue('reuseCoin')" [srcicon]="'/assets/icon/reuse.svg'"
                 [label]="translate.instant('coins_reuse_label')"></app-point>
             </div>
           </div>
@@ -154,21 +154,22 @@
                   </ion-row>
                   <ion-row>
                     <ion-col size="4" *ngFor="let item of filteredCatalog">
-                      <div class="piece" >
-                      <div [ngClass]="{'not-active': !isBuyable(item)}">
-                        <ion-img [src]="getImgNewComponent(item)"></ion-img>
-                        <app-point [pointvalue]="getResourceValueItem(item,'recycleCoin')" [iconname]="'photos'">
-                        </app-point>
-                        <app-point [pointvalue]="getResourceValueItem(item,'reduceCoin')" [iconname]="'cube'">
-                        </app-point>
-                        <app-point [pointvalue]="getResourceValueItem(item,'reuseCoin')" [iconname]="'star'">
-                        </app-point>
-                        <ion-button color="dark" fill="outline" expand="block" [disabled]="tryingItem(item)"
-                          (click)="tryItem(item)">{{'change_robot_try'|translate}}</ion-button>
-                        <ion-button color="dark" fill="outline" expand="block" [disabled]="buyableItem(item)"
-                          (click)="buyItem(item)">{{'change_robot_buy'|translate}}</ion-button>
+                      <div class="piece">
+                        <div [ngClass]="{'not-active': !isBuyable(item)}">
+                          <ion-img [src]="getImgNewComponent(item)"></ion-img>
+                          <app-point [pointvalue]="getResourceValue('recycleCoin')"
+                            [srcicon]="'/assets/icon/recycle.svg'" [label]="translate.instant('coins_recycle_label')">
+                          </app-point>
+                          <app-point [pointvalue]="getResourceValue('reduceCoin')" [srcicon]="'/assets/icon/reduce.svg'"
+                            [label]="translate.instant('coins_reduce_label')"></app-point>
+                          <app-point [pointvalue]="getResourceValue('reuseCoin')" [srcicon]="'/assets/icon/reuse.svg'"
+                            [label]="translate.instant('coins_reuse_label')"></app-point>
+                          <ion-button color="dark" fill="outline" expand="block" [disabled]="tryingItem(item)"
+                            (click)="tryItem(item)">{{'change_robot_try'|translate}}</ion-button>
+                          <ion-button color="dark" fill="outline" expand="block" [disabled]="buyableItem(item)"
+                            (click)="buyItem(item)">{{'change_robot_buy'|translate}}</ion-button>
+                        </div>
                       </div>
-                    </div>
                     </ion-col>
                     <ion-col *ngIf="filteredCatalog==0">
                       {{'empty_list'|translate}}

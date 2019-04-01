@@ -53,6 +53,7 @@ ion-content {
                 border-radius: 8px;
                 border: 2px white solid;
                 top: -20px;
+                z-index: 9;
             }
         }
 
@@ -80,7 +81,9 @@ ion-content {
 
             // height: 50vh;
 
-            
+            ion-col{
+                padding: 0px;
+            }
                 ion-label {
                     font-size: 24px;
                     font-weight: bold;
