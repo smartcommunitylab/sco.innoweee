@@ -29,6 +29,7 @@ import it.smartcommunitylab.innoweee.engine.model.Institute;
 import it.smartcommunitylab.innoweee.engine.model.ItemValuableMap;
 import it.smartcommunitylab.innoweee.engine.model.Player;
 import it.smartcommunitylab.innoweee.engine.model.School;
+import it.smartcommunitylab.innoweee.engine.model.TenantData;
 import it.smartcommunitylab.innoweee.engine.repository.CatalogRepository;
 import it.smartcommunitylab.innoweee.engine.repository.CategoryMapRepository;
 import it.smartcommunitylab.innoweee.engine.repository.GameRepository;
@@ -153,30 +154,33 @@ public class AdminController extends AuthController {
 		return map;
 	}
 	
-	@GetMapping(value = "/admin/init/trento")
-	public void initTrento(HttpServletRequest request) throws Exception {
+	@GetMapping(value = "/admin/init/{tenantId}")
+	public void initTenant(
+			@PathVariable String tenantId,
+			@RequestBody TenantData data,
+			HttpServletRequest request) throws Exception {
 		if(!validateRole(Const.ROLE_ADMIN, request)) {
 			throw new UnauthorizedException("Unauthorized Exception: role not valid");
 		}
 		Date now = new Date();
 		
 		Institute institute = new Institute();
-		institute.setTenantId("TRENTINO");
-		institute.setName("Istituto Comprensivo Rovereto-Nord");
+		institute.setTenantId(tenantId);
+		institute.setName(data.getInstituteName());
 		institute.setCreationDate(now);
 		institute.setLastUpdate(now);
 		instituteRepository.save(institute);
 		
 		School school = new School();
-		school.setTenantId("TRENTINO");
-		school.setName("Scuola Primaria Gandhi");
+		school.setTenantId(tenantId);
+		school.setName(data.getSchoolName());
 		school.setInstituteId(institute.getObjectId());
 		school.setCreationDate(now);
 		school.setLastUpdate(now);
 		schoolRepository.save(school);
 		
 		Game game = new Game();
-		game.setTenantId("TRENTINO");
+		game.setTenantId(tenantId);
 		game.setGameName("Gioco Innoweee");
 		game.setInstituteId(institute.getObjectId());
 		game.setSchoolId(school.getObjectId());
@@ -184,21 +188,21 @@ public class AdminController extends AuthController {
 		game.setLastUpdate(now);
 		gameRepository.save(game);
 		
-		String[] classes = new String[] {"1A","1B","1C","1D","2A","2B","2C","3A","3B","3C","4A","4B","4C","5A","5B","5C"};
-		for (int i = 0; i < classes.length; i++) {
+		for (String className : data.getClasses()) {
 			Player player = new Player();
-			player.setTenantId("TRENTINO");
-			player.setName(classes[i]);
+			player.setTenantId(tenantId);
+			player.setName(className);
 			player.setGameId(game.getObjectId());
 			player.setTeam(false);
 			playerRepository.save(player);
 		}
 		Player player = new Player();
-		player.setTenantId("TRENTINO");
+		player.setTenantId(tenantId);
 		player.setName("Scuola");
 		player.setGameId(game.getObjectId());
 		player.setTeam(true);
-		playerRepository.save(player);				
+		playerRepository.save(player);	
+		logger.info("initTenant:{}", tenantId);
 	}
 	
 }
