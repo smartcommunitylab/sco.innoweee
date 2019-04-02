@@ -2,6 +2,10 @@
     --background: #0fb4d7;
     --color: white;
 
+    .game-title {
+        text-align: center;
+    }
+
     .language {
         ion-item {
             min-width: 250px;
@@ -15,6 +19,11 @@ ion-content {
     --background: #dcf5fa;
     --padding-top: 0px;
     --padding-bottom: 0px;
+
+    .logo {
+        width: 128px;
+        margin: auto;
+    }
 
     ion-grid {
         // height: 100%;
@@ -45,7 +54,7 @@ ion-content {
 
             .right-box {
                 border-radius: 12px;
-                padding: 48px;
+                padding: 24px;
                 margin-top: 24px;
                 background-color: #0fb4d7;
                 color: white;
@@ -53,20 +62,26 @@ ion-content {
                 ion-list {
                     background-color: #0fb4d7;
                     color: white;
+
                     ion-list-header {
                         color: white;
                         text-align: center;
                         font-size: 24px;
                     }
+
                     ion-select {
                         color: white;
-                        .select-text{
+                        min-width: 50%;
+
+                        .select-text {
                             color: white
                         }
-                        .select-icon{
+
+                        .select-icon {
                             color: white
                         }
                     }
+
                     ion-item {
                         --background: #0fb4d7;
 

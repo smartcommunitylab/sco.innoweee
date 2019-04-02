@@ -85,7 +85,7 @@ export class ItemRecognizedPage implements OnInit {
 
   }
   getFooter() {
-    return (this.translate.instant('footer_game_title') + " | " + this.getSchoolName() + " | " + this.getClassName())
+    return ( this.getSchoolName())
   }
 
   getSchoolName() {

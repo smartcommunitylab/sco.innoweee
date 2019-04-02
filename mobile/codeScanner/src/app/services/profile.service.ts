@@ -37,7 +37,9 @@ export class ProfileService {
 
   getDomain(): Promise<any> {
     let url: string = this.endPoint + this.getDomainApi;
-    return Promise.resolve({"tenants":["TEST","TRENTO"]});
+    // return Promise.resolve({"tenants":["TEST","TRENTO"]});
+    return Promise.resolve({"tenants":["TRENTINO"]});
+
     // return this.http.get(url)
     //   .toPromise()
     //   .then(response => {
