@@ -60,7 +60,7 @@ export class AllteamPage extends MainPage implements OnInit {
   }
   ionViewWillEnter() {
     super.ionViewDidEnter();
-    this.selectedClass=null;
+    this.selectedClass = null;
   }
   /*create a table of 4 columns*/
   public columns = 6;
@@ -162,13 +162,20 @@ export class AllteamPage extends MainPage implements OnInit {
   //   return '0.2';
   // }
   selectClass(selectedClass) {
-    this.selectedClass = selectedClass;
-    this.profileService.getPlayerState(this.gameId, this.selectedClass.objectId).then(res => {
-      this.profileClassState = res;
-
-    });
+    if (!this.selectedClass || this.selectedClass["objectId"]!=selectedClass.objectId) {
+      this.selectedClass = selectedClass;
+      this.profileService.getPlayerState(this.gameId, this.selectedClass.objectId).then(res => {
+        this.profileClassState = res;
+      });
+    } else {
+      this.selectedClass = null;
+    }
   }
-
+  isSelectedClass(cell) {
+    if (this.selectedClass)
+      return (this.selectedClass.objectId != cell.objectId)
+    return false
+  }
   getResourceUnit(value) {
     if (value > 1)
       return "Kg"
@@ -177,7 +184,7 @@ export class AllteamPage extends MainPage implements OnInit {
     return "mg"
   }
   getFooter() {
-    return (this.translate.instant('footer_game_title')+" | "+this.getSchoolName()+" | "+this.getClassName())
+    return (this.translate.instant('footer_game_title') + " | " + this.getSchoolName() + " | " + this.getClassName())
   }
 
   getSchoolName() {

@@ -21,7 +21,7 @@
         <div>
           <div class="robot-home">
             <ion-img [src]="imgRobot"></ion-img>
-            <ion-button color="dark" (click)="goTo('/myrobot')"  expand="block" fill="outline">{{ 'button_robot' |
+            <ion-button color="dark" (click)="goTo('/myrobot')" expand="block" fill="outline">{{ 'button_robot' |
               translate
               }}</ion-button>
           </div>
@@ -37,9 +37,14 @@
               <div class="wanted-label">
                 {{getWantedMessage()}}
               </div>
+              <div class="date-label">
+                <p>{{ 'label_from' | translate }}
+                  <span>{{getDateMessageFrom()|date:'d/M/yyyy'}}</span>{{ 'label_to' | translate }}<span>{{getDateMessageTo()|date:'d/M/yyyy'}}</span>
+                </p>
+              </div>
             </div>
             <ion-img [src]="image1"></ion-img>
-            <ion-button color="dark"(click)="goTo('/question')"   expand="block" fill="outline">{{ 'button_recycle' |
+            <ion-button color="dark" (click)="goTo('/question')" expand="block" fill="outline">{{ 'button_recycle' |
               translate }}</ion-button>
           </div>
         </div>
@@ -48,12 +53,12 @@
         <div class="material-content">
           <ion-badge color="danger">{{materials}}</ion-badge>
           <ion-img [src]="image3"></ion-img>
-          <ion-button color="dark" (click)="goTo('/material')"  expand="block" fill="outline">{{ 'button_material' |
+          <ion-button color="dark" (click)="goTo('/material')" expand="block" fill="outline">{{ 'button_material' |
             translate }}</ion-button>
         </div>
         <div class="team-content">
           <ion-img [src]="image4"></ion-img>
-          <ion-button color="dark" (click)="goTo('/allteam')"  expand="block" fill="outline">{{ 'button_my_team' |
+          <ion-button color="dark" (click)="goTo('/allteam')" expand="block" fill="outline">{{ 'button_my_team' |
             translate }}</ion-button>
         </div>
       </ion-col>
@@ -61,7 +66,7 @@
   </ion-grid>
 </ion-content>
 <ion-footer>
-  <ion-toolbar  class="color-bar">
+  <ion-toolbar class="color-bar">
     <ion-title class="ion-text-center">{{ getFooter()}}</ion-title>
   </ion-toolbar>
 </ion-footer>
