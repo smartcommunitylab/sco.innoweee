@@ -57,7 +57,7 @@
     },
     "Talking doll" : {
       "id" : "Talking doll",
-      "category" : "Toys, leisure & sport equipment",
+      "category" : "Toys, leisure and sports equipment",
       "name" : {
         "en" : "Talking doll",
         "it" : "Bambola parlante"
@@ -219,7 +219,7 @@
     },
     "Joystick" : {
       "id" : "Joystick",
-      "category" : "Toys, leisure & sport equipment",
+      "category" : "Toys, leisure and sports equipment",
       "name" : {
         "en" : "Joystick",
         "it" : "Joystick"
@@ -345,7 +345,7 @@
     },
     "Portable and stationary console" : {
       "id" : "Portable and stationary console",
-      "category" : "Toys, leisure & sport equipment",
+      "category" : "Toys, leisure and sports equipment",
       "name" : {
         "en" : "Portable and stationary console",
         "it" : "Console portatili o fisse"
@@ -363,7 +363,7 @@
     },
     "Electrical toys" : {
       "id" : "Electrical toys",
-      "category" : "Toys, leisure & sport equipment",
+      "category" : "Toys, leisure and sports equipment",
       "name" : {
         "en" : "Electrical toys",
         "it" : "Giocattoli elettrici ed elettronici"
@@ -399,7 +399,7 @@
     },
     "Electrical musical instruments" : {
       "id" : "Electrical musical instruments",
-      "category" : "Toys, leisure & sport equipment",
+      "category" : "Toys, leisure and sports equipment",
       "name" : {
         "en" : "Electrical musical instruments",
         "it" : "Strumenti musicali elettrici"
