@@ -49,7 +49,7 @@ export class DashboardPage implements OnInit {
 
       console.log(barcodeData);
       this.scanData = barcodeData;
-      this.router.navigate(['item-recognized'], { queryParams: { scanData:JSON.stringify(this.scanData) ,playerId:this.playerId} })
+      this.router.navigate(['item-recognized'], { queryParams: { scanData: JSON.stringify(this.scanData), playerId: this.playerId } })
       // this.checkIfPresent(this.scanData);
     }, (err) => {
       console.log("Error occured : " + err);
@@ -57,7 +57,7 @@ export class DashboardPage implements OnInit {
   }
 
   changeClass() {
-    this.router.navigate([ 'select-class']);
+    this.router.navigate(['select-class']);
   }
   // checkIfPresent(scanData) {
   //   this.dataServerService.checkIfPresent(scanData.text, this.playerId).then(res => {
@@ -98,7 +98,7 @@ export class DashboardPage implements OnInit {
   // }
 
   getFooter() {
-    return (this.translate.instant('footer_game_title') + " | " + this.getSchoolName() + " | " + this.getClassName())
+    return (this.getSchoolName())
   }
 
   getSchoolName() {

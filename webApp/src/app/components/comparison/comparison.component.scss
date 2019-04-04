@@ -1,30 +1,45 @@
-ion-row {
-    font-size: 14px;
-    ion-col {
-        padding: 2px 5px;
-        p {
-            margin: 2px;
+ion-grid {
+    padding: 5px 5px 0px 5px;
+
+    ion-row {
+        font-size: 14px;
+
+        ion-col {
+            padding: 2px 5px;
+
+            p {
+                margin: 2px;
+            }
         }
-    }
-    .resource {
-        text-align: right;
-    }
-    ion-progress-bar {
-        height: 8px;
-        --progress-background:#0fb4d7;
-        
 
-    }
-    .kilo {
-        --progress-background: #e65f46;
- }
+        .resource {
+            text-align: right;
+        }
+        .my-bar {
+            opacity: 0.6;
+        }
+        ion-progress-bar {
+            height: 8px;
+            --progress-background: #0fb4d7;
 
-    .grammo {
-        --progress-background: #f5aa00;
 
-    }
+        }
 
-    .miligrammo {
-        --progress-background: #1ea046;
+        .measure {
+            font-size: 12px;
+        }
+
+        .kilo {
+            --progress-background: #e65f46;
+        }
+
+        .grammo {
+            --progress-background: #f5aa00;
+
+        }
+
+        .miligrammo {
+            --progress-background: #1ea046;
+        }
     }
 }

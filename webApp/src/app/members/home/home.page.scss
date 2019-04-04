@@ -1,19 +1,18 @@
 .color-bar {
     --background: #0fb4d7;
     color: white;
+
     .language {
         ion-item {
             min-width: 250px;
             --background: #0fb4d7;
             color: white
-
-
         }
     }
 }
 
 ion-grid {
-    font-family: 'Montserrat', sans-serif!important;
+    font-family: 'Montserrat', sans-serif !important;
     padding: 0px;
     height: 100%;
 
@@ -31,12 +30,15 @@ ion-grid {
             position: absolute;
             bottom: 25px;
         }
+
         ion-col {
             padding: 0px;
         }
+
         .robot-content {
             background-color: #dcf5fa;
             position: relative;
+
             .robot-home {
                 ion-img {
                     // height: 541px;
@@ -45,32 +47,45 @@ ion-grid {
                 }
             }
         }
+
         .garbage-content {
             background-color: #b4e6c8;
             text-align: center;
             position: relative;
-             ion-img {
+
+            ion-img {
                 max-width: 100%;
                 max-height: 100%;
                 width: calc(70%);
                 margin: auto;
             }
+
             .wanted-container {
                 padding: 8px;
+
                 .wanted-title {
                     font-weight: bold;
                 }
+
+                .date-label {
+                    span {
+                        font-style: italic;
+                    }
+                }
             }
         }
+
         .team-content {
             background-color: #dcf5fa;
             height: 50%;
             position: relative;
         }
+
         .material-content {
             background-color: #ffe6e6;
             height: 50%;
             position: relative;
+
             ion-badge {
                 position: absolute;
                 right: 3px;

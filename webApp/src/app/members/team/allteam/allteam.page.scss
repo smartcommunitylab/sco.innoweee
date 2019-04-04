@@ -8,7 +8,6 @@
         min-width: 250px;
         --background: #0fb4d7;
         color: white;
-
     }
 }
 .table-container{
@@ -20,8 +19,21 @@
     left: -8px;
     padding: 12px;
     transform: translateY(-50%);
+    .click-back {
+        border: solid #0fb4d7;
+        background: white;
+        position: absolute;
+        bottom: -12px;
+        right: -12px;
+        padding: 12px;
+        border-radius: 12px;
+        text-align: center;
+        max-width: 168px;
+        }
 .table-classes {
-
+    .unselected-class{
+        opacity: 0.5;
+    }
     .class-name {
         // position: absolute;
         width: 80%;
@@ -49,6 +61,7 @@
                 // width: 50vh;
                 border: solid #0fb4d7;
                 border-radius: 12px;
+                position: relative;
 
 
 
@@ -67,6 +80,7 @@
 
             .resources {
                 position: absolute;
+                width: 100%;
                 top: 50%;
                 right: 0%;
                 transform: translateY(-50%);

@@ -24,10 +24,12 @@ export class HomePage extends MainPage implements OnInit {
   playerData: any;
   materials: number;
   weeklyGarbage: any = {};
+  weeklyDateFrom: number = new Date().getTime();
+  weeklyDateTo: number = new Date().getTime();
   constructor(
     translate: TranslateService,
     storage: Storage,
-    private router:Router,
+    private router: Router,
     private materialService: MaterialService,
     private profileService: ProfileService,
     private garbageCollection: GarbageCollectionService,
@@ -45,6 +47,8 @@ export class HomePage extends MainPage implements OnInit {
         this.materials = res.length;
         this.garbageCollection.getActualCollection(this.playerData.gameId).then(res => {
           this.weeklyGarbage = res.message
+          this.weeklyDateFrom = res.from;
+          this.weeklyDateTo = res.to;
         });
       });
     });
@@ -63,8 +67,18 @@ export class HomePage extends MainPage implements OnInit {
       return this.weeklyGarbage[this.translate.currentLang];
     else return ""
   }
+  getDateMessageFrom() {
+    if (this.weeklyGarbage)
+      return this.weeklyDateFrom ;
+    else return ""
+  }
+  getDateMessageTo() {
+    if (this.weeklyGarbage)
+      return this.weeklyDateTo;
+    else return ""
+  }
   getFooter() {
-    return (this.translate.instant('footer_game_title')+" | "+this.getSchoolName()+" | "+this.getClassName())
+    return (this.translate.instant('footer_game_title') + " | " + this.getSchoolName() + " | " + this.getClassName())
   }
 
   getSchoolName() {
