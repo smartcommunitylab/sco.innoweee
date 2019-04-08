@@ -40,11 +40,15 @@
       </ion-col>
       <ion-col class="col-vertical-center list-element">
         <div class="vertical-center right-box">
-          <!-- <ion-item > -->
+          <ion-item >
+              <div class="arrow" (click)="scrollUp()" [ngClass]="{disabled: startList}">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="s-ion-icon"><path d="M464 256c0-114.875-93.125-208-208-208S48 141.125 48 256s93.125 208 208 208 208-93.125 208-208zm-112 32H160l96-96 96 96z"></path></svg>
+                </div>
+<!--             
             <button class="arrow" ion-button icon-only (click)="scrollUp()" [disabled]="startList"  [ngClass]="{disabled: startList}">
               <ion-icon name="arrow-dropup-circle"></ion-icon>
-            </button>
-          <!-- </ion-item> -->
+            </button> -->
+          </ion-item>
           <ion-list id="gallery">
             <ion-item *ngFor="let resource of resources" (click)="selectResource(resource)">
               <ion-thumbnail slot="start">
@@ -53,9 +57,15 @@
               <ion-label>{{resource.name}}</ion-label>
             </ion-item>
           </ion-list>
-          <button class="arrow" ion-button icon-only (click)="scrollDown()" [disabled]="endList" [ngClass]="{disabled: endList}">
+          <!-- <div class="arrow" (click)="scrollDown()" [ngClass]="{disabled: endList}">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="s-ion-icon"><path d="M464 256c0-114.875-93.125-208-208-208S48 141.125 48 256s93.125 208 208 208 208-93.125 208-208zm-112 32H160l96-96 96 96z"></path></svg>
+        </div> -->
+          <!-- <button class="arrow" ion-button icon-only (click)="scrollDown()" [disabled]="endList" [ngClass]="{disabled: endList}">
               <ion-icon name="arrow-dropdown-circle"></ion-icon>
-            </button>
+            </button> -->
+            <div class="arrow" (click)="scrollDown()" [ngClass]="{disabled: endList}">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="s-ion-icon"><path d="M256 48C141.125 48 48 141.125 48 256s93.125 208 208 208 208-93.125 208-208S370.875 48 256 48zm0 272l-96-96h192l-96 96z"></path></svg>
+          </div>
           <!-- <ion-item (click)="scrollDown()" [disabled]="endList">
             <ion-button class="arrow" ion-button icon-only>
               <ion-icon name="arrow-dropdown-circle"></ion-icon>

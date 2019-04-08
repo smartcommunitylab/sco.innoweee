@@ -59,10 +59,17 @@
         overflow: auto;
     }
 
-    button.arrow{
+    .arrow {
         width: 100%;
+        height: 50px;;
         color: #e65f46;
         background-color: transparent;
+        svg {
+            width: 100%;
+        height: 50px;;
+        fill: #e65f46;
+        background-color: transparent;
+        }
         ion-icon {
             width: 100%;
             height: 50px;
