@@ -59,9 +59,10 @@
         overflow: auto;
     }
 
-    ion-thumbnail.arrow{
+    button.arrow{
         width: 100%;
         color: #e65f46;
+        background-color: transparent;
         ion-icon {
             width: 100%;
             height: 50px;
@@ -104,4 +105,8 @@
 ::-webkit-scrollbar-thumb {
   background-color: #e65f46;
   outline: 1px solid slategrey;
+}
+
+.disabled {
+    opacity: 0.6;;
 }

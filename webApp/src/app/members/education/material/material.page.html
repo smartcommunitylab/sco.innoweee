@@ -29,7 +29,7 @@
             <ion-item>
               <ion-thumbnail class="preview-image">
                 <img [src]="getPreview('big',selected)" onError="this.src='assets/images/white.png'">
-                <img *ngIf="!selected.previewUri"[src]="getType(selected)" class="icon-player">
+                <img *ngIf="!selected.previewUri" [src]="getType(selected)" class="icon-player">
               </ion-thumbnail>
             </ion-item>
             <div class="name-selected">
@@ -40,11 +40,11 @@
       </ion-col>
       <ion-col class="col-vertical-center list-element">
         <div class="vertical-center right-box">
-          <ion-item (click)="scrollUp()" [disabled]="startList">
-            <ion-thumbnail class="arrow" slot="start">
+          <!-- <ion-item > -->
+            <button class="arrow" ion-button icon-only (click)="scrollUp()" [disabled]="startList"  [ngClass]="{disabled: startList}">
               <ion-icon name="arrow-dropup-circle"></ion-icon>
-            </ion-thumbnail>
-          </ion-item>
+            </button>
+          <!-- </ion-item> -->
           <ion-list id="gallery">
             <ion-item *ngFor="let resource of resources" (click)="selectResource(resource)">
               <ion-thumbnail slot="start">
@@ -53,11 +53,14 @@
               <ion-label>{{resource.name}}</ion-label>
             </ion-item>
           </ion-list>
-          <ion-item (click)="scrollDown()" [disabled]="endList">
-            <ion-thumbnail class="arrow" slot="start">
+          <button class="arrow" ion-button icon-only (click)="scrollDown()" [disabled]="endList" [ngClass]="{disabled: endList}">
               <ion-icon name="arrow-dropdown-circle"></ion-icon>
-            </ion-thumbnail>
-          </ion-item>
+            </button>
+          <!-- <ion-item (click)="scrollDown()" [disabled]="endList">
+            <ion-button class="arrow" ion-button icon-only>
+              <ion-icon name="arrow-dropdown-circle"></ion-icon>
+            </ion-button>
+          </ion-item> -->
         </div>
       </ion-col>
     </ion-row>
@@ -100,7 +103,7 @@
     </ion-row>
   </ion-grid> -->
 </ion-content>
-<ion-footer >
+<ion-footer>
   <ion-toolbar class="color-bar">
     <ion-title class="ion-text-center">{{ getFooter()}}</ion-title>
   </ion-toolbar>
