@@ -6,6 +6,7 @@ import { ProfileService } from 'src/app/services/profile.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { GarbageCollectionService } from 'src/app/services/garbage-collection.service';
 import { Router } from '@angular/router';
+import { NavController } from '@ionic/angular';
 
 const FOLDER_COMPONENTS = "./assets/images/components/";
 @Component({
@@ -29,8 +30,10 @@ export class MyrobotPage extends MainPage implements OnInit {
     private router: Router,
     public authService: AuthenticationService,
     private garbageService: GarbageCollectionService,
+    public navCtrl: NavController, 
+
     public profileService: ProfileService) {
-    super(translate, authService, storage);
+    super(translate, authService, storage,navCtrl);
   }
 
   ngOnInit() {

@@ -1,24 +1,24 @@
 <ion-header>
-    <ion-toolbar class="color-bar">
-      <ion-buttons slot="start">
-        <ion-back-button></ion-back-button>
-      </ion-buttons>
-      <ion-title class="ion-text-center">{{'collection_title'|translate|uppercase}}</ion-title>
-   
-      <ion-buttons class="language" slot="end">
-        <ion-item>
-          <ion-label>{{'label_language_selection'|translate}}</ion-label>
-          <ion-select [(ngModel)]="language" (ionChange)="changeLanguage()">
-            <ion-select-option value="en" selected="true">English</ion-select-option>
-            <ion-select-option value="it">Italiano</ion-select-option>
-          </ion-select>
-        </ion-item>
-        <ion-button (click)="logout()">
-          <ion-icon slot="icon-only" name="log-out"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-    </ion-toolbar>
-  </ion-header>
+  <ion-toolbar class="color-bar">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">{{'collection_title'|translate|uppercase}}</ion-title>
+
+    <ion-buttons class="language" slot="end">
+      <ion-item>
+        <ion-label>{{'label_language_selection'|translate}}</ion-label>
+        <ion-select [(ngModel)]="language" (ionChange)="changeLanguage()">
+          <ion-select-option value="en" selected="true">English</ion-select-option>
+          <ion-select-option value="it">Italiano</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-button (click)="logout()">
+        <ion-icon slot="icon-only" name="log-out"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
 
 <ion-content padding>
   <div class="resources-container">
@@ -57,7 +57,8 @@
               </ion-row>
             </ion-grid>
           </div>
-          <ion-button color="dark" (click)="goToRobot()" expand="block" fill="outline">{{'go_to_robot'|translate}}</ion-button>
+          <ion-button color="dark" (click)="goToRobot()" expand="block" fill="outline">{{'go_to_robot'|translate}}
+          </ion-button>
           <ion-button color="dark" (click)="goHome()" expand="block" fill="outline">{{'go_to_home'|translate}}
           </ion-button>
         </div>
@@ -103,6 +104,11 @@
 </ion-content>
 <ion-footer>
   <ion-toolbar class="color-bar">
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
     <ion-title class="ion-text-center">{{ getFooter()}}</ion-title>
   </ion-toolbar>
 </ion-footer>

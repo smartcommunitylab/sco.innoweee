@@ -6,6 +6,7 @@ import { ProfileService } from 'src/app/services/profile.service';
 import { MainPage } from 'src/app/class/MainPage';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Storage } from '@ionic/storage';
+import { NavController } from '@ionic/angular';
 
 export class ItemGarbage {
 
@@ -44,8 +45,9 @@ export class ItemLoadedPage extends MainPage implements OnInit {
     public storage: Storage,
     private profileService: ProfileService,
     private router: Router,
+    public navCtrl: NavController, 
     private garbageCollection: GarbageCollectionService) {
-    super(translate, authService, storage)
+    super(translate, authService, storage,navCtrl)
   }
 
   ngOnInit() {

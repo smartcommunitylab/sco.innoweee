@@ -5,6 +5,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { MainPage } from 'src/app/class/MainPage';
 import { Storage } from '@ionic/storage';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-material',
@@ -20,10 +21,12 @@ export class MaterialPage extends MainPage implements OnInit {
   constructor(
     private materialService: MaterialService,
     private profileService: ProfileService,
+    public navCtrl: NavController, 
+
     translate: TranslateService,
     storage: Storage,
     authService: AuthenticationService) {
-    super(translate, authService, storage);
+    super(translate, authService, storage,navCtrl);
   }
   ngOnInit() {
     super.ngOnInit();

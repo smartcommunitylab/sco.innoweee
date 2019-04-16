@@ -35,7 +35,7 @@ export class ChangePage extends MainPage implements OnInit {
     private loadingController: LoadingController,
     private alertController: AlertController,
     public catalogService: CatalogService) {
-    super(translate, authService, storage);
+    super(translate, authService, storage,navCtrl);
   }
 
   ngOnInit() {

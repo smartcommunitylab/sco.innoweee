@@ -5,6 +5,7 @@ import { ProfileService } from 'src/app/services/profile.service';
 import { MainPage } from 'src/app/class/MainPage';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Storage } from '@ionic/storage';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-item-classification',
@@ -16,8 +17,9 @@ export class ItemClassificationPage extends MainPage implements OnInit {
 
   constructor(private route: ActivatedRoute,
     private profileService: ProfileService,
+    public navCtrl: NavController, 
     public translate: TranslateService, public authService: AuthenticationService, public storage: Storage) {
-    super(translate, authService, storage);
+    super(translate, authService, storage,navCtrl);
   }
 
   ngOnInit() {
