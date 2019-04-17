@@ -95,11 +95,13 @@
                   <ion-col>
                     <div class="piece-container">
                       <!-- <ion-img [src]="getImgDefault('armR')"></ion-img> -->
-                      <ion-button fill="outline" expand="block" (click)="select('armR')">
+                      <div>
+                      <ion-button fill="outline" expand="block" (click)="select('armR')"  [ngClass]="{'part-enabled': mapBuyable['armR']}">
                         <ion-label text-wrap>
                           {{'change_robot_armR'|translate}}
                         </ion-label>
                       </ion-button>
+                    </div>
                     </div>
                   </ion-col>
                 </ion-row>
@@ -107,9 +109,11 @@
                   <ion-col>
                     <div class="piece-container">
                       <!-- <ion-img [src]="getImgDefault('armL')"></ion-img> -->
-                      <ion-button fill="outline" expand="block" (click)="select('armL')">
+                      <div >
+                      <ion-button fill="outline" expand="block" (click)="select('armL')" [ngClass]="{'part-enabled': mapBuyable['armL']}">
                         <ion-label text-wrap>{{'change_robot_armL'|translate}}</ion-label>
                       </ion-button>
+                    </div>
                     </div>
                   </ion-col>
                 </ion-row>
@@ -117,7 +121,7 @@
                   <ion-col>
                     <div class="piece-container">
                       <!-- <ion-img [src]="getImgDefault('head')"></ion-img> -->
-                      <ion-button fill="outline" expand="block" (click)="select('head')">
+                      <ion-button fill="outline" expand="block" (click)="select('head')" [ngClass]="{'part-enabled': mapBuyable['head']}" >
                         <ion-label text-wrap>{{'change_robot_head'|translate}}</ion-label>
                       </ion-button>
                     </div>
@@ -128,7 +132,7 @@
                   <ion-col>
                     <div class="piece-container">
                       <!-- <ion-img [src]="getImgDefault('chest')"></ion-img> -->
-                      <ion-button fill="outline" expand="block" (click)="select('chest')">
+                      <ion-button fill="outline" expand="block" (click)="select('chest')" [ngClass]="{'part-enabled': mapBuyable['chest']}" >
                         <ion-label text-wrap>{{'change_robot_chest'|translate}}</ion-label>
                       </ion-button>
                     </div>
@@ -138,7 +142,7 @@
                   <ion-col>
                     <div class="piece-container">
                       <!-- <ion-img [src]="getImgDefault('legs')"></ion-img> -->
-                      <ion-button fill="outline" expand="block" (click)="select('legs')">
+                      <ion-button fill="outline" expand="block" (click)="select('legs')"  [ngClass]="{'part-enabled': mapBuyable['legs']}">
                         <ion-label text-wrap>{{'change_robot_legs'|translate}}</ion-label>
                       </ion-button>
                     </div>
