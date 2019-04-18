@@ -1,5 +1,6 @@
 package it.smartcommunitylab.innoweee.engine.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -15,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,25 +33,33 @@ import it.smartcommunitylab.innoweee.engine.model.Game;
 import it.smartcommunitylab.innoweee.engine.model.Garbage;
 import it.smartcommunitylab.innoweee.engine.model.GarbageCollection;
 import it.smartcommunitylab.innoweee.engine.model.GarbageMap;
+import it.smartcommunitylab.innoweee.engine.model.Institute;
 import it.smartcommunitylab.innoweee.engine.model.ItemEvent;
 import it.smartcommunitylab.innoweee.engine.model.ItemValuable;
 import it.smartcommunitylab.innoweee.engine.model.ItemValuableMap;
 import it.smartcommunitylab.innoweee.engine.model.Player;
 import it.smartcommunitylab.innoweee.engine.model.ReduceReport;
+import it.smartcommunitylab.innoweee.engine.model.School;
 import it.smartcommunitylab.innoweee.engine.repository.CategoryMapRepository;
 import it.smartcommunitylab.innoweee.engine.repository.GameRepository;
 import it.smartcommunitylab.innoweee.engine.repository.GarbageCollectionRepository;
 import it.smartcommunitylab.innoweee.engine.repository.GarbageMapRepository;
+import it.smartcommunitylab.innoweee.engine.repository.InstituteRepository;
 import it.smartcommunitylab.innoweee.engine.repository.ItemEventRepository;
 import it.smartcommunitylab.innoweee.engine.repository.ItemValuableMapRepository;
 import it.smartcommunitylab.innoweee.engine.repository.PlayerRepository;
 import it.smartcommunitylab.innoweee.engine.repository.ReduceReportRepository;
+import it.smartcommunitylab.innoweee.engine.repository.SchoolRepository;
 import it.smartcommunitylab.innoweee.engine.websocket.WebSocketManager;
 
 @RestController
 public class ItemController extends AuthController {
 	private static final transient Logger logger = LoggerFactory.getLogger(ItemController.class);
 	
+	@Autowired
+	private InstituteRepository instituteRepository;
+	@Autowired
+	private SchoolRepository schoolRepository;
 	@Autowired
 	private ItemEventRepository itemRepository;
 	@Autowired
@@ -226,6 +236,70 @@ public class ItemController extends AuthController {
 		itemRepository.save(itemEvent);
 		logger.debug("itemDelivery:{} / {}", itemEvent.getItemType(), itemEvent.getItemId());
 		return itemEvent;
+	}
+	
+	@GetMapping(value = "/api/item/{tenantId}/csv")
+	public @ResponseBody String getItemCsv(
+			@PathVariable String tenantId,
+			HttpServletRequest request) throws Exception {
+		if(!validateRole(Const.ROLE_OWNER, tenantId, request)) {
+			throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
+		}
+		StringBuffer sb = new StringBuffer();
+		List<Institute> instituteList = instituteRepository.findByTenantId(tenantId);
+		Map<String, Institute> instituteMap = new HashMap<>();
+		List<String> institues = new ArrayList<>();
+		for(Institute institute : instituteList) {
+			instituteMap.put(institute.getObjectId(), institute);
+			institues.add(institute.getObjectId());
+		}
+		List<School> schoolList = schoolRepository.findByInstituteIds(institues);
+		Map<String, School> schoolMap = new HashMap<>();
+		List<String> schools = new ArrayList<>();
+		for(School school : schoolList) {
+			schoolMap.put(school.getObjectId(), school);
+			schools.add(school.getObjectId());
+		}
+		List<Game> gameList = gameRepository.findBySchoolIds(schools);
+		Map<String, Game> gameMap = new HashMap<>();
+		List<String> games = new ArrayList<>();
+		for(Game game : gameList) {
+			gameMap.put(game.getObjectId(), game);
+			games.add(game.getObjectId());
+		}
+		List<Player> playerList = playerRepository.findByGameIds(games);
+		Map<String, Player> playerMap = new HashMap<>();
+		List<String> players = new ArrayList<>();
+		for(Player player : playerList) {
+			playerMap.put(player.getObjectId(), player);
+			players.add(player.getObjectId());
+		}
+		List<ItemEvent> eventList = itemRepository.findByPlayerIds(players);
+		for(ItemEvent event : eventList) {
+			Player player = playerMap.get(event.getPlayerId());
+			Game game = gameMap.get(player.getGameId());
+			School school = schoolMap.get(game.getSchoolId());
+			Institute institute = instituteMap.get(game.getInstituteId());
+			GarbageCollection actualCollection = collectionRepository.findActualCollection(tenantId, 
+					game.getObjectId(), event.getTimestamp());
+			sb.append("\"" + institute.getName() + "\",");
+			sb.append("\"" + institute.getObjectId() + "\",");
+			sb.append("\"" + school.getName() + "\",");
+			sb.append("\"" + school.getObjectId() + "\",");
+			sb.append("\"" + game.getGameName() + "\",");
+			sb.append("\"" + game.getObjectId() + "\",");
+			sb.append("\"" + player.getName() + "\",");
+			sb.append("\"" + player.getObjectId() + "\",");
+			sb.append("\"" + actualCollection.getNameGE() + "\",");
+			sb.append("\"" + event.getItemId() + "\",");
+			sb.append("\"" + event.getItemType() + "\",");
+			sb.append("\"" + event.isBroken() + "\",");
+			sb.append("\"" + event.isSwitchingOn() + "\",");
+			sb.append(event.getAge() + ",");
+			sb.append(event.getTimestamp() + "\n");
+		}
+		logger.debug("getItemCsv:{} / {}", tenantId, eventList.size());
+		return sb.toString();
 	}
 	
 	private boolean getValuable(ItemEvent event, Garbage garbage, 

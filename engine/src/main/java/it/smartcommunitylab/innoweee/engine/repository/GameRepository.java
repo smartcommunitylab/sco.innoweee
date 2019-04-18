@@ -10,6 +10,10 @@ import it.smartcommunitylab.innoweee.engine.model.Game;
 
 @Repository
 public interface GameRepository extends MongoRepository<Game, String> {
+	
 	@Query(value="{tenantId:?0, instituteId:?1, schoolId:?2}")
 	List<Game> findBySchoolId(String tenantId, String instituteId, String schoolId);
+	
+	@Query(value="{schoolId:{$in:?0}}")
+	List<Game> findBySchoolIds(List<String> ids);
 }
