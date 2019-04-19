@@ -1,5 +1,6 @@
 package it.smartcommunitylab.innoweee.engine.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -15,6 +16,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -245,7 +248,10 @@ public class ItemController extends AuthController {
 		if(!validateRole(Const.ROLE_OWNER, tenantId, request)) {
 			throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
 		}
-		StringBuffer sb = new StringBuffer();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
+		StringBuffer sb = new StringBuffer("institueName,institueId,schoolName,schoolId,");
+		sb.append("gameName,gameId,playerName,playerId,collection,itemId,itemType,isBroken,");
+		sb.append("isSwitchingOn,ageRange,timestamp\n");
 		List<Institute> instituteList = instituteRepository.findByTenantId(tenantId);
 		Map<String, Institute> instituteMap = new HashMap<>();
 		List<String> institues = new ArrayList<>();
@@ -274,29 +280,34 @@ public class ItemController extends AuthController {
 			playerMap.put(player.getObjectId(), player);
 			players.add(player.getObjectId());
 		}
-		List<ItemEvent> eventList = itemRepository.findByPlayerIds(players);
+		List<ItemEvent> eventList = itemRepository.findByPlayerIds(players, 
+				new Sort(Sort.Direction.DESC, "timestamp"));
 		for(ItemEvent event : eventList) {
-			Player player = playerMap.get(event.getPlayerId());
-			Game game = gameMap.get(player.getGameId());
-			School school = schoolMap.get(game.getSchoolId());
-			Institute institute = instituteMap.get(game.getInstituteId());
-			GarbageCollection actualCollection = collectionRepository.findActualCollection(tenantId, 
-					game.getObjectId(), event.getTimestamp());
-			sb.append("\"" + institute.getName() + "\",");
-			sb.append("\"" + institute.getObjectId() + "\",");
-			sb.append("\"" + school.getName() + "\",");
-			sb.append("\"" + school.getObjectId() + "\",");
-			sb.append("\"" + game.getGameName() + "\",");
-			sb.append("\"" + game.getObjectId() + "\",");
-			sb.append("\"" + player.getName() + "\",");
-			sb.append("\"" + player.getObjectId() + "\",");
-			sb.append("\"" + actualCollection.getNameGE() + "\",");
-			sb.append("\"" + event.getItemId() + "\",");
-			sb.append("\"" + event.getItemType() + "\",");
-			sb.append("\"" + event.isBroken() + "\",");
-			sb.append("\"" + event.isSwitchingOn() + "\",");
-			sb.append(event.getAge() + ",");
-			sb.append(event.getTimestamp() + "\n");
+			try {
+				Player player = playerMap.get(event.getPlayerId());
+				Game game = gameMap.get(player.getGameId());
+				School school = schoolMap.get(game.getSchoolId());
+				Institute institute = instituteMap.get(game.getInstituteId());
+				GarbageCollection actualCollection = collectionRepository.findActualCollection(tenantId, 
+						game.getObjectId(), event.getTimestamp());
+				sb.append("\"" + institute.getName() + "\",");
+				sb.append("\"" + institute.getObjectId() + "\",");
+				sb.append("\"" + school.getName() + "\",");
+				sb.append("\"" + school.getObjectId() + "\",");
+				sb.append("\"" + game.getGameName() + "\",");
+				sb.append("\"" + game.getObjectId() + "\",");
+				sb.append("\"" + player.getName() + "\",");
+				sb.append("\"" + player.getObjectId() + "\",");
+				sb.append("\"" + actualCollection.getNameGE() + "\",");
+				sb.append("\"" + event.getItemId() + "\",");
+				sb.append("\"" + event.getItemType() + "\",");
+				sb.append("\"" + event.isBroken() + "\",");
+				sb.append("\"" + event.isSwitchingOn() + "\",");
+				sb.append("\"" + event.getAge() + "\",");
+				sb.append("\"" + sdf.format(new Date(event.getTimestamp())) + "\"\n");
+			} catch (Exception e) {
+				logger.debug("getItemCsv error:{} / {}", event.getId(), e.getMessage());
+			}
 		}
 		logger.debug("getItemCsv:{} / {}", tenantId, eventList.size());
 		return sb.toString();
