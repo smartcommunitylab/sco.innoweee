@@ -17,7 +17,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -249,7 +248,7 @@ public class ItemController extends AuthController {
 			throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
 		}
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
-		StringBuffer sb = new StringBuffer("institueName,institueId,schoolName,schoolId,");
+		StringBuffer sb = new StringBuffer("instituteName,instituteId,schoolName,schoolId,");
 		sb.append("gameName,gameId,playerName,playerId,collection,itemId,itemType,isBroken,");
 		sb.append("isSwitchingOn,ageRange,timestamp\n");
 		List<Institute> instituteList = instituteRepository.findByTenantId(tenantId);
@@ -290,21 +289,36 @@ public class ItemController extends AuthController {
 				Institute institute = instituteMap.get(game.getInstituteId());
 				GarbageCollection actualCollection = collectionRepository.findActualCollection(tenantId, 
 						game.getObjectId(), event.getTimestamp());
-				sb.append("\"" + institute.getName() + "\",");
-				sb.append("\"" + institute.getObjectId() + "\",");
-				sb.append("\"" + school.getName() + "\",");
-				sb.append("\"" + school.getObjectId() + "\",");
-				sb.append("\"" + game.getGameName() + "\",");
-				sb.append("\"" + game.getObjectId() + "\",");
-				sb.append("\"" + player.getName() + "\",");
-				sb.append("\"" + player.getObjectId() + "\",");
-				sb.append("\"" + actualCollection.getNameGE() + "\",");
-				sb.append("\"" + event.getItemId() + "\",");
-				sb.append("\"" + event.getItemType() + "\",");
-				sb.append("\"" + event.isBroken() + "\",");
-				sb.append("\"" + event.isSwitchingOn() + "\",");
-				sb.append("\"" + event.getAge() + "\",");
-				sb.append("\"" + sdf.format(new Date(event.getTimestamp())) + "\"\n");
+				String instituteName = institute.getName();
+				String instituteId = institute.getObjectId();
+				String schoolName = school.getName();
+				String schoolId = school.getObjectId();
+				String gameName = game.getGameName();
+				String gameId = game.getObjectId();
+				String playerName = player.getName();
+				String playerId = player.getObjectId();
+				String collection = actualCollection.getNameGE();
+				String itemId = event.getItemId();
+				String itemType = event.getItemType();
+				String isBroken = String.valueOf(event.isBroken());
+				String isSwitchingOn = String.valueOf(event.isSwitchingOn());
+				String ageRange = String.valueOf(event.getAge());
+				String timestamp = sdf.format(new Date(event.getTimestamp()));
+				sb.append("\"" + instituteName + "\",");
+				sb.append("\"" + instituteId + "\",");
+				sb.append("\"" + schoolName + "\",");
+				sb.append("\"" + schoolId + "\",");
+				sb.append("\"" + gameName + "\",");
+				sb.append("\"" + gameId + "\",");
+				sb.append("\"" + playerName + "\",");
+				sb.append("\"" + playerId + "\",");
+				sb.append("\"" + collection + "\",");
+				sb.append("\"" + itemId + "\",");
+				sb.append("\"" + itemType + "\",");
+				sb.append("\"" + isBroken + "\",");
+				sb.append("\"" + isSwitchingOn + "\",");
+				sb.append("\"" + ageRange + "\",");
+				sb.append("\"" + timestamp + "\"\n");
 			} catch (Exception e) {
 				logger.debug("getItemCsv error:{} / {}", event.getId(), e.getMessage());
 			}
