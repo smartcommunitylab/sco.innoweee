@@ -55,7 +55,7 @@
         "reply_0_question":"<1 anno",
         "reply_1_question":"1-3 anni",
         "reply_2_question":"3-5 anni",
-        "reply_3_question":">5 anni",
+        "reply_3_question":">5 anni / Non so",
         "reply_on_question":"Si accende",
         "reply_off_question":"Non si accende",
         "reply_working_question":"E’ integro",
@@ -70,9 +70,9 @@
         "label_item_reusable":"L'oggetto è riutilizzabile",
         "label_item_valuable":"L'oggetto ha un valore",
         "label_new_item":"Inserisci un nuovo oggetto",
-        "label_recycle_value":"L'oggetto va nel scatola VALORE",
-        "label_recycle_reuse":"L'oggetto va nel scatola RIUSO",
-        "label_recycle_recycle":"L'oggetto va nel scatola RICICLO",
+        "label_recycle_value":"L'oggetto va nella scatola GREEN IDEA",
+        "label_recycle_reuse":"L'oggetto va nella scatola RIUSO",
+        "label_recycle_recycle":"L'oggetto va nel bidone RICICLO",
         "label_point_reusable":"Guadagni un punto RIUSO",
         "label_point_recicle":"Guadagni un punto RICICLO",
         "label_insert_itemId":"Inserisci l'identificatore dell'oggetto",
@@ -122,7 +122,10 @@
         "label_garbage_collection":"Raccolta",
         "allteam_title":"Il mio team",
         "label_title_recap":"Conferma i dati!",
-        "label_subtitle_recap":"Verifica che le informazioni inserite siano corrette"
+        "label_subtitle_recap":"Verifica che le informazioni inserite siano corrette",
+        "click_class_back":"Torna indietro cliccando nuovamente sulla classe che hai appena selezionato",
+        "label_from":"Dal ",
+        "label_to":" al "
 
 
 

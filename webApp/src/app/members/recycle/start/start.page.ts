@@ -6,7 +6,7 @@ import * as SockJS from 'sockjs-client';
 import { ProfileService } from 'src/app/services/profile.service';
 import { Router } from '@angular/router';
 import { GarbageCollectionService } from 'src/app/services/garbage-collection.service';
-import { AlertController } from '@ionic/angular';
+import { AlertController, NavController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { MainPage } from 'src/app/class/MainPage';
 import { AuthenticationService } from 'src/app/services/authentication.service';
@@ -42,8 +42,10 @@ export class StartPage extends MainPage implements OnInit {
     public storage: Storage,
     private garbageCollection: GarbageCollectionService,
     private alertController: AlertController,
+    public navCtrl: NavController, 
+
     @Inject(APP_CONFIG_TOKEN) private config: ApplicationConfig) {
-    super(translate, authService, storage);
+    super(translate, authService, storage,navCtrl);
 
     this.itemSocketURL = config.itemSocketURL;
     this.apiEndpoint = config.apiEndpoint;

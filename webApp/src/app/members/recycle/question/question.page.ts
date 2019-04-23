@@ -47,7 +47,7 @@ export class QuestionPage extends MainPage implements OnInit {
     private garbageCollection: GarbageCollectionService,
     private router: Router,
     public catalogService: CatalogService) {
-    super(translate, authService, storage);
+    super(translate, authService, storage,navCtrl);
   }
   ngOnInit() {
     super.ngOnInit();

@@ -4,9 +4,9 @@ import { FormBuilder } from '@angular/forms';
 import { ProfileService } from 'src/app/services/profile.service';
 import { TranslateService } from '@ngx-translate/core';
 import { OverlayEventDetail } from '@ionic/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, AlertController } from '@ionic/angular';
 import { ClassComponent } from './modal/class/class.component'
-const REFRESH_TIME = 200;
+const REFRESH_TIME = 500;
 @Component({
   selector: 'app-select-class',
   templateUrl: './select-class.page.html',
@@ -37,6 +37,7 @@ export class SelectClassPage implements OnInit {
     private _cdr: ChangeDetectorRef,
     private translate: TranslateService,
     private modalController: ModalController,
+    private alertController:AlertController,
     private translateService: TranslateService) {
       console.log('select-class')
   }
@@ -47,7 +48,8 @@ export class SelectClassPage implements OnInit {
   enter() {
     this.router.navigate(['/home']);
   }
-  getDomain() {
+   getDomain() {
+    console.log("getDomain");
 
     this.profileService.getDomain().then(res => {
       console.log(res);
@@ -59,11 +61,12 @@ export class SelectClassPage implements OnInit {
         }, REFRESH_TIME);
 
       }
-    }
-    )
+    }    )
   }
 
   getInstitute(domainId: string) {
+    console.log("getInstitute");
+
     this.domain = domainId;
     this.profileService.getInstitute(this.domain).then(res => {
       console.log(res);
@@ -79,6 +82,8 @@ export class SelectClassPage implements OnInit {
     });
   }
   getSchool(institute) {
+    console.log("getSchool");
+
     this.instituteId = institute.objectId;
     this.profileService.getSchool(this.domain, this.instituteId).then(res => {
       console.log(res);

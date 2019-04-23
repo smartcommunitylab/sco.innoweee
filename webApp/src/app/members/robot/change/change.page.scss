@@ -113,7 +113,11 @@ ion-content {
 
         .piece-container {
             height: 100%;
-
+            .part-enabled{
+                --background: #ffe6aa!important;
+                --background-focused :#ffe6aa!important;
+                --background-activated 	:#ffe6aa!important;	
+            }
             ion-button {
                 --background: #dcf4fa;
                 ;

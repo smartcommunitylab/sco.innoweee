@@ -4,6 +4,7 @@ import { APP_CONFIG_TOKEN, APP_CONFIG, ApplicationConfig } from '../app-config';
 import { Observable } from 'rxjs';
 import { Http, ResponseContentType } from '@angular/http';
 import { Storage } from '@ionic/storage';
+import { AlertController } from '@ionic/angular';
 
 const PLAYER_DATA_KEY = "PLAYER_DATA"
 const PLAYER_STATE_KEY = "PLAYER_STATE"
@@ -25,6 +26,7 @@ export class ProfileService {
   constructor(
     private storage:Storage,
     private http: HttpClient,
+    private alertController: AlertController,
     @Inject(APP_CONFIG_TOKEN) private config: ApplicationConfig) {
     this.endPoint = config.apiEndpoint;
     this.getDomainApi = config.getDomainApi;
@@ -37,7 +39,9 @@ export class ProfileService {
 
   getDomain(): Promise<any> {
     let url: string = this.endPoint + this.getDomainApi;
-    return Promise.resolve({"tenants":["TEST","TRENTO"]});
+    // return Promise.resolve({"tenants":["TEST","TRENTO"]});
+    return Promise.resolve({"tenants":["TRENTINO"]});
+
     // return this.http.get(url)
     //   .toPromise()
     //   .then(response => {
@@ -169,7 +173,7 @@ return this.schoolName;
 }
   private handleError(error: any): Promise<any> {
 
-    return new Promise<string>((resolve, reject) => {
+    return new Promise<string>(async (resolve, reject) => {
       console.error('An error occurred', error);
 
       if ((error.status == 401) || (error.status == 403)) {
@@ -180,8 +184,23 @@ return this.schoolName;
           errorMsg = errorObj.errorMsg;
         }
       } else {
-        Promise.reject(error);
-      }
+        
+          //loading was wrong, reload app
+    
+          const alert = await this.alertController.create({
+            header: 'Errore di comunicazione',
+            subHeader: 'Problema nella comunicazione con il server',
+            message: 'Riavvia l\'aplicazione e assicurati di avere connettivita`',
+            backdropDismiss: false ,
+            buttons: [{
+              text: 'Riavvia',
+              handler: () => {
+                window.location.reload();
+              }
+          }]
+          });
+          return await alert.present();
+        }      
     });
 
   }

@@ -5,17 +5,17 @@
     </ion-buttons>
     <ion-title class="ion-text-center">{{'my_robot'|translate|uppercase}}</ion-title>
     <ion-buttons class="language" slot="end">
-        <ion-item>
-          <ion-label>{{'label_language_selection'|translate}}</ion-label>
-          <ion-select [(ngModel)]="language" (ionChange)="changeLanguage()">
-            <ion-select-option value="en" selected="true">English</ion-select-option>
-            <ion-select-option value="it">Italiano</ion-select-option>
-          </ion-select>
-        </ion-item>
-        <ion-button (click)="logout()">
-          <ion-icon slot="icon-only" name="log-out"></ion-icon>
-        </ion-button>
-      </ion-buttons>
+      <ion-item>
+        <ion-label>{{'label_language_selection'|translate}}</ion-label>
+        <ion-select [(ngModel)]="language" (ionChange)="changeLanguage()">
+          <ion-select-option value="en" selected="true">English</ion-select-option>
+          <ion-select-option value="it">Italiano</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-button (click)="logout()">
+        <ion-icon slot="icon-only" name="log-out"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 
 </ion-header>
@@ -32,7 +32,7 @@
                   <ion-img [src]="getImg('head')" class="head-robot"></ion-img>
                 </ion-col>
               </ion-row>
-              <div class="body-robot-container" >
+              <div class="body-robot-container">
                 <div class="body-robot">
                   <div class="body-robot-arm">
                     <ion-img [src]="getImg('armR')" class="armR-robot"></ion-img>
@@ -67,11 +67,11 @@
         <div class="resources-container">
           <div class="point-container">
             <div class="point">
-              <app-point [pointvalue]="getResourceValue('recycleCoin')" [srcicon]="'/assets/icon/recycle.svg'"
+              <app-point [pointvalue]="getResourceValue('recycleCoin')" [srcicon]="'./assets/icon/recycle.svg'"
                 [label]="translate.instant('coins_recycle_label')"></app-point>
-              <app-point [pointvalue]="getResourceValue('reduceCoin')" [srcicon]="'/assets/icon/reduce.svg'"
+              <app-point [pointvalue]="getResourceValue('reduceCoin')" [srcicon]="'./assets/icon/reduce.svg'"
                 [label]="translate.instant('coins_reduce_label')"></app-point>
-              <app-point [pointvalue]="getResourceValue('reuseCoin')" [srcicon]="'/assets/icon/reuse.svg'"
+              <app-point [pointvalue]="getResourceValue('reuseCoin')" [srcicon]="'./assets/icon/reuse.svg'"
                 [label]="translate.instant('coins_reuse_label')"></app-point>
             </div>
           </div>
@@ -119,6 +119,11 @@
 </ion-content>
 <ion-footer>
   <ion-toolbar class="color-bar">
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
     <ion-title class="ion-text-center">{{ getFooter()}}</ion-title>
   </ion-toolbar>
 </ion-footer>

@@ -1,18 +1,14 @@
-<!-- <ion-grid>
-  <ng-container *ngFor="let listPlayer of classes">
-<ion-col *ngIf="listPlayer.team==false" >
-  <ion-button  class="cell-class" (click)="selectClass(listPlayer)">{{listPlayer.name}}</ion-button>
-</ion-col>
-</ng-container>
-</ion-grid> -->
-
 <ion-grid>
     <ion-row>
       <ion-col class="title">
         {{'class_popup_title'|translate}}
       </ion-col>
     </ion-row>
-    <ion-col *ngFor="let listPlayer of classes">
-      <ion-button *ngIf="listPlayer.team==false" (click)="selectClass(listPlayer)">{{listPlayer.name}}</ion-button>
-    </ion-col>
+    <ion-row>
+      <div  *ngFor="let listPlayer of classes">
+      <ion-col *ngIf="listPlayer.team==false" >
+        <ion-button (click)="selectClass(listPlayer)">{{listPlayer.name}}</ion-button>
+      </ion-col>
+    </div>
+    </ion-row>
   </ion-grid>

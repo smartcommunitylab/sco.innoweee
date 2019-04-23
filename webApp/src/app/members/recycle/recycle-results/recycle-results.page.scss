@@ -12,7 +12,15 @@
   }
   
   ion-content {
-    --background: #b4e6c8;
+    // --background: #b4e6c8;
+    // --padding-top	:0px;
+    // --padding-bottom	:0px;
+    // --background: url('../../../../assets/images/well-done.png')  no-repeat;
+    // --background-size: cover;
+    // --color: #fff;
+    --background:none;
+    background:  url('../../../../assets/images/well-done.png') no-repeat 0 0;
+    background-size: cover;
     --padding-top	:0px;
     --padding-bottom	:0px;
     .resources-container {

@@ -71,11 +71,11 @@
         <div class="market-container">
           <div class="point-container">
             <div class="point">
-              <app-point [pointvalue]="getResourceValue('recycleCoin')" [srcicon]="'/assets/icon/recycle.svg'"
+              <app-point [pointvalue]="getResourceValue('recycleCoin')" [srcicon]="'./assets/icon/recycle.svg'"
                 [label]="translate.instant('coins_recycle_label')"></app-point>
-              <app-point [pointvalue]="getResourceValue('reduceCoin')" [srcicon]="'/assets/icon/reduce.svg'"
+              <app-point [pointvalue]="getResourceValue('reduceCoin')" [srcicon]="'./assets/icon/reduce.svg'"
                 [label]="translate.instant('coins_reduce_label')"></app-point>
-              <app-point [pointvalue]="getResourceValue('reuseCoin')" [srcicon]="'/assets/icon/reuse.svg'"
+              <app-point [pointvalue]="getResourceValue('reuseCoin')" [srcicon]="'./assets/icon/reuse.svg'"
                 [label]="translate.instant('coins_reuse_label')"></app-point>
             </div>
           </div>
@@ -95,11 +95,13 @@
                   <ion-col>
                     <div class="piece-container">
                       <!-- <ion-img [src]="getImgDefault('armR')"></ion-img> -->
-                      <ion-button fill="outline" expand="block" (click)="select('armR')">
+                      <div>
+                      <ion-button fill="outline" expand="block" (click)="select('armR')"  [ngClass]="{'part-enabled': mapBuyable['armR']}">
                         <ion-label text-wrap>
                           {{'change_robot_armR'|translate}}
                         </ion-label>
                       </ion-button>
+                    </div>
                     </div>
                   </ion-col>
                 </ion-row>
@@ -107,9 +109,11 @@
                   <ion-col>
                     <div class="piece-container">
                       <!-- <ion-img [src]="getImgDefault('armL')"></ion-img> -->
-                      <ion-button fill="outline" expand="block" (click)="select('armL')">
+                      <div >
+                      <ion-button fill="outline" expand="block" (click)="select('armL')" [ngClass]="{'part-enabled': mapBuyable['armL']}">
                         <ion-label text-wrap>{{'change_robot_armL'|translate}}</ion-label>
                       </ion-button>
+                    </div>
                     </div>
                   </ion-col>
                 </ion-row>
@@ -117,7 +121,7 @@
                   <ion-col>
                     <div class="piece-container">
                       <!-- <ion-img [src]="getImgDefault('head')"></ion-img> -->
-                      <ion-button fill="outline" expand="block" (click)="select('head')">
+                      <ion-button fill="outline" expand="block" (click)="select('head')" [ngClass]="{'part-enabled': mapBuyable['head']}" >
                         <ion-label text-wrap>{{'change_robot_head'|translate}}</ion-label>
                       </ion-button>
                     </div>
@@ -128,7 +132,7 @@
                   <ion-col>
                     <div class="piece-container">
                       <!-- <ion-img [src]="getImgDefault('chest')"></ion-img> -->
-                      <ion-button fill="outline" expand="block" (click)="select('chest')">
+                      <ion-button fill="outline" expand="block" (click)="select('chest')" [ngClass]="{'part-enabled': mapBuyable['chest']}" >
                         <ion-label text-wrap>{{'change_robot_chest'|translate}}</ion-label>
                       </ion-button>
                     </div>
@@ -138,7 +142,7 @@
                   <ion-col>
                     <div class="piece-container">
                       <!-- <ion-img [src]="getImgDefault('legs')"></ion-img> -->
-                      <ion-button fill="outline" expand="block" (click)="select('legs')">
+                      <ion-button fill="outline" expand="block" (click)="select('legs')"  [ngClass]="{'part-enabled': mapBuyable['legs']}">
                         <ion-label text-wrap>{{'change_robot_legs'|translate}}</ion-label>
                       </ion-button>
                     </div>
@@ -157,12 +161,12 @@
                       <div class="piece">
                         <div [ngClass]="{'not-active': !isBuyable(item)}">
                           <ion-img [src]="getImgNewComponent(item)"></ion-img>
-                          <app-point [pointvalue]="getResourceValue('recycleCoin')"
-                            [srcicon]="'/assets/icon/recycle.svg'" [label]="translate.instant('coins_recycle_label')">
+                          <app-point [pointvalue]="getResourceValueItem(item,'recycleCoin')"
+                            [srcicon]="'./assets/icon/recycle.svg'" [label]="translate.instant('coins_recycle_label')">
                           </app-point>
-                          <app-point [pointvalue]="getResourceValue('reduceCoin')" [srcicon]="'/assets/icon/reduce.svg'"
+                          <app-point [pointvalue]="getResourceValueItem(item,'reduceCoin')" [srcicon]="'./assets/icon/reduce.svg'"
                             [label]="translate.instant('coins_reduce_label')"></app-point>
-                          <app-point [pointvalue]="getResourceValue('reuseCoin')" [srcicon]="'/assets/icon/reuse.svg'"
+                          <app-point [pointvalue]="getResourceValueItem(item,'reuseCoin')" [srcicon]="'./assets/icon/reuse.svg'"
                             [label]="translate.instant('coins_reuse_label')"></app-point>
                           <ion-button color="dark" fill="outline" expand="block" [disabled]="tryingItem(item)"
                             (click)="tryItem(item)">{{'change_robot_try'|translate}}</ion-button>
@@ -171,7 +175,7 @@
                         </div>
                       </div>
                     </ion-col>
-                    <ion-col *ngIf="filteredCatalog==0">
+                    <ion-col *ngIf="filteredCatalog.length==0">
                       {{'empty_list'|translate}}
                     </ion-col>
                   </ion-row>
@@ -195,6 +199,11 @@
 </ion-content>
 <ion-footer>
   <ion-toolbar class="color-bar">
+      <ion-buttons slot="start">
+          <ion-button (click)="goBack()">
+            <ion-icon name="arrow-back"></ion-icon>
+          </ion-button>
+        </ion-buttons>
     <ion-title class="ion-text-center">{{ getFooter()}}</ion-title>
   </ion-toolbar>
 </ion-footer>

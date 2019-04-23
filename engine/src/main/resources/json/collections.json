@@ -16,18 +16,23 @@
 		"specialCollection":false,
 		"items":["Blender","Centrifuge","Electrical coffe grinder","Coffe machine","Electrical knife","Electrical grater","Tea kettle","Hand vacuum","Minipimer","Squeezer","Toaster"],
 		"links":[
-			{
-				"name":"Greta Thunberg: una piccola eroina che lotta per la difesa del nostro pianeta",
-				"type":"link",
-				"previewUri":"https://drive.google.com/file/d/1XoLxDJ5MmkDtjpqqCU29IQq4GrSBcLAt/view?usp=sharing",
-				"link":"https://drive.google.com/file/d/1xiJL7BI9rzpiOcYsNd7BbejkILOrebF0/view?usp=sharing"
-			},		
-			{
-				"name":"Alla scoperta dei RAEE",
-				"type":"video",
-				"previewUri":"https://drive.google.com/file/d/1rbpWKorD5FacnLTymiuFPg3k9s0q4Xhm/view?usp=sharing",
-				"link":"https://drive.google.com/file/d/1VX4aD4nOIvoy4O0LAzjGHtY3TzjXp4wh/view?usp=sharing" 
-			}
+        {
+            "name" : "Greta Thunberg: una piccola eroina che lotta per la difesa del nostro pianeta",
+            "link" : "https://drive.google.com/file/d/1xiJL7BI9rzpiOcYsNd7BbejkILOrebF0/view?usp=sharing",
+            "type" : "link",
+            "previewUri" : "https://imgur.com/pDvYx8H.jpg"
+        }, 
+        {
+            "name" : "Alla scoperta dei RAEE e AEE",
+            "link" : "https://www.youtube.com/watch?v=Ez4QPdKMI7E",
+            "type" : "video"
+        }, 
+        {
+            "name" : "La giungla dei RAEE - Una miniera tra i rifiuti",
+            "type" : "link",
+            "previewUri" : "https://imgur.com/yPfEwOi.jpg",
+            "link" : "https://drive.google.com/file/d/1nW_IzuhF1wBWzXWdzcR-gXLJ574yM1vD/view?usp=sharing"
+        }
 		]
 	},
 	{

@@ -37,7 +37,7 @@ export class RecycleResultsPage extends MainPage implements OnInit {
     private loadingController: LoadingController,
     private garbageService: GarbageCollectionService,
     public catalogService: CatalogService) {
-    super(translate, authService, storage);
+    super(translate, authService, storage,navCtrl);
   }
   ngOnInit() {
     super.ngOnInit();

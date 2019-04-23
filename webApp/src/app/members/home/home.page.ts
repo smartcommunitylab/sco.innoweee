@@ -7,6 +7,7 @@ import { MaterialService } from 'src/app/services/material.service';
 import { ProfileService } from 'src/app/services/profile.service';
 import { GarbageCollectionService } from 'src/app/services/garbage-collection.service';
 import { Route, Router } from '@angular/router';
+import { NavController } from '@ionic/angular';
 const ROUTER_KEY = "router-key"
 
 @Component({
@@ -24,15 +25,18 @@ export class HomePage extends MainPage implements OnInit {
   playerData: any;
   materials: number;
   weeklyGarbage: any = {};
+  weeklyDateFrom: number = new Date().getTime();
+  weeklyDateTo: number = new Date().getTime();
   constructor(
     translate: TranslateService,
     storage: Storage,
-    private router:Router,
+    private router: Router,
     private materialService: MaterialService,
     private profileService: ProfileService,
     private garbageCollection: GarbageCollectionService,
+    public navCtrl: NavController, 
     authService: AuthenticationService) {
-    super(translate, authService, storage);
+    super(translate, authService, storage,navCtrl);
   }
 
   ngOnInit() {
@@ -45,6 +49,8 @@ export class HomePage extends MainPage implements OnInit {
         this.materials = res.length;
         this.garbageCollection.getActualCollection(this.playerData.gameId).then(res => {
           this.weeklyGarbage = res.message
+          this.weeklyDateFrom = res.from;
+          this.weeklyDateTo = res.to;
         });
       });
     });
@@ -63,8 +69,18 @@ export class HomePage extends MainPage implements OnInit {
       return this.weeklyGarbage[this.translate.currentLang];
     else return ""
   }
+  getDateMessageFrom() {
+    if (this.weeklyGarbage)
+      return this.weeklyDateFrom ;
+    else return ""
+  }
+  getDateMessageTo() {
+    if (this.weeklyGarbage)
+      return this.weeklyDateTo;
+    else return ""
+  }
   getFooter() {
-    return (this.translate.instant('footer_game_title')+" | "+this.getSchoolName()+" | "+this.getClassName())
+    return (this.translate.instant('footer_game_title') + " | " + this.getSchoolName() + " | " + this.getClassName())
   }
 
   getSchoolName() {

@@ -6,6 +6,7 @@ import { ProfileService } from 'src/app/services/profile.service';
 import { Storage } from '@ionic/storage';
 import { ApplicationConfig, APP_CONFIG_TOKEN } from 'src/app/app-config';
 import { GarbageCollectionService } from 'src/app/services/garbage-collection.service';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-allteam',
@@ -33,9 +34,11 @@ export class AllteamPage extends MainPage implements OnInit {
     public storage: Storage,
     public authService: AuthenticationService,
     public garbageService: GarbageCollectionService,
+    public navCtrl: NavController, 
+
     @Inject(APP_CONFIG_TOKEN) private config: ApplicationConfig,
     public profileService: ProfileService) {
-    super(translate, authService, storage);
+    super(translate, authService, storage,navCtrl);
     this.imgUrl = config.apiEndpoint + config.getRobotImageApi;
   }
 
@@ -60,7 +63,7 @@ export class AllteamPage extends MainPage implements OnInit {
   }
   ionViewWillEnter() {
     super.ionViewDidEnter();
-    this.selectedClass=null;
+    this.selectedClass = null;
   }
   /*create a table of 4 columns*/
   public columns = 6;
@@ -162,13 +165,20 @@ export class AllteamPage extends MainPage implements OnInit {
   //   return '0.2';
   // }
   selectClass(selectedClass) {
-    this.selectedClass = selectedClass;
-    this.profileService.getPlayerState(this.gameId, this.selectedClass.objectId).then(res => {
-      this.profileClassState = res;
-
-    });
+    if (!this.selectedClass || this.selectedClass["objectId"]!=selectedClass.objectId) {
+      this.selectedClass = selectedClass;
+      this.profileService.getPlayerState(this.gameId, this.selectedClass.objectId).then(res => {
+        this.profileClassState = res;
+      });
+    } else {
+      this.selectedClass = null;
+    }
   }
-
+  isSelectedClass(cell) {
+    if (this.selectedClass)
+      return (this.selectedClass.objectId != cell.objectId)
+    return false
+  }
   getResourceUnit(value) {
     if (value > 1)
       return "Kg"
@@ -177,7 +187,7 @@ export class AllteamPage extends MainPage implements OnInit {
     return "mg"
   }
   getFooter() {
-    return (this.translate.instant('footer_game_title')+" | "+this.getSchoolName()+" | "+this.getClassName())
+    return (this.translate.instant('footer_game_title') + " | " + this.getSchoolName() + " | " + this.getClassName())
   }
 
   getSchoolName() {
