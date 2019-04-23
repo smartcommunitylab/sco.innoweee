@@ -250,7 +250,7 @@ public class ItemController extends AuthController {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
 		StringBuffer sb = new StringBuffer("instituteName,instituteId,schoolName,schoolId,");
 		sb.append("gameName,gameId,playerName,playerId,collection,itemId,itemType,isBroken,");
-		sb.append("isSwitchingOn,ageRange,timestamp\n");
+		sb.append("isSwitchingOn,ageRange,isReusable,isValuable,timestamp\n");
 		List<Institute> instituteList = instituteRepository.findByTenantId(tenantId);
 		Map<String, Institute> instituteMap = new HashMap<>();
 		List<String> institues = new ArrayList<>();
@@ -303,6 +303,8 @@ public class ItemController extends AuthController {
 				String isBroken = String.valueOf(event.isBroken());
 				String isSwitchingOn = String.valueOf(event.isSwitchingOn());
 				String ageRange = String.valueOf(event.getAge());
+				String isReusable = String.valueOf(event.isReusable());
+				String isValuable = String.valueOf(event.isValuable());
 				String timestamp = sdf.format(new Date(event.getTimestamp()));
 				sb.append("\"" + instituteName + "\",");
 				sb.append("\"" + instituteId + "\",");
@@ -318,6 +320,8 @@ public class ItemController extends AuthController {
 				sb.append("\"" + isBroken + "\",");
 				sb.append("\"" + isSwitchingOn + "\",");
 				sb.append("\"" + ageRange + "\",");
+				sb.append("\"" + isReusable + "\",");
+				sb.append("\"" + isValuable + "\",");
 				sb.append("\"" + timestamp + "\"\n");
 			} catch (Exception e) {
 				logger.debug("getItemCsv error:{} / {}", event.getId(), e.getMessage());
