@@ -6,6 +6,7 @@ import { ProfileService } from 'src/app/services/profile.service';
 import { Storage } from '@ionic/storage';
 import { ApplicationConfig, APP_CONFIG_TOKEN } from 'src/app/app-config';
 import { GarbageCollectionService } from 'src/app/services/garbage-collection.service';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-allteam',
@@ -33,9 +34,11 @@ export class AllteamPage extends MainPage implements OnInit {
     public storage: Storage,
     public authService: AuthenticationService,
     public garbageService: GarbageCollectionService,
+    public navCtrl: NavController, 
+
     @Inject(APP_CONFIG_TOKEN) private config: ApplicationConfig,
     public profileService: ProfileService) {
-    super(translate, authService, storage);
+    super(translate, authService, storage,navCtrl);
     this.imgUrl = config.apiEndpoint + config.getRobotImageApi;
   }
 

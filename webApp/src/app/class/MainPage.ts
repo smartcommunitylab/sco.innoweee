@@ -2,6 +2,7 @@ import {  OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Storage } from '@ionic/storage';
 import { AuthenticationService } from '../services/authentication.service';
+import { NavController } from '@ionic/angular';
 
 const ROUTER_KEY= "router-key"
 
@@ -11,7 +12,9 @@ export class MainPage implements OnInit {
   constructor(
     public translate: TranslateService,
     public authService: AuthenticationService,
-    public storage:Storage) {
+    public storage:Storage,
+    public navCtrl: NavController
+    ) {
       this.initTranslate();
      }
   public language: string = 'it';
@@ -33,6 +36,9 @@ export class MainPage implements OnInit {
   public logout() {
     this.authService.logout();
     this.storage.clear();
+  }
+  public goBack() {
+    this.navCtrl.pop();
   }
   private translateLanguage(): void {
     this.translate.use(this.language);

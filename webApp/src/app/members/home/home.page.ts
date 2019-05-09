@@ -7,6 +7,7 @@ import { MaterialService } from 'src/app/services/material.service';
 import { ProfileService } from 'src/app/services/profile.service';
 import { GarbageCollectionService } from 'src/app/services/garbage-collection.service';
 import { Route, Router } from '@angular/router';
+import { NavController } from '@ionic/angular';
 const ROUTER_KEY = "router-key"
 
 @Component({
@@ -33,8 +34,9 @@ export class HomePage extends MainPage implements OnInit {
     private materialService: MaterialService,
     private profileService: ProfileService,
     private garbageCollection: GarbageCollectionService,
+    public navCtrl: NavController, 
     authService: AuthenticationService) {
-    super(translate, authService, storage);
+    super(translate, authService, storage,navCtrl);
   }
 
   ngOnInit() {

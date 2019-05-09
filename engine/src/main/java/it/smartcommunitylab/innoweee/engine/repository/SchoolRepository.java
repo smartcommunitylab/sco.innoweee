@@ -10,6 +10,10 @@ import it.smartcommunitylab.innoweee.engine.model.School;
 
 @Repository
 public interface SchoolRepository extends MongoRepository<School, String> {
+	
 	@Query(value="{tenantId:?0, instituteId:?1}")
 	List<School> findByInstituteId(String tenantId, String instituteId);
+	
+	@Query(value="{instituteId:{$in:?0}}")
+	List<School> findByInstituteIds(List<String> ids);
 }

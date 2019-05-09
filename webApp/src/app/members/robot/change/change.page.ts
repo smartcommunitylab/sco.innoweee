@@ -22,9 +22,10 @@ export class ChangePage extends MainPage implements OnInit {
   filteredCatalog = [];
   selection = null;
   trying = false;
-  tryItemId=null;
+  tryItemId = null;
   tmprobot = null;
   mapUri: any;
+  mapBuyable = {};
 
   constructor(public translate: TranslateService,
     public storage: Storage,
@@ -35,7 +36,7 @@ export class ChangePage extends MainPage implements OnInit {
     private loadingController: LoadingController,
     private alertController: AlertController,
     public catalogService: CatalogService) {
-    super(translate, authService, storage);
+    super(translate, authService, storage, navCtrl);
   }
 
   ngOnInit() {
@@ -44,7 +45,13 @@ export class ChangePage extends MainPage implements OnInit {
     this.mapUri = {};
 
   }
-
+  enableButtons() {
+    this.partEnabled('armR');
+    this.partEnabled('armL');
+    this.partEnabled('chest');
+    this.partEnabled('head');
+    this.partEnabled('legs');
+  }
   ionViewWillEnter() {
     super.ionViewDidEnter();
     this.profileService.getLocalPlayerData().then(res => {
@@ -52,12 +59,32 @@ export class ChangePage extends MainPage implements OnInit {
       this.profileData = res
       this.catalogService.getCatalog(this.profileData.tenantId).then(res => {
         this.catalog = res;
+        this.enableButtons();
       })
       this.resetetMapImage();
-
     });
     this.updateState();
   }
+  partEnabled(selection) {
+    this.mapBuyable[selection] = false;
+    if (this.profileData && this.profileData.robot && this.profileData.robot.components && this.catalog) {
+      let myComponentId = Object.keys(this.profileData.robot.components).find(k => this.profileData.robot.components[k].type === selection)
+      // let catalog=this.catalog.components;
+      // for (let key of  catalog){
+      Object.keys(this.catalog.components).forEach(key => {
+        let value = this.catalog.components[key];
+        if (value.parentId == myComponentId && value.type == selection) {
+          if (this.isBuyable(value))
+            this.mapBuyable[selection] = true;
+
+
+        }
+
+      });
+    }
+
+  }
+
   private resetetMapImage() {
     this.tmprobot = (JSON.parse(JSON.stringify(this.profileData.robot)));
     Object.keys(this.tmprobot.components).forEach(key => {
@@ -108,7 +135,7 @@ export class ChangePage extends MainPage implements OnInit {
         if (value.parentId == myComponentId && value.type == selection) {
           this.filteredCatalog.push(value);
         }
-        console.log(key, value);
+        // console.log(key, value);
 
       });
     }
@@ -210,6 +237,7 @@ export class ChangePage extends MainPage implements OnInit {
                     this.trying = false;
                   }
                   //load new components
+                  this.enableButtons();
                   loading.dismiss();
                 }, err => {
                   loading.dismiss();
@@ -244,7 +272,7 @@ export class ChangePage extends MainPage implements OnInit {
     });
   }
   getFooter() {
-    return (this.translate.instant('footer_game_title')+" | "+this.getSchoolName()+" | "+this.getClassName())
+    return (this.translate.instant('footer_game_title') + " | " + this.getSchoolName() + " | " + this.getClassName())
   }
 
   getSchoolName() {
@@ -256,9 +284,9 @@ export class ChangePage extends MainPage implements OnInit {
 
   }
   tryingItem(item) {
-    return (this.trying && item.componentId ==this.tryItemId)
+    return (this.trying && item.componentId == this.tryItemId)
   }
   buyableItem(item) {
-    return (this.trying && item.componentId !=this.tryItemId)
+    return (this.trying && item.componentId != this.tryItemId)
   }
 }
