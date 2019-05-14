@@ -39,3 +39,8 @@ ion-button {
     line-height: 100px;
     white-space: nowrap;
 }
+.modal-category .modal-wrapper {
+    --height: 570px;
+    // --width: 700px!important;
+    --background: aqua;
+}

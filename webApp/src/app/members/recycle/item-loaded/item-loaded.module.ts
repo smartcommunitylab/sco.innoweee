@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { ItemLoadedPage } from './item-loaded.page';
 import { TranslateModule } from '@ngx-translate/core';
+import { ModalCategory } from './modal/modalCategory';
 
 const routes: Routes = [
   {
@@ -23,6 +24,7 @@ const routes: Routes = [
     TranslateModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [ItemLoadedPage]
+  entryComponents:[ModalCategory],
+  declarations: [ItemLoadedPage,ModalCategory]
 })
 export class ItemLoadedPageModule {}
