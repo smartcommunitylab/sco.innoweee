@@ -1,5 +1,7 @@
 package it.smartcommunitylab.innoweee.engine.model;
 
+import java.util.Date;
+
 import org.springframework.data.annotation.Id;
 
 public class ItemEvent {
@@ -12,6 +14,7 @@ public class ItemEvent {
 	private boolean switchingOn;
 	private int age;
 	private long timestamp;
+	private Date saveTime; 
 	private boolean reusable;
 	private boolean valuable;
 	private boolean manual;
@@ -81,5 +84,11 @@ public class ItemEvent {
 	}
 	public void setManual(boolean manual) {
 		this.manual = manual;
+	}
+	public Date getSaveTime() {
+		return saveTime;
+	}
+	public void setSaveTime(Date saveTime) {
+		this.saveTime = saveTime;
 	}
 }
