@@ -38,13 +38,26 @@ export class ModalCategory implements OnInit {
     this.profileService.getLocalPlayerData().then(res => {
       this.playerData = res;
       this.garbageCollection.getCollections(this.playerData.gameId).then(res => {
-        console.log(res)
-        this.collections = res;
+        this.collections = this.orderCollection(res);
+
         this.garbageCollection.getGargabeMap(this.playerData.tenantId).then(res => {
           this.garbageMap = res;
         });
       })
     })
+  }
+  orderCollection(res: any): any {
+    return res.sort((obj1, obj2) => {
+      if (obj1.from > obj2.from) {
+          return 1;
+      }
+  
+      if (obj1.from < obj2.from) {
+          return -1;
+      }
+  
+      return 0;
+  });
   }
 
   async closeModal() {
