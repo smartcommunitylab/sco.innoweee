@@ -4,7 +4,7 @@
       <ion-back-button></ion-back-button>
     </ion-buttons>
     <ion-title class="ion-text-center">{{'collection_title'|translate|uppercase}}</ion-title>
- 
+
     <ion-buttons class="language" slot="end">
       <ion-item>
         <ion-label>{{'label_language_selection'|translate}}</ion-label>
@@ -67,11 +67,21 @@
 
 <ion-footer>
   <ion-toolbar class="color-bar">
+    <ion-row>
       <ion-buttons slot="start">
-          <ion-button (click)="goBack()">
-            <ion-icon name="arrow-back"></ion-icon>
-          </ion-button>
-        </ion-buttons>
-    <ion-title class="ion-text-center">{{ getFooter()}}</ion-title>
+        <ion-button (click)="goBack()">
+          <ion-icon name="arrow-back"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-title class="ion-text-center">{{ getFooter()}}</ion-title>
+      <div class="logos">
+        <div class=frame>
+          <span class="helper"></span><img src="./assets/images/kic.png" />
+        </div>
+        <div class=frame>
+          <span class="helper"></span><img src="./assets/images/eu_flag.png" />
+        </div>
+      </div>
+    </ion-row>
   </ion-toolbar>
 </ion-footer>

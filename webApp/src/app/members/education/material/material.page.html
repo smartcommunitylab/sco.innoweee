@@ -44,10 +44,7 @@
               <div class="arrow" (click)="scrollUp()" [ngClass]="{disabled: startList}">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="s-ion-icon"><path d="M464 256c0-114.875-93.125-208-208-208S48 141.125 48 256s93.125 208 208 208 208-93.125 208-208zm-112 32H160l96-96 96 96z"></path></svg>
                 </div>
-<!--             
-            <button class="arrow" ion-button icon-only (click)="scrollUp()" [disabled]="startList"  [ngClass]="{disabled: startList}">
-              <ion-icon name="arrow-dropup-circle"></ion-icon>
-            </button> -->
+
           </ion-item>
           <ion-list id="gallery">
             <ion-item *ngFor="let resource of resources" (click)="selectResource(resource)">
@@ -57,69 +54,34 @@
               <ion-label>{{resource.name}}</ion-label>
             </ion-item>
           </ion-list>
-          <!-- <div class="arrow" (click)="scrollDown()" [ngClass]="{disabled: endList}">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="s-ion-icon"><path d="M464 256c0-114.875-93.125-208-208-208S48 141.125 48 256s93.125 208 208 208 208-93.125 208-208zm-112 32H160l96-96 96 96z"></path></svg>
-        </div> -->
-          <!-- <button class="arrow" ion-button icon-only (click)="scrollDown()" [disabled]="endList" [ngClass]="{disabled: endList}">
-              <ion-icon name="arrow-dropdown-circle"></ion-icon>
-            </button> -->
+
             <div class="arrow" (click)="scrollDown()" [ngClass]="{disabled: endList}">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="s-ion-icon"><path d="M256 48C141.125 48 48 141.125 48 256s93.125 208 208 208 208-93.125 208-208S370.875 48 256 48zm0 272l-96-96h192l-96 96z"></path></svg>
           </div>
-          <!-- <ion-item (click)="scrollDown()" [disabled]="endList">
-            <ion-button class="arrow" ion-button icon-only>
-              <ion-icon name="arrow-dropdown-circle"></ion-icon>
-            </ion-button>
-          </ion-item> -->
+
         </div>
       </ion-col>
     </ion-row>
   </ion-grid>
-  <!-- <ion-grid class="grid-elements">
-    <ion-row>
-      <ion-col size="8" class="preview-element">
-        <ion-card class="preview" *ngIf="selected" (click)="openResource(selected)">
-          <ion-item>
-            <ion-thumbnail class="preview-image">
-                <img [src]="getPreview('big',selected)" onError="this.src='assets/images/white.png'">
-                <img [src]="getType(selected)" class="icon-player" >
-              </ion-thumbnail>
-          </ion-item>
-          <ion-card-content>
-            {{selected.name}}
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-      <ion-col size="4" class="list-element">
-        <ion-item (click)="scrollUp()" [disabled]="startList">
-          <ion-thumbnail class="arrow" slot="start">
-            <ion-icon name="arrow-dropup-circle"></ion-icon>
-          </ion-thumbnail>
-        </ion-item>
-        <ion-list id="gallery">
-          <ion-item *ngFor="let resource of resources" (click)="selectResource(resource)">
-            <ion-thumbnail slot="start">
-              <img [src]="getPreview('small',resource)">
-            </ion-thumbnail>
-            <ion-label>{{resource.name}}</ion-label>
-          </ion-item>
-        </ion-list>
-        <ion-item (click)="scrollDown()" [disabled]="endList" >
-          <ion-thumbnail class="arrow" slot="start">
-            <ion-icon name="arrow-dropdown-circle"></ion-icon>
-          </ion-thumbnail>
-        </ion-item>
-      </ion-col>
-    </ion-row>
-  </ion-grid> -->
+
 </ion-content>
 <ion-footer>
   <ion-toolbar class="color-bar">
+    <ion-row>
       <ion-buttons slot="start">
           <ion-button (click)="goBack()">
             <ion-icon name="arrow-back"></ion-icon>
           </ion-button>
         </ion-buttons>
     <ion-title class="ion-text-center">{{ getFooter()}}</ion-title>
+    <div class="logos">
+        <div class=frame>
+          <span class="helper"></span><img src="./assets/images/kic.png" />
+        </div>
+        <div class=frame>
+          <span class="helper"></span><img src="./assets/images/eu_flag.png" />
+        </div>
+      </div>
+    </ion-row>
   </ion-toolbar>
 </ion-footer>

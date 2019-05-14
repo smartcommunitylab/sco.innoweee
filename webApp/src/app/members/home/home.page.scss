@@ -1,36 +1,7 @@
 .color-bar {
     --background: #0fb4d7;
     color: white;
-.logos{
-    display: inline-flex;
-    background-color: white;
-    border-radius: 8px;
-    
-    .frame {
-        height: 100%;      /* equals max image height */
-        width: 160px;
-        // border: 1px solid red;
-        white-space: nowrap;
-        
-        
-        // text-align: center; margin: 1em 0;
-    }
-    
-    .helper {
-        display: inline-block;
-        height: 100%;
-        vertical-align: middle;
-    }
-    
-    img {
-        // background: #3A6F9A;
-        vertical-align: middle;
-        // max-height: 50px;
-        max-width: 160px;
-        max-height: 66px;
-        padding: 4px;
-    }
-}
+
     
 
     .language {
