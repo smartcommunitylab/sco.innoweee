@@ -100,7 +100,7 @@ export class ModalCategory implements OnInit {
       },
       "value": item
     };
-    this.item.timestamp = this.collection.from + 1000 * 60 * 60
+    this.item.timestamp = this.collection.from + (3000 * 60 * 60)
     this.closeModal();
   }
   chooseCategory(collection) {
