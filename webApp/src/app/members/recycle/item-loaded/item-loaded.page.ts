@@ -6,20 +6,20 @@ import { ProfileService } from 'src/app/services/profile.service';
 import { MainPage } from 'src/app/class/MainPage';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Storage } from '@ionic/storage';
-import { NavController } from '@ionic/angular';
-
+import { NavController, ModalController } from '@ionic/angular';
+import { ModalCategory } from './modal/modalCategory'
 export class ItemGarbage {
 
-  playerId: string;
-  itemId: string;
-  itemType: string;
-  broken: boolean;
-  switchingOn: boolean;
-  age: number;
-  manual: boolean;
-  reusable: boolean;
-  valuable: boolean;
-
+  playerId: string = "";
+  itemId: string = "";
+  itemType: string = "";
+  broken: boolean = false;
+  switchingOn: boolean = false;
+  age: number = 0;
+  manual: boolean = false;
+  reusable: boolean = false;
+  valuable: boolean = false;
+  timestamp: any = null;
 }
 @Component({
   selector: 'app-item-loaded',
@@ -39,15 +39,18 @@ export class ItemLoadedPage extends MainPage implements OnInit {
   item: ItemGarbage = new ItemGarbage();
   garbageCollectionName: string;
   title: { 0: string; 1: string; 2: string; 3: string; 4: string };
+
+  dataReturned: any;
   constructor(private route: ActivatedRoute,
     public translate: TranslateService,
     public authService: AuthenticationService,
     public storage: Storage,
     private profileService: ProfileService,
     private router: Router,
-    public navCtrl: NavController, 
+    public navCtrl: NavController,
+    public modalController: ModalController,
     private garbageCollection: GarbageCollectionService) {
-    super(translate, authService, storage,navCtrl)
+    super(translate, authService, storage, navCtrl)
   }
 
   ngOnInit() {
@@ -71,7 +74,38 @@ export class ItemLoadedPage extends MainPage implements OnInit {
 
 
   }
+  otherCategory() {
+    this.openModal()
+  }
+  async openModal() {
+    const modal = await this.modalController.create({
+      component: ModalCategory,
+      // backdropDismiss:false,
+      cssClass: 'modal-category',
+      componentProps: {
+        // "paramID": 123,
+        // "paramTitle": "Test Title"
+      }
+    });
 
+    modal.onDidDismiss().then((dataReturned) => {
+      if (dataReturned.data !== null) {
+        // this.dataReturned = dataReturned.data;
+        //alert('Modal Sent Data :'+ dataReturned);
+        // console.log(dataReturned)
+        if (dataReturned.data["itemType"])
+          this.chooseCategory(dataReturned.data["itemType"]);
+        if (dataReturned.data["timestamp"])
+          this.item.timestamp = dataReturned.data["timestamp"]
+      }
+    });
+
+    return await modal.present();
+  }
+  firstStep(): boolean {
+    return (this.actualStep == 0)
+
+  }
   ionViewDidEnter() {
     super.ionViewDidEnter();
   }
@@ -183,6 +217,7 @@ export class ItemLoadedPage extends MainPage implements OnInit {
       })
     });
   }
+
 
   getImgName() {
     if (this.garbageCollectionName) {

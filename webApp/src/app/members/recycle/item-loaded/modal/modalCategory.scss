@@ -1,0 +1,25 @@
+ion-content {
+    --background: #b4e6c8;
+    .label-row {
+        margin: 8px;
+
+        .box {
+            border-radius: 12px;
+            padding: 8px;
+            background-color: #1ea046;
+            color: white;
+            margin: 4px;
+            border: solid 3px white;
+        }
+    }
+
+    .class-img {
+        // max-width: 100px!important;
+        height: 50px !important;
+    }
+}
+.back{
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+}

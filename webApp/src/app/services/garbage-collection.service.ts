@@ -18,6 +18,7 @@ export class GarbageCollectionService {
   getDeliveryApi:string;
   getGarbageApi:string;
   getUsedApi: any;
+  geCollectionApi: string;
 
   arrayResources = [
     "plastic",
@@ -40,6 +41,7 @@ export class GarbageCollectionService {
       this.getDeliveryApi = config.getDeliveryApi;
       this.getGarbageApi = config.getGarbageApi;
       this.getUsedApi = config.getUsedApi;
+      this.geCollectionApi = config.getCollection;
    }
    getArrayResources():any[] {
      return this.arrayResources;
@@ -52,7 +54,15 @@ export class GarbageCollectionService {
       return this.handleError(response);
     });
   }
-    
+  
+  getCollections(gameId): Promise<any> {
+    let url: string = this.endPoint + this.geCollectionApi  +gameId  ;
+    return this.http.get(url).toPromise().then(response => {
+      return response;
+    }).catch(response => {
+      return this.handleError(response);
+    });
+  }
   checkIfPresent(id: string, idUser:string): Promise<any> {
     let url: string = this.endPoint + this.getItemApi + this.getUsedApi+"?playerId="+idUser+"&itemId="+encodeURIComponent(id);
 

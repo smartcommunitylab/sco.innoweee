@@ -1,6 +1,5 @@
 <ion-header>
   <ion-toolbar class="color-bar">
-    <!-- <ion-title class="game-title">{{'title_game_selection'|translate}}</ion-title> -->
   </ion-toolbar>
 </ion-header>
 
@@ -12,7 +11,6 @@
           <div>
             <img src="./assets/images/logo.png" class="logo-nav" />
           </div>
-          <!-- <ion-img [src]="getImgName()"></ion-img> -->
         </div>
       </ion-col>
       <ion-col class="col-vertical-center">
@@ -47,20 +45,21 @@
               </ion-item>
               <ion-item>
                 <ion-label>{{'label_game'|translate}}</ion-label>
-                <ion-select [(ngModel)]="game" (ionChange)="getPlayer(game)" [disabled]="!schoolId"  placeholder="{{'label_game'|translate}}">
+                <ion-select [(ngModel)]="game" (ionChange)="getPlayer(game)" [disabled]="!schoolId"
+                  placeholder="{{'label_game'|translate}}">
                   <ion-select-option *ngFor="let listGame of games" [value]="listGame">{{listGame.gameName}}
                   </ion-select-option>
                 </ion-select>
               </ion-item>
               <ion-item>
                 <ion-label>{{'label_section'|translate}}</ion-label>
-                <ion-button color="light" fill="outline" class="class-selected" [disabled]="!gameId" (click)="chooseClass()"><span
-                    *ngIf="!playerId">{{'label_choose_section'|translate}}</span><span
+                <ion-button color="light" fill="outline" class="class-selected" [disabled]="!gameId"
+                  (click)="chooseClass()"><span *ngIf="!playerId">{{'label_choose_section'|translate}}</span><span
                     *ngIf="playerId">{{playerName}}</span></ion-button>
               </ion-item>
               <!-- <ion-item> -->
-                <ion-button  color="light"  (click)="getPlayerData()" expand="block" fill="outline">
-                  {{'label_enter'|translate}}</ion-button>
+              <ion-button color="light" (click)="getPlayerData()" expand="block" fill="outline">
+                {{'label_enter'|translate}}</ion-button>
               <!-- </ion-item> -->
             </ion-list>
           </div>
@@ -71,6 +70,16 @@
 </ion-content>
 <ion-footer>
   <ion-toolbar class="color-bar">
-    <ion-title class="ion-text-center">{{ getFooter()}}</ion-title>
+    <ion-row>
+      <ion-title class="ion-text-center">{{ getFooter()}}</ion-title>
+      <div class="logos">
+        <div class=frame>
+          <span class="helper"></span><img src="./assets/images/kic.png" />
+        </div>
+        <div class=frame>
+          <span class="helper"></span><img src="./assets/images/eu_flag.png" />
+        </div>
+      </div>
+    </ion-row>
   </ion-toolbar>
 </ion-footer>
