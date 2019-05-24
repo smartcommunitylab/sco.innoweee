@@ -87,6 +87,8 @@ export class QuestionPage extends MainPage implements OnInit {
   goToStart() {
     this.garbageCollection.reduce(this.playerData.objectId, this.coinsGained).then(res => {
       this.router.navigate(['start']);
+      this.coinsGained =0;
+      this.numberReplies = 0;
     })
 
   }
