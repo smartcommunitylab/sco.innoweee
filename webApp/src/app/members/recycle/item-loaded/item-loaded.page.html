@@ -6,17 +6,17 @@
     <ion-title class="ion-text-center">{{getTitle()|uppercase}}</ion-title>
 
     <ion-buttons class="language" slot="end">
-        <ion-item>
-          <ion-label>{{'label_language_selection'|translate}}</ion-label>
-          <ion-select [(ngModel)]="language" (ionChange)="changeLanguage()">
-            <ion-select-option value="en" selected="true">English</ion-select-option>
-            <ion-select-option value="it">Italiano</ion-select-option>
-          </ion-select>
-        </ion-item>
-        <ion-button (click)="logout()">
-          <ion-icon slot="icon-only" name="log-out"></ion-icon>
-        </ion-button>
-      </ion-buttons>
+      <ion-item>
+        <ion-label>{{'label_language_selection'|translate}}</ion-label>
+        <ion-select [(ngModel)]="language" (ionChange)="changeLanguage()">
+          <ion-select-option value="en" selected="true">English</ion-select-option>
+          <ion-select-option value="it">Italiano</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-button (click)="logout()">
+        <ion-icon slot="icon-only" name="log-out"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -26,8 +26,9 @@
       <ion-col class="col-vertical-center" *ngIf="lastStep()">
         <div class="vertical-center left-box">
           <div class="answers" *ngIf="item">
-              <p class="title-recap">{{'label_title_recap'|translate}}</p>
-              <p class="subtitle-recap">{{'label_subtitle_recap'|translate}}</p>            <div>
+            <p class="title-recap">{{'label_title_recap'|translate}}</p>
+            <p class="subtitle-recap">{{'label_subtitle_recap'|translate}}</p>
+            <div>
               <span class="recap"> {{'label_id'|translate}}:</span>{{item.itemId}}
             </div>
             <div *ngFor="let choice of choices ; let i = index">
@@ -50,19 +51,18 @@
         </div>
       </ion-col>
       <ion-col class="col-vertical-center" *ngIf="lastStep()">
-          <div class="vertical-center left-box">
-        <div class="vertical-center right-box last-step">
+        <div class="vertical-center left-box">
+          <div class="vertical-center right-box last-step">
             <ion-img [src]="getImgName()"></ion-img>
-
-         </div>
-</div>
+          </div>
+        </div>
       </ion-col>
       <ion-col class="col-vertical-center" *ngIf="!lastStep()">
         <div class="vertical-center left-box">
           <ion-img [src]="getImgName()"></ion-img>
           <div class="answers" *ngIf="item">
-              <p class="item-title">{{'label_your_item'|translate|uppercase}}</p>
-              <div>
+            <p class="item-title">{{'label_your_item'|translate|uppercase}}</p>
+            <div>
               <span class="recap"> {{'label_id'|translate}}:</span>{{item.itemId}}
             </div>
             <div *ngFor="let choice of choices ; let i = index">
@@ -81,6 +81,12 @@
               <ion-col *ngFor="let item of steps[actualStep]| keyvalue">
                 <ion-button color="light" (click)="chooseCategory(item.value)" expand="block" fill="outline">
                   {{getLabel(item.key)}}</ion-button>
+              </ion-col>
+            </ion-row>
+            <ion-row class="other-button" *ngIf="firstStep()">
+              <ion-col size="12">
+                <ion-button color="light" (click)="otherCategory()" expand="block" fill="outline">
+                  {{'label_other_category'|translate}}</ion-button>
               </ion-col>
             </ion-row>
           </ion-row>
@@ -103,6 +109,17 @@
             <ion-icon name="arrow-back"></ion-icon>
           </ion-button>
         </ion-buttons>
-    <ion-title class="ion-text-center">{{ getFooter()}}</ion-title>
+    <ion-row>
+
+      <ion-title class="ion-text-center">{{ getFooter()}}</ion-title>
+      <div class="logos">
+        <div class=frame>
+          <span class="helper"></span><img src="./assets/images/kic.png" />
+        </div>
+        <div class=frame>
+          <span class="helper"></span><img src="./assets/images/eu_flag.png" />
+        </div>
+      </div>
+    </ion-row>
   </ion-toolbar>
 </ion-footer>

@@ -1,6 +1,15 @@
 {
 	"tenantId":"TRENTINO",
   "items" : {
+    "Generic item" : {
+      "id" : "Generic item",
+      "category" : "Generic items",
+      "name" : {
+        "en" : "Generic item",
+        "it" : "Oggetto generico"
+      },
+      "weight" : 0.0
+    },
     "Electrical weighing scale" : {
       "id" : "Electrical weighing scale",
       "category" : "Small household appliances",

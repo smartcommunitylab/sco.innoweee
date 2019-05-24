@@ -1,0 +1,34 @@
+<ion-content padding>
+  <ion-grid *ngIf="firstStep">
+    <ion-row *ngFor="let collection of collections" class="label-row">
+      <ion-col size="6" text-center class="box" (click)="chooseCategory(collection)">
+        <span>{{getCollectionTitle(collection)}}</span>
+      </ion-col>
+      <ion-col size="5" text-center>
+        <ion-img class="class-img" [src]="getImgName(collection)"></ion-img>
+      </ion-col>
+    </ion-row>
+    <ion-row class="label-row">
+
+      <ion-col size="6" text-center class="box" (click)="chooseOther(collection)">
+        <span>{{'other_item'|translate}}</span>
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+  <ion-grid *ngIf="!firstStep">
+    <ion-row class="label-row">
+      <ion-col text-center class="box" *ngFor="let item of items" (click)="chooseItem(item)">
+        <span>{{getStringItem(item)}}</span>
+      </ion-col>
+
+    </ion-row>
+    <ion-row class="label-row back">
+      <ion-col size=3></ion-col>
+      <ion-col size="6" text-center class="box" (click)="chooseBack()">
+        <span>{{'back_label'|translate}}</span>
+      </ion-col>
+      <ion-col size=3></ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

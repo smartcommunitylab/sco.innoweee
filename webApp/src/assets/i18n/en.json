@@ -125,7 +125,10 @@
         "label_subtitle_recap":"Che the correctness of your data",
         "click_class_back":"Go back clicking again on the class you have just clicked",
         "label_from":"From ",
-        "label_to":" to "
+        "label_to":" to ",
+        "label_other_category":"Other category",
+        "other_item":"Generic item",
+        "back_label":"Back"
 
 
 }

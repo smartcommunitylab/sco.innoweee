@@ -19,6 +19,7 @@ export interface ApplicationConfig {
     getGarbageApi:string;
     getUsedApi:string;
     aacClientId:string;
+    getCollection:string;
     redirectUrl:string;
     scope:string;
     aacUrl:string;
@@ -36,6 +37,7 @@ export const APP_CONFIG: ApplicationConfig = {
     getPlayerApi: 'api/player',
     getMaterialApi:'/link',
     getCatalogApi:'api/catalog',
+    getCollection: 'api/collection/',
     buyComponentApi:'/buy/',
     robotApi:"/robot/",
     getRobotImageApi:"api/image/robot/",

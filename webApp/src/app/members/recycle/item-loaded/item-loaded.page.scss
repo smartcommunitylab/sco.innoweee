@@ -91,3 +91,18 @@ ion-grid {
         }
     }
 }
+
+.other-button {
+    margin: 12px;
+    width: 100%;
+
+    ion-col {
+        text-align: center;
+        
+        ion-button {
+            width: 50%;
+            display: inline-block;
+
+        }
+    }
+}

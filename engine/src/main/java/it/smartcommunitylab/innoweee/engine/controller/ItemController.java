@@ -191,9 +191,9 @@ public class ItemController extends AuthController {
 	@PostMapping(value = "/api/item/delivery")
 	public @ResponseBody ItemEvent itemDelivery(
 			@RequestBody ItemEvent itemEvent,
-			@RequestParam(required = false) Long timestamp,
 			HttpServletRequest request, 
 			HttpServletResponse response) throws Exception {
+		long now = System.currentTimeMillis();
 		Optional<Player> optionalPlayer = playerRepository.findById(itemEvent.getPlayerId());
 		if(optionalPlayer.isEmpty()) {
 			throw new EntityNotFoundException("player not found");
@@ -211,11 +211,10 @@ public class ItemController extends AuthController {
 		if(itemRepository.findByItemId(itemEvent.getItemId()) != null) {
 			throw new EntityNotFoundException("item already used");
 		}
-		if(timestamp != null) {
-			itemEvent.setTimestamp(timestamp);
-		} else {
-			itemEvent.setTimestamp(System.currentTimeMillis());
+		if(itemEvent.getTimestamp() == 0) {
+			itemEvent.setTimestamp(now);
 		}
+		itemEvent.setSaveTime(new Date(now));
 		GarbageCollection actualCollection = collectionRepository.findActualCollection(
 				game.getTenantId(), game.getObjectId(), itemEvent.getTimestamp());
 		if(actualCollection == null) {
@@ -250,7 +249,7 @@ public class ItemController extends AuthController {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
 		StringBuffer sb = new StringBuffer("instituteName,instituteId,schoolName,schoolId,");
 		sb.append("gameName,gameId,playerName,playerId,collection,itemId,itemType,isBroken,");
-		sb.append("isSwitchingOn,ageRange,isReusable,isValuable,timestamp\n");
+		sb.append("isSwitchingOn,ageRange,isReusable,isValuable,timestamp,saveTime\n");
 		List<Institute> instituteList = instituteRepository.findByTenantId(tenantId);
 		Map<String, Institute> instituteMap = new HashMap<>();
 		List<String> institues = new ArrayList<>();
@@ -306,6 +305,10 @@ public class ItemController extends AuthController {
 				String isReusable = String.valueOf(event.isReusable());
 				String isValuable = String.valueOf(event.isValuable());
 				String timestamp = sdf.format(new Date(event.getTimestamp()));
+				String saveTime = null;
+				if(event.getSaveTime() != null) {
+					saveTime = sdf.format(event.getSaveTime());
+				}
 				sb.append("\"" + instituteName + "\",");
 				sb.append("\"" + instituteId + "\",");
 				sb.append("\"" + schoolName + "\",");
@@ -322,7 +325,12 @@ public class ItemController extends AuthController {
 				sb.append("\"" + ageRange + "\",");
 				sb.append("\"" + isReusable + "\",");
 				sb.append("\"" + isValuable + "\",");
-				sb.append("\"" + timestamp + "\"\n");
+				sb.append("\"" + timestamp + "\",");
+				if(StringUtils.isEmpty(saveTime)) {
+					sb.append("\n");
+				} else {
+					sb.append("\"" + saveTime + "\"\n");
+				}
 			} catch (Exception e) {
 				logger.debug("getItemCsv error:{} / {}", event.getId(), e.getMessage());
 			}
