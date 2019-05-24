@@ -1,6 +1,21 @@
 {
   "tenantId" : "TRENTINO",
   "categories" : {
+    "Generic items" : {
+      "id" : "Generic items",
+      "materialsConversion" : {
+        "gold" : 0.0,
+        "nickel" : 0.0,
+        "plastic" : 0.0,
+        "glass" : 0.0,
+        "platinum" : 0.0,
+        "aluminium" : 0.0,
+        "tin" : 0.0,
+        "iron" : 0.0,
+        "copper" : 0.0,
+        "silver" : 0.0
+      }
+    },
     "Electrical and electronic tools" : {
       "id" : "Electrical and electronic tools",
       "materialsConversion" : {
