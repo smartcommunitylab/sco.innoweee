@@ -8,7 +8,7 @@ statusCode=1
 APP="innoweee-backend-prod"
 TSTAMP=$(date +%Y.%m.%d-%H.%M.%S)
 TSSRV="$TSTAMP $APP:"
-RELEASE=$(sed -E -n '/<artifactId>(engine)<\/artifactId>.*/{n;p}' pom.xml | grep -Eo '\d\.\d')
+RELEASE=$(sed -E -n '/<artifactId>(engine)<\/artifactId>.*/{n;p}' pom.xml | grep -Eo '[0-9]\.[0-9]')
 echo $RELEASE
 Msg="$TSSRV Build in corso"
 URL="https://api.telegram.org/bot${TG_TOKEN}/sendMessage"
