@@ -249,7 +249,7 @@ public class ItemController extends AuthController {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
 		StringBuffer sb = new StringBuffer("instituteName,instituteId,schoolName,schoolId,");
 		sb.append("gameName,gameId,playerName,playerId,collection,itemId,itemType,isBroken,");
-		sb.append("isSwitchingOn,ageRange,isReusable,isValuable,timestamp,saveTime\n");
+		sb.append("isSwitchingOn,ageRange,isReusable,isValuable,weight,timestamp,saveTime\n");
 		List<Institute> instituteList = instituteRepository.findByTenantId(tenantId);
 		Map<String, Institute> instituteMap = new HashMap<>();
 		List<String> institues = new ArrayList<>();
@@ -278,6 +278,7 @@ public class ItemController extends AuthController {
 			playerMap.put(player.getObjectId(), player);
 			players.add(player.getObjectId());
 		}
+		GarbageMap garbageMap = garbageMapRepository.findByTenantId(tenantId);
 		List<ItemEvent> eventList = itemRepository.findByPlayerIds(players, 
 				new Sort(Sort.Direction.DESC, "timestamp"));
 		for(ItemEvent event : eventList) {
@@ -304,6 +305,7 @@ public class ItemController extends AuthController {
 				String ageRange = String.valueOf(event.getAge());
 				String isReusable = String.valueOf(event.isReusable());
 				String isValuable = String.valueOf(event.isValuable());
+				String weight = String.valueOf(garbageMap.getItems().get(itemType).getWeight());
 				String timestamp = sdf.format(new Date(event.getTimestamp()));
 				String saveTime = null;
 				if(event.getSaveTime() != null) {
@@ -325,6 +327,7 @@ public class ItemController extends AuthController {
 				sb.append("\"" + ageRange + "\",");
 				sb.append("\"" + isReusable + "\",");
 				sb.append("\"" + isValuable + "\",");
+				sb.append("\"" + weight + "\",");
 				sb.append("\"" + timestamp + "\",");
 				if(StringUtils.isEmpty(saveTime)) {
 					sb.append("\n");
