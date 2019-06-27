@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MainPage } from 'src/app/class/MainPage';
 import { TranslateService } from '@ngx-translate/core';
-import { ToastController, NavController, AlertController } from '@ionic/angular';
+import { ToastController, NavController, AlertController, LoadingController } from '@ionic/angular';
 import { ProfileService } from 'src/app/services/profile.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { GarbageCollectionService } from 'src/app/services/garbage-collection.service';
@@ -46,6 +46,7 @@ export class QuestionPage extends MainPage implements OnInit {
     private alertController: AlertController,
     private garbageCollection: GarbageCollectionService,
     private router: Router,
+    private loadingController:LoadingController,
     public catalogService: CatalogService) {
     super(translate, authService, storage,navCtrl);
   }
@@ -84,11 +85,22 @@ export class QuestionPage extends MainPage implements OnInit {
     this.coinsGained += this.replies[key].value;
     this.numberReplies++;
   }
-  goToStart() {
+  async goToStart() {
+    const loading = await this.loadingController.create({
+    });
+    this.presentLoading(loading);
     this.garbageCollection.reduce(this.playerData.objectId, this.coinsGained).then(res => {
+      loading.dismiss();
       this.router.navigate(['start']);
+      this.coinsGained =0;
+      this.numberReplies = 0;
+    },err =>{
+      loading.dismiss();
     })
 
+  }
+  async presentLoading(loading) {
+    return await loading.present();
   }
   getSchoolName() {
     return this.profileService.getSchoolName();
