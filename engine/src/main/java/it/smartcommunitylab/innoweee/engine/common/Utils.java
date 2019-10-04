@@ -25,9 +25,12 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 
 import it.smartcommunitylab.innoweee.engine.model.Catalog;
 import it.smartcommunitylab.innoweee.engine.model.Component;
+import it.smartcommunitylab.innoweee.engine.model.Contribution;
+import it.smartcommunitylab.innoweee.engine.model.GarbageCollection;
 import it.smartcommunitylab.innoweee.engine.model.Player;
 import it.smartcommunitylab.innoweee.engine.model.Robot;
 import it.smartcommunitylab.innoweee.engine.repository.CatalogRepository;
+import it.smartcommunitylab.innoweee.engine.repository.GarbageCollectionRepository;
 import it.smartcommunitylab.innoweee.engine.security.Authorization;
 import it.smartcommunitylab.innoweee.engine.security.User;
 
@@ -227,6 +230,17 @@ public class Utils {
 				}
 			}
 			player.setRobot(robot);			
+		}
+	}
+	
+	public static void setContributions(Player player, String tenantId, String gameId,
+			GarbageCollectionRepository garbageCollectionRepository) {
+		List<GarbageCollection> list = garbageCollectionRepository.findByGameId(tenantId, gameId);
+		for(GarbageCollection garbageCollection : list) {
+			Contribution contribution = new Contribution();
+			contribution.setGarbageCollectionName(garbageCollection.getNameGE());
+			contribution.setGarbageCollectionId(garbageCollection.getObjectId());
+			player.getContributions().add(contribution);
 		}
 	}
 }

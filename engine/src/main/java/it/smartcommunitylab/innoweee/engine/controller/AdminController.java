@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.smartcommunitylab.innoweee.engine.common.Const;
+import it.smartcommunitylab.innoweee.engine.common.Utils;
 import it.smartcommunitylab.innoweee.engine.exception.UnauthorizedException;
 import it.smartcommunitylab.innoweee.engine.model.Catalog;
 import it.smartcommunitylab.innoweee.engine.model.CategoryMap;
@@ -33,6 +34,7 @@ import it.smartcommunitylab.innoweee.engine.model.TenantData;
 import it.smartcommunitylab.innoweee.engine.repository.CatalogRepository;
 import it.smartcommunitylab.innoweee.engine.repository.CategoryMapRepository;
 import it.smartcommunitylab.innoweee.engine.repository.GameRepository;
+import it.smartcommunitylab.innoweee.engine.repository.GarbageCollectionRepository;
 import it.smartcommunitylab.innoweee.engine.repository.GarbageMapRepository;
 import it.smartcommunitylab.innoweee.engine.repository.InstituteRepository;
 import it.smartcommunitylab.innoweee.engine.repository.ItemValuableMapRepository;
@@ -59,6 +61,8 @@ public class AdminController extends AuthController {
 	private GameRepository gameRepository;
 	@Autowired
 	private PlayerRepository playerRepository;
+	@Autowired
+	private GarbageCollectionRepository garbageCollectionRepository;
 
 	@PostMapping(value = "/admin/catalog")
 	public Catalog saveCatalog(
@@ -194,6 +198,7 @@ public class AdminController extends AuthController {
 			player.setName(className);
 			player.setGameId(game.getObjectId());
 			player.setTeam(false);
+			Utils.setContributions(player, game.getTenantId(), game.getObjectId(), garbageCollectionRepository);
 			playerRepository.save(player);
 		}
 		Player player = new Player();

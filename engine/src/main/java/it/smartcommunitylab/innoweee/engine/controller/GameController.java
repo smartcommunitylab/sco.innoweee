@@ -57,6 +57,8 @@ public class GameController extends AuthController {
 	private GeManager geManager;
 	@Autowired
 	private ImageManager imageManager;
+	@Autowired
+	private GarbageCollectionRepository garbageCollectionRepository;
 	
 	@GetMapping(value = "/api/game/{tenantId}/{instituteId}/{schoolId}")
 	public @ResponseBody List<Game> searchGame(
@@ -283,10 +285,12 @@ public class GameController extends AuthController {
 				}
 			}
 		}
-		// reset robot
 		for(Player pl : list) {
 			if(!pl.isTeam()) {
+				// reset robot
 				Utils.addNewRobot(pl, catalogRepository);
+				// reset contributions
+				Utils.setContributions(pl, game.getTenantId(), gameId, garbageCollectionRepository);
 				pl.setLastUpdate(new Date());
 				playerRepository.save(pl);
 				imageManager.storeRobotImage(pl);
