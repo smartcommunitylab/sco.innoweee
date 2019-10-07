@@ -158,6 +158,10 @@ public class GeManager {
 		executionApi.executeActionUsingPOST(gameId, "reduceReport", dataDTO);		
 	}
 	
+	public void contribution(String gameId, String playerId, Map<String, Map<String, Double>> playerCostMap) {
+		//TODO
+	}
+	
 	public PlayerState getPlayerState(String gameId, String playerId, 
 			String collectionName) throws Exception {
 		PlayerStateDTO playerStateDTO = playerApi.readStateUsingGET(gameId, playerId);
@@ -312,6 +316,12 @@ public class GeManager {
 			}
 		}			
 		return playerState;
+	}
+	
+	public Map<String, Map<String, Double>> getPlayerCostMap(String gameId, String playerId,
+			Map<String, Double> costMap) {
+		//TODO
+		return null;
 	}
 	
 }

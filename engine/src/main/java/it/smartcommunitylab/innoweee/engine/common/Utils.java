@@ -26,6 +26,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import it.smartcommunitylab.innoweee.engine.model.Catalog;
 import it.smartcommunitylab.innoweee.engine.model.Component;
 import it.smartcommunitylab.innoweee.engine.model.Contribution;
+import it.smartcommunitylab.innoweee.engine.model.ContributionPoint;
 import it.smartcommunitylab.innoweee.engine.model.GarbageCollection;
 import it.smartcommunitylab.innoweee.engine.model.Player;
 import it.smartcommunitylab.innoweee.engine.model.Robot;
@@ -243,4 +244,44 @@ public class Utils {
 			player.getContributions().add(contribution);
 		}
 	}
+	
+	public static boolean checkDonation(Player player, String nameGE) {
+		for(Contribution contribution : player.getContributions()) {
+			if(contribution.getGarbageCollectionName().equals(nameGE)) {
+				if(contribution.getDonatedPoints().size() > 0) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	public static void sendContribution(Player player, String nameGE, 
+			Map<String, Double> costMap) {
+		for(Contribution contribution : player.getContributions()) {
+			if(contribution.getGarbageCollectionName().equals(nameGE)) {
+				ContributionPoint contributionPoint = new ContributionPoint();
+				contributionPoint.setPlayerId(player.getObjectId());
+				contributionPoint.setPlayerName(player.getName());
+				contributionPoint.setCostMap(costMap);
+				contributionPoint.setTimestamp(new Date());
+				contribution.getDonatedPoints().add(contributionPoint);
+			}
+		}
+	}
+	
+	public static void receiveContribution(Player player, String nameGE, 
+			Map<String, Double> costMap) {
+		for(Contribution contribution : player.getContributions()) {
+			if(contribution.getGarbageCollectionName().equals(nameGE)) {
+				ContributionPoint contributionPoint = new ContributionPoint();
+				contributionPoint.setPlayerId(player.getObjectId());
+				contributionPoint.setPlayerName(player.getName());
+				contributionPoint.setCostMap(costMap);
+				contributionPoint.setTimestamp(new Date());
+				contribution.getReceivedPoints().add(contributionPoint);
+			}
+		}
+	}
+
 }

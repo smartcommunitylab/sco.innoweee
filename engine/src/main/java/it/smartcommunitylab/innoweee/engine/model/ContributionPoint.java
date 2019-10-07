@@ -1,5 +1,6 @@
 package it.smartcommunitylab.innoweee.engine.model;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -7,6 +8,7 @@ public class ContributionPoint {
 	private String playerName;
 	private String playerId;
 	private Map<String, Double> costMap = new HashMap<String, Double>();
+	private Date timestamp; 
 	
 	public String getPlayerName() {
 		return playerName;
@@ -25,6 +27,12 @@ public class ContributionPoint {
 	}
 	public void setCostMap(Map<String, Double> costMap) {
 		this.costMap = costMap;
+	}
+	public Date getTimestamp() {
+		return timestamp;
+	}
+	public void setTimestamp(Date timestamp) {
+		this.timestamp = timestamp;
 	}
 
 	

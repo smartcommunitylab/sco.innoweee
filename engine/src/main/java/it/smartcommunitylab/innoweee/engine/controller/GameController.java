@@ -3,6 +3,7 @@ package it.smartcommunitylab.innoweee.engine.controller;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
@@ -70,12 +71,10 @@ public class GameController extends AuthController {
 		List<Game> result = new ArrayList<>();
 		List<Game> list = gameRepository.findBySchoolId(tenantId, instituteId, schoolId);
 		for(Game game : list) {
-			//TODO TEST
-			result.add(game);
-//			if(validateAuthorization(tenantId, instituteId, schoolId, game.getObjectId(), 
-//				Const.AUTH_RES_Game, Const.AUTH_ACTION_READ, request)) {
-//				result.add(game);
-//			}
+			if(validateAuthorization(tenantId, instituteId, schoolId, game.getObjectId(), 
+				Const.AUTH_RES_Game, Const.AUTH_ACTION_READ, request)) {
+				result.add(game);
+			}
 		}
 		logger.info("searchGame[{}]:{} / {} / {}", tenantId, instituteId, schoolId, result.size());
 		return result;
@@ -251,6 +250,43 @@ public class GameController extends AuthController {
 		PlayerState playerState = geManager.getPlayerState(game.getGeGameId(), playerId, nameGE);
 		logger.info("getPlayerState[{}]:{} / {} / {}", game.getTenantId(), gameId, playerId, nameGE);
 		return playerState;
+	}
+	
+	@GetMapping(value = "/api/game/{gameId}/contribution/{playerId}")
+	public @ResponseBody Player sendContribution(
+			@PathVariable String gameId,
+			@PathVariable String playerId,
+			@RequestParam String nameGE,
+			@RequestBody Map<String, Double> costMap,
+			HttpServletRequest request, 
+			HttpServletResponse response) throws Exception {
+		Optional<Game> optionalGame = gameRepository.findById(gameId);
+		if(optionalGame.isEmpty()) {
+			throw new EntityNotFoundException("game not found");
+		}
+		Game game = optionalGame.get();
+		if(!validateAuthorization(game.getTenantId(), game.getInstituteId(), game.getSchoolId(), 
+				game.getObjectId(), Const.AUTH_RES_Game_Player, Const.AUTH_ACTION_UPDATE, request)) {
+			throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
+		}
+		Optional<Player> optionalPlayer = playerRepository.findById(playerId);
+		if(optionalPlayer.isEmpty()) {
+			throw new EntityNotFoundException("player not found");
+		}
+		Player player = optionalPlayer.get();
+		if(Utils.checkDonation(player, nameGE)) {
+			throw new EntityNotFoundException("donation already done");
+		}
+		Map<String, Map<String, Double>> playerCostMap = geManager.getPlayerCostMap(gameId, playerId, costMap);
+		geManager.contribution(gameId, playerId, playerCostMap);
+		Utils.sendContribution(player, nameGE, costMap);
+		for(String objectId : playerCostMap.keySet()) {
+			Optional<Player> optional = playerRepository.findById(objectId);
+			if(optional.isPresent()) {
+				Utils.receiveContribution(optional.get(), nameGE, playerCostMap.get(objectId));
+			}
+		}
+		return player;
 	}
 	
 	@GetMapping(value = "/api/game/{gameId}/gereset")
