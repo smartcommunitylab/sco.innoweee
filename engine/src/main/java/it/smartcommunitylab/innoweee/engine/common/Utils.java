@@ -27,8 +27,12 @@ import it.smartcommunitylab.innoweee.engine.model.Catalog;
 import it.smartcommunitylab.innoweee.engine.model.Component;
 import it.smartcommunitylab.innoweee.engine.model.Contribution;
 import it.smartcommunitylab.innoweee.engine.model.ContributionPoint;
+import it.smartcommunitylab.innoweee.engine.model.Game;
+import it.smartcommunitylab.innoweee.engine.model.GameAction;
 import it.smartcommunitylab.innoweee.engine.model.GarbageCollection;
+import it.smartcommunitylab.innoweee.engine.model.ItemEvent;
 import it.smartcommunitylab.innoweee.engine.model.Player;
+import it.smartcommunitylab.innoweee.engine.model.ReduceReport;
 import it.smartcommunitylab.innoweee.engine.model.Robot;
 import it.smartcommunitylab.innoweee.engine.repository.CatalogRepository;
 import it.smartcommunitylab.innoweee.engine.repository.GarbageCollectionRepository;
@@ -282,6 +286,55 @@ public class Utils {
 				contribution.getReceivedPoints().add(contributionPoint);
 			}
 		}
+	}
+	
+	public static GameAction getBuildRobotGameAction(Game game, Player player, Component component) {
+		Date now = new Date();
+		GameAction action = new GameAction();
+		action.setInstituteId(game.getInstituteId());
+		action.setSchoolId(game.getSchoolId());
+		action.setGameId(game.getObjectId());
+		action.setPlayerId(player.getObjectId());
+		action.setPlayerName(player.getName());
+		action.setActionType(Const.ACTION_BUILD_ROBOT);
+		action.getCustomData().put("componentId", component.getComponentId());
+		action.getCustomData().putAll(component.getCostMap());
+		action.setCreationDate(now);
+		action.setLastUpdate(now);
+		return action;
+	}
+	
+	public static GameAction getReduceReportGameAction(Game game, Player player, ReduceReport report) {
+		Date now = new Date();
+		GameAction action = new GameAction();
+		action.setInstituteId(game.getInstituteId());
+		action.setSchoolId(game.getSchoolId());
+		action.setGameId(game.getObjectId());
+		action.setPlayerId(player.getObjectId());
+		action.setPlayerName(player.getName());
+		action.setActionType(Const.ACTION_ADD_POINT);
+		action.getCustomData().put("pointType", "reduceReport");
+		action.getCustomData().put(Const.COIN_REDUCE, report.getReduceCoin());
+		action.setCreationDate(now);
+		action.setLastUpdate(now);
+		return action;
+	}
+	
+	public static GameAction getItemDeliveryGameAction(Game game, Player player, ItemEvent itemEvent) {
+		Date now = new Date();
+		GameAction action = new GameAction();
+		action.setInstituteId(game.getInstituteId());
+		action.setSchoolId(game.getSchoolId());
+		action.setGameId(game.getObjectId());
+		action.setPlayerId(player.getObjectId());
+		action.setPlayerName(player.getName());
+		action.setActionType(Const.ACTION_ADD_POINT);
+		action.getCustomData().put("pointType", "itemDelivery");
+		action.getCustomData().put("itemId", itemEvent.getItemId());
+		action.getCustomData().put(Const.COIN_REUSE, itemEvent.isReusable());
+		action.setCreationDate(now);
+		action.setLastUpdate(now);
+		return action;		
 	}
 
 }

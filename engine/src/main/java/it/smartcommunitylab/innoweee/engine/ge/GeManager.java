@@ -1,5 +1,6 @@
 package it.smartcommunitylab.innoweee.engine.ge;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -16,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
 import it.smartcommunitylab.ApiClient;
+import it.smartcommunitylab.ApiException;
 import it.smartcommunitylab.basic.api.ExecutionControllerApi;
 import it.smartcommunitylab.basic.api.PlayerControllerApi;
 import it.smartcommunitylab.basic.api.TeamControllerApi;
@@ -24,7 +26,9 @@ import it.smartcommunitylab.innoweee.engine.model.Category;
 import it.smartcommunitylab.innoweee.engine.model.Component;
 import it.smartcommunitylab.innoweee.engine.model.Game;
 import it.smartcommunitylab.innoweee.engine.model.Garbage;
+import it.smartcommunitylab.innoweee.engine.model.GarbageCollection;
 import it.smartcommunitylab.innoweee.engine.model.ItemEvent;
+import it.smartcommunitylab.innoweee.engine.model.Player;
 import it.smartcommunitylab.innoweee.engine.model.PlayerState;
 import it.smartcommunitylab.innoweee.engine.model.ReduceReport;
 import it.smartcommunitylab.model.PlayerStateDTO;
@@ -318,9 +322,31 @@ public class GeManager {
 		return playerState;
 	}
 	
+	/**
+	 * 
+	 * @param gameId
+	 * @param playerId
+	 * @param players
+	 * @param collections
+	 * @return a Map where the key is the playerId and the value is a costMap
+	 */
 	public Map<String, Map<String, Double>> getPlayerCostMap(String gameId, String playerId,
-			Map<String, Double> costMap) {
-		//TODO
+			List<Player> players, List<GarbageCollection> collections) {
+		Map<String, PlayerStateDTO> statusMap = new HashMap<>();
+		for(Player player : players) {
+			try {
+				PlayerStateDTO playerStateDTO = playerApi.readStateUsingGET(gameId, player.getObjectId());
+				statusMap.put(player.getObjectId(), playerStateDTO);
+			} catch (ApiException | IOException e) {
+				logger.warn("getPlayerCostMap - read player status error:{}", e.getMessage());
+			}
+		}
+		return assignPoints(playerId, statusMap, collections);
+	}
+
+	private Map<String, Map<String, Double>> assignPoints(String playerId, Map<String, PlayerStateDTO> statusMap,
+			List<GarbageCollection> collections) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 	

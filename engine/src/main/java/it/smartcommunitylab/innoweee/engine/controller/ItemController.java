@@ -26,12 +26,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.smartcommunitylab.innoweee.engine.common.Const;
+import it.smartcommunitylab.innoweee.engine.common.Utils;
 import it.smartcommunitylab.innoweee.engine.exception.EntityNotFoundException;
 import it.smartcommunitylab.innoweee.engine.exception.UnauthorizedException;
 import it.smartcommunitylab.innoweee.engine.ge.GeManager;
 import it.smartcommunitylab.innoweee.engine.model.Category;
 import it.smartcommunitylab.innoweee.engine.model.CategoryMap;
 import it.smartcommunitylab.innoweee.engine.model.Game;
+import it.smartcommunitylab.innoweee.engine.model.GameAction;
 import it.smartcommunitylab.innoweee.engine.model.Garbage;
 import it.smartcommunitylab.innoweee.engine.model.GarbageCollection;
 import it.smartcommunitylab.innoweee.engine.model.GarbageMap;
@@ -43,6 +45,7 @@ import it.smartcommunitylab.innoweee.engine.model.Player;
 import it.smartcommunitylab.innoweee.engine.model.ReduceReport;
 import it.smartcommunitylab.innoweee.engine.model.School;
 import it.smartcommunitylab.innoweee.engine.repository.CategoryMapRepository;
+import it.smartcommunitylab.innoweee.engine.repository.GameActionRepository;
 import it.smartcommunitylab.innoweee.engine.repository.GameRepository;
 import it.smartcommunitylab.innoweee.engine.repository.GarbageCollectionRepository;
 import it.smartcommunitylab.innoweee.engine.repository.GarbageMapRepository;
@@ -78,6 +81,8 @@ public class ItemController extends AuthController {
 	private ReduceReportRepository reduceReportRepository;
 	@Autowired
 	private ItemValuableMapRepository valuableMapRepository;
+	@Autowired
+	private GameActionRepository gameActionRepository;	
 	@Autowired
 	private GeManager geManager;
 	@Autowired
@@ -152,6 +157,8 @@ public class ItemController extends AuthController {
 		geManager.reduceReport(game.getGeGameId(), player.getObjectId(), report, 
 				actualCollection.getNameGE());
 		reduceReportRepository.save(report);
+		GameAction gameAction = Utils.getReduceReportGameAction(game, player, report);
+		gameActionRepository.save(gameAction);
 		logger.info("reduceReport[{}]:{} / {}", game.getTenantId(), 
 				report.getPlayerId(), report.getObjectId());		
 		return report;
@@ -233,6 +240,8 @@ public class ItemController extends AuthController {
 		geManager.itemDelivery(game.getGeGameId(), player.getObjectId(), itemEvent, 
 				actualCollection.getNameGE(), garbage, category);
 		itemRepository.save(itemEvent);
+		GameAction gameAction = Utils.getItemDeliveryGameAction(game, player, itemEvent);
+		gameActionRepository.save(gameAction);
 		logger.debug("itemDelivery:{} / {}", itemEvent.getItemType(), itemEvent.getItemId());
 		return itemEvent;
 	}

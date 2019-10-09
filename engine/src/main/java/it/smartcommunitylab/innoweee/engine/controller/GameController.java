@@ -32,12 +32,14 @@ import it.smartcommunitylab.innoweee.engine.img.ImageManager;
 import it.smartcommunitylab.innoweee.engine.model.Catalog;
 import it.smartcommunitylab.innoweee.engine.model.Component;
 import it.smartcommunitylab.innoweee.engine.model.Game;
+import it.smartcommunitylab.innoweee.engine.model.GameAction;
 import it.smartcommunitylab.innoweee.engine.model.GarbageCollection;
 import it.smartcommunitylab.innoweee.engine.model.Link;
 import it.smartcommunitylab.innoweee.engine.model.Player;
 import it.smartcommunitylab.innoweee.engine.model.PlayerState;
 import it.smartcommunitylab.innoweee.engine.model.Robot;
 import it.smartcommunitylab.innoweee.engine.repository.CatalogRepository;
+import it.smartcommunitylab.innoweee.engine.repository.GameActionRepository;
 import it.smartcommunitylab.innoweee.engine.repository.GameRepository;
 import it.smartcommunitylab.innoweee.engine.repository.GarbageCollectionRepository;
 import it.smartcommunitylab.innoweee.engine.repository.PlayerRepository;
@@ -60,6 +62,8 @@ public class GameController extends AuthController {
 	private ImageManager imageManager;
 	@Autowired
 	private GarbageCollectionRepository garbageCollectionRepository;
+	@Autowired
+	private GameActionRepository gameActionRepository;
 	
 	@GetMapping(value = "/api/game/{tenantId}/{instituteId}/{schoolId}")
 	public @ResponseBody List<Game> searchGame(
@@ -227,6 +231,8 @@ public class GameController extends AuthController {
 		player.getRobot().getComponents().put(newComponent.getComponentId(), newComponent);
 		playerRepository.save(player);
 		imageManager.storeRobotImage(player);
+		GameAction gameAction = Utils.getBuildRobotGameAction(game, player, newComponent);
+		gameActionRepository.save(gameAction);
 		logger.info("buildRobot[{}]:{} / {}", player.getTenantId(), playerId, componentId);
 		return player.getRobot();
 	}
@@ -277,7 +283,10 @@ public class GameController extends AuthController {
 		if(Utils.checkDonation(player, nameGE)) {
 			throw new EntityNotFoundException("donation already done");
 		}
-		Map<String, Map<String, Double>> playerCostMap = geManager.getPlayerCostMap(gameId, playerId, costMap);
+		List<Player> players = playerRepository.findByGameId(game.getTenantId(), gameId);
+		List<GarbageCollection> collections = garbageCollectionRepository.findByGameId(game.getTenantId(), gameId);
+		Map<String, Map<String, Double>> playerCostMap = geManager.getPlayerCostMap(game.getGeGameId(), playerId, 
+				players, collections);
 		geManager.contribution(gameId, playerId, playerCostMap);
 		Utils.sendContribution(player, nameGE, costMap);
 		for(String objectId : playerCostMap.keySet()) {
