@@ -341,7 +341,27 @@ public class GeManager {
 				logger.warn("getPlayerCostMap - read player status error:{}", e.getMessage());
 			}
 		}
-		return assignPoints(playerId, statusMap, collections);
+		//get playerId costMap
+		Map<String, Double> costMap = new HashMap<>();
+		PlayerStateDTO state = statusMap.get(playerId);
+		Set<GameConcept> points = state.getState().get("PointConcept");
+		for(GameConcept point : points) {
+			PointConcept pointConcept = (PointConcept) point;
+			switch (pointConcept.getName()) {
+				case "reduceCoin":
+					costMap.put(Const.COIN_REDUCE, pointConcept.getScore());
+					break;
+				case "recycleCoin":
+					costMap.put(Const.COIN_RECYCLE, pointConcept.getScore());
+					break;
+				case "reuseCoin":
+					costMap.put(Const.COIN_REUSE, pointConcept.getScore());
+					break;
+			}
+		}
+		Map<String, Map<String, Double>> result = assignPoints(playerId, statusMap, collections);
+		result.put(playerId, costMap);
+		return result;
 	}
 
 	private Map<String, Map<String, Double>> assignPoints(String playerId, Map<String, PlayerStateDTO> statusMap,

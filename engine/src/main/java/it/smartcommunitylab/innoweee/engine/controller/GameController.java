@@ -263,7 +263,6 @@ public class GameController extends AuthController {
 			@PathVariable String gameId,
 			@PathVariable String playerId,
 			@RequestParam String nameGE,
-			@RequestBody Map<String, Double> costMap,
 			HttpServletRequest request, 
 			HttpServletResponse response) throws Exception {
 		Optional<Game> optionalGame = gameRepository.findById(gameId);
@@ -288,8 +287,12 @@ public class GameController extends AuthController {
 		Map<String, Map<String, Double>> playerCostMap = geManager.getPlayerCostMap(game.getGeGameId(), playerId, 
 				players, collections);
 		geManager.contribution(gameId, playerId, playerCostMap);
+		Map<String, Double> costMap = playerCostMap.get(playerId);
 		Utils.sendContribution(player, nameGE, costMap);
 		for(String objectId : playerCostMap.keySet()) {
+			if(playerId.equals(objectId)) {
+				continue;
+			}
 			Optional<Player> optional = playerRepository.findById(objectId);
 			if(optional.isPresent()) {
 				Utils.receiveContribution(optional.get(), nameGE, playerCostMap.get(objectId));
