@@ -27,6 +27,7 @@ import it.smartcommunitylab.innoweee.engine.common.Const;
 import it.smartcommunitylab.innoweee.engine.common.Utils;
 import it.smartcommunitylab.innoweee.engine.exception.EntityNotFoundException;
 import it.smartcommunitylab.innoweee.engine.exception.UnauthorizedException;
+import it.smartcommunitylab.innoweee.engine.ge.CoinMap;
 import it.smartcommunitylab.innoweee.engine.ge.GeManager;
 import it.smartcommunitylab.innoweee.engine.img.ImageManager;
 import it.smartcommunitylab.innoweee.engine.model.Catalog;
@@ -284,18 +285,16 @@ public class GameController extends AuthController {
 		}
 		List<Player> players = playerRepository.findByGameId(game.getTenantId(), gameId);
 		List<GarbageCollection> collections = garbageCollectionRepository.findByGameId(game.getTenantId(), gameId);
-		Map<String, Map<String, Double>> playerCostMap = geManager.getPlayerCostMap(game.getGeGameId(), playerId, 
-				players, collections);
-		geManager.contribution(gameId, playerId, playerCostMap);
-		Map<String, Double> costMap = playerCostMap.get(playerId);
-		Utils.sendContribution(player, nameGE, costMap);
-		for(String objectId : playerCostMap.keySet()) {
+		Map<String, CoinMap> playerCoinMap = geManager.getPlayerCoinMap(game.getGeGameId(), playerId, players, collections);
+		geManager.sendContribution(gameId, playerId, playerCoinMap.get(playerId));
+		Utils.sendContribution(player, nameGE, playerCoinMap.get(playerId));
+		for(String objectId : playerCoinMap.keySet()) {
 			if(playerId.equals(objectId)) {
 				continue;
 			}
 			Optional<Player> optional = playerRepository.findById(objectId);
 			if(optional.isPresent()) {
-				Utils.receiveContribution(optional.get(), nameGE, playerCostMap.get(objectId));
+				Utils.receiveContribution(optional.get(), nameGE, playerCoinMap.get(objectId));
 			}
 		}
 		return player;

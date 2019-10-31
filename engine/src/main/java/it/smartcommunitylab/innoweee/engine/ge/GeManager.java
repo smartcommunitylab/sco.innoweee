@@ -3,14 +3,11 @@ package it.smartcommunitylab.innoweee.engine.ge;
 import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.annotation.PostConstruct;
 
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,8 +30,6 @@ import it.smartcommunitylab.innoweee.engine.model.PlayerState;
 import it.smartcommunitylab.innoweee.engine.model.ReduceReport;
 import it.smartcommunitylab.model.PlayerStateDTO;
 import it.smartcommunitylab.model.ext.ExecutionDataDTO;
-import it.smartcommunitylab.model.ext.GameConcept;
-import it.smartcommunitylab.model.ext.PointConcept;
 import it.smartcommunitylab.model.ext.TeamDTO;
 
 @org.springframework.stereotype.Component
@@ -162,164 +157,20 @@ public class GeManager {
 		executionApi.executeActionUsingPOST(gameId, "reduceReport", dataDTO);		
 	}
 	
-	public void contribution(String gameId, String playerId, Map<String, Map<String, Double>> playerCostMap) {
+	public void sendContribution(String gameId, String playerId, CoinMap coinMap) {
+		//TODO
+	}
+	
+	public void receiveContribution(String gameId, String playerId, CoinMap coinMap) {
 		//TODO
 	}
 	
 	public PlayerState getPlayerState(String gameId, String playerId, 
 			String collectionName) throws Exception {
+		PlayersStatus playersStatus = new PlayersStatus();
 		PlayerStateDTO playerStateDTO = playerApi.readStateUsingGET(gameId, playerId);
-		PlayerState playerState = new PlayerState();
-		playerState.setPlayerId(playerId);
-		boolean periodState = !StringUtils.isEmpty(collectionName);
-		if(periodState) {
-			playerState.setNameGE(collectionName);
-		}
-		Set<GameConcept> scores = playerStateDTO.getState().get("PointConcept");
-		if(scores != null) {
-			Iterator<GameConcept> iterator = scores.iterator();
-			while (iterator.hasNext()) {
-				PointConcept pointConcept = (PointConcept) iterator.next();
-				switch (pointConcept.getName()) {
-				case "reduceCoin":
-					if(periodState) {
-						playerState.setReduceCoin(pointConcept.getPeriodScore(collectionName, 0));
-					} else {
-						playerState.setReduceCoin(pointConcept.getScore());
-					}
-					break;
-				case "totalReuse":
-					if(periodState) {
-						playerState.setTotalReuseCoin(pointConcept.getPeriodScore(collectionName, 0));
-					} else {
-						playerState.setTotalReuseCoin(pointConcept.getScore());
-					}
-					break;
-				case "recycleCoin":
-					if(periodState) {
-						playerState.setRecycleCoin(pointConcept.getPeriodScore(collectionName, 0));
-					} else {
-						playerState.setRecycleCoin(pointConcept.getScore());
-					}
-					break;	
-				case "totalRecycle":
-					if(periodState) {
-						playerState.setTotalRecycleCoin(pointConcept.getPeriodScore(collectionName, 0));
-					} else {
-						playerState.setTotalRecycleCoin(pointConcept.getScore());
-					}
-					break;
-				case "reuseCoin":
-					if(periodState) {
-						playerState.setReuseCoin(pointConcept.getPeriodScore(collectionName, 0));
-					} else {
-						playerState.setReuseCoin(pointConcept.getScore());
-					}
-					break;
-				case "totalReduce":
-					if(periodState) {
-						playerState.setTotalReduceCoin(pointConcept.getPeriodScore(collectionName, 0));
-					} else {
-						playerState.setTotalReduceCoin(pointConcept.getScore());
-					}
-					break;
-				case "totalItems":
-					if(periodState) {
-						playerState.setItems(pointConcept.getPeriodScore(collectionName, 0));
-					} else {
-						playerState.setItems(pointConcept.getScore());
-					}
-					break;
-				case "weight":
-					if(periodState) {
-						playerState.setWeight(pointConcept.getPeriodScore(collectionName, 0));
-					} else {
-						playerState.setWeight(pointConcept.getScore());
-					}
-					break;
-				case "CO2":
-					if(periodState) {
-						playerState.setCo2(pointConcept.getPeriodScore(collectionName, 0));
-					} else {
-						playerState.setCo2(pointConcept.getScore());
-					}
-					break;
-				case "plastic":
-					if(periodState) {
-						playerState.setPlastic(pointConcept.getPeriodScore(collectionName, 0));
-					} else {
-						playerState.setPlastic(pointConcept.getScore());
-					}
-					break;
-				case "glass":
-					if(periodState) {
-						playerState.setGlass(pointConcept.getPeriodScore(collectionName, 0));
-					} else {
-						playerState.setGlass(pointConcept.getScore());
-					}
-					break;
-				case "iron":
-					if(periodState) {
-						playerState.setIron(pointConcept.getPeriodScore(collectionName, 0));
-					} else {
-						playerState.setIron(pointConcept.getScore());
-					}
-					break;
-				case "aluminium":
-					if(periodState) {
-						playerState.setAluminium(pointConcept.getPeriodScore(collectionName, 0));
-					} else {
-						playerState.setAluminium(pointConcept.getScore());
-					}
-					break;
-				case "copper":
-					if(periodState) {
-						playerState.setCopper(pointConcept.getPeriodScore(collectionName, 0));
-					} else {
-						playerState.setCopper(pointConcept.getScore());
-					}
-					break;
-				case "tin":
-					if(periodState) {
-						playerState.setTin(pointConcept.getPeriodScore(collectionName, 0));
-					} else {
-						playerState.setTin(pointConcept.getScore());
-					}
-					break;
-				case "nickel":
-					if(periodState) {
-						playerState.setNickel(pointConcept.getPeriodScore(collectionName, 0));
-					} else {
-						playerState.setNickel(pointConcept.getScore());
-					}
-					break;
-				case "silver":
-					if(periodState) {
-						playerState.setSilver(pointConcept.getPeriodScore(collectionName, 0));
-					} else {
-						playerState.setSilver(pointConcept.getScore());
-					}
-					break;
-				case "gold":
-					if(periodState) {
-						playerState.setGold(pointConcept.getPeriodScore(collectionName, 0));
-					} else {
-						playerState.setGold(pointConcept.getScore());
-					}
-					break;
-				case "platinum":
-					if(periodState) {
-						playerState.setPlatinum(pointConcept.getPeriodScore(collectionName, 0));
-					} else {
-						playerState.setPlatinum(pointConcept.getScore());
-					}
-					break;
-				default:
-					break;
-				}
-			}
-		}			
-		return playerState;
+		playersStatus.addPlayerStatus(playerId, collectionName, playerStateDTO);
+		return playersStatus.getPlayerState(playerId, collectionName);
 	}
 	
 	/**
@@ -328,46 +179,39 @@ public class GeManager {
 	 * @param playerId
 	 * @param players
 	 * @param collections
-	 * @return a Map where the key is the playerId and the value is a costMap
+	 * @return a Map where the key is the playerId and the value is a CostMap
 	 */
-	public Map<String, Map<String, Double>> getPlayerCostMap(String gameId, String playerId,
+	public Map<String, CoinMap> getPlayerCoinMap(String gameId, String playerId,
 			List<Player> players, List<GarbageCollection> collections) {
-		Map<String, PlayerStateDTO> statusMap = new HashMap<>();
+		PlayersStatus playersStatus = new PlayersStatus();
 		for(Player player : players) {
 			try {
 				PlayerStateDTO playerStateDTO = playerApi.readStateUsingGET(gameId, player.getObjectId());
-				statusMap.put(player.getObjectId(), playerStateDTO);
+				playersStatus.addPlayerStatus(player.getObjectId(), null, playerStateDTO);
+				for(GarbageCollection collection : collections) {
+					playersStatus.addPlayerStatus(player.getObjectId(), collection.getNameGE(), playerStateDTO);
+				}
 			} catch (ApiException | IOException e) {
 				logger.warn("getPlayerCostMap - read player status error:{}", e.getMessage());
 			}
 		}
-		//get playerId costMap
-		Map<String, Double> costMap = new HashMap<>();
-		PlayerStateDTO state = statusMap.get(playerId);
-		Set<GameConcept> points = state.getState().get("PointConcept");
-		for(GameConcept point : points) {
-			PointConcept pointConcept = (PointConcept) point;
-			switch (pointConcept.getName()) {
-				case "reduceCoin":
-					costMap.put(Const.COIN_REDUCE, pointConcept.getScore());
-					break;
-				case "recycleCoin":
-					costMap.put(Const.COIN_RECYCLE, pointConcept.getScore());
-					break;
-				case "reuseCoin":
-					costMap.put(Const.COIN_REUSE, pointConcept.getScore());
-					break;
-			}
-		}
-		Map<String, Map<String, Double>> result = assignPoints(playerId, statusMap, collections);
-		result.put(playerId, costMap);
-		return result;
+		return assignPoints(playerId, playersStatus, collections);
 	}
 
-	private Map<String, Map<String, Double>> assignPoints(String playerId, Map<String, PlayerStateDTO> statusMap,
+	private Map<String, CoinMap> assignPoints(String contributorId, PlayersStatus playersStatus,
 			List<GarbageCollection> collections) {
-		// TODO Auto-generated method stub
-		return null;
+		// TODO only for test
+		Map<String, CoinMap> result = new HashMap<>();
+		CoinMap contributorCoinMap = playersStatus.getPlayerCoinMap(contributorId, null);
+		result.put(contributorId, contributorCoinMap);
+		for(String playerId : playersStatus.getPlayerIds()) {
+			if(playerId.equals(contributorId)) {
+				continue;
+			}
+			result.put(playerId, contributorCoinMap);
+			break;
+		}
+		return result;
 	}
 	
 }
