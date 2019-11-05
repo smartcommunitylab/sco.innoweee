@@ -241,6 +241,7 @@ public class Utils {
 	
 	public static void setContributions(Player player, String tenantId, String gameId,
 			GarbageCollectionRepository garbageCollectionRepository) {
+		player.getContributions().clear();
 		List<GarbageCollection> list = garbageCollectionRepository.findByGameId(tenantId, gameId);
 		for(GarbageCollection garbageCollection : list) {
 			Contribution contribution = new Contribution();

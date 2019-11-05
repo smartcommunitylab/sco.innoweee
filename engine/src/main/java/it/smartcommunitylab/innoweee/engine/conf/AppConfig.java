@@ -51,7 +51,7 @@ public class AppConfig implements WebMvcConfigurer {
 	private ApiInfo apiInfo() {
     return new ApiInfoBuilder()
     		.title("InnoWEEE Project")
-    		.version("0.1")
+    		.version("0.2")
     		.license("Apache License Version 2.0")
     		.licenseUrl("https://www.apache.org/licenses/LICENSE-2.0")
     		.contact(new Contact("SmartCommunityLab", "https://http://www.smartcommunitylab.it/", "info@smartcommunitylab.it"))
