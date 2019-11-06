@@ -262,13 +262,13 @@ public class Utils {
 		return false;
 	}
 	
-	public static void sendContribution(Player player, String nameGE, 
+	public static void sendContribution(Player contributor, Player receiver, String nameGE, 
 			CoinMap coinMap) {
-		for(Contribution contribution : player.getContributions()) {
+		for(Contribution contribution : contributor.getContributions()) {
 			if(contribution.getGarbageCollectionName().equals(nameGE)) {
 				ContributionPoint contributionPoint = new ContributionPoint();
-				contributionPoint.setPlayerId(player.getObjectId());
-				contributionPoint.setPlayerName(player.getName());
+				contributionPoint.setPlayerId(receiver.getObjectId());
+				contributionPoint.setPlayerName(receiver.getName());
 				contributionPoint.setCoinMap(coinMap);
 				contributionPoint.setTimestamp(new Date());
 				contribution.getDonatedPoints().add(contributionPoint);
@@ -276,13 +276,13 @@ public class Utils {
 		}
 	}
 	
-	public static void receiveContribution(Player player, String nameGE, 
+	public static void receiveContribution(Player contributor, Player receiver, String nameGE, 
 			CoinMap coinMap) {
-		for(Contribution contribution : player.getContributions()) {
+		for(Contribution contribution : receiver.getContributions()) {
 			if(contribution.getGarbageCollectionName().equals(nameGE)) {
 				ContributionPoint contributionPoint = new ContributionPoint();
-				contributionPoint.setPlayerId(player.getObjectId());
-				contributionPoint.setPlayerName(player.getName());
+				contributionPoint.setPlayerId(contributor.getObjectId());
+				contributionPoint.setPlayerName(contributor.getName());
 				contributionPoint.setCoinMap(coinMap);
 				contributionPoint.setTimestamp(new Date());
 				contribution.getReceivedPoints().add(contributionPoint);

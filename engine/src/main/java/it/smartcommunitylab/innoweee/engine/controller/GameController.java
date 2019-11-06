@@ -287,16 +287,20 @@ public class GameController extends AuthController {
 		List<GarbageCollection> collections = garbageCollectionRepository.findByGameId(game.getTenantId(), gameId);
 		Map<String, CoinMap> playerCoinMap = geManager.getPlayerCoinMap(game.getGeGameId(), playerId, players, collections);
 		geManager.sendContribution(gameId, playerId, playerCoinMap.get(playerId));
-		Utils.sendContribution(player, nameGE, playerCoinMap.get(playerId));
 		for(String objectId : playerCoinMap.keySet()) {
 			if(playerId.equals(objectId)) {
 				continue;
 			}
 			Optional<Player> optional = playerRepository.findById(objectId);
 			if(optional.isPresent()) {
-				Utils.receiveContribution(optional.get(), nameGE, playerCoinMap.get(objectId));
+				Utils.sendContribution(player, optional.get(), nameGE, playerCoinMap.get(playerId));
+				//playerRepository.save(player);
+				geManager.receiveContribution(gameId, objectId, playerCoinMap.get(objectId));
+				Utils.receiveContribution(player, optional.get(), nameGE, playerCoinMap.get(objectId));
+				//playerRepository.save(optional.get());
 			}
 		}
+		
 		return player;
 	}
 	
