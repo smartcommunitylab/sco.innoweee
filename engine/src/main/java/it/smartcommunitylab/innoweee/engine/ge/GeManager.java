@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import javax.annotation.PostConstruct;
 
@@ -53,6 +54,8 @@ public class GeManager {
 	private TeamControllerApi teamControllerApi;
 	private ExecutionControllerApi executionApi;
 	
+	Random random;
+	
 	@PostConstruct
 	public void init() {
 		apiClient = new ApiClient(gamificationURL);
@@ -61,6 +64,7 @@ public class GeManager {
     playerApi = new PlayerControllerApi(apiClient);
     executionApi = new ExecutionControllerApi(apiClient);
     teamControllerApi = new TeamControllerApi(apiClient);
+    random = new Random();
     logger.info("init GeManager");
 	}
 	
@@ -157,12 +161,36 @@ public class GeManager {
 		executionApi.executeActionUsingPOST(gameId, "reduceReport", dataDTO);		
 	}
 	
-	public void sendContribution(String gameId, String playerId, CoinMap coinMap) {
-		//TODO
+	public void sendContribution(String gameId, String playerId, CoinMap coinMap, 
+			Date executionDate) throws Exception {
+		ExecutionDataDTO dataDTO = new ExecutionDataDTO();
+		dataDTO.setActionId("donation");
+		dataDTO.setGameId(gameId);
+		dataDTO.setPlayerId(playerId);
+		dataDTO.setExecutionMoment(executionDate);
+		
+		Map<String, Object> data = new HashMap<String, Object>();
+		data.put(Const.COIN_RECYCLE, 0.0 - coinMap.getRecycleCoin());
+		data.put(Const.COIN_REDUCE, 0.0 - coinMap.getReduceCoin());
+		data.put(Const.COIN_REUSE, 0.0 - coinMap.getReuseCoin());
+		dataDTO.setData(data);
+		//TODO test executionApi.executeActionUsingPOST(gameId, "donation", dataDTO);		
 	}
 	
-	public void receiveContribution(String gameId, String playerId, CoinMap coinMap) {
-		//TODO
+	public void receiveContribution(String gameId, String playerId, CoinMap coinMap, 
+			Date executionDate) throws Exception {
+		ExecutionDataDTO dataDTO = new ExecutionDataDTO();
+		dataDTO.setActionId("donation");
+		dataDTO.setGameId(gameId);
+		dataDTO.setPlayerId(playerId);
+		dataDTO.setExecutionMoment(executionDate);
+		
+		Map<String, Object> data = new HashMap<String, Object>();
+		data.put(Const.COIN_RECYCLE, coinMap.getRecycleCoin());
+		data.put(Const.COIN_REDUCE, coinMap.getReduceCoin());
+		data.put(Const.COIN_REUSE, coinMap.getReuseCoin());
+		dataDTO.setData(data);
+		executionApi.executeActionUsingPOST(gameId, "donation", dataDTO);		
 	}
 	
 	public PlayerState getPlayerState(String gameId, String playerId, 
@@ -204,12 +232,18 @@ public class GeManager {
 		Map<String, CoinMap> result = new HashMap<>();
 		CoinMap contributorCoinMap = playersStatus.getPlayerCoinMap(contributorId, null);
 		result.put(contributorId, contributorCoinMap);
+		CoinMap fakeCoinMap = new CoinMap(1.0, 1.0, 1.0);
+		int index = random.nextInt(playersStatus.getPlayerIds().size());
+		int i = 0;
 		for(String playerId : playersStatus.getPlayerIds()) {
 			if(playerId.equals(contributorId)) {
 				continue;
 			}
-			result.put(playerId, contributorCoinMap);
-			break;
+			if(i == index) {
+				result.put(playerId, fakeCoinMap);
+				break;
+			}
+			i++;
 		}
 		return result;
 	}
