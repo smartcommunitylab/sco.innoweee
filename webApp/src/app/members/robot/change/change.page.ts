@@ -6,6 +6,8 @@ import { Storage } from '@ionic/storage';
 import { CatalogService } from 'src/app/services/catalog.service';
 import { ToastController, NavController, AlertController, LoadingController } from '@ionic/angular';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { GameService } from 'src/app/services/game.service';
+import { GarbageCollectionService } from 'src/app/services/garbage-collection.service';
 
 const FOLDER_COMPONENTS = "./assets/images/components/";
 
@@ -26,15 +28,18 @@ export class ChangePage extends MainPage implements OnInit {
   tmprobot = null;
   mapUri: any;
   mapBuyable = {};
+  actualCollection: any;
 
   constructor(public translate: TranslateService,
     public storage: Storage,
     public toastController: ToastController,
     public profileService: ProfileService,
     public authService: AuthenticationService,
+    private garbageService: GarbageCollectionService,
     public navCtrl: NavController,
     private loadingController: LoadingController,
     private alertController: AlertController,
+    private gameService: GameService,
     public catalogService: CatalogService) {
     super(translate, authService, storage, navCtrl);
   }
@@ -60,6 +65,9 @@ export class ChangePage extends MainPage implements OnInit {
       this.catalogService.getCatalog(this.profileData.tenantId).then(res => {
         this.catalog = res;
         this.enableButtons();
+        this.garbageService.getActualCollection(this.profileData.gameId).then(res => {
+          this.actualCollection = res;
+        })
       })
       this.resetetMapImage();
     });
@@ -97,6 +105,121 @@ export class ChangePage extends MainPage implements OnInit {
   getImgNewComponent(piece) {
     return FOLDER_COMPONENTS + piece.imageUri;
 
+  }
+
+  async donateConfirm() {
+    var header = "";
+    var message = "";
+    this.translate.get('header_confirm').subscribe(async (res: string) => {
+      header = res;
+      message = this.translate.instant("message_confirm");
+      const alert = await this.alertController.create({
+        header: header,
+        message: message,
+        cssClass: 'alert-donate',
+  
+        buttons: [
+          {
+            text: 'No',
+            role: 'cancel',
+            handler: (blah) => {
+              console.log('Confirm Cancel: blah');
+            }
+          }, {
+            text: 'Si',
+            handler: () => {
+              console.log('Confirm Okay');
+              this.confirm();
+            }
+          }
+        ]
+      });
+  
+      await alert.present();
+    });
+    
+  }
+  async donated(res) {
+    var header = "";
+    var message = "";
+    this.profileService.setPlayerData(res);
+    this.translate.get('header_donated').subscribe(async (header: string) => {
+      header = header;
+      var classi ="";
+      var indexContribution =  this.actualCollection.nameGE.replace(/\D/g,'');
+      if (res.contributions[+indexContribution-1] && res.contributions[+indexContribution-1].donatedPoints)
+      // message = this.translate.instant("message_donated");
+      for (let index = 0; index < res.contributions[+indexContribution-1].donatedPoints.length; index++) {
+         classi = classi + " " +res.contributions[+indexContribution-1].donatedPoints[index].playerName;
+      }
+      this.translate.get('message_donated', { classe: classi }).subscribe(async (s: string) => {
+        message= s;
+        const alert = await this.alertController.create({
+          header: header,
+          message: message,
+          cssClass: 'alert-donated',
+    
+          buttons: [
+            { text: 'OK',
+              role: 'cancel',
+              handler: (blah) => {
+                //this.updateState();
+                this.changePoints();
+                this.updateDate(res);
+              }
+            }
+          ]
+        });
+    
+        await alert.present();
+      });
+      
+    });
+    
+  }
+  changePoints() {
+     this.profileService.getLocalPlayerState().then(res => {
+      //get resources and coins
+      this.profileState = res
+      this.profileState.recycleCoin=0;
+      this.profileState.reduceCoin=0;
+      this.profileState.reuseCoin=0;
+      this.profileService.setLocalPlayerState(this.profileState);
+    }, err => {
+    });
+  }
+  updateDate(res: any) {
+    this.profileData =res;
+  }
+  notYetDonate() {
+    if (this.profileData && this.profileData.contributions && this.actualCollection)
+      for (let index = 0; index < this.profileData.contributions.length; index++) {
+        const element = this.profileData.contributions[index];
+        if (this.actualCollection.nameGE == element.garbageCollectionName)
+        return (element.donatedPoints.length == 0)
+      }
+      return true
+  }
+  async confirm() {
+    //send contribution
+    //loading
+    const loading = await this.loadingController.create({
+    });
+    this.presentLoading(loading);
+    this.gameService.sendContribution(this.profileData.gameId,this.profileData.objectId,this.actualCollection.nameGE).then(res=>{
+      console.log(res)
+      //popup con info sulla classe -> prendo array donate e scrivo le classi
+        this.donated(res)
+        loading.dismiss();
+    }, err => {
+      loading.dismiss();
+      this.presentToast('Errore di comunicazione')
+    })
+  }
+
+  donate() {
+    //open popup for confirm
+    this.donateConfirm();
   }
   backPage() {
     this.deleteSelecttion();

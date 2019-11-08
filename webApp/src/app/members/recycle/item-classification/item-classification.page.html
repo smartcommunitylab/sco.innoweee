@@ -40,6 +40,12 @@
             <div class="ion-padding">
               {{'label_bring_stuff'|translate}}
             </div>
+            <ion-row class="ion-padding">
+              <ion-col>
+                <div class="marker" [ngClass]="getColorMarker()">{{getBinString()}}</div>
+              </ion-col>
+              <ion-col>{{getMarkerString()}}</ion-col>
+            </ion-row>
             <ion-button color="dark" [routerLink]="['/start']" fill="outline">{{'label_new_item'|translate}}
             </ion-button>
             <ion-button color="dark" [routerLink]="['/recycle-results']" fill="outline">
@@ -53,11 +59,11 @@
 </ion-content>
 <ion-footer>
   <ion-toolbar class="color-bar">
-      <ion-buttons slot="start">
-          <ion-button (click)="goBack()">
-            <ion-icon name="arrow-back"></ion-icon>
-          </ion-button>
-        </ion-buttons>
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
     <ion-row>
 
       <ion-title class="ion-text-center">{{ getFooter()}}</ion-title>

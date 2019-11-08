@@ -91,3 +91,63 @@ ion-footer {
         padding: 4px;
     }
 }
+.alert-donate{
+    .alert-wrapper{
+    width: 90%;
+    max-width: 90%;
+    border-radius: 20px;
+    background-color: #bee6f5;
+    .alert-message{
+            text-align: center;
+            font-size: 22px;
+            color: black;
+            padding: 16px;
+    }
+    .alert-button-group{
+        display: flex;
+        justify-content: space-between;
+    button{
+        text-align: center;
+        width: 40%;
+        background-color: #dcf4fa;
+        margin: 11px 18px;
+        span{
+            justify-content: center;
+        }
+        }
+    }
+    }
+}
+.alert-donated{
+    .alert-head{
+        text-align: center;
+    }
+    .alert-wrapper{
+    width: 90%;
+    max-width: 90%;
+    border-radius: 20px;
+    background-color: #bee6f5;
+    font-size: 18px;
+    text-align: center;
+    ion-icon{
+        margin: auto;
+    font-size: 38px;
+    width: 100%;
+    margin-top: 22px;
+
+    }
+    .alert-button-group{
+        display: flex;
+        justify-content: space-between;
+    button{
+        text-align: center;
+        width: 40%;
+        background-color: #dcf4fa;
+        margin: auto;
+        span{
+            justify-content: center;
+            }
+        }
+    }
+    }
+}   

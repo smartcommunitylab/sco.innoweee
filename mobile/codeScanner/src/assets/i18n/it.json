@@ -26,7 +26,10 @@
         "toast_error":"Errore durante la comunicazione con il server",
         "toast_back":"Invio annullato",
         "label_scan_procedure":"Preparare l'oggetto con il QR-code, premere il tasto IDENTIFICA OGGETTO e mettere a fuoco il codice.",
-        "label_logout":"Esci"
+        "label_logout":"Esci",
+        "label_item_username":"Username",
+        "label_item_password":"Password",
+        "label_item_enter":"Entra"
         
         
 

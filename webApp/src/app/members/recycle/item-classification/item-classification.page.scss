@@ -50,6 +50,28 @@ ion-grid {
                     padding: 8px;
 
                 }
+                .marker-green{
+                    background-color: #28B453;
+                    color:white;
+
+                }
+                .marker-yellow{
+                    background-color: #FFFF48;
+                    color: black;
+                }
+                .marker-blue{
+                    background-color:  #414FFF;
+                    color:white;
+
+                }
+                .marker{ width: 100px;
+                height: 100px;
+                line-height: 100px;
+                text-align: center;
+                margin: auto;
+                border: solid 1px black;
+                border-radius: 50px;
+                }
             }
         }
     }

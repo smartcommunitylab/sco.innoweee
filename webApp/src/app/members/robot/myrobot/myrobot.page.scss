@@ -45,6 +45,14 @@ ion-content {
                         }
                     }
                 }
+                .row-stars{
+                    background-color: #bee6f5;
+    border-radius: 14px;
+    .star{
+        font-size: 40px;
+    }
+                }
+
             }
 
             ion-col {
@@ -74,7 +82,7 @@ ion-content {
                     .resources {
                         .app-resources-container {
                             padding-left: 120px;
-                            padding-top: 60px;
+                            padding-top: 0px;
 
                             .app-resources {
                                 padding-left: 20px;
@@ -96,6 +104,33 @@ ion-content {
                         .value-resources {
                             font-weight: bold;
                             font-size: 20px;
+                        }
+                    }
+                    .gift-resume {
+                        background-color: #bee6f5;
+                        border-radius: 16px;
+                        .table-icon{
+                            font-size: 30px;
+                        }
+                        .class-actual{
+                            font-weight: bold;
+                        }
+                        .dettaglio-raccolta{
+                            background-color: #0fb4d7;
+                            margin: 4px;
+                            padding: 20px;
+                            color: white;
+                            text-align: center;
+                            border-radius: 16px;
+
+                            ion-icon {
+                                height: 50px;
+                                width: 50px;
+                                font-size: 25px;
+                                border-radius: 30px;
+                                padding: 6px;
+                                background-color: white;
+                            }
                         }
                     }
                 }

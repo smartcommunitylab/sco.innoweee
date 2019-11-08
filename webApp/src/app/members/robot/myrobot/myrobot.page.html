@@ -55,15 +55,22 @@
                   <ion-button color="dark" (click)="change()" fill="outline">{{'change_robot'|translate}}</ion-button>
                 </ion-col>
               </ion-row>
+              <ion-row class="row-stars">
+                <ion-col *ngFor="let contribute of contributions">
+                  <div class="star">
+                    <ion-icon src="/assets/images/white.svg"
+                      *ngIf="!contribute.donatedPointsValue && !isFuture(contribute)"></ion-icon>
+                    <ion-icon src="/assets/images/yellow.svg"
+                      *ngIf="contribute.donatedPointsValue && !isFuture(contribute)"></ion-icon>
+                    <ion-icon src="/assets/images/star.svg" *ngIf="isFuture(contribute)"></ion-icon>
+                  </div>
+                </ion-col>
+              </ion-row>
             </ion-grid>
           </div>
         </div>
       </div>
       <ion-col>
-        <!-- 
-        </ion-col>
-      <ion-col> -->
-
         <div class="resources-container">
           <div class="point-container">
             <div class="point">
@@ -112,6 +119,96 @@
               </div>
             </div>
           </div>
+          <div class="gift-resume">
+            <ion-row>
+              <ion-col>
+                <ion-row>
+                  <ion-col></ion-col>
+                  <ion-col>{{'donato_label'|translate}} </ion-col>
+                  <ion-col>{{'ricevuto_label'|translate}} </ion-col>
+                </ion-row>
+                <ion-row *ngFor="let contribute of contributions; let i = index">
+                  <ion-col>
+                    <div *ngIf="!isFuture(contribute)"><span [ngClass]="{'class-actual': actualCollection.nameGE == contribute.garbageCollectionName}">{{'garbage_label'|translate}} {{i}}</span></div>
+                  </ion-col>
+                  <ion-col>
+                    <div *ngIf="!isFuture(contribute)"><span
+                        *ngIf="contribute.donatedPointsValue; else emptyDonatedBlock">
+                        <ion-icon class="table-icon" src="/assets/images/gift.svg"></ion-icon>
+                      </span></div>
+                    <ng-template #emptyDonatedBlock>-</ng-template>
+                  </ion-col>
+                  <ion-col>
+                    <div *ngIf="!isFuture(contribute)">
+                      <span *ngIf="contribute.receivedPointsValue; else emptyReceivedBlock">
+                        <ion-icon class="table-icon" src="/assets/images/gift_open.svg"></ion-icon>
+                      </span></div>
+                    <ng-template #emptyReceivedBlock>-</ng-template>
+                  </ion-col>
+                </ion-row>
+              </ion-col>
+              <ion-col>
+                <div class="dettaglio-raccolta" *ngIf="actualDonate() && !actualReceived()">
+                    <ion-icon src="/assets/images/yellow.svg" *ngIf="isFuture(contribute)"></ion-icon>
+                    <div>
+                        {{numeroRaccoltaDonato}}
+                    </div>
+                    <div>
+                        <b>{{classiDonato}}</b>
+                      </div>
+                    <div>
+                        <span *ngFor="let class of getActualClassesDonate()">{{class}}</span>
+                    </div>
+                </div>
+                <div class="dettaglio-raccolta" *ngIf="actualReceived() && !actualDonate()">
+                    <ion-icon src="/assets/images/gift_open.svg" *ngIf="isFuture(contribute)"></ion-icon>
+                    <div>
+                        {{numeroRaccoltaRicevuto}}
+                    </div>
+                    <div>
+                        <b>{{classiRicevuto}}</b>
+                    </div>
+                    <div>
+                        <span *ngFor="let class of getActualClassesReceived()">{{class}}</span>
+                    </div>
+                </div>
+                <div class="dettaglio-raccolta" *ngIf="actualReceived() && actualDonate()">
+                  <ion-row>
+                    <ion-col>
+                        <ion-icon src="/assets/images/yellow.svg" *ngIf="isFuture(contribute)"></ion-icon>
+                    </ion-col>
+                    <ion-col>
+                        <div>
+                            {{numeroRaccoltaRicevuto}}
+                        </div>
+                        <div>
+                            <b>{{classiRicevuto}}</b>
+                        </div>
+                        <div>
+                            <span *ngFor="let class of getActualClassesReceived()">{{class}}</span>
+                        </div>
+                    </ion-col>
+                  </ion-row>
+                  <ion-row>
+                      <ion-col>
+                          <ion-icon src="/assets/images/gift_open.svg" *ngIf="isFuture(contribute)"></ion-icon>
+                      </ion-col>
+                      <ion-col>
+                          <div>
+                              {{numeroRaccoltaDonato}}
+                          </div>
+                          <div>
+                              <b>{{classiDonato}}</b>
+                          </div>
+                          <div>
+                              <span *ngFor="let class of getActualClassesReceived()">{{class}}</span>
+                          </div>
+                      </ion-col>
+                    </ion-row>
+                </div>
+              </ion-col>
+            </ion-row>
+          </div>
         </div>
       </ion-col>
     </ion-row>
@@ -119,13 +216,12 @@
 </ion-content>
 <ion-footer>
   <ion-toolbar class="color-bar">
-      <ion-buttons slot="start">
-          <ion-button (click)="goBack()">
-            <ion-icon name="arrow-back"></ion-icon>
-          </ion-button>
-        </ion-buttons>
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
     <ion-row>
-
       <ion-title class="ion-text-center">{{ getFooter()}}</ion-title>
       <div class="logos">
         <div class=frame>
