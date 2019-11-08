@@ -12,7 +12,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,6 +24,7 @@ import it.smartcommunitylab.innoweee.engine.model.Catalog;
 import it.smartcommunitylab.innoweee.engine.model.CategoryMap;
 import it.smartcommunitylab.innoweee.engine.model.Component;
 import it.smartcommunitylab.innoweee.engine.model.Game;
+import it.smartcommunitylab.innoweee.engine.model.GarbageCollection;
 import it.smartcommunitylab.innoweee.engine.model.GarbageMap;
 import it.smartcommunitylab.innoweee.engine.model.Institute;
 import it.smartcommunitylab.innoweee.engine.model.ItemValuableMap;
@@ -158,7 +158,7 @@ public class AdminController extends AuthController {
 		return map;
 	}
 	
-	@GetMapping(value = "/admin/init/{tenantId}")
+	@PostMapping(value = "/admin/init/{tenantId}")
 	public void initTenant(
 			@PathVariable String tenantId,
 			@RequestBody TenantData data,
@@ -191,6 +191,14 @@ public class AdminController extends AuthController {
 		game.setCreationDate(now);
 		game.setLastUpdate(now);
 		gameRepository.save(game);
+		
+		for(GarbageCollection collection : data.getCollections()) {
+			collection.setTenantId(tenantId);
+			collection.setGameId(game.getObjectId());
+			collection.setCreationDate(now);
+			collection.setLastUpdate(now);
+			garbageCollectionRepository.save(collection);
+		}
 		
 		for (String className : data.getClasses()) {
 			Player player = new Player();

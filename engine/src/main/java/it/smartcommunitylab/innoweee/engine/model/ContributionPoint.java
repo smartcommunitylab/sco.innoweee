@@ -1,13 +1,13 @@
 package it.smartcommunitylab.innoweee.engine.model;
 
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+
+import it.smartcommunitylab.innoweee.engine.ge.CoinMap;
 
 public class ContributionPoint {
 	private String playerName;
 	private String playerId;
-	private Map<String, Double> costMap = new HashMap<String, Double>();
+	private CoinMap coinMap;
 	private Date timestamp; 
 	
 	public String getPlayerName() {
@@ -22,18 +22,17 @@ public class ContributionPoint {
 	public void setPlayerId(String playerId) {
 		this.playerId = playerId;
 	}
-	public Map<String, Double> getCostMap() {
-		return costMap;
-	}
-	public void setCostMap(Map<String, Double> costMap) {
-		this.costMap = costMap;
-	}
 	public Date getTimestamp() {
 		return timestamp;
 	}
 	public void setTimestamp(Date timestamp) {
 		this.timestamp = timestamp;
 	}
-
+	public CoinMap getCoinMap() {
+		return coinMap;
+	}
+	public void setCoinMap(CoinMap coinMap) {
+		this.coinMap = coinMap;
+	}
 	
 }

@@ -23,6 +23,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
+import it.smartcommunitylab.innoweee.engine.ge.CoinMap;
 import it.smartcommunitylab.innoweee.engine.model.Catalog;
 import it.smartcommunitylab.innoweee.engine.model.Component;
 import it.smartcommunitylab.innoweee.engine.model.Contribution;
@@ -240,6 +241,7 @@ public class Utils {
 	
 	public static void setContributions(Player player, String tenantId, String gameId,
 			GarbageCollectionRepository garbageCollectionRepository) {
+		player.getContributions().clear();
 		List<GarbageCollection> list = garbageCollectionRepository.findByGameId(tenantId, gameId);
 		for(GarbageCollection garbageCollection : list) {
 			Contribution contribution = new Contribution();
@@ -260,34 +262,34 @@ public class Utils {
 		return false;
 	}
 	
-	public static void sendContribution(Player player, String nameGE, 
-			Map<String, Double> costMap) {
-		for(Contribution contribution : player.getContributions()) {
+	public static void sendContribution(Player contributor, Player receiver, String nameGE, 
+			CoinMap coinMap) {
+		for(Contribution contribution : contributor.getContributions()) {
 			if(contribution.getGarbageCollectionName().equals(nameGE)) {
 				ContributionPoint contributionPoint = new ContributionPoint();
-				contributionPoint.setPlayerId(player.getObjectId());
-				contributionPoint.setPlayerName(player.getName());
-				contributionPoint.setCostMap(costMap);
+				contributionPoint.setPlayerId(receiver.getObjectId());
+				contributionPoint.setPlayerName(receiver.getName());
+				contributionPoint.setCoinMap(coinMap);
 				contributionPoint.setTimestamp(new Date());
 				contribution.getDonatedPoints().add(contributionPoint);
 			}
 		}
 	}
 	
-	public static void receiveContribution(Player player, String nameGE, 
-			Map<String, Double> costMap) {
-		for(Contribution contribution : player.getContributions()) {
+	public static void receiveContribution(Player contributor, Player receiver, String nameGE, 
+			CoinMap coinMap) {
+		for(Contribution contribution : receiver.getContributions()) {
 			if(contribution.getGarbageCollectionName().equals(nameGE)) {
 				ContributionPoint contributionPoint = new ContributionPoint();
-				contributionPoint.setPlayerId(player.getObjectId());
-				contributionPoint.setPlayerName(player.getName());
-				contributionPoint.setCostMap(costMap);
+				contributionPoint.setPlayerId(contributor.getObjectId());
+				contributionPoint.setPlayerName(contributor.getName());
+				contributionPoint.setCoinMap(coinMap);
 				contributionPoint.setTimestamp(new Date());
 				contribution.getReceivedPoints().add(contributionPoint);
 			}
 		}
 	}
-	
+		
 	public static GameAction getBuildRobotGameAction(Game game, Player player, Component component) {
 		Date now = new Date();
 		GameAction action = new GameAction();

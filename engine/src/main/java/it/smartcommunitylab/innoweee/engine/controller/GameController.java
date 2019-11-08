@@ -27,6 +27,7 @@ import it.smartcommunitylab.innoweee.engine.common.Const;
 import it.smartcommunitylab.innoweee.engine.common.Utils;
 import it.smartcommunitylab.innoweee.engine.exception.EntityNotFoundException;
 import it.smartcommunitylab.innoweee.engine.exception.UnauthorizedException;
+import it.smartcommunitylab.innoweee.engine.ge.CoinMap;
 import it.smartcommunitylab.innoweee.engine.ge.GeManager;
 import it.smartcommunitylab.innoweee.engine.img.ImageManager;
 import it.smartcommunitylab.innoweee.engine.model.Catalog;
@@ -263,6 +264,7 @@ public class GameController extends AuthController {
 			@PathVariable String gameId,
 			@PathVariable String playerId,
 			@RequestParam String nameGE,
+			@RequestParam(required = false) Long timestamp,
 			HttpServletRequest request, 
 			HttpServletResponse response) throws Exception {
 		Optional<Game> optionalGame = gameRepository.findById(gameId);
@@ -282,22 +284,30 @@ public class GameController extends AuthController {
 		if(Utils.checkDonation(player, nameGE)) {
 			throw new EntityNotFoundException("donation already done");
 		}
+		Date executionDate =  null;
+		if(timestamp != null) {
+			executionDate = new Date(timestamp);
+		} else {
+			executionDate = new Date();
+		}
 		List<Player> players = playerRepository.findByGameId(game.getTenantId(), gameId);
 		List<GarbageCollection> collections = garbageCollectionRepository.findByGameId(game.getTenantId(), gameId);
-		Map<String, Map<String, Double>> playerCostMap = geManager.getPlayerCostMap(game.getGeGameId(), playerId, 
-				players, collections);
-		geManager.contribution(gameId, playerId, playerCostMap);
-		Map<String, Double> costMap = playerCostMap.get(playerId);
-		Utils.sendContribution(player, nameGE, costMap);
-		for(String objectId : playerCostMap.keySet()) {
+		Map<String, CoinMap> playerCoinMap = geManager.getPlayerCoinMap(game.getGeGameId(), playerId, players, collections);
+		geManager.sendContribution(game.getGeGameId(), playerId, playerCoinMap.get(playerId), executionDate);
+		for(String objectId : playerCoinMap.keySet()) {
 			if(playerId.equals(objectId)) {
 				continue;
 			}
 			Optional<Player> optional = playerRepository.findById(objectId);
 			if(optional.isPresent()) {
-				Utils.receiveContribution(optional.get(), nameGE, playerCostMap.get(objectId));
+				Utils.sendContribution(player, optional.get(), nameGE, playerCoinMap.get(objectId));
+				//TODO test playerRepository.save(player);
+				geManager.receiveContribution(game.getGeGameId(), objectId, playerCoinMap.get(objectId), executionDate);
+				Utils.receiveContribution(player, optional.get(), nameGE, playerCoinMap.get(objectId));
+				playerRepository.save(optional.get());
 			}
 		}
+		logger.info("sendContribution[{}]:{} / {} / {}", game.getTenantId(), gameId, playerId, nameGE);
 		return player;
 	}
 	

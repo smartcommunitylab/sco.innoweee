@@ -7,6 +7,7 @@ public class TenantData {
 	private String instituteName;
 	private String schoolName;
 	private List<String> classes = new ArrayList<String>();
+	private List<GarbageCollection> collections = new ArrayList<GarbageCollection>(); 
 	
 	public String getInstituteName() {
 		return instituteName;
@@ -25,5 +26,11 @@ public class TenantData {
 	}
 	public void setClasses(List<String> classes) {
 		this.classes = classes;
+	}
+	public List<GarbageCollection> getCollections() {
+		return collections;
+	}
+	public void setCollections(List<GarbageCollection> collections) {
+		this.collections = collections;
 	}
 }
