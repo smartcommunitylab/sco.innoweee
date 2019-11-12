@@ -129,7 +129,7 @@
                 </ion-row>
                 <ion-row *ngFor="let contribute of contributions; let i = index">
                   <ion-col>
-                    <div *ngIf="!isFuture(contribute)"><span [ngClass]="{'class-actual': actualCollection.nameGE == contribute.garbageCollectionName}">{{'garbage_label'|translate}} {{i}}</span></div>
+                    <div *ngIf="!isFuture(contribute)"><span [ngClass]="{'class-actual': actualCollection.nameGE == contribute.garbageCollectionName}">{{'garbage_label'|translate}} {{i+1}}</span></div>
                   </ion-col>
                   <ion-col>
                     <div *ngIf="!isFuture(contribute)"><span

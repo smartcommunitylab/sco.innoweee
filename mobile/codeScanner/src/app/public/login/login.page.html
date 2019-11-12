@@ -1,19 +1,37 @@
-<ion-header>
-    <ion-toolbar>
-      <ion-title>Login</ion-title>
-    </ion-toolbar>
-  </ion-header>
-   
-  <ion-content padding>
-      <ion-item>
-          <ion-label position="fixed">{{'label_item_username'|translate}}</ion-label>
-          <ion-input type="text" [(ngModel)]="user.email"></ion-input>
-        </ion-item>
-        <ion-item>
-            <ion-label position="fixed">{{'label_item_password'|translate}}</ion-label>
-            <ion-input type="Password" [(ngModel)]="user.password" ></ion-input>
-          </ion-item>
-    <ion-button (click)="login()" expand="block">{{'label_item_enter'|translate}}</ion-button>
-    <!-- <ion-button expand="block" color="danger" (click)="doGoogleLogin()">Google Login</ion-button> -->
 
-  </ion-content>
+  <ion-header>
+      <ion-toolbar class="color-bar">
+        <ion-title class="game-title">{{'title_game_selection'|translate}}</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    
+    <ion-content padding>
+    
+      <div class="logo">
+        <img src="./assets/logo.png" class="logo-nav" />
+      </div>
+    
+      <ion-grid>
+        <div class="question-screen"> 
+          <div class="col-vertical-center">
+            <div class="vertical-center right-box">
+              <div>
+                  <ion-list>
+                      <ion-list-header>{{'login_title'|translate}}</ion-list-header>
+                      <ion-item>
+                          <ion-label position="fixed">{{'label_item_username'|translate}}</ion-label>
+                          <ion-input type="text" [(ngModel)]="user.email"></ion-input>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label position="fixed">{{'label_item_password'|translate}}</ion-label>
+                            <ion-input type="Password" [(ngModel)]="user.password" ></ion-input>
+                          </ion-item>
+                        <ion-button  color="light"  (click)="login()" expand="block" fill="outline">
+                          {{'label_enter'|translate}}</ion-button>
+                    </ion-list>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ion-grid>
+    </ion-content>

@@ -1,9 +1,7 @@
 import { AuthenticationService } from './../../services/authentication.service';
 import { Component, OnInit } from '@angular/core';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
-import { GooglePlus } from '@ionic-native/google-plus/ngx';
-import { JsonPipe } from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -20,7 +18,7 @@ export class LoginPage implements OnInit {
   constructor(private authService: AuthenticationService,
     private loadingController: LoadingController,
     private translate: TranslateService,
-    private googlePlus: GooglePlus,
+    private toastController: ToastController,
     private router: Router) { }
 
   ngOnInit() {
@@ -35,10 +33,20 @@ export class LoginPage implements OnInit {
             this.router.navigate(['select-class']);
             this.dismissLoading()
           },
-           (error) => {
-             if (error=='Invalid credentials')
+           (res) => {
+             if (res == "Invalid credentials"){
+              this.translate.get('wrong_credentials').subscribe(async (res: string) => {
+                this.presentToast(res);
+              });
+             }
+             if (res && res.error && res.error.error=='invalid_grant')
               {
                 //invalid credential
+                this.translate.get('wrong_user').subscribe(async (res: string) => {
+                  this.presentToast(res);
+                });
+
+                
               }
             this.dismissLoading()
 
@@ -48,6 +56,14 @@ export class LoginPage implements OnInit {
 
     // )}).finally(() => {  });
   }
+  async presentToast(string) {
+    const toast = await this.toastController.create({
+      message: string,
+      duration: 2000
+    })
+    toast.present();
+  }
+
   presentLoading(): Promise<void> {
     return new Promise((resolve, reject) => {
       this.translate.get('user_check').subscribe(async (res: string) => {

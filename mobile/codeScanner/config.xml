@@ -91,5 +91,12 @@
     <plugin name="cordova-plugin-googleplus" spec="^7.0.0">
         <variable name="PLAY_SERVICES_VERSION" value="11.8.0" />
     </plugin>
+    <allow-navigation href="http://192.168.29.87:8100" sessionid="8ef9c4f1" />
+    <allow-navigation href="http://192.168.29.87:8101" sessionid="393b6d57" />
+    <allow-navigation href="http://192.168.29.87:8102" sessionid="19cd4e65" />
+    <allow-navigation href="http://192.168.29.87:8103" sessionid="93ace937" />
+    <allow-navigation href="http://192.168.29.87:8104" sessionid="527823b8" />
+    <allow-navigation href="http://192.168.29.87:8105" sessionid="39eec6a9" />
+    <allow-navigation href="http://192.168.29.87:8106" sessionid="379a0ce2" />
     <engine name="android" spec="7.1.0" />
 </widget>

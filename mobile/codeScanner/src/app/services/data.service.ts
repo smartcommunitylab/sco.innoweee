@@ -10,14 +10,19 @@ export class DataServerService {
   getItemApi: any;
   getRecognizedApi: any;
   getUsedApi: any;
-  sendItem(id: string, playerId: string): any {
+  sendItem(id: string, playerId: string, token): any {
     let url: string = this.endPoint + this.getItemApi +  this.getRecognizedApi;
 
     let body = {
       "itemId": id,
       "playerId": playerId
     }
-    return this.http.post(url, body).toPromise().then(res => {
+    return this.http.post(url, body,{ headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token
+
+    }}).toPromise().then(res => {
       return res
 
     }).catch(response => {
@@ -33,10 +38,15 @@ export class DataServerService {
       this.getUsedApi = config.getUsedApi;
   }
 
-  checkIfPresent(id: string, idUser:string): Promise<any> {
+  checkIfPresent(id: string, idUser:string, token): Promise<any> {
     let url: string = this.endPoint + this.getItemApi + this.getUsedApi+"?playerId="+idUser+"&itemId="+encodeURIComponent(id);
 
-    return this.http.get( url).toPromise().then(res => {
+    return this.http.get( url,{ headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token
+
+    }}).toPromise().then(res => {
       return res
 
     }).catch(response => {

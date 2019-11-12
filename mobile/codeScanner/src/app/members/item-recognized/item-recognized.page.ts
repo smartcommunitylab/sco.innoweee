@@ -5,6 +5,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { ProfileService } from 'src/app/services/profile.service';
 import { DataServerService } from 'src/app/services/data.service';
 import { ToastController } from '@ionic/angular';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-item-recognized',
@@ -23,6 +24,7 @@ export class ItemRecognizedPage implements OnInit {
     private dataServerService: DataServerService,
     private location:Location,
     private profileService: ProfileService,
+    private authService: AuthenticationService
 
   ) { }
 
@@ -52,7 +54,9 @@ export class ItemRecognizedPage implements OnInit {
     toast.present();
   }
   checkIfPresent(scanData) {
-    this.dataServerService.checkIfPresent(scanData.text, this.playerId).then(res => {
+    this.authService.getValidAACtoken().then( token => {
+
+    this.dataServerService.checkIfPresent(scanData.text, this.playerId, token).then(res => {
       // console.log(res);
       if (res.result) {
         //ok
@@ -62,19 +66,18 @@ export class ItemRecognizedPage implements OnInit {
         //already used
         this.itemPresent = false;
       }
-
-
     })
+  })
   }
   sendLim() {
     if (!this.itemPresent) {
-      this.dataServerService.sendItem(this.item.text, this.playerId).then(res => {
+      this.authService.getValidAACtoken().then( token => {
+      this.dataServerService.sendItem(this.item.text, this.playerId, token).then(res => {
         // console.log(res);
         this.presentToast((this.translate.instant('toast_ok')));
         this.location.back();
-
-
       })
+    })
     } else {
       this.presentToast((this.translate.instant('toast_error')));
     }
