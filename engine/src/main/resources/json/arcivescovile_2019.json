@@ -1,0 +1,133 @@
+{
+	"instituteName":"Arcivescovile",
+	"schoolName":"Arcivescovile",
+	"classes":["1A","1B","2A","2B","3A","3B","4B","5B"],
+	"collections": [
+	{
+		"tenantId":"TRENTINO",
+		"gameId":"",
+		"from":1554328800000,
+		"to":1555279199000,
+		"nameGE":"R1",
+		"message":{
+			"it":"Piccoli elettrodomestici della cucina", 
+			"en":"Kitchen Appliances"
+		},
+		"reduceMessage":{
+			"it":"Quanti anni ha il frigorifero che hai a casa?",
+			"en":"How old is the fridge you have at home?"
+		},
+		"specialCollection":false,
+		"items":["Blender","Centrifuge","Electrical coffe grinder","Coffe machine","Electrical knife","Electrical grater","Tea kettle","Hand vacuum","Minipimer","Squeezer","Toaster"],
+		"links":[
+        {
+            "name" : "Greta Thunberg: una piccola eroina che lotta per la difesa del nostro pianeta",
+            "link" : "https://drive.google.com/file/d/1xiJL7BI9rzpiOcYsNd7BbejkILOrebF0/view?usp=sharing",
+            "type" : "link",
+            "previewUri" : "https://imgur.com/pDvYx8H.jpg"
+        }, 
+        {
+            "name" : "Alla scoperta dei RAEE e AEE",
+            "link" : "https://www.youtube.com/watch?v=Ez4QPdKMI7E",
+            "type" : "video"
+        }, 
+        {
+            "name" : "La giungla dei RAEE - Una miniera tra i rifiuti",
+            "type" : "link",
+            "previewUri" : "https://imgur.com/yPfEwOi.jpg",
+            "link" : "https://drive.google.com/file/d/1nW_IzuhF1wBWzXWdzcR-gXLJ574yM1vD/view?usp=sharing"
+        }
+		]
+	},
+	{
+		"tenantId":"TRENTINO",
+		"gameId":"",
+		"from":1555279200000,
+		"to":1557093599000,
+		"nameGE":"R2",
+		"message":{
+			"it":"Cellulari, smartphone, tablet e computer portatili",
+			"en":"Laptop, Notebook, Tablet, Smartphone"
+		},
+		"reduceMessage":{
+			"it":"Fra i cellulari che usa quotidianamente la tua famiglia, quanti anni ha il più vecchio?",
+			"en":"How old is the oldest cell phone used daily in your family?"
+		},
+		"specialCollection":true,
+		"items":["Cellphone","Smartphone","Laptop","Tablet"],
+		"links":[]
+	},
+	{
+		"tenantId":"TRENTINO",
+		"gameId":"",
+		"from":1557093600000,
+		"to":1557698399000,
+		"nameGE":"R3",
+		"message":{
+			"it":"Apparecchiature informatiche e per telecomunicazioni",
+			"en":"Information and Communication Technologies"
+		},
+		"reduceMessage":{
+			"it":"Quanti anni ha il computer che hai a casa?",
+			"en":"How old is the computer you have at home?"
+		},
+		"specialCollection":true,
+		"items":["Docking station","E-reader","Flash drive","Computer components","Router","Answering machine","Calculator","Cordless","Decoder","Fax","GPS system","Landline phone","Modem","Trackpad","Walkie Talkie","Keyboard","Mouse"],
+		"links":[]
+	},
+	{
+		"tenantId":"TRENTINO",
+		"gameId":"",
+		"from":1557698400000,
+		"to":1558303199000,
+		"nameGE":"R4",
+		"message":{
+			"it":"Piccoli elettrodomestici per la salute e il benessere",
+			"en":"Health, Beauty and Wellness Appliances"
+		},
+		"reduceMessage":{
+			"it":"Quanti anni ha l'asciugacapelli che hai a casa?",
+			"en":"How old is the hair dryer you have at home?"
+		},
+		"specialCollection":false,
+		"items":["Curling iron","Electric ear cleaner","Electric razor","Electric toothbrush","Hair cutter","Hair dryer","Aerosol machine","Other appliances for body care","Electrical weighing scale"],
+		"links":[]
+	},
+	{
+		"tenantId":"TRENTINO",
+		"gameId":"",
+		"from":1558303200000,
+		"to":1558907999000,
+		"nameGE":"R5",
+		"message":{
+			"it":"Apparecchiature audio e video",
+			"en":"Audio, video, consumer devices"
+		},
+		"reduceMessage":{
+			"it":"Quanti anni ha la televisione di casa tua?",
+			"en":"How old is the TV you have at home?"
+		},
+		"specialCollection":false,
+		"items":["Amplifier","Car radio","CD reader","Electrical clock","Headphones","Speaker","Mp3 reader","Radio","Record player","Recorder","Stereo","Electrical alarm clock","Battery charger","Camera","DVD reader","Video recorder","Web cam","Remote"],
+		"links":[]
+	},
+	{
+		"tenantId":"TRENTINO",
+		"gameId":"",
+		"from":1558908000000,
+		"to":1559512799000,
+		"nameGE":"R6",
+		"message":{
+			"it":"Giochi e giocattoli elettrici ed elettronici",
+			"en":"Toys and games"
+		},
+		"reduceMessage":{
+			"it":"Quanti anni ha la tua console di videogiochi?",
+			"en":"How old is your video game console?"
+		},
+		"specialCollection":false,
+		"items":["Joystick","Portable and stationary console","Talking doll","Electrical musical instruments","Electrical toys"],
+		"links":[]
+	}
+]
+}
