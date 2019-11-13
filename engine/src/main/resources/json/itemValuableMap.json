@@ -7,19 +7,19 @@
 			{
 				"broken": false,
 				"switchingOn": true,
-				"age": 3
+				"age": 1
 			},
 			{
 				"broken": true,
 				"switchingOn": true,
-				"age": 2
+				"age": 1
 			}
 		],
 		"Scanner": [
 			{
 				"broken": false,
 				"switchingOn": true,
-				"age": 2
+				"age": 1
 			},
 			{
 				"broken": true,
@@ -31,31 +31,31 @@
 			{
 				"broken": false,
 				"switchingOn": true,
-				"age": 2
+				"age": 1
 			},
 			{
 				"broken": true,
 				"switchingOn": true,
-				"age": 0
+				"age": -1
 			}
 		],
 		"Decoder": [
 			{
 				"broken": false,
 				"switchingOn": true,
-				"age": 3
+				"age": 1
 			},
 			{
 				"broken": true,
 				"switchingOn": true,
-				"age": 0
+				"age": 1
 			}
 		],
 		"Printer": [
 			{
 				"broken": false,
 				"switchingOn": true,
-				"age": 2
+				"age": 1
 			},
 			{
 				"broken": true,
@@ -79,7 +79,7 @@
 			{
 				"broken": false,
 				"switchingOn": true,
-				"age": 2
+				"age": 1
 			},
 			{
 				"broken": true,
@@ -91,24 +91,24 @@
 			{
 				"broken": false,
 				"switchingOn": true,
-				"age": 2
+				"age": 1
 			},
 			{
 				"broken": true,
 				"switchingOn": true,
-				"age": 0
+				"age": -1
 			}
 		],
 		"Calculator": [
 			{
 				"broken": false,
 				"switchingOn": true,
-				"age": 3
+				"age": 1
 			},
 			{
 				"broken": true,
 				"switchingOn": true,
-				"age": 1
+				"age": -1
 			}
 		],
 		"Copier": [
@@ -127,7 +127,7 @@
 			{
 				"broken": false,
 				"switchingOn": true,
-				"age": 2
+				"age": 1
 			},
 			{
 				"broken": true,
@@ -139,7 +139,7 @@
 			{
 				"broken": false,
 				"switchingOn": true,
-				"age": 3
+				"age": 1
 			},
 			{
 				"broken": true,
@@ -151,19 +151,19 @@
 			{
 				"broken": false,
 				"switchingOn": true,
-				"age": 2
+				"age": 1
 			},
 			{
 				"broken": true,
 				"switchingOn": true,
-				"age": 1
+				"age": -1
 			}
 		],
 		"Notebook": [
 			{
 				"broken": false,
 				"switchingOn": true,
-				"age": 0
+				"age": 1
 			},
 			{
 				"broken": true,
@@ -175,19 +175,19 @@
 			{
 				"broken": false,
 				"switchingOn": true,
-				"age": 2
+				"age": 1
 			},
 			{
 				"broken": true,
 				"switchingOn": true,
-				"age": 1
+				"age": -1
 			}
 		],
 		"Computer components": [
 			{
 				"broken": false,
 				"switchingOn": true,
-				"age": 2
+				"age": 1
 			},
 			{
 				"broken": true,
@@ -199,7 +199,7 @@
 			{
 				"broken": false,
 				"switchingOn": true,
-				"age": 2
+				"age": 1
 			},
 			{
 				"broken": true,
@@ -211,7 +211,7 @@
 			{
 				"broken": false,
 				"switchingOn": true,
-				"age": 0
+				"age": 1
 			},
 			{
 				"broken": true,
@@ -228,26 +228,26 @@
 			{
 				"broken": true,
 				"switchingOn": true,
-				"age": 1
+				"age": -1
 			}
 		],
 		"Cordless": [
 			{
 				"broken": false,
 				"switchingOn": true,
-				"age": 2
+				"age": 1
 			},
 			{
 				"broken": true,
 				"switchingOn": true,
-				"age": 0
+				"age": -1
 			}
 		],
 		"Cellphone": [
 			{
 				"broken": false,
 				"switchingOn": true,
-				"age": 3
+				"age": 1
 			},
 			{
 				"broken": true,
@@ -259,7 +259,7 @@
 			{
 				"broken": false,
 				"switchingOn": true,
-				"age": 0
+				"age": 1
 			},
 			{
 				"broken": true,
@@ -271,7 +271,7 @@
 			{
 				"broken": false,
 				"switchingOn": true,
-				"age": 2
+				"age": 1
 			},
 			{
 				"broken": true,
@@ -283,7 +283,7 @@
 			{
 				"broken": false,
 				"switchingOn": true,
-				"age": 2
+				"age": 1
 			},
 			{
 				"broken": true,
@@ -295,7 +295,7 @@
 			{
 				"broken": false,
 				"switchingOn": true,
-				"age": 2
+				"age": 1
 			},
 			{
 				"broken": true,
@@ -307,19 +307,19 @@
 			{
 				"broken": false,
 				"switchingOn": true,
-				"age": 2
+				"age": 1
 			},
 			{
 				"broken": true,
 				"switchingOn": true,
-				"age": 1
+				"age": -1
 			}
 		],
 		"Computer desktop": [
 			{
 				"broken": false,
 				"switchingOn": true,
-				"age": 3
+				"age": 1
 			},
 			{
 				"broken": true,
@@ -331,12 +331,12 @@
 			{
 				"broken": false,
 				"switchingOn": true,
-				"age": 3
+				"age": 1
 			},
 			{
 				"broken": true,
 				"switchingOn": true,
-				"age": 2
+				"age": 1
 			}
 		]
 	}

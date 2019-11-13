@@ -2,8 +2,8 @@
 	{
 		"tenantId":"TRENTINO",
 		"gameId":"",
-		"from":1554674400000,
-		"to":1555279199000,
+		"from":1575241200000,
+		"to":1575673199000,
 		"nameGE":"R1",
 		"message":{
 			"it":"Piccoli elettrodomestici della cucina", 
@@ -38,8 +38,8 @@
 	{
 		"tenantId":"TRENTINO",
 		"gameId":"",
-		"from":1555279200000,
-		"to":1557093599000,
+		"from":1575846000000,
+		"to":1576277999000,
 		"nameGE":"R2",
 		"message":{
 			"it":"Cellulari, smartphone, tablet e computer portatili",
@@ -56,8 +56,8 @@
 	{
 		"tenantId":"TRENTINO",
 		"gameId":"",
-		"from":1557093600000,
-		"to":1557698399000,
+		"from":1576450800000,
+		"to":1576882799000,
 		"nameGE":"R3",
 		"message":{
 			"it":"Apparecchiature informatiche e per telecomunicazioni",
@@ -74,8 +74,8 @@
 	{
 		"tenantId":"TRENTINO",
 		"gameId":"",
-		"from":1557698400000,
-		"to":1558303199000,
+		"from":1578351600000,
+		"to":1578697199000,
 		"nameGE":"R4",
 		"message":{
 			"it":"Piccoli elettrodomestici per la salute e il benessere",
@@ -92,37 +92,37 @@
 	{
 		"tenantId":"TRENTINO",
 		"gameId":"",
-		"from":1558303200000,
-		"to":1558907999000,
+		"from":1578870000000,
+		"to":1579301999000,
 		"nameGE":"R5",
 		"message":{
-			"it":"Apparecchiature audio e video",
-			"en":"Audio, video, consumer devices"
+			"it":"Apparecchiature audio e video. Giochi e giocattoli elettrici ed elettronici",
+			"en":"Audio, video, consumer devices. Toys and games"
 		},
 		"reduceMessage":{
 			"it":"Quanti anni ha la televisione di casa tua?",
 			"en":"How old is the TV you have at home?"
 		},
 		"specialCollection":false,
-		"items":["Amplifier","Car radio","CD reader","Electrical clock","Headphones","Speaker","Mp3 reader","Radio","Record player","Recorder","Stereo","Electrical alarm clock","Battery charger","Camera","DVD reader","Video recorder","Web cam","Remote"],
+		"items":["Amplifier","Car radio","CD reader","Electrical clock","Headphones","Speaker","Mp3 reader","Radio","Record player","Recorder","Stereo","Electrical alarm clock","Battery charger","Camera","DVD reader","Video recorder","Web cam","Remote","Joystick","Portable and stationary console","Talking doll","Electrical musical instruments","Electrical toys"],
 		"links":[]
 	},
 	{
 		"tenantId":"TRENTINO",
 		"gameId":"",
-		"from":1558908000000,
-		"to":1559512799000,
+		"from":1579474800000,
+		"to":1579906799000,
 		"nameGE":"R6",
 		"message":{
-			"it":"Giochi e giocattoli elettrici ed elettronici",
-			"en":"Toys and games"
+			"it":"Raccolta Jolly",
+			"en":""
 		},
 		"reduceMessage":{
-			"it":"Quanti anni ha la tua console di videogiochi?",
-			"en":"How old is your video game console?"
+			"it":"",
+			"en":""
 		},
 		"specialCollection":false,
-		"items":["Joystick","Portable and stationary console","Talking doll","Electrical musical instruments","Electrical toys"],
+		"items":[],
 		"links":[]
 	}
 ]
