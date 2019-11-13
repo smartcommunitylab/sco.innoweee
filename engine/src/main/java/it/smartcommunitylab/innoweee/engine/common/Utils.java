@@ -338,5 +338,11 @@ public class Utils {
 		action.setLastUpdate(now);
 		return action;		
 	}
+	
+	public static double getRank(CoinMap coinMap) {
+		double rank = coinMap.getReduceCoin() + 
+				(coinMap.getReuseCoin() * 21.91) + (coinMap.getRecycleCoin() * 21.91);
+		return rank;
+	}
 
 }

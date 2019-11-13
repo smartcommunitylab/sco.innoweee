@@ -11,6 +11,11 @@ public class CoinMap {
 		this.recycleCoin = recycleCoin;
 	}
 	
+	@Override
+	public String toString() {
+		return "reduce:" + reduceCoin + "-resuse:" + reuseCoin + "-recycle:" + recycleCoin;
+	}
+	
 	public double getReduceCoin() {
 		return reduceCoin;
 	}

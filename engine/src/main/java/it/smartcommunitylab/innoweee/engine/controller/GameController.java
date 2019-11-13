@@ -291,8 +291,13 @@ public class GameController extends AuthController {
 			executionDate = new Date();
 		}
 		List<Player> players = playerRepository.findByGameId(game.getTenantId(), gameId);
-		List<GarbageCollection> collections = garbageCollectionRepository.findByGameId(game.getTenantId(), gameId);
-		Map<String, CoinMap> playerCoinMap = geManager.getPlayerCoinMap(game.getGeGameId(), playerId, players, collections);
+		GarbageCollection collection = collectionRepository.findActualCollection(game.getTenantId(), 
+				gameId, executionDate.getTime());
+		if(collection == null) {
+			throw new EntityNotFoundException("collection not found");
+		}
+		Map<String, CoinMap> playerCoinMap = geManager.getPlayerCoinMap(game.getGeGameId(), playerId, players, 
+				collection.getNameGE());
 		geManager.sendContribution(game.getGeGameId(), playerId, playerCoinMap.get(playerId), executionDate);
 		for(String objectId : playerCoinMap.keySet()) {
 			if(playerId.equals(objectId)) {
@@ -301,7 +306,7 @@ public class GameController extends AuthController {
 			Optional<Player> optional = playerRepository.findById(objectId);
 			if(optional.isPresent()) {
 				Utils.sendContribution(player, optional.get(), nameGE, playerCoinMap.get(objectId));
-				//TODO test playerRepository.save(player);
+				playerRepository.save(player);
 				geManager.receiveContribution(game.getGeGameId(), objectId, playerCoinMap.get(objectId), executionDate);
 				Utils.receiveContribution(player, optional.get(), nameGE, playerCoinMap.get(objectId));
 				playerRepository.save(optional.get());

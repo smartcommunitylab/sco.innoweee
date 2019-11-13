@@ -180,10 +180,17 @@ public class PlayersStatus {
 	}
 	
 	private CoinMap extractCoinMap(PlayerState playerState) {
-		CoinMap coinMap = new CoinMap(playerState.getReduceCoin(), playerState.getReuseCoin(), playerState.getRecycleCoin());
+		CoinMap coinMap = new CoinMap(playerState.getReduceCoin(), 
+				playerState.getReuseCoin(), playerState.getRecycleCoin());
 		return coinMap;
 	}
 
+	private CoinMap extractTotalCoinMap(PlayerState playerState) {
+		CoinMap coinMap = new CoinMap(playerState.getTotalReduceCoin(), 
+				playerState.getTotalReuseCoin(), playerState.getTotalRecycleCoin());
+		return coinMap;
+	}
+	
 	public CoinMap getPlayerCoinMap(String playerId, String collectionName) {
 		if(Utils.isEmpty(collectionName)) {
 			collectionName = globalState;
@@ -191,6 +198,13 @@ public class PlayersStatus {
 		return extractCoinMap(statusMap.get(playerId).get(collectionName));
 	}
 
+	public CoinMap getPlayerTotalCoinMap(String playerId, String collectionName) {
+		if(Utils.isEmpty(collectionName)) {
+			collectionName = globalState;
+		}
+		return extractTotalCoinMap(statusMap.get(playerId).get(collectionName));
+	}
+	
 	public Set<String> getPlayerIds() {
 		return statusMap.keySet();
 	}
