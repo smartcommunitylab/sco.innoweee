@@ -191,9 +191,9 @@ export class ChangePage extends MainPage implements OnInit {
   updateDate(res: any) {
     this.profileData =res;
   }
-  notYetDonateOrZero() {
-    // if (zeropoint)
-    //   return false;
+  notYetDonateOrNotZero() {
+    if (this.profileState && this.profileState.recycleCoin==0 && this.profileState.reduceCoin==0 && this.profileState.reuseCoin==0)
+       return false;
     if (this.profileData && this.profileData.contributions && this.actualCollection)
       for (let index = 0; index < this.profileData.contributions.length; index++) {
         const element = this.profileData.contributions[index];
