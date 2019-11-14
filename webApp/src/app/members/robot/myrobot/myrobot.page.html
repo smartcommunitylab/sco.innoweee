@@ -58,11 +58,11 @@
               <ion-row class="row-stars">
                 <ion-col *ngFor="let contribute of contributions">
                   <div class="star">
-                    <ion-icon src="/assets/images/white.svg"
+                    <ion-icon class="white-star" src="/assets/images/white.svg"
                       *ngIf="!contribute.donatedPointsValue && !isFuture(contribute)"></ion-icon>
-                    <ion-icon src="/assets/images/yellow.svg"
+                    <ion-icon class="yellow-star"  src="/assets/images/yellow.svg"
                       *ngIf="contribute.donatedPointsValue && !isFuture(contribute)"></ion-icon>
-                    <ion-icon src="/assets/images/star.svg" *ngIf="isFuture(contribute)"></ion-icon>
+                    <ion-icon class="empty-star" src="/assets/images/star.svg" *ngIf="isFuture(contribute)"></ion-icon>
                   </div>
                 </ion-col>
               </ion-row>

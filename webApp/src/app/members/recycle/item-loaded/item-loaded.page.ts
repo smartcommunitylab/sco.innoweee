@@ -210,10 +210,10 @@ export class ItemLoadedPage extends MainPage implements OnInit {
         "value": false
       }],
       3: [{
-        "label": "reply_1_question",
+        "label": "reply_yes_question",
         "value": 1
       },{
-        "label": "reply_0_question",
+        "label": "reply_no_question",
         "value": 0
       } 
       // , {

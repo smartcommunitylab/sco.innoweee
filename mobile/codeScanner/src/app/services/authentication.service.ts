@@ -130,6 +130,77 @@ export class AuthenticationService {
   getTokenInfo() {
     return JSON.parse(localStorage.getItem(this.TOKENINFO_VAR));
   }
+  deleteUser() {
+    localStorage.removeItem(this.PROVIDER_VAR);
+    localStorage.removeItem(this.PROFILE_VAR);
+    localStorage.removeItem(this.TOKENINFO_VAR);
+  }
+   resetUser() {
+		this.user = {
+			provider: undefined,
+			profile: undefined,
+			tokenInfo: undefined
+		};
+		this.deleteUser();
+	};
+  /*
+	 * GET (REFRESHING FIRST IF NEEDED) AAC TOKEN
+	 */
+  //  refreshTokenDeferred = null;
+	 refreshTokenTimestamp = null;
+	getValidAACtoken() {
+    return new Promise<any>((resolve,reject) =>{
+// 10 seconds
+// if (!!this.refreshTokenDeferred && ((new Date().getTime()) < (this.refreshTokenTimestamp + (1000 * 10)))) {
+//   console.log('[LOGIN] use recent refreshToken deferred!');
+//   return this.refreshTokenDeferred.promise;
+// }
+
+this.refreshTokenTimestamp = new Date().getTime();
+// this.refreshTokenDeferred =  new Promise<any>();
+
+// check for expiry.
+var now = new Date();
+if (!!this.user && !!this.user.tokenInfo && !!this.user.tokenInfo.refresh_token) {
+  var validUntil = new Date(this.user.tokenInfo.validUntil);
+  if (validUntil.getTime() >= now.getTime() + (60 * 60 * 1000)) {
+    resolve(this.user.tokenInfo.access_token);
+  } else {
+    this.http.post(this.settings.aacUrl + AAC.TOKEN_URI, null, {
+      params: {
+        'client_id': this.settings.clientId,
+        'client_secret': this.settings.clientSecret,
+        'refresh_token': this.user.tokenInfo.refresh_token,
+        'grant_type': 'refresh_token'
+      }
+    }).toPromise().then(
+       (response:any) =>{
+        if (response.data.access_token) {
+          console.log('[LOGIN] AAC token refreshed');
+          this.saveToken(response.data);
+          this.saveTokenInfo();
+          resolve(response.data.access_token);
+        } else {
+          this.resetUser();
+          console.log('[LOGIN] invalid refresh_token');
+          reject(null);
+        }
+      },
+       (reason) => {
+        this.resetUser();
+        reject(reason);
+      }
+    );
+  }
+} else {
+  this.resetUser();
+  reject(null);
+}
+
+// return this.refreshTokenDeferred.promise;
+    })
+		
+	};
   /**
    * Check status of the login. Return true if the user is already logged or the token present in storage is valid
    */
@@ -251,29 +322,29 @@ export class AuthenticationService {
     });
   };
 
-  getAACtoken(code): Promise<any> {
-    console.log('getAACToken');
+  // getAACtoken(code): Promise<any> {
+  //   console.log('getAACToken');
 
-    var url = "https://am-dev.smartcommunitylab.it/aac/oauth/token";
+  //   var url = "https://am-dev.smartcommunitylab.it/aac/oauth/token";
 
-    return this.http.post(url, null, {
-      params: {
-        'client_id': "2be89b9c-4050-4e7e-9042-c02b0d9121c6",
-        'client_secret': "7deb5fab-b9f6-4363-b6ca-3acccabdce81",
-        'code': code,
-        'redirect_uri': "http://localhost",
-        'grant_type': 'authorization_code'
-      }
-    }).toPromise().then(response => {
-      if (!!response["data"]["access_token"]) {
-        console.log('[LOGIN] AAC token obtained');
-        return Promise.resolve(response["data"]);
-      } else {
-        return Promise.resolve(null);
-      }
-    }
-    );
-  };
+  //   return this.http.post(url, null, {
+  //     params: {
+  //       'client_id': "2be89b9c-4050-4e7e-9042-c02b0d9121c6",
+  //       'client_secret': "7deb5fab-b9f6-4363-b6ca-3acccabdce81",
+  //       'code': code,
+  //       'redirect_uri': "http://localhost",
+  //       'grant_type': 'authorization_code'
+  //     }
+  //   }).toPromise().then(response => {
+  //     if (!!response["data"]["access_token"]) {
+  //       console.log('[LOGIN] AAC token obtained');
+  //       return Promise.resolve(response["data"]);
+  //     } else {
+  //       return Promise.resolve(null);
+  //     }
+  //   }
+  //   );
+  // };
 
   login(provider, credentials): Promise<any> {
     return new Promise((resolve, reject) => {
@@ -304,12 +375,12 @@ export class AuthenticationService {
             Uses the internal AAC sign-in system
             */
             this.getAACtokenInternal(credentials).then(
-              function (tokenInfo) {
+               (tokenInfo)  => {
                 this.saveToken(tokenInfo);
                 this.user.provider = provider;
                 console.log('[LOGIN] logged in with ' + this.user.provider);
-                this.remoteAAC.getCompleteProfile(this.user.tokenInfo).then(
-                  function (profile) {
+                this.getRemoteAACCompleteProfile(this.user.tokenInfo).then(
+                   (profile) => {
                     this.user.profile = profile;
                     localStorage.setItem('user', JSON.stringify(this.user));
                     resolve(profile);
@@ -391,11 +462,11 @@ export class AuthenticationService {
         .toPromise()
         .then(
           (response) => {
-            if (!!response["data"].access_token) {
+            if (!!response["access_token"]) {
               console.log('[LOGIN] AAC token obtained');
-              resolve(response["data"]);
+              resolve(response);
             } else {
-              reject(!!response["data"].exception ? response["data"].exception : null);
+              reject(!!response["exception"] ? response["exception"] : null);
             }
           }
         ).catch(response => {
@@ -446,20 +517,19 @@ export class AuthenticationService {
     }
     this.saveTokenInfo();
   };
-  remoteAAC = {
-    getBasicProfile: function getBasicProfile(tokenInfo) {
+
+    getRemoteAACBasicProfile (tokenInfo) {
 
       return new Promise((resolve, reject) => {
         this.http.get(this.settings.aacUrl + AAC.BASIC_PROFILE_URI, {
           headers: {
             'Authorization': 'Bearer ' + tokenInfo.access_token
-          },
-          timeout: 10000
+          }
         })
           .toPromise()
           .then(
             (response) => {
-              resolve(response.data);
+              resolve(response);
             }
           ).catch(response => {
             reject(response);
@@ -478,19 +548,18 @@ export class AuthenticationService {
         //   }
         // );
       })
-    },
-    getAccountProfile: function getBasicProfile(tokenInfo) {
+    };
+    getRemoteAACAccountProfile(tokenInfo) {
       return new Promise((resolve, reject) => {
         this.http.get(this.settings.aacUrl + AAC.ACCOUNT_PROFILE_URI, {
           headers: {
             'Authorization': 'Bearer ' + tokenInfo.access_token
-          },
-          timeout: 10000
+          }
         })
           .toPromise()
           .then(
             (response) => {
-              resolve(response.data);
+              resolve(response);
             }
           ).catch(response => {
             reject(response);
@@ -512,18 +581,18 @@ export class AuthenticationService {
 
       })
 
-    },
-    getCompleteProfile: function (tokenInfo) {
+    };
+    getRemoteAACCompleteProfile (tokenInfo) {
       return new Promise((resolve, reject) => {
-        this.remoteAAC.getBasicProfile(tokenInfo).then(
+        this.getRemoteAACBasicProfile(tokenInfo).then(
           (profile) => {
-            if (!!profile && !!profile.userId) {
-              this.remoteAAC.getAccountProfile(tokenInfo).then(
+            if (!!profile && !!profile["userId"]) {
+              this.getRemoteAACAccountProfile(tokenInfo).then(
                 (accountProfile) => {
-                  for (var authority in accountProfile.accounts) {
-                    for (var k in accountProfile.accounts[authority]) {
-                      if (k.indexOf('email') >= 0 && !!accountProfile.accounts[authority][k]) {
-                        profile.email = accountProfile.accounts[authority][k];
+                  for (var authority in accountProfile["accounts"]) {
+                    for (var k in accountProfile["accounts"][authority]) {
+                      if (k.indexOf('email') >= 0 && !!accountProfile["accounts"][authority][k]) {
+                        profile["email"] = accountProfile["accounts"][authority][k];
                       }
                     }
                   }
@@ -546,6 +615,6 @@ export class AuthenticationService {
 
     }
   };
-}
+
 
 
