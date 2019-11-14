@@ -50,7 +50,7 @@ export const APP_CONFIG: ApplicationConfig = {
     getDeliveryApi:"/delivery",
     getGarbageApi:"api/garbageMap/",
     getUsedApi:"/used",
-    aacClientId: '2be89b9c-4050-4e7e-9042-c02b0d9121c6',
+    aacClientId: "",
     // redirectUrl: 'https://tn.smartcommunitylab.it/innoweee/',
     // redirectUrl: 'https://dev.smartcommunitylab.it/innoweee/',
     redirectUrl: 'http://localhost:8100/',
