@@ -40,6 +40,7 @@ public class PointsTest {
 		"'tre,5.0,3.0,1.0', 'uno,15.0,10.0,5.0;due,25.0,15.0,5.0;tre,25.0,5.0,5.0'",
 		"'due,5.0,3.0,1.0', 'uno,15.0,10.0,5.0;due,25.0,15.0,5.0",
 		"'uno,5.0,3.0,1.0', 'uno,15.0,10.0,5.0",
+		"'2A,19.0,1.0,0.0', '2A,19.0,1.0,0.0;1C,0.0,0.0,0.0;2B,0.0,0.0,0.0;1D,0.0,0.0,0.0'"
 	})
 	public void testPoints(String contributor, String players) {
 		List<PointStatus> pointStatusList = new ArrayList<PointStatus>();

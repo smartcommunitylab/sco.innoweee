@@ -191,7 +191,7 @@ public class AdminController extends AuthController {
 		
 		Game game = new Game();
 		game.setTenantId(tenantId);
-		game.setGameName("Gioco Innoweee");
+		game.setGameName("Gioco " + school.getName());
 		game.setInstituteId(institute.getObjectId());
 		game.setSchoolId(school.getObjectId());
 		game.setCreationDate(now);

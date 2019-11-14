@@ -298,6 +298,8 @@ public class GameController extends AuthController {
 		}
 		Map<String, CoinMap> playerCoinMap = geManager.getPlayerCoinMap(game.getGeGameId(), playerId, players, 
 				collection.getNameGE());
+		logger.info("sendContribution[{}]:{} / {} / {} / {}", game.getTenantId(), gameId, playerId, 
+				nameGE, playerCoinMap);
 		geManager.sendContribution(game.getGeGameId(), playerId, playerCoinMap.get(playerId), executionDate);
 		for(String objectId : playerCoinMap.keySet()) {
 			if(playerId.equals(objectId)) {

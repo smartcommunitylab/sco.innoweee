@@ -230,8 +230,10 @@ public class GeManager {
 			PlayersStatus playersStatus, String collectionName) throws Exception {
 		Map<String, CoinMap> result = new HashMap<>();
 		CoinMap contributorCoinMap = playersStatus.getPlayerCoinMap(contributorId, null);
+		if(Utils.isEmpty(contributorCoinMap)) {
+			throw new StorageException("contribution score is empty");
+		}
 		result.put(contributorId, contributorCoinMap);
-		
 		List<PointStatus> pointStatusList = new ArrayList<>();
 		for(Player player : players) {
 			if(Utils.checkDonation(player, collectionName)) {
@@ -240,6 +242,7 @@ public class GeManager {
 			CoinMap coinMap = playersStatus.getPlayerTotalCoinMap(player.getObjectId(), collectionName);
 			double rank = Utils.getRank(coinMap);
 			PointStatus pointStatus = new PointStatus(player.getObjectId(), rank);
+			pointStatus.setCoinMap(coinMap);
 			pointStatusList.add(pointStatus);
 		}
 		PointDistribution pointDistribution = new PointDistribution(pointStatusList);
@@ -247,19 +250,6 @@ public class GeManager {
 			throw new StorageException("score too low");
 		}
 		result.putAll(pointDistribution.distribute(contributorId, contributorCoinMap));
-//		CoinMap fakeCoinMap = new CoinMap(1.0, 1.0, 1.0);
-//		int index = random.nextInt(playersStatus.getPlayerIds().size());
-//		int i = 0;
-//		for(String playerId : playersStatus.getPlayerIds()) {
-//			if(playerId.equals(contributorId)) {
-//				continue;
-//			}
-//			if(i == index) {
-//				result.put(playerId, fakeCoinMap);
-//				break;
-//			}
-//			i++;
-//		}
 		return result;
 	}
 	

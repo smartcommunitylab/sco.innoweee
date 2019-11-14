@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import it.smartcommunitylab.innoweee.engine.common.Utils;
+
 public class PointDistribution {
 	private List<PointStatus> pointStatusList = null;
 	private int count;
@@ -56,7 +58,9 @@ public class PointDistribution {
 				double reuseCoin = Math.ceil(contributorCoinMap.getReuseCoin() * XList[i]);
 				double recycleCoin = Math.ceil(contributorCoinMap.getRecycleCoin() * XList[i]);
 				CoinMap coinMap = new CoinMap(reduceCoin, reuseCoin, recycleCoin);
-				result.put(pointStatusList.get(i).getPlayerId(), coinMap);
+				if(!Utils.isEmpty(coinMap)) {
+					result.put(pointStatusList.get(i).getPlayerId(), coinMap);
+				}
 				lastReduceCoin -= reduceCoin;
 				lastReuseCoin -= reuseCoin;
 				lastRecycleCoin -= recycleCoin;
