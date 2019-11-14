@@ -338,5 +338,26 @@ public class Utils {
 		action.setLastUpdate(now);
 		return action;		
 	}
+	
+	public static double getRank(CoinMap coinMap) {
+		double rank = coinMap.getReduceCoin() + 
+				(coinMap.getReuseCoin() * 21.91) + (coinMap.getRecycleCoin() * 21.91);
+		if(rank < 1.0) {
+			rank = 1.0;
+		}
+		return rank;
+	}
+	
+	public static boolean isEmpty(CoinMap coinMap) {
+		boolean result = true;
+		if(coinMap != null) {
+			if((coinMap.getRecycleCoin() > 0.0) || 
+				(coinMap.getReduceCoin() > 0.0) ||
+				(coinMap.getReuseCoin() > 0.0)) {
+				result = false;
+			}
+		}
+		return result;
+	}
 
 }

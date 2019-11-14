@@ -1,4 +1,8 @@
-[
+{
+	"instituteName":"Arcivescovile",
+	"schoolName":"Arcivescovile",
+	"classes":["1A","1B","2A","2B","3A","3B","4B","5B"],
+	"collections": [
 	{
 		"tenantId":"TRENTINO",
 		"gameId":"",
@@ -126,3 +130,4 @@
 		"links":[]
 	}
 ]
+}

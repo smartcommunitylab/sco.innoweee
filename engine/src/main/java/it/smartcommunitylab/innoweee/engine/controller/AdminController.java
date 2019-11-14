@@ -169,13 +169,19 @@ public class AdminController extends AuthController {
 		Date now = new Date();
 		
 		Institute institute = new Institute();
+		if(Utils.isNotEmpty(data.getInstituteId())) {
+			institute.setObjectId(data.getInstituteId());
+		}
 		institute.setTenantId(tenantId);
 		institute.setName(data.getInstituteName());
-		institute.setCreationDate(now);
+		institute.setCreationDate(now);			
 		institute.setLastUpdate(now);
 		instituteRepository.save(institute);
 		
 		School school = new School();
+		if(Utils.isNotEmpty(data.getSchoolId())) {
+			school.setObjectId(data.getSchoolId());
+		}		
 		school.setTenantId(tenantId);
 		school.setName(data.getSchoolName());
 		school.setInstituteId(institute.getObjectId());
@@ -185,7 +191,7 @@ public class AdminController extends AuthController {
 		
 		Game game = new Game();
 		game.setTenantId(tenantId);
-		game.setGameName("Gioco Innoweee");
+		game.setGameName("Gioco " + school.getName());
 		game.setInstituteId(institute.getObjectId());
 		game.setSchoolId(school.getObjectId());
 		game.setCreationDate(now);
@@ -200,7 +206,7 @@ public class AdminController extends AuthController {
 			garbageCollectionRepository.save(collection);
 		}
 		
-		for (String className : data.getClasses()) {
+		for(String className : data.getClasses()) {
 			Player player = new Player();
 			player.setTenantId(tenantId);
 			player.setName(className);

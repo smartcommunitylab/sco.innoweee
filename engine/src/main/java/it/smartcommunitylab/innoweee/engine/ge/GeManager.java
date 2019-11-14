@@ -1,6 +1,7 @@
 package it.smartcommunitylab.innoweee.engine.ge;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -20,11 +21,12 @@ import it.smartcommunitylab.basic.api.ExecutionControllerApi;
 import it.smartcommunitylab.basic.api.PlayerControllerApi;
 import it.smartcommunitylab.basic.api.TeamControllerApi;
 import it.smartcommunitylab.innoweee.engine.common.Const;
+import it.smartcommunitylab.innoweee.engine.common.Utils;
+import it.smartcommunitylab.innoweee.engine.exception.StorageException;
 import it.smartcommunitylab.innoweee.engine.model.Category;
 import it.smartcommunitylab.innoweee.engine.model.Component;
 import it.smartcommunitylab.innoweee.engine.model.Game;
 import it.smartcommunitylab.innoweee.engine.model.Garbage;
-import it.smartcommunitylab.innoweee.engine.model.GarbageCollection;
 import it.smartcommunitylab.innoweee.engine.model.ItemEvent;
 import it.smartcommunitylab.innoweee.engine.model.Player;
 import it.smartcommunitylab.innoweee.engine.model.PlayerState;
@@ -174,7 +176,7 @@ public class GeManager {
 		data.put(Const.COIN_REDUCE, 0.0 - coinMap.getReduceCoin());
 		data.put(Const.COIN_REUSE, 0.0 - coinMap.getReuseCoin());
 		dataDTO.setData(data);
-		//TODO test executionApi.executeActionUsingPOST(gameId, "donation", dataDTO);		
+		executionApi.executeActionUsingPOST(gameId, "donation", dataDTO);		
 	}
 	
 	public void receiveContribution(String gameId, String playerId, CoinMap coinMap, 
@@ -210,41 +212,44 @@ public class GeManager {
 	 * @return a Map where the key is the playerId and the value is a CostMap
 	 */
 	public Map<String, CoinMap> getPlayerCoinMap(String gameId, String playerId,
-			List<Player> players, List<GarbageCollection> collections) {
+			List<Player> players, String collectionName) throws Exception {
 		PlayersStatus playersStatus = new PlayersStatus();
 		for(Player player : players) {
 			try {
 				PlayerStateDTO playerStateDTO = playerApi.readStateUsingGET(gameId, player.getObjectId());
 				playersStatus.addPlayerStatus(player.getObjectId(), null, playerStateDTO);
-				for(GarbageCollection collection : collections) {
-					playersStatus.addPlayerStatus(player.getObjectId(), collection.getNameGE(), playerStateDTO);
-				}
+				playersStatus.addPlayerStatus(player.getObjectId(), collectionName, playerStateDTO);
 			} catch (ApiException | IOException e) {
 				logger.warn("getPlayerCostMap - read player status error:{}", e.getMessage());
 			}
 		}
-		return assignPoints(playerId, playersStatus, collections);
+		return assignPoints(playerId, players, playersStatus, collectionName);
 	}
 
-	private Map<String, CoinMap> assignPoints(String contributorId, PlayersStatus playersStatus,
-			List<GarbageCollection> collections) {
-		// TODO only for test
+	private Map<String, CoinMap> assignPoints(String contributorId, List<Player> players,
+			PlayersStatus playersStatus, String collectionName) throws Exception {
 		Map<String, CoinMap> result = new HashMap<>();
 		CoinMap contributorCoinMap = playersStatus.getPlayerCoinMap(contributorId, null);
+		if(Utils.isEmpty(contributorCoinMap)) {
+			throw new StorageException("contribution score is empty");
+		}
 		result.put(contributorId, contributorCoinMap);
-		CoinMap fakeCoinMap = new CoinMap(1.0, 1.0, 1.0);
-		int index = random.nextInt(playersStatus.getPlayerIds().size());
-		int i = 0;
-		for(String playerId : playersStatus.getPlayerIds()) {
-			if(playerId.equals(contributorId)) {
+		List<PointStatus> pointStatusList = new ArrayList<>();
+		for(Player player : players) {
+			if(Utils.checkDonation(player, collectionName)) {
 				continue;
 			}
-			if(i == index) {
-				result.put(playerId, fakeCoinMap);
-				break;
-			}
-			i++;
+			CoinMap coinMap = playersStatus.getPlayerTotalCoinMap(player.getObjectId(), collectionName);
+			double rank = Utils.getRank(coinMap);
+			PointStatus pointStatus = new PointStatus(player.getObjectId(), rank);
+			pointStatus.setCoinMap(coinMap);
+			pointStatusList.add(pointStatus);
 		}
+		PointDistribution pointDistribution = new PointDistribution(pointStatusList);
+		if(pointDistribution.checkLastPositions(contributorId)) {
+			throw new StorageException("score too low");
+		}
+		result.putAll(pointDistribution.distribute(contributorId, contributorCoinMap));
 		return result;
 	}
 	

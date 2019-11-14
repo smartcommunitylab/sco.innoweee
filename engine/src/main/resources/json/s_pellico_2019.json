@@ -1,4 +1,8 @@
-[
+{
+	"instituteName":"I.C. ALTA VALLAGARINA",
+	"schoolName":"S.P. Silvio Pellico",
+	"classes":["1A","2A","2B","3A","4A","4B","5A","5B"],
+	"collections": [
 	{
 		"tenantId":"TRENTINO",
 		"gameId":"",
@@ -126,3 +130,4 @@
 		"links":[]
 	}
 ]
+}
