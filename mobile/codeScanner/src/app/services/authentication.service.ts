@@ -57,8 +57,8 @@ export class AuthenticationService {
   settings = {
     loginType: LOGIN_TYPE.AAC,
     aacUrl: "https://am-dev.smartcommunitylab.it/aac",
-    clientId: "1ab75637-2f28-4401-98ef-e77221503c0e",
-    clientSecret: "a48a6b59-83ef-47bb-997e-1bd3b5897ccd",
+    clientId: "",
+    clientSecret: "",
     customConfig: undefined
   };
   user = {
@@ -67,14 +67,24 @@ export class AuthenticationService {
     tokenInfo: null
   };
   libConfigOK;
+  jsonURL = './assets/data/auth.json';
+
   constructor(
     private http: HttpClient,
     private platform: Platform,
     private router: Router) {
+      this.getJSON().subscribe(data => {
+        console.log(data);
+        this.settings.clientId=data.clientId;
+        this.settings.clientSecret=data.clientSecret;
+      })
     // this.aacClientId=config.aacClientId;
     // this.redirectUrl=config.redirectUrl;
     // this.scope=config.scope;
     // this.aacUrl=config.aacUrl;
+  }
+  public getJSON(): Observable<any> {
+    return this.http.get(this.jsonURL);
   }
   init() {
     return new Promise((resolve, reject) => {
