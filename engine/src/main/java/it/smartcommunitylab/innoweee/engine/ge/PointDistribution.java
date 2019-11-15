@@ -54,9 +54,9 @@ public class PointDistribution {
 			double lastReuseCoin = contributorCoinMap.getReuseCoin();
 			double lastRecycleCoin = contributorCoinMap.getRecycleCoin();
 			for(int i=0; i < (count - 1); i++) {
-				double reduceCoin = Math.ceil(contributorCoinMap.getReduceCoin() * XList[i]);
-				double reuseCoin = Math.ceil(contributorCoinMap.getReuseCoin() * XList[i]);
-				double recycleCoin = Math.ceil(contributorCoinMap.getRecycleCoin() * XList[i]);
+				double reduceCoin = Math.ceil(lastReduceCoin * XList[i]);
+				double reuseCoin = Math.ceil(lastReuseCoin * XList[i]);
+				double recycleCoin = Math.ceil(lastRecycleCoin * XList[i]);
 				CoinMap coinMap = new CoinMap(reduceCoin, reuseCoin, recycleCoin);
 				if(!Utils.isEmpty(coinMap)) {
 					result.put(pointStatusList.get(i).getPlayerId(), coinMap);
