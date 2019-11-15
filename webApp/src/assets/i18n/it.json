@@ -150,5 +150,6 @@
         "header_confirm":"Con questa azione potrai aiutare altre classi che hanno bisogno di crediti per comprare delle parti del robot.",
         "message_confirm":"Sei sicuro di voler donare tutti i tuoi crediti?",
         "header_donated":"COMPLIMENTI!",
-        "message_donated":"Hai donato i tuoi punti residui alla classe {{classe}} ed hai guadagnato una stella!<br><div><ion-icon src=\"./assets/images/yellow.svg\" *ngIf=\"isFuture(contribute)\"></ion-icon></div>"
+        "message_donated":"Hai donato i tuoi punti residui alla classe {{classe}} ed hai guadagnato una stella!<br><div><ion-icon src=\"./assets/images/yellow.svg\" *ngIf=\"isFuture(contribute)\"></ion-icon></div>",
+        "donate_server_error":"Errore nella donazione dei tuoi punti"
 }

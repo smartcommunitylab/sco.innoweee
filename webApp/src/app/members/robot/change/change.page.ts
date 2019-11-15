@@ -111,6 +111,8 @@ export class ChangePage extends MainPage implements OnInit {
     var header = "";
     var message = "";
     this.translate.get('header_confirm').subscribe(async (res: string) => {
+      var yesLabel = this.translate.instant('reply_yes_question');
+      var noLabel = this.translate.instant('reply_no_question');
       header = res;
       message = this.translate.instant("message_confirm");
       const alert = await this.alertController.create({
@@ -120,13 +122,13 @@ export class ChangePage extends MainPage implements OnInit {
   
         buttons: [
           {
-            text: 'No',
+            text: noLabel,
             role: 'cancel',
             handler: (blah) => {
               console.log('Confirm Cancel: blah');
             }
           }, {
-            text: 'Si',
+            text: yesLabel,
             handler: () => {
               console.log('Confirm Okay');
               this.confirm();
@@ -215,7 +217,9 @@ export class ChangePage extends MainPage implements OnInit {
         loading.dismiss();
     }, err => {
       loading.dismiss();
-      this.presentToast('Errore di comunicazione')
+      this.translate.get('donate_server_error').subscribe(res => {
+        this.presentToast(res)
+      })
     })
   }
 
