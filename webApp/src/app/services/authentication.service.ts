@@ -2,7 +2,9 @@ import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { APP_CONFIG_TOKEN, ApplicationConfig } from '../app-config';
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class AuthenticationService {
   aacClientId;
   redirectUrl;
@@ -13,14 +15,10 @@ export class AuthenticationService {
   constructor(    @Inject(APP_CONFIG_TOKEN) private config: ApplicationConfig,
     private http: HttpClient) {
       //read asynch the dfile with id
-      this.getJSON().subscribe(data => {
-        console.log(data);
-        config.aacClientId=data.aacClientId;
-        this.aacClientId=config.aacClientId;
+
         this.redirectUrl=config.redirectUrl;
         this.scope=config.scope;
         this.aacUrl=config.aacUrl;
-       });
 
      }
      public getJSON(): Observable<any> {
@@ -37,7 +35,12 @@ export class AuthenticationService {
 
   redirectAuth() {
     // tslint:disable-next-line:max-line-length
+    this.getJSON().subscribe(data => {
+      console.log(data);
+      this.config.aacClientId=data.aacClientId;
+      this.aacClientId=this.config.aacClientId;
     window.location.href = `${this.aacUrl}/eauth/authorize?response_type=token&client_id=${this.aacClientId}&scope=${this.scope}&redirect_uri=${this.redirectUrl}`;
+    })
   }
 
   logout() {
