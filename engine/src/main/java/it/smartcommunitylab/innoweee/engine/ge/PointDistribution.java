@@ -1,7 +1,10 @@
 package it.smartcommunitylab.innoweee.engine.ge;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -43,10 +46,13 @@ public class PointDistribution {
 		for(int i=0; i < count; i++) {
 			W += WList[i];
 		}
-		double[] XList = new double[count];
+		Map<String, Double> XMap = new HashMap<String, Double>();
+		//double[] XList = new double[count];
 		for(int i=0; i < count; i++) {
-			XList[i] = WList[i] / W;
+			XMap.put(pointStatusList.get(i).getPlayerId(), WList[i] / W);
 		}
+		List<String> sortByValuesList = sortByValuesList(XMap);
+		
 		if(count == 1) {
 			result.put(pointStatusList.get(0).getPlayerId(), contributorCoinMap);
 		} else {
@@ -54,21 +60,47 @@ public class PointDistribution {
 			double lastReuseCoin = contributorCoinMap.getReuseCoin();
 			double lastRecycleCoin = contributorCoinMap.getRecycleCoin();
 			for(int i=0; i < (count - 1); i++) {
-				double reduceCoin = Math.ceil(lastReduceCoin * XList[i]);
-				double reuseCoin = Math.ceil(lastReuseCoin * XList[i]);
-				double recycleCoin = Math.ceil(lastRecycleCoin * XList[i]);
+				String playerId = sortByValuesList.get(i);
+				Double X = XMap.get(playerId);
+				double reduceCoin = Math.min(lastReduceCoin, Math.ceil(contributorCoinMap.getReduceCoin() * X));
+				double reuseCoin = Math.min(lastReuseCoin, Math.ceil(contributorCoinMap.getReuseCoin() * X));
+				double recycleCoin = Math.min(lastRecycleCoin, Math.ceil(contributorCoinMap.getRecycleCoin() * X));
 				CoinMap coinMap = new CoinMap(reduceCoin, reuseCoin, recycleCoin);
 				if(!Utils.isEmpty(coinMap)) {
-					result.put(pointStatusList.get(i).getPlayerId(), coinMap);
+					result.put(playerId, coinMap);
 				}
 				lastReduceCoin -= reduceCoin;
 				lastReuseCoin -= reuseCoin;
 				lastRecycleCoin -= recycleCoin;
 			}
 			CoinMap coinMap = new CoinMap(lastReduceCoin, lastReuseCoin, lastRecycleCoin);
-			result.put(pointStatusList.get(count - 1).getPlayerId(), coinMap);
+			result.put(sortByValuesList.get(count - 1), coinMap);
 		}
 		return result;
+	}
+	
+	@SuppressWarnings("rawtypes")
+	private <K, V extends Comparable> List<K> sortByValuesList(Map<K, V> map) {
+    List<Map.Entry<K, V>> entries = new LinkedList<Map.Entry<K, V>>(
+            map.entrySet());
+
+    Collections.sort(entries, new Comparator<Map.Entry<K, V>>() {
+
+        @SuppressWarnings("unchecked")
+				public int compare(Map.Entry<K, V> o1, Map.Entry<K, V> o2) {
+            return o1.getValue().compareTo(o2.getValue());
+        }
+    });
+
+    // LinkedHashMap will keep the keys in the order they are inserted
+    // which is currently sorted on natural ordering
+    List<K> sortedList = new ArrayList<K>();
+
+    for (Map.Entry<K, V> entry : entries) {
+        sortedList.add(entry.getKey());
+    }
+
+    return sortedList;
 	}
 	
 }
