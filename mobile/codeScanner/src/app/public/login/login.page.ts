@@ -34,15 +34,24 @@ export class LoginPage implements OnInit {
             this.dismissLoading()
           },
            (res) => {
-             if (res == "Invalid credentials"){
+             if (res && res.error && res == "Invalid credentials"){
               this.translate.get('wrong_credentials').subscribe(async (res: string) => {
                 this.presentToast(res);
               });
              }
-             if (res && res.error && res.error.error=='invalid_grant')
+             else if (res && res.error && res.error.error=='invalid_grant')
               {
                 //invalid credential
                 this.translate.get('wrong_user').subscribe(async (res: string) => {
+                  this.presentToast(res);
+                });
+
+                
+              }
+              else if (res && res.error)
+              {
+                //invalid credential
+                this.translate.get('toast_error').subscribe(async (res: string) => {
                   this.presentToast(res);
                 });
 
