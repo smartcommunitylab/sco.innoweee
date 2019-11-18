@@ -16,14 +16,15 @@ export class AuthenticationService {
     private http: HttpClient) {
       //read asynch the dfile with id
 
-        this.redirectUrl=config.redirectUrl;
+      this.aacClientId=config.aacClientId;
+      this.redirectUrl=config.redirectUrl;
         this.scope=config.scope;
         this.aacUrl=config.aacUrl;
 
      }
-     public getJSON(): Observable<any> {
-      return this.http.get(this.jsonURL);
-    }
+    //  public getJSON(): Observable<any> {
+    //   return this.http.get(this.jsonURL);
+    // }
   /**
    * Check status of the login. Return true if the user is already logged or the token present in storage is valid
    */
@@ -35,12 +36,12 @@ export class AuthenticationService {
 
   redirectAuth() {
     // tslint:disable-next-line:max-line-length
-    this.getJSON().subscribe(data => {
-      console.log(data);
-      this.config.aacClientId=data.aacClientId;
-      this.aacClientId=this.config.aacClientId;
+    // this.getJSON().subscribe(data => {
+      // console.log(data);
+      // this.config.aacClientId=data.aacClientId;
+      // this.aacClientId=this.config.aacClientId;
     window.location.href = `${this.aacUrl}/eauth/authorize?response_type=token&client_id=${this.aacClientId}&scope=${this.scope}&redirect_uri=${this.redirectUrl}`;
-    })
+    // })
   }
 
   logout() {
