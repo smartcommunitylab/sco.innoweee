@@ -1,69 +1,30 @@
-// import { Platform } from '@ionic/angular';
-// import { Injectable } from '@angular/core';
-// import { Storage } from '@ionic/storage';
-// import { BehaviorSubject } from 'rxjs';
- 
-// const TOKEN_KEY = 'auth-token';
- 
-// @Injectable({
-//   providedIn: 'root'
-// })
-// export class AuthenticationService {
- 
-//   authenticationState = new BehaviorSubject(false);
- 
-//   constructor(private storage: Storage, private plt: Platform) { 
-//     this.plt.ready().then(() => {
-//       this.checkToken();
-//     });
-//   }
- 
-//   checkToken() {
-//     this.storage.get(TOKEN_KEY).then(res => {
-//       if (res) {
-//         this.authenticationState.next(true);
-//       }
-//     })
-//   }
- 
-//   login(values) {
-//     return this.storage.set(TOKEN_KEY, 'Bearer 1234567').then(() => {
-//       this.authenticationState.next(true);
-//     });
-//   }
- 
-//   logout() {
-//     return this.storage.remove(TOKEN_KEY).then(() => {
-//       this.authenticationState.next(false);
-//     });
-//   }
- 
-//   isAuthenticated() {
-//     return this.authenticationState.value;
-//   }
- 
-// }
-
 import { Injectable, Inject } from '@angular/core';
-
-// import { ConfigService } from '../config.service';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { APP_CONFIG_TOKEN, ApplicationConfig } from '../app-config';
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class AuthenticationService {
   aacClientId;
   redirectUrl;
   scope;
   aacUrl;
+  jsonURL = './assets/data/auth.json';
+
   constructor(    @Inject(APP_CONFIG_TOKEN) private config: ApplicationConfig,
     private http: HttpClient) {
+      //read asynch the dfile with id
+
       this.aacClientId=config.aacClientId;
       this.redirectUrl=config.redirectUrl;
-      this.scope=config.scope;
-      this.aacUrl=config.aacUrl;
-     }
+        this.scope=config.scope;
+        this.aacUrl=config.aacUrl;
 
+     }
+    //  public getJSON(): Observable<any> {
+    //   return this.http.get(this.jsonURL);
+    // }
   /**
    * Check status of the login. Return true if the user is already logged or the token present in storage is valid
    */
@@ -75,7 +36,12 @@ export class AuthenticationService {
 
   redirectAuth() {
     // tslint:disable-next-line:max-line-length
+    // this.getJSON().subscribe(data => {
+      // console.log(data);
+      // this.config.aacClientId=data.aacClientId;
+      // this.aacClientId=this.config.aacClientId;
     window.location.href = `${this.aacUrl}/eauth/authorize?response_type=token&client_id=${this.aacClientId}&scope=${this.scope}&redirect_uri=${this.redirectUrl}`;
+    // })
   }
 
   logout() {

@@ -31,6 +31,7 @@ export class ItemLoadedPage extends MainPage implements OnInit {
   categorie: any;
   steps: any;
   questions: any;
+  info: any;
   recap: any;
   actualStep: number = 0;
   playerData: any;
@@ -127,10 +128,14 @@ export class ItemLoadedPage extends MainPage implements OnInit {
       return item[this.translate.currentLang];
     else return this.translate.instant(item);
   }
+
   questionTime() {
     if (this.steps && this.choices.length < 4)
       return true;
     return false
+  }
+  infoTime() {
+    return (this.questionTime() && (this.actualStep>0));
   }
   getTitle() {
     if (this.title) {
@@ -138,6 +143,8 @@ export class ItemLoadedPage extends MainPage implements OnInit {
     }
     return ""
   }
+
+
   sendItem() {
     //check values
     this.item.playerId = this.playerData.objectId;
@@ -156,6 +163,10 @@ export class ItemLoadedPage extends MainPage implements OnInit {
   }
   getQuestion() {
     return this.translate.instant(this.questions[this.actualStep]);
+  }
+  getInfo() {
+    return this.translate.instant(this.info[this.actualStep]);
+
   }
   fillSteps() {
     this.recap = {
@@ -177,6 +188,11 @@ export class ItemLoadedPage extends MainPage implements OnInit {
       2: "question_broken",
       3: "question_year"
     }
+    this.info = {
+      1: "info_on_off",
+      2: "info_broken",
+      3: "info_year"
+    }
     this.steps = {
       0: [],
       1: [{
@@ -186,26 +202,28 @@ export class ItemLoadedPage extends MainPage implements OnInit {
         "label": "reply_off_question",
         "value": false
       }],
-      2: [{
-        "label": "reply_working_question",
-        "value": false
-      }, {
+      2: [ {
         "label": "reply_broken_question",
         "value": true
+      },{
+        "label": "reply_working_question",
+        "value": false
       }],
       3: [{
-        "label": "reply_0_question",
-        "value": 0
-      }, {
-        "label": "reply_1_question",
+        "label": "reply_yes_question",
         "value": 1
-      }, {
-        "label": "reply_2_question",
-        "value": 2
-      }, {
-        "label": "reply_3_question",
-        "value": 3
-      }]
+      },{
+        "label": "reply_no_question",
+        "value": 0
+      } 
+      // , {
+      //   "label": "reply_2_question",
+      //   "value": 2
+      // }, {
+      //   "label": "reply_3_question",
+      //   "value": 3
+      // }
+    ]
     }
     this.items.forEach(element => {
       this.steps[0].push({

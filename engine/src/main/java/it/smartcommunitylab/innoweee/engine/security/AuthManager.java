@@ -81,6 +81,8 @@ public class AuthManager {
 				email = accountsNode.get("internal").get("email").asText();
 			} else if(accountsNode.hasNonNull("google")) {
 				email = accountsNode.get("google").get("email").asText();
+			} else if(accountsNode.hasNonNull("googlelocal")) {
+				email = accountsNode.get("googlelocal").get("email").asText();
 			}
 		}
 		return email;

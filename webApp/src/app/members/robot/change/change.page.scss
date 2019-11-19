@@ -37,7 +37,24 @@ ion-content {
             }
         }
     }
-
+    .donate-box {
+        border-radius: 8px;
+        margin-left: 120px;
+        margin-top: 20px;
+        background-color: #bee6f5;
+        ion-icon {
+            color:#dcf4fa;
+            font-size: 48px;
+            margin: auto;
+            width: 100%;
+        }
+        ion-button{
+            --background: #dcf4fa;
+                --border-radius: 8px;
+                --color: black;
+                --border-width: 0px;
+        }
+    }
     .market-container {
         // background-color: #FFE249;
         border-radius: 8px;

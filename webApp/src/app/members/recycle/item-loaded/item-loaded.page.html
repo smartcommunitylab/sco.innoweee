@@ -74,9 +74,24 @@
         </div>
       </ion-col>
       <ion-col class="col-dark col-vertical-center" *ngIf="!lastStep()">
-        <div class="vertical-center right-box">
-          <ion-row *ngIf="questionTime()">
-            <div class="title-question">{{getQuestion()}}</div>
+        <div class="info-container" *ngIf="infoTime()">
+          <div class="info-icon">
+            i
+          </div>
+            <ion-row >
+                <div class="info-box">
+                  <p [innerHTML]="getInfo()"></p>
+                </div>
+              </ion-row>
+        </div>
+        <div class="vertical-center right-box" [ngClass]="{'space-right': infoTime()}">
+          <div class="explanation">
+
+          </div>
+          <div *ngIf="questionTime()" class="row-question">
+            <div class="title-question">
+              <p  [innerHTML]="getQuestion()"></p>
+            </div>
             <ion-row>
               <ion-col *ngFor="let item of steps[actualStep]| keyvalue">
                 <ion-button color="light" (click)="chooseCategory(item.value)" expand="block" fill="outline">
@@ -89,7 +104,7 @@
                   {{'label_other_category'|translate}}</ion-button>
               </ion-col>
             </ion-row>
-          </ion-row>
+          </div>
           <ion-row *ngIf="!questionTime()">
             <ion-col>
               <ion-button color="light" (click)="sendItem()" expand="block" fill="outline">
@@ -104,11 +119,11 @@
 </ion-content>
 <ion-footer>
   <ion-toolbar class="color-bar">
-      <ion-buttons slot="start">
-          <ion-button (click)="goBack()">
-            <ion-icon name="arrow-back"></ion-icon>
-          </ion-button>
-        </ion-buttons>
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
     <ion-row>
 
       <ion-title class="ion-text-center">{{ getFooter()}}</ion-title>

@@ -1,0 +1,115 @@
+{
+	"instituteName":"Arcivescovile",
+	"schoolName":"Arcivescovile",
+	"classes":["1A","1B","2A","2B","3A","3B","4B","5B"],
+	"collections": [
+	{
+		"tenantId":"TRENTINO",
+		"gameId":"",
+		"from":1575241200000,
+		"to":1575673199000,
+		"nameGE":"R1",
+		"message":{
+			"it":"Elettrodomestici della cucina", 
+			"en":"Kitchen Appliances"
+		},
+		"reduceMessage":{
+			"it":"Quanti anni ha il frigorifero che hai a casa?",
+			"en":"How old is the fridge you have at home?"
+		},
+		"specialCollection":false,
+		"items":["Blender","Centrifuge","Electrical coffe grinder","Coffe machine","Electrical knife","Electrical grater","Tea kettle","Hand vacuum","Minipimer","Squeezer","Toaster"],
+		"links":[]
+	},
+	{
+		"tenantId":"TRENTINO",
+		"gameId":"",
+		"from":1575846000000,
+		"to":1576277999000,
+		"nameGE":"R2",
+		"message":{
+			"it":"Cellulari, smartphone, tablet e computer portatili",
+			"en":"Laptop, Notebook, Tablet, Smartphone"
+		},
+		"reduceMessage":{
+			"it":"Quanti anni ha il cellulare più vecchio che usate in famiglia?",
+			"en":"How old is the oldest cell phone used daily in your family?"
+		},
+		"specialCollection":true,
+		"items":["Cellphone","Smartphone","Laptop","Tablet"],
+		"links":[]
+	},
+	{
+		"tenantId":"TRENTINO",
+		"gameId":"",
+		"from":1576450800000,
+		"to":1576882799000,
+		"nameGE":"R3",
+		"message":{
+			"it":"Apparecchiature informatiche e per telecomunicazioni",
+			"en":"Information and Communication Technologies"
+		},
+		"reduceMessage":{
+			"it":"Quanti anni ha il computer che hai a casa?",
+			"en":"How old is the computer you have at home?"
+		},
+		"specialCollection":true,
+		"items":["Docking station","E-reader","Flash drive","Computer components","Router","Answering machine","Calculator","Cordless","Decoder","Fax","GPS system","Landline phone","Modem","Trackpad","Walkie Talkie","Keyboard","Mouse"],
+		"links":[]
+	},
+	{
+		"tenantId":"TRENTINO",
+		"gameId":"",
+		"from":1578351600000,
+		"to":1578697199000,
+		"nameGE":"R4",
+		"message":{
+			"it":"Piccoli elettrodomestici per la salute e il benessere",
+			"en":"Health, Beauty and Wellness Appliances"
+		},
+		"reduceMessage":{
+			"it":"Quanti anni ha l'asciugacapelli che hai a casa?",
+			"en":"How old is the hair dryer you have at home?"
+		},
+		"specialCollection":false,
+		"items":["Curling iron","Electric ear cleaner","Electric razor","Electric toothbrush","Hair cutter","Hair dryer","Aerosol machine","Other appliances for body care","Electrical weighing scale"],
+		"links":[]
+	},
+	{
+		"tenantId":"TRENTINO",
+		"gameId":"",
+		"from":1578870000000,
+		"to":1579301999000,
+		"nameGE":"R5",
+		"message":{
+			"it":"Apparecchiature audio e video, giochi e giocattoli elettronici",
+			"en":"Audio, video, consumer devices, toys and games"
+		},
+		"reduceMessage":{
+			"it":"Quanti anni ha la televisione che hai a casa?",
+			"en":"How old is the TV you have at home?"
+		},
+		"specialCollection":false,
+		"items":["Amplifier","Car radio","CD reader","Electrical clock","Headphones","Speaker","Mp3 reader","Radio","Record player","Recorder","Stereo","Electrical alarm clock","Battery charger","Camera","DVD reader","Video recorder","Web cam","Remote","Joystick","Portable and stationary console","Talking doll","Electrical musical instruments","Electrical toys"],
+		"links":[]
+	},
+	{
+		"tenantId":"TRENTINO",
+		"gameId":"",
+		"from":1579474800000,
+		"to":1579906799000,
+		"nameGE":"R6",
+		"message":{
+			"it":"Raccolta Jolly",
+			"en":"Jolly collection"
+		},
+		"reduceMessage":{
+			"it":"Quanti anni ha la lavatrice che hai a casa?",
+			"en":"How old is the washing machine you have at home?"
+		},
+		"specialCollection":false,
+		"items":[],
+		"links":[]
+	}
+]
+}

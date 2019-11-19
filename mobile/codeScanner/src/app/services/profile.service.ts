@@ -51,10 +51,16 @@ export class ProfileService {
     //     return this.handleError(response)
     //   });
   }
-  getInstitute(domain: string): Promise<any> {
+  getInstitute(domain: string,token): Promise<any> {
+    
     let url: string = this.endPoint + this.getInstituteApi + "/" + domain;
 
-    return this.http.get(url)
+    return this.http.get(url,{ headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token
+
+    }})
       .toPromise()
       .then(response => {
         return response
@@ -63,10 +69,15 @@ export class ProfileService {
         return this.handleError(response)
       });
   }
-  getSchool(domain: string, institute: string): Promise<any> {
+  getSchool(domain: string, institute: string,token): Promise<any> {
     let url: string = this.endPoint + this.getSchoolApi + "/" + domain + "/" + institute
 
-    return this.http.get(url)
+    return this.http.get(url,{ headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token
+
+    }})
       .toPromise()
       .then(response => {
         return response
@@ -75,10 +86,15 @@ export class ProfileService {
         return this.handleError(response)
       });
   }
-  getGame(domain: string, institute: string, school: string): Promise<any> {
+  getGame(domain: string, institute: string, school: string, token): Promise<any> {
     let url: string = this.endPoint + this.getGameApi + domain + "/" + institute + "/" + school;
 
-    return this.http.get(url)
+    return this.http.get(url,{ headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token
+
+    }})
       .toPromise()
       .then(response => {
         return response
@@ -88,10 +104,15 @@ export class ProfileService {
       });
 
   }
-  getPlayer(gameId): Promise<any> {
+  getPlayer(gameId,token): Promise<any> {
     let url: string = this.endPoint + this.getPlayerApi + "/" + gameId;
 
-    return this.http.get(url)
+    return this.http.get(url,{ headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token
+
+    }})
       .toPromise()
       .then(response => {
         return response

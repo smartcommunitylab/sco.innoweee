@@ -19,21 +19,27 @@ export class MyrobotPage extends MainPage implements OnInit {
   profileState;
   maxResource;
   mapUri: any;
+  actualCollection: any;
+  contributions: any[] = [];
   resources: any[] = [];
   max = {
     'Kg': 0,
     'g': 0,
     'mg': 0
   };
+  numeroRaccoltaRicevuto: string;
+  numeroRaccoltaDonato: string;
+  classiDonato: string;
+  classiRicevuto: string;
   constructor(public translate: TranslateService,
     public storage: Storage,
     private router: Router,
     public authService: AuthenticationService,
     private garbageService: GarbageCollectionService,
-    public navCtrl: NavController, 
+    public navCtrl: NavController,
 
     public profileService: ProfileService) {
-    super(translate, authService, storage,navCtrl);
+    super(translate, authService, storage, navCtrl);
   }
 
   ngOnInit() {
@@ -46,9 +52,19 @@ export class MyrobotPage extends MainPage implements OnInit {
 
   ionViewWillEnter() {
     super.ionViewDidEnter();
-    this.resources=[];
+    this.resources = [];
+    this.contributions = [];
     this.profileService.getLocalPlayerData().then(res => {
       this.profileData = res
+      if (this.profileData) {
+        this.garbageService.getActualCollection(this.profileData.gameId).then(res => {
+          this.actualCollection = res;
+          this.contributions = this.createContributions(this.profileData.contributions);
+          this.getNumeroRaccolta();
+          this.getActualClassesDonate();
+
+        })
+      }
       Object.keys(res.robot.components).forEach(key => {
         this.mapUri[res.robot.components[key].type] = res.robot.components[key].imageUri;
       })
@@ -58,6 +74,98 @@ export class MyrobotPage extends MainPage implements OnInit {
         this.orderResources(this.profileState)
       });
     });
+  }
+  isFuture(contribute) {
+    if (this.actualCollection && contribute && this.actualCollection.nameGE >= contribute.garbageCollectionName)
+      return false;
+    return true
+  }
+  getActualClassesDonate() {
+      //
+      var listaClassi = "";
+      var element;
+    if (this.contributions && this.actualCollection){
+      for (let index = 0; index < this.contributions.length; index++) {
+         element = this.contributions[index];
+         if (element.garbageCollectionId == this.actualCollection.objectId){
+          //build list of contribution
+          if (element.donatedPoints)
+          for (let k = 0; k < element.donatedPoints.length; k++) {
+            listaClassi = listaClassi + " "+element.donatedPoints[k].playerName;
+            
+          }
+          break;
+         }
+      }
+      this.classiDonato= listaClassi;
+    }
+  }
+  getNumeroRaccolta() {
+    if (this.actualCollection && this.actualCollection.nameGE){
+    var numeroraccolta=this.actualCollection.nameGE
+    this.translate.get('garbage_donation_label', { numeroRaccolta: numeroraccolta }).subscribe((s: string) => {
+      this.numeroRaccoltaDonato= s;
+    });
+    this.translate.get('garbage_received_label', { numeroRaccolta: numeroraccolta }).subscribe((s: string) => {
+      this.numeroRaccoltaRicevuto= s;
+    });
+  }
+  }
+  
+  actualDonate() {
+    for (let index = 0; index < this.contributions.length; index++) {
+      const element = this.contributions[index];
+      if (this.actualCollection.nameGE == element.garbageCollectionName)
+      return element.donatedPointsValue
+    }
+    return false
+  }
+
+  actualReceived() {
+    // ?
+    for (let index = 0; index < this.contributions.length; index++) {
+      const element = this.contributions[index];
+      if (this.actualCollection.nameGE == element.garbageCollectionName)
+      return element.receivedPointsValue
+    }
+    return false
+  }
+
+  getActualClassesReceived() {
+      //
+      var listaClassi = "";
+      var element;
+    if (this.contributions && this.actualCollection){
+      for (let index = 0; index < this.contributions.length; index++) {
+         element = this.contributions[index];
+         if (element.garbageCollectionId == this.actualCollection.objectId){
+          //build list of contribution
+          if (element.receivedPoints)
+          for (let k = 0; k < element.receivedPoints.length; k++) {
+            listaClassi = listaClassi + " "+element.receivedPoints[k].playerName;
+            
+          }
+          break;
+         }
+      }
+      this.classiRicevuto= listaClassi;
+    }
+  }
+  createContributions(contributions: any): any {
+    var localdistributions = [];
+    contributions.forEach(contribute => {
+      var arrayContribute = contribute
+      if (contribute.donatedPoints && contribute.donatedPoints.length > 0)
+        arrayContribute.donatedPointsValue = true;
+      else
+        arrayContribute.donatedPointsValue = false;
+      if (contribute.receivedPoints && contribute.receivedPoints.length > 0)
+        arrayContribute.receivedPointsValue = true;
+      else
+        arrayContribute.receivedPointsValue = false;
+      localdistributions.push(arrayContribute);
+    });
+    return localdistributions;
   }
   orderResources(map) {
     var arrayResources = this.garbageService.getArrayResources();
@@ -124,7 +232,7 @@ export class MyrobotPage extends MainPage implements OnInit {
     return "mg"
   }
   getFooter() {
-    return (this.translate.instant('footer_game_title')+" | "+this.getSchoolName()+" | "+this.getClassName())
+    return (this.translate.instant('footer_game_title') + " | " + this.getSchoolName() + " | " + this.getClassName())
   }
 
   getSchoolName() {

@@ -61,7 +61,7 @@ export class GameSelectionPage implements OnInit {
   }
   
   getDomain() {
-    this.presentLoading();
+    //this.presentLoading();
 
     this.profileService.getDomain().then(res => {
       console.log(res);

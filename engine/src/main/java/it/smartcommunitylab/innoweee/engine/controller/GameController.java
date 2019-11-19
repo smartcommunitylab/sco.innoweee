@@ -3,6 +3,7 @@ package it.smartcommunitylab.innoweee.engine.controller;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,17 +27,20 @@ import it.smartcommunitylab.innoweee.engine.common.Const;
 import it.smartcommunitylab.innoweee.engine.common.Utils;
 import it.smartcommunitylab.innoweee.engine.exception.EntityNotFoundException;
 import it.smartcommunitylab.innoweee.engine.exception.UnauthorizedException;
+import it.smartcommunitylab.innoweee.engine.ge.CoinMap;
 import it.smartcommunitylab.innoweee.engine.ge.GeManager;
 import it.smartcommunitylab.innoweee.engine.img.ImageManager;
 import it.smartcommunitylab.innoweee.engine.model.Catalog;
 import it.smartcommunitylab.innoweee.engine.model.Component;
 import it.smartcommunitylab.innoweee.engine.model.Game;
+import it.smartcommunitylab.innoweee.engine.model.GameAction;
 import it.smartcommunitylab.innoweee.engine.model.GarbageCollection;
 import it.smartcommunitylab.innoweee.engine.model.Link;
 import it.smartcommunitylab.innoweee.engine.model.Player;
 import it.smartcommunitylab.innoweee.engine.model.PlayerState;
 import it.smartcommunitylab.innoweee.engine.model.Robot;
 import it.smartcommunitylab.innoweee.engine.repository.CatalogRepository;
+import it.smartcommunitylab.innoweee.engine.repository.GameActionRepository;
 import it.smartcommunitylab.innoweee.engine.repository.GameRepository;
 import it.smartcommunitylab.innoweee.engine.repository.GarbageCollectionRepository;
 import it.smartcommunitylab.innoweee.engine.repository.PlayerRepository;
@@ -57,6 +61,10 @@ public class GameController extends AuthController {
 	private GeManager geManager;
 	@Autowired
 	private ImageManager imageManager;
+	@Autowired
+	private GarbageCollectionRepository garbageCollectionRepository;
+	@Autowired
+	private GameActionRepository gameActionRepository;
 	
 	@GetMapping(value = "/api/game/{tenantId}/{instituteId}/{schoolId}")
 	public @ResponseBody List<Game> searchGame(
@@ -68,12 +76,10 @@ public class GameController extends AuthController {
 		List<Game> result = new ArrayList<>();
 		List<Game> list = gameRepository.findBySchoolId(tenantId, instituteId, schoolId);
 		for(Game game : list) {
-			//TODO TEST
-			result.add(game);
-//			if(validateAuthorization(tenantId, instituteId, schoolId, game.getObjectId(), 
-//				Const.AUTH_RES_Game, Const.AUTH_ACTION_READ, request)) {
-//				result.add(game);
-//			}
+			if(validateAuthorization(tenantId, instituteId, schoolId, game.getObjectId(), 
+				Const.AUTH_RES_Game, Const.AUTH_ACTION_READ, request)) {
+				result.add(game);
+			}
 		}
 		logger.info("searchGame[{}]:{} / {} / {}", tenantId, instituteId, schoolId, result.size());
 		return result;
@@ -226,6 +232,8 @@ public class GameController extends AuthController {
 		player.getRobot().getComponents().put(newComponent.getComponentId(), newComponent);
 		playerRepository.save(player);
 		imageManager.storeRobotImage(player);
+		GameAction gameAction = Utils.getBuildRobotGameAction(game, player, newComponent);
+		gameActionRepository.save(gameAction);
 		logger.info("buildRobot[{}]:{} / {}", player.getTenantId(), playerId, componentId);
 		return player.getRobot();
 	}
@@ -249,6 +257,65 @@ public class GameController extends AuthController {
 		PlayerState playerState = geManager.getPlayerState(game.getGeGameId(), playerId, nameGE);
 		logger.info("getPlayerState[{}]:{} / {} / {}", game.getTenantId(), gameId, playerId, nameGE);
 		return playerState;
+	}
+	
+	@GetMapping(value = "/api/game/{gameId}/contribution/{playerId}")
+	public @ResponseBody Player sendContribution(
+			@PathVariable String gameId,
+			@PathVariable String playerId,
+			@RequestParam String nameGE,
+			@RequestParam(required = false) Long timestamp,
+			HttpServletRequest request, 
+			HttpServletResponse response) throws Exception {
+		Optional<Game> optionalGame = gameRepository.findById(gameId);
+		if(optionalGame.isEmpty()) {
+			throw new EntityNotFoundException("game not found");
+		}
+		Game game = optionalGame.get();
+		if(!validateAuthorization(game.getTenantId(), game.getInstituteId(), game.getSchoolId(), 
+				game.getObjectId(), Const.AUTH_RES_Game_Player, Const.AUTH_ACTION_UPDATE, request)) {
+			throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
+		}
+		Optional<Player> optionalPlayer = playerRepository.findById(playerId);
+		if(optionalPlayer.isEmpty()) {
+			throw new EntityNotFoundException("player not found");
+		}
+		Player player = optionalPlayer.get();
+		if(Utils.checkDonation(player, nameGE)) {
+			throw new EntityNotFoundException("donation already done");
+		}
+		Date executionDate =  null;
+		if(timestamp != null) {
+			executionDate = new Date(timestamp);
+		} else {
+			executionDate = new Date();
+		}
+		List<Player> players = playerRepository.findByGameId(game.getTenantId(), gameId);
+		GarbageCollection collection = collectionRepository.findActualCollection(game.getTenantId(), 
+				gameId, executionDate.getTime());
+		if(collection == null) {
+			throw new EntityNotFoundException("collection not found");
+		}
+		Map<String, CoinMap> playerCoinMap = geManager.getPlayerCoinMap(game.getGeGameId(), playerId, players, 
+				collection.getNameGE());
+		logger.info("sendContribution[{}]:{} / {} / {} / {}", game.getTenantId(), gameId, playerId, 
+				nameGE, playerCoinMap);
+		geManager.sendContribution(game.getGeGameId(), playerId, playerCoinMap.get(playerId), executionDate);
+		for(String objectId : playerCoinMap.keySet()) {
+			if(playerId.equals(objectId)) {
+				continue;
+			}
+			Optional<Player> optional = playerRepository.findById(objectId);
+			if(optional.isPresent()) {
+				Utils.sendContribution(player, optional.get(), nameGE, playerCoinMap.get(objectId));
+				playerRepository.save(player);
+				geManager.receiveContribution(game.getGeGameId(), objectId, playerCoinMap.get(objectId), executionDate);
+				Utils.receiveContribution(player, optional.get(), nameGE, playerCoinMap.get(objectId));
+				playerRepository.save(optional.get());
+			}
+		}
+		logger.info("sendContribution[{}]:{} / {} / {}", game.getTenantId(), gameId, playerId, nameGE);
+		return player;
 	}
 	
 	@GetMapping(value = "/api/game/{gameId}/gereset")
@@ -283,10 +350,12 @@ public class GameController extends AuthController {
 				}
 			}
 		}
-		// reset robot
 		for(Player pl : list) {
 			if(!pl.isTeam()) {
+				// reset robot
 				Utils.addNewRobot(pl, catalogRepository);
+				// reset contributions
+				Utils.setContributions(pl, game.getTenantId(), gameId, garbageCollectionRepository);
 				pl.setLastUpdate(new Date());
 				playerRepository.save(pl);
 				imageManager.storeRobotImage(pl);

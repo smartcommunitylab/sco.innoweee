@@ -24,9 +24,10 @@ export interface ApplicationConfig {
 // Configuration values for our app
 export const APP_CONFIG: ApplicationConfig = {
     appName: 'InnoWee',
-    apiEndpoint: 'https://tn.smartcommunitylab.it/innoweee-engine/',
+    apiEndpoint: 'https://dev.smartcommunitylab.it/innoweee-engine/',
+    // apiEndpoint: 'http://192.168.42.60:2020/',
     getDomainApi: 'api/profile',
-    getInstituteApi: '/api/institute/',
+    getInstituteApi: 'api/institute',
     getSchoolApi: 'api/school',
     getGameApi: 'api/game/',
     getPlayerApi: 'api/player',

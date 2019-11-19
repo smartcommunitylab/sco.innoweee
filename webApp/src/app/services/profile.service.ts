@@ -151,6 +151,10 @@ export class ProfileService {
     return this.storage.get(ALL_PLAYERS_KEY);
 
   }
+  setLocalPlayerState(data) {
+    this.storage.set(PLAYER_STATE_KEY,data);
+
+  }
   getLocalPlayerState() {
     return this.storage.get(PLAYER_STATE_KEY);
 

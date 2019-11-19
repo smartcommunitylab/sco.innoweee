@@ -1,9 +1,8 @@
 import { AuthenticationService } from './../../services/authentication.service';
 import { Component, OnInit } from '@angular/core';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
-import { GooglePlus } from '@ionic-native/google-plus/ngx';
-import { JsonPipe } from '@angular/common';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-login',
@@ -11,73 +10,91 @@ import { JsonPipe } from '@angular/common';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-
+  loading: HTMLIonLoadingElement;
+  user = {
+    email: '',
+    password: ''
+  };
   constructor(private authService: AuthenticationService,
     private loadingController: LoadingController,
-    private googlePlus: GooglePlus,
+    private translate: TranslateService,
+    private toastController: ToastController,
     private router: Router) { }
 
   ngOnInit() {
   }
 
-  async doGoogleLogin() {
-    const loading = await this.loadingController.create({
-      message: 'Please wait...'
-    });
-    this.presentLoading(loading);
 
-    this.googlePlus.login({
-      'scopes': 'profile email',
-      'offline': true
+  login() {
+    this.presentLoading().then(() => {
+      this.authService.init().then(() => {
+        this.authService.login(this.authService.PROVIDER.INTERNAL, this.user).then(
+          (profile) => {
+            this.router.navigate(['select-class']);
+            this.dismissLoading()
+          },
+           (res) => {
+             if (res && res.error && res == "Invalid credentials"){
+              this.translate.get('wrong_credentials').subscribe(async (res: string) => {
+                this.presentToast(res);
+              });
+             }
+             else if (res && res.error && res.error.error=='invalid_grant')
+              {
+                //invalid credential
+                this.translate.get('wrong_user').subscribe(async (res: string) => {
+                  this.presentToast(res);
+                });
+
+                
+              }
+              else if (res && res.error)
+              {
+                //invalid credential
+                this.translate.get('toast_error').subscribe(async (res: string) => {
+                  this.presentToast(res);
+                });
+
+                
+              }
+            this.dismissLoading()
+
+          })
+      })
     })
-      .then(user => {
-        
-        loading.dismiss();
-        console.log(JSON.stringify(user));
-        
-        this.authService.authorizeProvider(user.accessToken).then(res=>{
-          console.log(res);
-          this.authService.getAACtoken(res).then(
-            function (tokenInfo) {
-              // saveToken(tokenInfo);
-              // user.provider = provider;
-              console.log('[LOGIN] Logged in with ' + user.provider);
-              this.authService.remoteAAC.getCompleteProfile(user.tokenInfo).then(
-                function (profile) {
-                  user.profile = profile;
-                  // service.localStorage.saveUser();
-                  // deferred.resolve(profile);
-                },
-                function (reason) {
-                  // deferred.reject(reason);
-                }
-              );
-            },
-            function (error) {
-              // deferred.reject(error);
-            }
-          );
-          // window.localStorage.setItem('google_user', JSON.stringify({
-          //   name: user.displayName,
-          //   email: user.email,
-          //   picture: user.imageUrl,
-          //   accessToken: user.accessToken,
-          //   expires: user.expires
-          // }))
-          this.router.navigate(['select-class']);
-          loading.dismiss();
+
+    // )}).finally(() => {  });
+  }
+  async presentToast(string) {
+    const toast = await this.toastController.create({
+      message: string,
+      duration: 2000
+    })
+    toast.present();
+  }
+
+  presentLoading(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this.translate.get('user_check').subscribe(async (res: string) => {
+        this.loading = await this.loadingController.create({
+          message: res
+          // ,
+          // duration: 2000
         });
+        if (this.loading)
+          await this.loading.present();
+        resolve(null);
 
-      }, err => {
-        console.log(err)
-        loading.dismiss();
       });
-
+    })
 
   }
-  async presentLoading(loading) {
-    return await loading.present();
+  async dismissLoading() {
+    if (this.loading)
+      await this.loading.dismiss();
+
   }
+
   // login() {
   //   this.authService.login();
   // }
