@@ -10,7 +10,7 @@
 		"to":1575673199000,
 		"nameGE":"R1",
 		"message":{
-			"it":"Piccoli elettrodomestici della cucina", 
+			"it":"Elettrodomestici della cucina", 
 			"en":"Kitchen Appliances"
 		},
 		"reduceMessage":{
@@ -19,25 +19,7 @@
 		},
 		"specialCollection":false,
 		"items":["Blender","Centrifuge","Electrical coffe grinder","Coffe machine","Electrical knife","Electrical grater","Tea kettle","Hand vacuum","Minipimer","Squeezer","Toaster"],
-		"links":[
-        {
-            "name" : "Greta Thunberg: una piccola eroina che lotta per la difesa del nostro pianeta",
-            "link" : "https://drive.google.com/file/d/1xiJL7BI9rzpiOcYsNd7BbejkILOrebF0/view?usp=sharing",
-            "type" : "link",
-            "previewUri" : "https://imgur.com/pDvYx8H.jpg"
-        }, 
-        {
-            "name" : "Alla scoperta dei RAEE e AEE",
-            "link" : "https://www.youtube.com/watch?v=Ez4QPdKMI7E",
-            "type" : "video"
-        }, 
-        {
-            "name" : "La giungla dei RAEE - Una miniera tra i rifiuti",
-            "type" : "link",
-            "previewUri" : "https://imgur.com/yPfEwOi.jpg",
-            "link" : "https://drive.google.com/file/d/1nW_IzuhF1wBWzXWdzcR-gXLJ574yM1vD/view?usp=sharing"
-        }
-		]
+		"links":[]
 	},
 	{
 		"tenantId":"TRENTINO",
@@ -50,7 +32,7 @@
 			"en":"Laptop, Notebook, Tablet, Smartphone"
 		},
 		"reduceMessage":{
-			"it":"Fra i cellulari che usa quotidianamente la tua famiglia, quanti anni ha il più vecchio?",
+			"it":"Quanti anni ha il cellulare più vecchio che usate in famiglia?",
 			"en":"How old is the oldest cell phone used daily in your family?"
 		},
 		"specialCollection":true,
@@ -100,11 +82,11 @@
 		"to":1579301999000,
 		"nameGE":"R5",
 		"message":{
-			"it":"Apparecchiature audio e video. Giochi e giocattoli elettrici ed elettronici",
-			"en":"Audio, video, consumer devices. Toys and games"
+			"it":"Apparecchiature audio e video, giochi e giocattoli elettronici",
+			"en":"Audio, video, consumer devices, toys and games"
 		},
 		"reduceMessage":{
-			"it":"Quanti anni ha la televisione di casa tua?",
+			"it":"Quanti anni ha la televisione che hai a casa?",
 			"en":"How old is the TV you have at home?"
 		},
 		"specialCollection":false,
@@ -119,11 +101,11 @@
 		"nameGE":"R6",
 		"message":{
 			"it":"Raccolta Jolly",
-			"en":""
+			"en":"Jolly collection"
 		},
 		"reduceMessage":{
-			"it":"",
-			"en":""
+			"it":"Quanti anni ha la lavatrice che hai a casa?",
+			"en":"How old is the washing machine you have at home?"
 		},
 		"specialCollection":false,
 		"items":[],
