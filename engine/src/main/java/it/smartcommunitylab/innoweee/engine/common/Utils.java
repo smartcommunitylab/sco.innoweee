@@ -333,7 +333,7 @@ public class Utils {
 		action.setActionType(Const.ACTION_ADD_POINT);
 		action.getCustomData().put("pointType", "itemDelivery");
 		action.getCustomData().put("itemId", itemEvent.getItemId());
-		action.getCustomData().put(Const.COIN_REUSE, itemEvent.isReusable());
+		action.getCustomData().put("reusable", itemEvent.isReusable());
 		action.setCreationDate(now);
 		action.setLastUpdate(now);
 		return action;		
