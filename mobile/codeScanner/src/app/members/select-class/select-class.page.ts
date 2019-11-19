@@ -6,6 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { OverlayEventDetail } from '@ionic/core';
 import { ModalController, AlertController } from '@ionic/angular';
 import { ClassComponent } from './modal/class/class.component'
+import { AuthenticationService } from 'src/app/services/authentication.service';
 const REFRESH_TIME = 500;
 @Component({
   selector: 'app-select-class',
@@ -37,6 +38,7 @@ export class SelectClassPage implements OnInit {
     private _cdr: ChangeDetectorRef,
     private translate: TranslateService,
     private modalController: ModalController,
+    private authService:AuthenticationService,
     private alertController:AlertController,
     private translateService: TranslateService) {
       console.log('select-class')
@@ -68,7 +70,8 @@ export class SelectClassPage implements OnInit {
     console.log("getInstitute");
 
     this.domain = domainId;
-    this.profileService.getInstitute(this.domain).then(res => {
+    this.authService.getValidAACtoken().then( token => {
+    this.profileService.getInstitute(this.domain,token).then(res => {
       console.log(res);
       this.institutes = res;
       if (res.length == 1) {
@@ -80,12 +83,15 @@ export class SelectClassPage implements OnInit {
 
       }
     });
+  })
   }
   getSchool(institute) {
     console.log("getSchool");
 
     this.instituteId = institute.objectId;
-    this.profileService.getSchool(this.domain, this.instituteId).then(res => {
+    this.authService.getValidAACtoken().then( token => {
+
+    this.profileService.getSchool(this.domain, this.instituteId,token).then(res => {
       console.log(res);
       this.schools = res;
       if (res.length == 1) {
@@ -97,11 +103,14 @@ export class SelectClassPage implements OnInit {
         }, REFRESH_TIME);
       }
     });
+  })
   }
 
   getGame(school) {
     this.schoolId = school.objectId;
-    this.profileService.getGame(this.domain, this.instituteId, this.schoolId).then(res => {
+    this.authService.getValidAACtoken().then( token => {
+
+    this.profileService.getGame(this.domain, this.instituteId, this.schoolId,token).then(res => {
       console.log(res);
       this.games = res;
       if (res.length == 1) {
@@ -113,10 +122,12 @@ export class SelectClassPage implements OnInit {
       }
 
     });
+  })
   }
   getPlayer(game) {
     this.gameId = game.objectId;
-    this.profileService.getPlayer(this.gameId).then(res => {
+    this.authService.getValidAACtoken().then( token => {
+    this.profileService.getPlayer(this.gameId,token).then(res => {
       console.log(res);
       this.players = res;
       this.profileService.setAllPlayers(this.players); // it is promise
@@ -128,6 +139,7 @@ export class SelectClassPage implements OnInit {
         }, REFRESH_TIME);
       }
     });
+  })
   }
 
   setPlayer(player) {

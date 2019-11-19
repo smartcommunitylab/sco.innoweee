@@ -16,7 +16,15 @@ import it.smartcommunitylab.innoweee.engine.model.GarbageCollection;
 public class GarbageCollectionRepositoryCustomImpl implements GarbageCollectionRepositoryCustom {
 	@Autowired
 	private MongoTemplate mongoTemplate;
-
+	
+	@Override
+	public List<GarbageCollection> findByGameId(String tenantId, String gameId) {
+		Criteria criteria = Criteria.where("tenantId").is(tenantId).and("gameId").is(gameId);
+		Query query = new Query(criteria);
+		query.with(new Sort(Direction.ASC, "from"));
+		return mongoTemplate.find(query, GarbageCollection.class);
+	}
+	
 	@Override
 	public GarbageCollection findActualCollection(String tenantId, String gameId, 
 			long timestamp) {

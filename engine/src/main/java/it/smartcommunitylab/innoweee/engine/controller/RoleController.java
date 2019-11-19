@@ -61,7 +61,7 @@ public class RoleController extends AuthController {
 		String authKey = Utils.getAuthKey(tenantId, Const.ROLE_OWNER);
 		user.getRoles().put(authKey, auths);
 		userRepository.save(user);
-		logger.info(String.format("addOwner[{}]:{}", tenantId, email));
+		logger.info("addOwner[{}]:{}", tenantId, email);
 		return auths;
 	}
 	
@@ -95,7 +95,7 @@ public class RoleController extends AuthController {
 		String authKey = Utils.getAuthKey(tenantId, Const.ROLE_SCHOOL_OWNER);
 		user.getRoles().put(authKey, auths);
 		userRepository.save(user);
-		logger.info(String.format("addSchoolOwner[{}]:{}", tenantId, email));
+		logger.info("addSchoolOwner[{}]:{}", tenantId, email);
 		return auths;
 	}
 	

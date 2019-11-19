@@ -46,6 +46,37 @@ export class ItemClassificationPage extends MainPage implements OnInit {
         console.log(this.item); // popular
       });
   }
+  getColorMarker(){
+    if (this.item.valuable) {
+      return "marker-green"
+    }
+    if (this.item.reusable) {
+      return "marker-blue"
+    }
+    return "marker-yellow"
+  }
+  getBinString() {
+    if (this.item.valuable) {
+
+      return this.translate.instant("label_bin_recycle_string_value");
+
+    }
+    if (this.item.reusable) {
+      return this.translate.instant("label_bin_recycle_string_reuse");
+    }
+    return this.translate.instant("label_bin_recycle_string_recycle");
+  }
+  getMarkerString() {
+    if (this.item.valuable) {
+
+      return this.translate.instant("label_marker_recycle_string_value");
+
+    }
+    if (this.item.reusable) {
+      return this.translate.instant("label_marker_recycle_string_reuse");
+    }
+    return this.translate.instant("label_marker_recycle_string_recycle");
+  }
   ionViewWillEnter() {
 
     this.profileService.getLocalPlayerData().then(res => {

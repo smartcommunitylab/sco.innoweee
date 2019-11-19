@@ -26,12 +26,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.smartcommunitylab.innoweee.engine.common.Const;
+import it.smartcommunitylab.innoweee.engine.common.Utils;
 import it.smartcommunitylab.innoweee.engine.exception.EntityNotFoundException;
 import it.smartcommunitylab.innoweee.engine.exception.UnauthorizedException;
 import it.smartcommunitylab.innoweee.engine.ge.GeManager;
 import it.smartcommunitylab.innoweee.engine.model.Category;
 import it.smartcommunitylab.innoweee.engine.model.CategoryMap;
 import it.smartcommunitylab.innoweee.engine.model.Game;
+import it.smartcommunitylab.innoweee.engine.model.GameAction;
 import it.smartcommunitylab.innoweee.engine.model.Garbage;
 import it.smartcommunitylab.innoweee.engine.model.GarbageCollection;
 import it.smartcommunitylab.innoweee.engine.model.GarbageMap;
@@ -43,6 +45,7 @@ import it.smartcommunitylab.innoweee.engine.model.Player;
 import it.smartcommunitylab.innoweee.engine.model.ReduceReport;
 import it.smartcommunitylab.innoweee.engine.model.School;
 import it.smartcommunitylab.innoweee.engine.repository.CategoryMapRepository;
+import it.smartcommunitylab.innoweee.engine.repository.GameActionRepository;
 import it.smartcommunitylab.innoweee.engine.repository.GameRepository;
 import it.smartcommunitylab.innoweee.engine.repository.GarbageCollectionRepository;
 import it.smartcommunitylab.innoweee.engine.repository.GarbageMapRepository;
@@ -79,6 +82,8 @@ public class ItemController extends AuthController {
 	@Autowired
 	private ItemValuableMapRepository valuableMapRepository;
 	@Autowired
+	private GameActionRepository gameActionRepository;	
+	@Autowired
 	private GeManager geManager;
 	@Autowired
 	private WebSocketManager webSocketManager;
@@ -102,11 +107,10 @@ public class ItemController extends AuthController {
 			throw new EntityNotFoundException("game entity not found");
 		}
 		Game game = optionalGame.get();
-		//TODO TEST
-//		if(!validateAuthorization(game.getTenantId(), game.getInstituteId(), game.getSchoolId(), 
-//				game.getObjectId(), Const.AUTH_RES_Game_Item, Const.AUTH_ACTION_ADD, request)) {
-//			throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
-//		}
+		if(!validateAuthorization(game.getTenantId(), game.getInstituteId(), game.getSchoolId(), 
+				game.getObjectId(), Const.AUTH_RES_Game_Item, Const.AUTH_ACTION_ADD, request)) {
+			throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
+		}
 		if(StringUtils.isEmpty(itemEvent.getItemId())) {
 			throw new EntityNotFoundException("item id not found");
 		}
@@ -153,6 +157,8 @@ public class ItemController extends AuthController {
 		geManager.reduceReport(game.getGeGameId(), player.getObjectId(), report, 
 				actualCollection.getNameGE());
 		reduceReportRepository.save(report);
+		GameAction gameAction = Utils.getReduceReportGameAction(game, player, report);
+		gameActionRepository.save(gameAction);
 		logger.info("reduceReport[{}]:{} / {}", game.getTenantId(), 
 				report.getPlayerId(), report.getObjectId());		
 		return report;
@@ -174,11 +180,10 @@ public class ItemController extends AuthController {
 			throw new EntityNotFoundException("game not found");
 		}
 		Game game = optionalGame.get();
-		//TODO TEST
-//		if(!validateAuthorization(game.getTenantId(), game.getInstituteId(), game.getSchoolId(), 
-//				game.getObjectId(), Const.AUTH_RES_Game_Item, Const.AUTH_ACTION_READ, request)) {
-//			throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
-//		}
+		if(!validateAuthorization(game.getTenantId(), game.getInstituteId(), game.getSchoolId(), 
+				game.getObjectId(), Const.AUTH_RES_Game_Item, Const.AUTH_ACTION_READ, request)) {
+			throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
+		}
 		Map<String, Boolean> result = new HashMap<String, Boolean>();
 		result.put("result", Boolean.FALSE);
 		if(itemRepository.findByItemId(itemId) != null) {
@@ -235,6 +240,8 @@ public class ItemController extends AuthController {
 		geManager.itemDelivery(game.getGeGameId(), player.getObjectId(), itemEvent, 
 				actualCollection.getNameGE(), garbage, category);
 		itemRepository.save(itemEvent);
+		GameAction gameAction = Utils.getItemDeliveryGameAction(game, player, itemEvent);
+		gameActionRepository.save(gameAction);
 		logger.debug("itemDelivery:{} / {}", itemEvent.getItemType(), itemEvent.getItemId());
 		return itemEvent;
 	}
@@ -249,7 +256,7 @@ public class ItemController extends AuthController {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
 		StringBuffer sb = new StringBuffer("instituteName,instituteId,schoolName,schoolId,");
 		sb.append("gameName,gameId,playerName,playerId,collection,itemId,itemType,isBroken,");
-		sb.append("isSwitchingOn,ageRange,isReusable,isValuable,timestamp,saveTime\n");
+		sb.append("isSwitchingOn,ageRange,isReusable,isValuable,weight,timestamp,saveTime\n");
 		List<Institute> instituteList = instituteRepository.findByTenantId(tenantId);
 		Map<String, Institute> instituteMap = new HashMap<>();
 		List<String> institues = new ArrayList<>();
@@ -278,6 +285,7 @@ public class ItemController extends AuthController {
 			playerMap.put(player.getObjectId(), player);
 			players.add(player.getObjectId());
 		}
+		GarbageMap garbageMap = garbageMapRepository.findByTenantId(tenantId);
 		List<ItemEvent> eventList = itemRepository.findByPlayerIds(players, 
 				new Sort(Sort.Direction.DESC, "timestamp"));
 		for(ItemEvent event : eventList) {
@@ -304,6 +312,7 @@ public class ItemController extends AuthController {
 				String ageRange = String.valueOf(event.getAge());
 				String isReusable = String.valueOf(event.isReusable());
 				String isValuable = String.valueOf(event.isValuable());
+				String weight = String.valueOf(garbageMap.getItems().get(itemType).getWeight());
 				String timestamp = sdf.format(new Date(event.getTimestamp()));
 				String saveTime = null;
 				if(event.getSaveTime() != null) {
@@ -325,6 +334,7 @@ public class ItemController extends AuthController {
 				sb.append("\"" + ageRange + "\",");
 				sb.append("\"" + isReusable + "\",");
 				sb.append("\"" + isValuable + "\",");
+				sb.append("\"" + weight + "\",");
 				sb.append("\"" + timestamp + "\",");
 				if(StringUtils.isEmpty(saveTime)) {
 					sb.append("\n");

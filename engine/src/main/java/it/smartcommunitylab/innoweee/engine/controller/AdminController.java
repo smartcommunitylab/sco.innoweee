@@ -12,18 +12,19 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.smartcommunitylab.innoweee.engine.common.Const;
+import it.smartcommunitylab.innoweee.engine.common.Utils;
 import it.smartcommunitylab.innoweee.engine.exception.UnauthorizedException;
 import it.smartcommunitylab.innoweee.engine.model.Catalog;
 import it.smartcommunitylab.innoweee.engine.model.CategoryMap;
 import it.smartcommunitylab.innoweee.engine.model.Component;
 import it.smartcommunitylab.innoweee.engine.model.Game;
+import it.smartcommunitylab.innoweee.engine.model.GarbageCollection;
 import it.smartcommunitylab.innoweee.engine.model.GarbageMap;
 import it.smartcommunitylab.innoweee.engine.model.Institute;
 import it.smartcommunitylab.innoweee.engine.model.ItemValuableMap;
@@ -33,6 +34,7 @@ import it.smartcommunitylab.innoweee.engine.model.TenantData;
 import it.smartcommunitylab.innoweee.engine.repository.CatalogRepository;
 import it.smartcommunitylab.innoweee.engine.repository.CategoryMapRepository;
 import it.smartcommunitylab.innoweee.engine.repository.GameRepository;
+import it.smartcommunitylab.innoweee.engine.repository.GarbageCollectionRepository;
 import it.smartcommunitylab.innoweee.engine.repository.GarbageMapRepository;
 import it.smartcommunitylab.innoweee.engine.repository.InstituteRepository;
 import it.smartcommunitylab.innoweee.engine.repository.ItemValuableMapRepository;
@@ -59,6 +61,8 @@ public class AdminController extends AuthController {
 	private GameRepository gameRepository;
 	@Autowired
 	private PlayerRepository playerRepository;
+	@Autowired
+	private GarbageCollectionRepository garbageCollectionRepository;
 
 	@PostMapping(value = "/admin/catalog")
 	public Catalog saveCatalog(
@@ -154,7 +158,7 @@ public class AdminController extends AuthController {
 		return map;
 	}
 	
-	@GetMapping(value = "/admin/init/{tenantId}")
+	@PostMapping(value = "/admin/init/{tenantId}")
 	public void initTenant(
 			@PathVariable String tenantId,
 			@RequestBody TenantData data,
@@ -165,13 +169,19 @@ public class AdminController extends AuthController {
 		Date now = new Date();
 		
 		Institute institute = new Institute();
+		if(Utils.isNotEmpty(data.getInstituteId())) {
+			institute.setObjectId(data.getInstituteId());
+		}
 		institute.setTenantId(tenantId);
 		institute.setName(data.getInstituteName());
-		institute.setCreationDate(now);
+		institute.setCreationDate(now);			
 		institute.setLastUpdate(now);
 		instituteRepository.save(institute);
 		
 		School school = new School();
+		if(Utils.isNotEmpty(data.getSchoolId())) {
+			school.setObjectId(data.getSchoolId());
+		}		
 		school.setTenantId(tenantId);
 		school.setName(data.getSchoolName());
 		school.setInstituteId(institute.getObjectId());
@@ -181,19 +191,28 @@ public class AdminController extends AuthController {
 		
 		Game game = new Game();
 		game.setTenantId(tenantId);
-		game.setGameName("Gioco Innoweee");
+		game.setGameName("Gioco " + school.getName());
 		game.setInstituteId(institute.getObjectId());
 		game.setSchoolId(school.getObjectId());
 		game.setCreationDate(now);
 		game.setLastUpdate(now);
 		gameRepository.save(game);
 		
-		for (String className : data.getClasses()) {
+		for(GarbageCollection collection : data.getCollections()) {
+			collection.setTenantId(tenantId);
+			collection.setGameId(game.getObjectId());
+			collection.setCreationDate(now);
+			collection.setLastUpdate(now);
+			garbageCollectionRepository.save(collection);
+		}
+		
+		for(String className : data.getClasses()) {
 			Player player = new Player();
 			player.setTenantId(tenantId);
 			player.setName(className);
 			player.setGameId(game.getObjectId());
 			player.setTeam(false);
+			Utils.setContributions(player, game.getTenantId(), game.getObjectId(), garbageCollectionRepository);
 			playerRepository.save(player);
 		}
 		Player player = new Player();

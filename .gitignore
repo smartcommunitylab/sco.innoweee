@@ -68,3 +68,6 @@ webApp/platforms/
 webApp/plugins
 webApp/www
 ionic.config.json
+mobile/codeScanner/src/app/services/authentication.service.ts
+webApp/src/assets/data/auth.json
+mobile/codeScanner/src/assets/data/auth.json

@@ -1,0 +1,61 @@
+image: docker:latest
+services:
+  - docker:dind
+variables:
+  DOCKER_DRIVER: overlay
+
+stages:
+  - build
+  - deploy
+
+variables:
+  IMAGE_BACKEND_SHA: smartcommunitylab/innoweee-engine:$CI_COMMIT_SHORT_SHA
+  IMAGE_BACKEND_LATEST: smartcommunitylab/innoweee-engine:latest
+  IMAGE_FRONTEND_SHA: smartcommunitylab/innoweee-frontend:$CI_COMMIT_SHORT_SHA
+  IMAGE_FRONTEND_LATEST: smartcommunitylab/innoweee-frontend:latest
+
+build_backend:
+  stage: build
+  script:
+    - cd engine
+    - docker login -u $DHUB_USER -p $DHUB_PASS
+    - DOCKER_BUILDKIT=1 docker build -f Dockerfile -t $IMAGE_BACKEND_SHA -t $IMAGE_BACKEND_LATEST .
+    - docker push $IMAGE_BACKEND_SHA
+    - docker push $IMAGE_BACKEND_LATEST
+  only:
+    - backend-prod
+
+deploy_backend:
+  stage: deploy
+  image: smartcommunitylab/kubectl-alpine:latest
+  environment:
+    name: develop
+  script:
+    - echo "deploy backend"
+    - kubectl -n innoweee set image deployments/innoweee-engine innoweee-engine=$IMAGE_BACKEND_SHA --record=true
+    - kubectl -n innoweee rollout status deployment innoweee-engine
+  only:
+    - backend-prod
+
+build_frontend:
+  stage: build
+  script:
+    - cd webApp
+    - docker login -u $DHUB_USER -p $DHUB_PASS
+    - DOCKER_BUILDKIT=1 docker build -f Dockerfile -t $IMAGE_FRONTEND_SHA -t $IMAGE_FRONTEND_LATEST .
+    - docker push $IMAGE_FRONTEND_SHA
+    - docker push $IMAGE_FRONTEND_LATEST
+  only:
+    - frontend-prod
+
+deploy_frontend:
+  stage: deploy
+  image: smartcommunitylab/kubectl-alpine:latest
+  environment:
+    name: develop
+  script:
+    - echo "deploy frontend"
+    - kubectl -n innoweee set image deployments/innoweee-frontend innoweee-frontend=$IMAGE_FRONTEND_SHA --record=true
+    - kubectl -n innoweee rollout status deployment innoweee-frontend
+  only:
+    - frontend-prod
