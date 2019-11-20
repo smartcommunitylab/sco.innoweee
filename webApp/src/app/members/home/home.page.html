@@ -20,10 +20,25 @@
       <ion-col size="5" class="robot-content">
         <div>
           <div class="robot-home">
+            <div class="donation" *ngIf="receivedDonations!=0">
+                <ion-icon src="./assets/images/gift_open.svg"></ion-icon>
+                <ion-badge color="danger">{{receivedDonations}}</ion-badge>
+            </div>
             <ion-img [src]="imgRobot"></ion-img>
             <ion-button color="dark" (click)="goTo('/myrobot')" expand="block" fill="outline">{{ 'button_robot' |
               translate
               }}</ion-button>
+              <ion-row class="row-stars">
+                  <ion-col *ngFor="let contribute of contributions">
+                    <div class="star">
+                      <ion-icon class="white-star" src="./assets/images/white.svg"
+                        *ngIf="!contribute.donatedPointsValue && !isFuture(contribute)"></ion-icon>
+                      <ion-icon class="yellow-star"  src="./assets/images/yellow.svg"
+                        *ngIf="contribute.donatedPointsValue && !isFuture(contribute)"></ion-icon>
+                      <ion-icon class="empty-star" src="./assets/images/star.svg" *ngIf="isFuture(contribute)"></ion-icon>
+                    </div>
+                  </ion-col>
+                </ion-row>
           </div>
         </div>
       </ion-col>
