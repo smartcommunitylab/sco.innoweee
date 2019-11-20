@@ -52,8 +52,8 @@ export class SelectClassPage implements OnInit {
   }
    getDomain() {
     console.log("getDomain");
-
-    this.profileService.getDomain().then(res => {
+    this.authService.getValidAACtoken().then( token => {
+    this.profileService.getDomain(token).then(res => {
       console.log(res);
       this.domains = res.tenants;
       if (res.tenants.length == 1) {
@@ -64,7 +64,8 @@ export class SelectClassPage implements OnInit {
 
       }
     }    )
-  }
+  })
+}
 
   getInstitute(domainId: string) {
     console.log("getInstitute");
