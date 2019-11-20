@@ -7,6 +7,7 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 import { GarbageCollectionService } from 'src/app/services/garbage-collection.service';
 import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
+import { GameService } from 'src/app/services/game.service';
 
 const FOLDER_COMPONENTS = "./assets/images/components/";
 @Component({
@@ -36,6 +37,7 @@ export class MyrobotPage extends MainPage implements OnInit {
     private router: Router,
     public authService: AuthenticationService,
     private garbageService: GarbageCollectionService,
+    private gameService: GameService,
     public navCtrl: NavController,
 
     public profileService: ProfileService) {
@@ -59,7 +61,7 @@ export class MyrobotPage extends MainPage implements OnInit {
       if (this.profileData) {
         this.garbageService.getActualCollection(this.profileData.gameId).then(res => {
           this.actualCollection = res;
-          this.contributions = this.createContributions(this.profileData.contributions);
+          this.contributions = this.gameService.createContributions(this.profileData.contributions);
           this.getNumeroRaccolta();
           this.getActualClassesDonate();
 
@@ -151,22 +153,7 @@ export class MyrobotPage extends MainPage implements OnInit {
       this.classiRicevuto= listaClassi;
     }
   }
-  createContributions(contributions: any): any {
-    var localdistributions = [];
-    contributions.forEach(contribute => {
-      var arrayContribute = contribute
-      if (contribute.donatedPoints && contribute.donatedPoints.length > 0)
-        arrayContribute.donatedPointsValue = true;
-      else
-        arrayContribute.donatedPointsValue = false;
-      if (contribute.receivedPoints && contribute.receivedPoints.length > 0)
-        arrayContribute.receivedPointsValue = true;
-      else
-        arrayContribute.receivedPointsValue = false;
-      localdistributions.push(arrayContribute);
-    });
-    return localdistributions;
-  }
+  
   orderResources(map) {
     var arrayResources = this.garbageService.getArrayResources();
     for (const [key, value] of Object.entries(map)) {
