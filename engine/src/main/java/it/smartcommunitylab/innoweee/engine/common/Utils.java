@@ -294,6 +294,7 @@ public class Utils {
 	public static GameAction getBuildRobotGameAction(Game game, Player player, Component component) {
 		Date now = new Date();
 		GameAction action = new GameAction();
+		action.setTenantId(game.getTenantId());
 		action.setInstituteId(game.getInstituteId());
 		action.setSchoolId(game.getSchoolId());
 		action.setGameId(game.getObjectId());
@@ -310,6 +311,7 @@ public class Utils {
 	public static GameAction getReduceReportGameAction(Game game, Player player, ReduceReport report) {
 		Date now = new Date();
 		GameAction action = new GameAction();
+		action.setTenantId(game.getTenantId());
 		action.setInstituteId(game.getInstituteId());
 		action.setSchoolId(game.getSchoolId());
 		action.setGameId(game.getObjectId());
@@ -326,6 +328,7 @@ public class Utils {
 	public static GameAction getItemDeliveryGameAction(Game game, Player player, ItemEvent itemEvent) {
 		Date now = new Date();
 		GameAction action = new GameAction();
+		action.setTenantId(game.getTenantId());
 		action.setInstituteId(game.getInstituteId());
 		action.setSchoolId(game.getSchoolId());
 		action.setGameId(game.getObjectId());
@@ -344,6 +347,7 @@ public class Utils {
 			PointDistribution pointDistribution, Map<String, CoinMap> playerCoinMap) {
 		Date now = new Date();
 		GameAction action = new GameAction();
+		action.setTenantId(game.getTenantId());
 		action.setInstituteId(game.getInstituteId());
 		action.setSchoolId(game.getSchoolId());
 		action.setGameId(game.getObjectId());
