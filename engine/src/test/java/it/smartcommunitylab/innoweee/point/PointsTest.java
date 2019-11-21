@@ -28,7 +28,7 @@ public class PointsTest {
 	@ParameterizedTest(name="player:{0}")
 	@MethodSource("argumentProvider")
 	public void testOrder(String playerId, List<PointStatus> pointStatusList) {
-		PointDistribution pointDistribution = new PointDistribution(pointStatusList);
+		PointDistribution pointDistribution = new PointDistribution(new CoinMap(0, 0, 0), pointStatusList);
 		assertFalse(pointDistribution.checkLastPositions(playerId));
 	}
 	
@@ -40,7 +40,8 @@ public class PointsTest {
 		"'tre,5.0,3.0,1.0', 'uno,15.0,10.0,5.0;due,25.0,15.0,5.0;tre,25.0,5.0,5.0'",
 		"'due,5.0,3.0,1.0', 'uno,15.0,10.0,5.0;due,25.0,15.0,5.0",
 		"'uno,5.0,3.0,1.0', 'uno,15.0,10.0,5.0",
-		"'2A,19.0,1.0,0.0', '2A,19.0,1.0,0.0;1C,0.0,0.0,0.0;2B,0.0,0.0,0.0;1D,0.0,0.0,0.0'"
+		"'2A,19.0,1.0,0.0', '2A,19.0,1.0,0.0;1C,0.0,0.0,0.0;2B,0.0,0.0,0.0;1D,0.0,0.0,0.0'",
+		"'2C,4.0,4.0,4.0', '1A,0.0,1.0,0.0;1B,6.0,1.0,0.0;1C,7.0,1.0,0.0;1D,3.0,1.0,1.0'"
 	})
 	public void testPoints(String contributor, String players) {
 		List<PointStatus> pointStatusList = new ArrayList<PointStatus>();
@@ -63,8 +64,8 @@ public class PointsTest {
 			ps.setCoinMap(coinMap);
 			pointStatusList.add(ps);
 		}
-		PointDistribution pointDistribution = new PointDistribution(pointStatusList);
-		Map<String, CoinMap> map = pointDistribution.distribute(contributorId, contributorCoinMap);
+		PointDistribution pointDistribution = new PointDistribution(contributorCoinMap, pointStatusList);
+		Map<String, CoinMap> map = pointDistribution.distribute();
 		double reduceCoinSum = 0;
 		double reuseCoinSum = 0;
 		double recycleCoinSum = 0;
