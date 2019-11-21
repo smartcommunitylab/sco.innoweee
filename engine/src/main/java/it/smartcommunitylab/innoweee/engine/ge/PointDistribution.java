@@ -13,8 +13,10 @@ import it.smartcommunitylab.innoweee.engine.common.Utils;
 public class PointDistribution {
 	private List<PointStatus> pointStatusList = null;
 	private int count;
+	private CoinMap contributorCoinMap;
 	
-	public PointDistribution(List<PointStatus> pointStatusList) {
+	public PointDistribution(CoinMap contributorCoinMap, List<PointStatus> pointStatusList) {
+		this.contributorCoinMap = contributorCoinMap;
 		this.pointStatusList = pointStatusList;
 		count = pointStatusList.size() >= 3 ? 3 : pointStatusList.size();
 		this.pointStatusList.sort(Comparator.comparing(PointStatus::getRank));
@@ -29,8 +31,16 @@ public class PointDistribution {
 		}
 		return false;
 	}
+	
+	public CoinMap getContributorCoinMap()  {
+		return contributorCoinMap;
+	}
+	
+	public List<PointStatus> getPointStatusList() {
+		return Collections.unmodifiableList(pointStatusList);
+	}
 
-	public Map<String, CoinMap> distribute(String contributorId, CoinMap contributorCoinMap) {
+	public Map<String, CoinMap> distribute() {
 		Map<String, CoinMap> result = new HashMap<>();
 		double Z = 0;
 		for(int i=0; i < count; i++) {

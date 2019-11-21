@@ -28,7 +28,7 @@ public class PointsTest {
 	@ParameterizedTest(name="player:{0}")
 	@MethodSource("argumentProvider")
 	public void testOrder(String playerId, List<PointStatus> pointStatusList) {
-		PointDistribution pointDistribution = new PointDistribution(pointStatusList);
+		PointDistribution pointDistribution = new PointDistribution(new CoinMap(0, 0, 0), pointStatusList);
 		assertFalse(pointDistribution.checkLastPositions(playerId));
 	}
 	
@@ -63,8 +63,8 @@ public class PointsTest {
 			ps.setCoinMap(coinMap);
 			pointStatusList.add(ps);
 		}
-		PointDistribution pointDistribution = new PointDistribution(pointStatusList);
-		Map<String, CoinMap> map = pointDistribution.distribute(contributorId, contributorCoinMap);
+		PointDistribution pointDistribution = new PointDistribution(contributorCoinMap, pointStatusList);
+		Map<String, CoinMap> map = pointDistribution.distribute();
 		double reduceCoinSum = 0;
 		double reuseCoinSum = 0;
 		double recycleCoinSum = 0;

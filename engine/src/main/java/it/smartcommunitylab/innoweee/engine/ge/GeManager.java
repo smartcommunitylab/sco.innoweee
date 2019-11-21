@@ -22,7 +22,6 @@ import it.smartcommunitylab.basic.api.PlayerControllerApi;
 import it.smartcommunitylab.basic.api.TeamControllerApi;
 import it.smartcommunitylab.innoweee.engine.common.Const;
 import it.smartcommunitylab.innoweee.engine.common.Utils;
-import it.smartcommunitylab.innoweee.engine.exception.StorageException;
 import it.smartcommunitylab.innoweee.engine.model.Category;
 import it.smartcommunitylab.innoweee.engine.model.Component;
 import it.smartcommunitylab.innoweee.engine.model.Game;
@@ -211,8 +210,8 @@ public class GeManager {
 	 * @param collections
 	 * @return a Map where the key is the playerId and the value is a CostMap
 	 */
-	public Map<String, CoinMap> getPlayerCoinMap(String gameId, String playerId,
-			List<Player> players, String collectionName) throws Exception {
+	public PointDistribution getPointDistribution(String gameId, String playerId,
+			List<Player> players, String collectionName) {
 		PlayersStatus playersStatus = new PlayersStatus();
 		for(Player player : players) {
 			try {
@@ -223,17 +222,7 @@ public class GeManager {
 				logger.warn("getPlayerCostMap - read player status error:{}", e.getMessage());
 			}
 		}
-		return assignPoints(playerId, players, playersStatus, collectionName);
-	}
-
-	private Map<String, CoinMap> assignPoints(String contributorId, List<Player> players,
-			PlayersStatus playersStatus, String collectionName) throws Exception {
-		Map<String, CoinMap> result = new HashMap<>();
-		CoinMap contributorCoinMap = playersStatus.getPlayerCoinMap(contributorId, null);
-		if(Utils.isEmpty(contributorCoinMap)) {
-			throw new StorageException("contribution score is empty");
-		}
-		result.put(contributorId, contributorCoinMap);
+		CoinMap contributorCoinMap = playersStatus.getPlayerCoinMap(playerId, null);
 		List<PointStatus> pointStatusList = new ArrayList<>();
 		for(Player player : players) {
 			if(Utils.checkDonation(player, collectionName)) {
@@ -245,12 +234,8 @@ public class GeManager {
 			pointStatus.setCoinMap(coinMap);
 			pointStatusList.add(pointStatus);
 		}
-		PointDistribution pointDistribution = new PointDistribution(pointStatusList);
-		if(pointDistribution.checkLastPositions(contributorId)) {
-			throw new StorageException("score too low");
-		}
-		result.putAll(pointDistribution.distribute(contributorId, contributorCoinMap));
-		return result;
+		PointDistribution pointDistribution = new PointDistribution(contributorCoinMap, pointStatusList);
+		return pointDistribution;
 	}
 	
 }

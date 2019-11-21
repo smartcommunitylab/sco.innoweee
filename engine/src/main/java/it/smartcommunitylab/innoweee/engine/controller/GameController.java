@@ -26,9 +26,11 @@ import org.springframework.web.bind.annotation.RestController;
 import it.smartcommunitylab.innoweee.engine.common.Const;
 import it.smartcommunitylab.innoweee.engine.common.Utils;
 import it.smartcommunitylab.innoweee.engine.exception.EntityNotFoundException;
+import it.smartcommunitylab.innoweee.engine.exception.StorageException;
 import it.smartcommunitylab.innoweee.engine.exception.UnauthorizedException;
 import it.smartcommunitylab.innoweee.engine.ge.CoinMap;
 import it.smartcommunitylab.innoweee.engine.ge.GeManager;
+import it.smartcommunitylab.innoweee.engine.ge.PointDistribution;
 import it.smartcommunitylab.innoweee.engine.img.ImageManager;
 import it.smartcommunitylab.innoweee.engine.model.Catalog;
 import it.smartcommunitylab.innoweee.engine.model.Component;
@@ -296,11 +298,20 @@ public class GameController extends AuthController {
 		if(collection == null) {
 			throw new EntityNotFoundException("collection not found");
 		}
-		Map<String, CoinMap> playerCoinMap = geManager.getPlayerCoinMap(game.getGeGameId(), playerId, players, 
-				collection.getNameGE());
+		PointDistribution pointDistribution = geManager.getPointDistribution(game.getGeGameId(), playerId, 
+				players, collection.getNameGE());
+		if(Utils.isEmpty(pointDistribution.getContributorCoinMap())) {
+			throw new StorageException("contribution score is empty");
+		}
+		if(pointDistribution.checkLastPositions(playerId)) {
+			throw new StorageException("score too low");
+		}
+		Map<String, CoinMap> playerCoinMap = pointDistribution.distribute();
+		GameAction gameAction = Utils.getContributionAction(game, player, pointDistribution, playerCoinMap);
+		gameActionRepository.save(gameAction);		
 		logger.info("sendContribution[{}]:{} / {} / {} / {}", game.getTenantId(), gameId, playerId, 
 				nameGE, playerCoinMap);
-		geManager.sendContribution(game.getGeGameId(), playerId, playerCoinMap.get(playerId), executionDate);
+		geManager.sendContribution(game.getGeGameId(), playerId, pointDistribution.getContributorCoinMap(), executionDate);
 		for(String objectId : playerCoinMap.keySet()) {
 			if(playerId.equals(objectId)) {
 				continue;
