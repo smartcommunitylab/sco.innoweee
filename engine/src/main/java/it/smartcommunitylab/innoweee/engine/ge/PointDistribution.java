@@ -84,7 +84,9 @@ public class PointDistribution {
 				lastRecycleCoin -= recycleCoin;
 			}
 			CoinMap coinMap = new CoinMap(lastReduceCoin, lastReuseCoin, lastRecycleCoin);
-			result.put(sortByValuesList.get(count - 1), coinMap);
+			if(!Utils.isEmpty(coinMap)) {
+				result.put(sortByValuesList.get(count - 1), coinMap);
+			}
 		}
 		return result;
 	}
