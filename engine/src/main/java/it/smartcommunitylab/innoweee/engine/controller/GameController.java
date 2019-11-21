@@ -307,7 +307,8 @@ public class GameController extends AuthController {
 			throw new StorageException("score too low");
 		}
 		Map<String, CoinMap> playerCoinMap = pointDistribution.distribute();
-		GameAction gameAction = Utils.getContributionAction(game, player, pointDistribution, playerCoinMap);
+		GameAction gameAction = Utils.getContributionAction(game, collection.getNameGE(), player, 
+				pointDistribution, playerCoinMap);
 		gameActionRepository.save(gameAction);		
 		logger.info("sendContribution[{}]:{} / {} / {} / {}", game.getTenantId(), gameId, playerId, 
 				nameGE, playerCoinMap);

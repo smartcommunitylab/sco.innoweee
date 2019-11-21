@@ -340,7 +340,7 @@ public class Utils {
 		return action;		
 	}
 	
-	public static GameAction getContributionAction(Game game, Player player, 
+	public static GameAction getContributionAction(Game game, String collectionName, Player player, 
 			PointDistribution pointDistribution, Map<String, CoinMap> playerCoinMap) {
 		Date now = new Date();
 		GameAction action = new GameAction();
@@ -353,6 +353,7 @@ public class Utils {
 		action.getCustomData().put("contributorCoinMap", pointDistribution.getContributorCoinMap());
 		action.getCustomData().put("pointStatusList", pointDistribution.getPointStatusList());
 		action.getCustomData().put("contribution", playerCoinMap);
+		action.getCustomData().put("collectionName", collectionName);
 		action.setCreationDate(now);
 		action.setLastUpdate(now);
 		return action;		

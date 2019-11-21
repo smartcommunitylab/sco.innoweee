@@ -225,6 +225,9 @@ public class GeManager {
 		CoinMap contributorCoinMap = playersStatus.getPlayerCoinMap(playerId, null);
 		List<PointStatus> pointStatusList = new ArrayList<>();
 		for(Player player : players) {
+			if(player.isTeam()) {
+				continue;
+			}
 			if(Utils.checkDonation(player, collectionName)) {
 				continue;
 			}
