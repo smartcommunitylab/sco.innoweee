@@ -37,19 +37,23 @@ export class ProfileService {
     this.getRobotImageApi = config.getRobotImageApi;
   }
 
-  getDomain(): Promise<any> {
+  getDomain(token): Promise<any> {
     let url: string = this.endPoint + this.getDomainApi;
     // return Promise.resolve({"tenants":["TEST","TRENTO"]});
-    return Promise.resolve({"tenants":["TRENTINO"]});
+    return this.http.get(url,{ headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token
 
-    // return this.http.get(url)
-    //   .toPromise()
-    //   .then(response => {
-    //     return response
-    //   }
-    //   ).catch(response => {
-    //     return this.handleError(response)
-    //   });
+    }})
+      .toPromise()
+      .then(response => {
+        return response
+      }
+      ).catch(response => {
+        return this.handleError(response)
+      });
+  
   }
   getInstitute(domain: string,token): Promise<any> {
     
