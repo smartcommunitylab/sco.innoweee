@@ -24,6 +24,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
 import it.smartcommunitylab.innoweee.engine.ge.CoinMap;
+import it.smartcommunitylab.innoweee.engine.ge.PointDistribution;
 import it.smartcommunitylab.innoweee.engine.model.Catalog;
 import it.smartcommunitylab.innoweee.engine.model.Component;
 import it.smartcommunitylab.innoweee.engine.model.Contribution;
@@ -293,6 +294,7 @@ public class Utils {
 	public static GameAction getBuildRobotGameAction(Game game, Player player, Component component) {
 		Date now = new Date();
 		GameAction action = new GameAction();
+		action.setTenantId(game.getTenantId());
 		action.setInstituteId(game.getInstituteId());
 		action.setSchoolId(game.getSchoolId());
 		action.setGameId(game.getObjectId());
@@ -309,6 +311,7 @@ public class Utils {
 	public static GameAction getReduceReportGameAction(Game game, Player player, ReduceReport report) {
 		Date now = new Date();
 		GameAction action = new GameAction();
+		action.setTenantId(game.getTenantId());
 		action.setInstituteId(game.getInstituteId());
 		action.setSchoolId(game.getSchoolId());
 		action.setGameId(game.getObjectId());
@@ -325,6 +328,7 @@ public class Utils {
 	public static GameAction getItemDeliveryGameAction(Game game, Player player, ItemEvent itemEvent) {
 		Date now = new Date();
 		GameAction action = new GameAction();
+		action.setTenantId(game.getTenantId());
 		action.setInstituteId(game.getInstituteId());
 		action.setSchoolId(game.getSchoolId());
 		action.setGameId(game.getObjectId());
@@ -334,6 +338,26 @@ public class Utils {
 		action.getCustomData().put("pointType", "itemDelivery");
 		action.getCustomData().put("itemId", itemEvent.getItemId());
 		action.getCustomData().put("reusable", itemEvent.isReusable());
+		action.setCreationDate(now);
+		action.setLastUpdate(now);
+		return action;		
+	}
+	
+	public static GameAction getContributionAction(Game game, String collectionName, Player player, 
+			PointDistribution pointDistribution, Map<String, CoinMap> playerCoinMap) {
+		Date now = new Date();
+		GameAction action = new GameAction();
+		action.setTenantId(game.getTenantId());
+		action.setInstituteId(game.getInstituteId());
+		action.setSchoolId(game.getSchoolId());
+		action.setGameId(game.getObjectId());
+		action.setPlayerId(player.getObjectId());
+		action.setPlayerName(player.getName());
+		action.setActionType(Const.ACTION_ADD_CONTRIBUTION);
+		action.getCustomData().put("contributorCoinMap", pointDistribution.getContributorCoinMap());
+		action.getCustomData().put("pointStatusList", pointDistribution.getPointStatusList());
+		action.getCustomData().put("contribution", playerCoinMap);
+		action.getCustomData().put("collectionName", collectionName);
 		action.setCreationDate(now);
 		action.setLastUpdate(now);
 		return action;		
