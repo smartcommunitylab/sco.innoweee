@@ -1,6 +1,6 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
-import { APP_CONFIG_TOKEN, APP_CONFIG, ApplicationConfig } from '../app-config';
+import { environment } from './../../environments/environment';
 import { Observable } from 'rxjs';
 import { Http, ResponseContentType } from '@angular/http';
 import { Storage } from '@ionic/storage';
@@ -25,15 +25,14 @@ export class ProfileService {
 
   constructor(private httpClient: HttpClient,
     private storage:Storage,
-    private http: HttpClient,
-    @Inject(APP_CONFIG_TOKEN) private config: ApplicationConfig) {
-    this.endPoint = config.apiEndpoint;
-    this.getDomainApi = config.getDomainApi;
-    this.getInstituteApi = config.getInstituteApi;
-    this.getSchoolApi = config.getSchoolApi;
-    this.getGameApi = config.getGameApi;
-    this.getPlayerApi = config.getPlayerApi;
-    this.getRobotImageApi = config.getRobotImageApi;
+    private http: HttpClient) {
+    this.endPoint = environment.apiEndpoint;
+    this.getDomainApi = environment.getDomainApi;
+    this.getInstituteApi = environment.getInstituteApi;
+    this.getSchoolApi = environment.getSchoolApi;
+    this.getGameApi = environment.getGameApi;
+    this.getPlayerApi = environment.getPlayerApi;
+    this.getRobotImageApi = environment.getRobotImageApi;
   }
 
   getDomain(): Promise<any> {

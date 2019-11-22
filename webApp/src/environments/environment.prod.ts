@@ -1,3 +1,27 @@
 export const environment = {
-  production: true
+  production: true,
+  appName: 'InnoWee',
+    apiEndpoint: 'https://innoweee.platform.smartcommunitylab.it/innoweee-engine/',
+    getDomainApi: 'api/profile',
+    getInstituteApi: '/api/institute/',
+    getSchoolApi: 'api/school',
+    getGameApi: 'api/game/',
+    getPlayerApi: 'api/player',
+    getMaterialApi:'/link',
+    getCatalogApi:'api/catalog',
+    getCollection: 'api/collection/',
+    buyComponentApi:'/buy/',
+    contributionApi:'/contribution/',
+    robotApi:"/robot/",
+    getRobotImageApi:"api/image/robot/",
+    getItemApi:"api/item",
+    getReduceApi:"/reduce",
+    itemSocketURL:"itemws",
+    getDeliveryApi:"/delivery",
+    getGarbageApi:"api/garbageMap/",
+    getUsedApi:"/used",
+    aacClientId: "2be89b9c-4050-4e7e-9042-c02b0d9121c6",
+    redirectUrl: 'https://innoweee.platform.smartcommunitylab.it/',
+    scope: 'profile.basicprofile.me profile.accountprofile.me',
+    aacUrl: 'https://am-dev.smartcommunitylab.it/aac/'
 };

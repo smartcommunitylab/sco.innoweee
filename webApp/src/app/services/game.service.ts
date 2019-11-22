@@ -1,6 +1,6 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { APP_CONFIG_TOKEN, ApplicationConfig } from '../app-config';
+import { environment } from './../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -14,13 +14,12 @@ export class GameService {
 
 
   constructor(
-    private http: HttpClient,
-    @Inject(APP_CONFIG_TOKEN) private config: ApplicationConfig) {
-      this.getCatalogApi = config.getCatalogApi;
-      this.contributionApi = config.contributionApi;
-      this.getGameApi = config.getGameApi;
-      this.buyComponentApi = config.buyComponentApi;
-      this.endPoint = config.apiEndpoint;
+    private http: HttpClient) {
+      this.getCatalogApi = environment.getCatalogApi;
+      this.contributionApi = environment.contributionApi;
+      this.getGameApi = environment.getGameApi;
+      this.buyComponentApi = environment.buyComponentApi;
+      this.endPoint = environment.apiEndpoint;
   }
 
   createContributions(contributions: any): any {

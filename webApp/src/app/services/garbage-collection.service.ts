@@ -1,6 +1,6 @@
 import { Injectable, Inject } from '@angular/core';
 import { Http } from '@angular/http';
-import { APP_CONFIG_TOKEN, ApplicationConfig } from '../app-config';
+import { environment } from './../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 
 
@@ -32,16 +32,15 @@ export class GarbageCollectionService {
     "silver",
     "gold"
   ]
-  constructor(private http: HttpClient,
-    @Inject(APP_CONFIG_TOKEN) private config: ApplicationConfig) {
-      this.endPoint = config.apiEndpoint;
-      this.getGameApi = config.getGameApi;
-      this.getItemApi = config.getItemApi;
-      this.getReduceApi = config.getReduceApi;
-      this.getDeliveryApi = config.getDeliveryApi;
-      this.getGarbageApi = config.getGarbageApi;
-      this.getUsedApi = config.getUsedApi;
-      this.geCollectionApi = config.getCollection;
+  constructor(private http: HttpClient) {
+      this.endPoint = environment.apiEndpoint;
+      this.getGameApi = environment.getGameApi;
+      this.getItemApi = environment.getItemApi;
+      this.getReduceApi = environment.getReduceApi;
+      this.getDeliveryApi = environment.getDeliveryApi;
+      this.getGarbageApi = environment.getGarbageApi;
+      this.getUsedApi = environment.getUsedApi;
+      this.geCollectionApi = environment.getCollection;
    }
    getArrayResources():any[] {
      return this.arrayResources;

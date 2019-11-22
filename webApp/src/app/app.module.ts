@@ -14,7 +14,6 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
-import { APP_CONFIG, APP_CONFIG_TOKEN } from './app-config';
 import { SharedModule } from './shared.module';
 import { registerLocaleData } from '@angular/common';
 import localeIt from '@angular/common/locales/it';
@@ -58,8 +57,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       multi: true
     },
     // {provide: LOCALE_ID, useValue: "it"},
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    {provide: APP_CONFIG_TOKEN, useValue: APP_CONFIG }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
 })

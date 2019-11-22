@@ -1,7 +1,7 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { APP_CONFIG_TOKEN, ApplicationConfig } from '../app-config';
+import { environment } from './../../environments/environment';
 @Injectable({
   providedIn: 'root',
 })
@@ -12,14 +12,14 @@ export class AuthenticationService {
   aacUrl;
   jsonURL = './assets/data/auth.json';
 
-  constructor(    @Inject(APP_CONFIG_TOKEN) private config: ApplicationConfig,
+  constructor( 
     private http: HttpClient) {
       //read asynch the dfile with id
 
-      this.aacClientId=config.aacClientId;
-      this.redirectUrl=config.redirectUrl;
-        this.scope=config.scope;
-        this.aacUrl=config.aacUrl;
+      this.aacClientId=environment.aacClientId;
+      this.redirectUrl=environment.redirectUrl;
+        this.scope=environment.scope;
+        this.aacUrl=environment.aacUrl;
 
      }
     //  public getJSON(): Observable<any> {
