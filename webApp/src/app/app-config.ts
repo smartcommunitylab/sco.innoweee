@@ -51,7 +51,7 @@ export const APP_CONFIG: ApplicationConfig = {
     getGarbageApi:"api/garbageMap/",
     getUsedApi:"/used",
     aacClientId: "2be89b9c-4050-4e7e-9042-c02b0d9121c6",
-    redirectUrl: 'http://localhost:8100/',
+    redirectUrl: 'https://innoweee.platform.smartcommunitylab.it/innoweee-engine/',
     scope: 'profile.basicprofile.me profile.accountprofile.me',
     aacUrl: 'https://am-dev.smartcommunitylab.it/aac/'
 
