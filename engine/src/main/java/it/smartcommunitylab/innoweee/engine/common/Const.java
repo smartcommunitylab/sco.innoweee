@@ -63,5 +63,6 @@ public class Const {
 	public static final String ACTION_BUILD_ROBOT = "build_robot";
 	public static final String ACTION_ADD_POINT = "add_point";
 	public static final String ACTION_ADD_CONTRIBUTION = "add_contribution";
+	public static final String ACTION_ADD_ALTRUISTIC = "add_altruistic";
 }
 
