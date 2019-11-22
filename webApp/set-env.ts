@@ -17,30 +17,9 @@ const envConfigFile = `
 export const environment = {
   production: ${isProd},
   apiEndpoint: "${process.env.apiEndpoint}",
-    getDomainApi: "${process.env.getDomainApi}",
-    getInstituteApi: "${process.env.getInstituteApi}",
-    getSchoolApi: "${process.env.getSchoolApi}",
-    getGameApi: "${process.env.getGameApi}",
-    getPlayerApi: "${process.env.getPlayerApi}",
-    getMaterialApi: "${process.env.getMaterialApi}",
-    getCatalogApi: "${process.env.getCatalogApi}",
-    getCollection: "${process.env.getCollection}",
-    buyComponentApi: "${process.env.buyComponentApi}",
-    contributionApi: "${process.env.contributionApi}",
-    robotApi: "${process.env.robotApi}",
-    getRobotImageApi: "${process.env.getRobotImageApi}",
-    getItemApi: "${process.env.getItemApi}",
-    getReduceApi: "${process.env.getReduceApi}",
-    itemSocketURL: "${process.env.itemSocketURL}",
-    getDeliveryApi: "${process.env.getDeliveryApi}",
-    getGarbageApi: "${process.env.getGarbageApi}",
-    getUsedApi: "${process.env.getUsedApi}",
     aacClientId: "${process.env.aacClientId}",
     redirectUrl: "${process.env.redirectUrl}",
-    scope: "${process.env.scope}",
-    aacUrl: "${process.env.aacUrl}",
-  superSecretKey: "${process.env.superSecretKey}",
-  superDoubleSecret: "${process.env.superDoubleSecret}" 
+    aacUrl: "${process.env.aacUrl}"
 };
 `
 
