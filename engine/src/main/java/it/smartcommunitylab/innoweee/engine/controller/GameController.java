@@ -306,6 +306,12 @@ public class GameController extends AuthController {
 		if(pointDistribution.checkLastPositions(playerId)) {
 			throw new StorageException("score too low");
 		}
+		Catalog catalog = catalogRepository.findByTenantId(game.getTenantId());
+		if(catalog != null) {
+			GameAction altruisticAction = Utils.getAltruisticAction(game, collection.getNameGE(), player, 
+					catalog, pointDistribution.getContributorCoinMap());
+			gameActionRepository.save(altruisticAction);
+		}
 		Map<String, CoinMap> playerCoinMap = pointDistribution.distribute();
 		GameAction gameAction = Utils.getContributionAction(game, collection.getNameGE(), player, 
 				pointDistribution, playerCoinMap);
