@@ -363,6 +363,44 @@ public class Utils {
 		return action;		
 	}
 	
+	public static GameAction getAltruisticAction(Game game, String collectionName, Player player, 
+			Catalog catalog, CoinMap contributorCoinMap) {
+		List<Component> componentsToBuild = new ArrayList<Component>();
+		for(String componentId : player.getRobot().getComponents().keySet()) {
+			componentsToBuild.addAll(Utils.getComponentsToBuild(componentId, catalog, contributorCoinMap));
+		}
+		Date now = new Date();
+		GameAction action = new GameAction();
+		action.setTenantId(game.getTenantId());
+		action.setInstituteId(game.getInstituteId());
+		action.setSchoolId(game.getSchoolId());
+		action.setGameId(game.getObjectId());
+		action.setPlayerId(player.getObjectId());
+		action.setPlayerName(player.getName());
+		action.setActionType(Const.ACTION_ADD_ALTRUISTIC);
+		action.getCustomData().put("contributorCoinMap", contributorCoinMap);
+		action.getCustomData().put("collectionName", collectionName);
+		action.getCustomData().put("componentsToBuild", componentsToBuild);
+		action.setCreationDate(now);
+		action.setLastUpdate(now);
+		return action;		
+	}
+	
+	private static List<Component> getComponentsToBuild(String componentId, Catalog catalog,
+			CoinMap coinMap) {
+		List<Component> result = new ArrayList<Component>();
+		for(Component component : catalog.getComponents().values()) {
+			if(Utils.isNotEmpty(component.getParentId()) && component.getParentId().equals(componentId)) {
+				if((component.getCostMap().get(Const.COIN_RECYCLE) <= coinMap.getRecycleCoin()) && 
+					(component.getCostMap().get(Const.COIN_REDUCE) <= coinMap.getReduceCoin()) &&
+					(component.getCostMap().get(Const.COIN_REUSE) <= coinMap.getReuseCoin())) {
+					result.add(component);
+				}
+			}
+		}
+		return result;
+	}
+
 	public static double getRank(CoinMap coinMap) {
 		double rank = coinMap.getReduceCoin() + 
 				(coinMap.getReuseCoin() * 21.91) + (coinMap.getRecycleCoin() * 21.91);
