@@ -29,8 +29,6 @@ export interface ApplicationConfig {
 // Configuration values for our app
 export const APP_CONFIG: ApplicationConfig = {
     appName: 'InnoWee',
-    // apiEndpoint: 'http://192.168.42.60:2020/',
-    // apiEndpoint: 'https://tn.smartcommunitylab.it/innoweee-engine/',
     apiEndpoint: 'https://innoweee.platform.smartcommunitylab.it/innoweee-engine/',
     getDomainApi: 'api/profile',
     getInstituteApi: '/api/institute/',
@@ -51,7 +49,7 @@ export const APP_CONFIG: ApplicationConfig = {
     getGarbageApi:"api/garbageMap/",
     getUsedApi:"/used",
     aacClientId: "2be89b9c-4050-4e7e-9042-c02b0d9121c6",
-    redirectUrl: 'https://innoweee.platform.smartcommunitylab.it/innoweee-engine/',
+    redirectUrl: 'https://innoweee.platform.smartcommunitylab.it/',
     scope: 'profile.basicprofile.me profile.accountprofile.me',
     aacUrl: 'https://am-dev.smartcommunitylab.it/aac/'
 
