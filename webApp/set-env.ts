@@ -19,7 +19,26 @@ export const environment = {
   apiEndpoint: "${process.env.apiEndpoint}",
     aacClientId: "${process.env.aacClientId}",
     redirectUrl: "${process.env.redirectUrl}",
-    aacUrl: "${process.env.aacUrl}"
+    aacUrl: "${process.env.aacUrl}",
+    getDomainApi: 'api/profile',
+    getInstituteApi: '/api/institute/',
+    getSchoolApi: 'api/school',
+    getGameApi: 'api/game/',
+    getPlayerApi: 'api/player',
+    getMaterialApi:'/link',
+    getCatalogApi:'api/catalog',
+    getCollection: 'api/collection/',
+    buyComponentApi:'/buy/',
+    contributionApi:'/contribution/',
+    robotApi:"/robot/",
+    getRobotImageApi:"api/image/robot/",
+    getItemApi:"api/item",
+    getReduceApi:"/reduce",
+    itemSocketURL:"itemws",
+    getDeliveryApi:"/delivery",
+    getGarbageApi:"api/garbageMap/",
+    getUsedApi:"/used",
+    scope: 'profile.basicprofile.me profile.accountprofile.me'
 };
 `
 

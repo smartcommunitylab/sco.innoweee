@@ -8,6 +8,6 @@ import it.smartcommunitylab.innoweee.engine.model.Catalog;
 
 @Repository
 public interface CatalogRepository extends MongoRepository<Catalog, String> {
-	@Query(value="{tenantId:?0}")
-	Catalog findByTenantId(String tenantId);
+	@Query(value="{tenantId:?0, gameId:?1}")
+	Catalog findByGameId(String tenantId, String gameId);
 }
