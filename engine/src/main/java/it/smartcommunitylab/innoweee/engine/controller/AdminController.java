@@ -91,6 +91,7 @@ public class AdminController extends AuthController {
 		if(catalog == null) {
 			catalog = new Catalog();
 			catalog.setTenantId(tenantId);
+			catalog.setGameId(gameId);
 		}
 		Scanner scanner = new Scanner(csv);
 		while (scanner.hasNextLine()) {
