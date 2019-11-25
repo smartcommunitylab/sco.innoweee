@@ -228,7 +228,7 @@ public class Utils {
 	
 	public static void addNewRobot(Player player, CatalogRepository catalogResopitory) {
 		Robot robot = new Robot();
-		Catalog catalog = catalogResopitory.findByTenantId(player.getTenantId());
+		Catalog catalog = catalogResopitory.findByGameId(player.getTenantId(), player.getGameId());
 		if(catalog != null) {
 			for(Component component : catalog.getComponents().values()) {
 				if(StringUtils.isEmpty(component.getParentId())) {

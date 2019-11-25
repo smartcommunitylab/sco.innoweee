@@ -47,29 +47,31 @@ public class ResourceController extends AuthController {
 	@Autowired
 	private CategoryMapRepository categoryMapRepository;
 	
-	@GetMapping(value = "/api/catalog/{tenantId}")
+	@GetMapping(value = "/api/catalog/{tenantId}/{gameId}")
 	public @ResponseBody Catalog getCatalog(
 			@PathVariable String tenantId,
+			@PathVariable String gameId,
 			HttpServletRequest request) throws Exception {
 		if(!validateAuthorization(tenantId, Const.AUTH_RES_Catalog, 
 				Const.AUTH_ACTION_READ, request)) {
 			throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
 		}		
-		Catalog catalog = catalogRepository.findByTenantId(tenantId);
+		Catalog catalog = catalogRepository.findByGameId(tenantId, gameId);
 		logger.info("getCatalog[{}]:{}", tenantId, catalog);
 		return catalog;
 	}
 	
-	@GetMapping(value = "/api/catalog/{tenantId}/component/{id}")
+	@GetMapping(value = "/api/catalog/{tenantId}/{gameId}/component/{id}")
 	public @ResponseBody List<Component> getUpgradeComponents(
 			@PathVariable String tenantId,
+			@PathVariable String gameId,
 			@PathVariable String id,
 			HttpServletRequest request) throws Exception {
 		if(!validateAuthorization(tenantId, Const.AUTH_RES_Catalog, 
 				Const.AUTH_ACTION_READ, request)) {
 			throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
 		}		
-		Catalog catalog = catalogRepository.findByTenantId(tenantId);
+		Catalog catalog = catalogRepository.findByGameId(tenantId, gameId);
 		if(catalog == null) {
 			throw new EntityNotFoundException("catalog not found");
 		}
