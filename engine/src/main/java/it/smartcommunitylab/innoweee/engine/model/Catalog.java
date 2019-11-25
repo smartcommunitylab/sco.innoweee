@@ -9,6 +9,7 @@ public class Catalog {
 	@Id
 	private String id;
 	private String tenantId;
+	private String gameId;
 	private Map<String, Component> components = new HashMap<String, Component>();
 	
 	public String getId() {
@@ -28,5 +29,11 @@ public class Catalog {
 	}
 	public void setTenantId(String tenantId) {
 		this.tenantId = tenantId;
+	}
+	public String getGameId() {
+		return gameId;
+	}
+	public void setGameId(String gameId) {
+		this.gameId = gameId;
 	}
 }

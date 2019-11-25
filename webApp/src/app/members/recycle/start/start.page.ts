@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { WebsocketService } from 'src/app/services/websocket.service';
-import { APP_CONFIG_TOKEN, ApplicationConfig } from 'src/app/app-config';
+// import { APP_CONFIG_TOKEN, ApplicationConfig } from 'src/app/app-config';
 import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client';
 import { ProfileService } from 'src/app/services/profile.service';
@@ -11,6 +11,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { MainPage } from 'src/app/class/MainPage';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Storage } from '@ionic/storage';
+import { environment } from './../../../../environments/environment';
 
 
 @Component({
@@ -42,13 +43,11 @@ export class StartPage extends MainPage implements OnInit {
     public storage: Storage,
     private garbageCollection: GarbageCollectionService,
     private alertController: AlertController,
-    public navCtrl: NavController, 
-
-    @Inject(APP_CONFIG_TOKEN) private config: ApplicationConfig) {
+    public navCtrl: NavController) {
     super(translate, authService, storage,navCtrl);
 
-    this.itemSocketURL = config.itemSocketURL;
-    this.apiEndpoint = config.apiEndpoint;
+    this.itemSocketURL = environment.itemSocketURL;
+    this.apiEndpoint = environment.apiEndpoint;
   }
 
   ionViewWillEnter() {
