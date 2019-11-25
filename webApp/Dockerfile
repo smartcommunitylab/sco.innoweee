@@ -1,10 +1,16 @@
-FROM node:11.15-alpine as build
+FROM node:9-alpine as build
 COPY . /tmp
 RUN apk add --no-cache git
 WORKDIR /tmp
+
+ARG apiEndpoint=http://test.prod
+ARG aacClientId=test-prod
+ARG redirectUrl=test-prod
+ARG aacUrl=http://aac.prod
+
 RUN npm install -g cordova ionic
 RUN npm install && ionic cordova platform add browser
-RUN ionic cordova plugin list && ionic cordova build browser --prod
+RUN npm run config -- --environment=prod && ionic cordova build browser --prod
 
 FROM nginx:alpine
 ARG USER=innoweee

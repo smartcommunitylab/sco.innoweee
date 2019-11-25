@@ -62,7 +62,7 @@ export class ChangePage extends MainPage implements OnInit {
     this.profileService.getLocalPlayerData().then(res => {
       //get data and robot
       this.profileData = res
-      this.catalogService.getCatalog(this.profileData.tenantId).then(res => {
+      this.catalogService.getCatalog(this.profileData.tenantId,this.profileData.gameId).then(res => {
         this.catalog = res;
         this.enableButtons();
         this.garbageService.getActualCollection(this.profileData.gameId).then(res => {

@@ -6,7 +6,7 @@ import { MainPage } from 'src/app/class/MainPage';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Storage } from '@ionic/storage';
 import { NavController } from '@ionic/angular';
-import { APP_CONFIG_TOKEN, ApplicationConfig } from 'src/app/app-config';
+import { environment } from './../../../../environments/environment';
 import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client';
 @Component({
@@ -28,12 +28,10 @@ export class ItemClassificationPage extends MainPage implements OnInit {
     private profileService: ProfileService,
     public navCtrl: NavController, 
     private router: Router,
-
-    @Inject(APP_CONFIG_TOKEN) private config: ApplicationConfig,
     public translate: TranslateService, public authService: AuthenticationService, public storage: Storage) {
     super(translate, authService, storage,navCtrl);
-    this.itemSocketURL = config.itemSocketURL;
-    this.apiEndpoint = config.apiEndpoint;
+    this.itemSocketURL = environment.itemSocketURL;
+    this.apiEndpoint = environment.apiEndpoint;
   }
 
   ngOnInit() {

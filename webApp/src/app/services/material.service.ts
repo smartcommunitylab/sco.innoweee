@@ -1,8 +1,8 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Http } from '@angular/http';
-import { APP_CONFIG_TOKEN, ApplicationConfig } from '../app-config';
 import { config } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -12,11 +12,10 @@ export class MaterialService {
   getGameApi = "";
   getMaterialApi = "";
   constructor(
-    private http: HttpClient,
-    @Inject(APP_CONFIG_TOKEN) private config: ApplicationConfig) {
-    this.getMaterialApi = config.getMaterialApi;
-    this.getGameApi = config.getGameApi;
-    this.endPoint = config.apiEndpoint;
+    private http: HttpClient) {
+    this.getMaterialApi = environment.getMaterialApi;
+    this.getGameApi = environment.getGameApi;
+    this.endPoint = environment.apiEndpoint;
   }
 
   getMaterial(gameId): Promise<any> {

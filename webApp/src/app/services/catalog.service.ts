@@ -1,6 +1,6 @@
 import { Injectable, Inject } from '@angular/core';
 import { Http } from '@angular/http';
-import { APP_CONFIG_TOKEN, ApplicationConfig } from '../app-config';
+import { environment } from './../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -14,13 +14,12 @@ export class CatalogService {
   getGameApi="";
   
   constructor(
-    private http: HttpClient,
-    @Inject(APP_CONFIG_TOKEN) private config: ApplicationConfig) {
-      this.getCatalogApi = config.getCatalogApi;
-      this.robotApi = config.robotApi;
-      this.getGameApi = config.getGameApi;
-      this.buyComponentApi = config.buyComponentApi;
-      this.endPoint = config.apiEndpoint;
+    private http: HttpClient) {
+      this.getCatalogApi = environment.getCatalogApi;
+      this.robotApi = environment.robotApi;
+      this.getGameApi = environment.getGameApi;
+      this.buyComponentApi = environment.buyComponentApi;
+      this.endPoint = environment.apiEndpoint;
   }
 
   /*
@@ -28,8 +27,8 @@ export class CatalogService {
   get the list with all the components
   
   */
-  getCatalog(tenantId): Promise<any> {
-    let url: string = this.endPoint + this.getCatalogApi+'/'+tenantId;
+  getCatalog(tenantId,gameId): Promise<any> {
+    let url: string = this.endPoint + this.getCatalogApi+'/'+tenantId+'/'+gameId;
 
     return this.http.get(url).toPromise().then(response => {
       return response;
