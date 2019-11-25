@@ -22,7 +22,19 @@ export class LoginPage implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
-  }
+    // this.presentLoading().then(() => {
+      this.authService.init().then(() => {
+      this.authService.getValidAACtoken().then((validToken) =>{
+      this.router.navigate(['select-class']);
+      // this.dismissLoading()
+    },err => {
+      // this.translate.get('wrong_credentials').subscribe(async (res: string) => {
+      //   this.presentToast(res);
+      // });
+    })
+  })
+// })
+}
 
 
   login() {
