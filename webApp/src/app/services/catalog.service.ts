@@ -27,8 +27,8 @@ export class CatalogService {
   get the list with all the components
   
   */
-  getCatalog(tenantId): Promise<any> {
-    let url: string = this.endPoint + this.getCatalogApi+'/'+tenantId;
+  getCatalog(tenantId,gameId): Promise<any> {
+    let url: string = this.endPoint + this.getCatalogApi+'/'+tenantId+'/'+gameId;
 
     return this.http.get(url).toPromise().then(response => {
       return response;
