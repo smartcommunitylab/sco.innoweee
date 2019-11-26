@@ -3,10 +3,10 @@ COPY . /tmp
 RUN apk add --no-cache git
 WORKDIR /tmp
 
-ARG apiEndpoint=http://test.prod
-ARG aacClientId=test-prod
-ARG redirectUrl=test-prod
-ARG aacUrl=http://aac.prod
+ARG apiEndpoint=https://innoweee.platform.smartcommunitylab.it/innoweee-engine/
+ARG aacClientId=2be89b9c-4050-4e7e-9042-c02b0d9121c6
+ARG redirectUrl=https://innoweee.platform.smartcommunitylab.it/
+ARG aacUrl=https://am-dev.smartcommunitylab.it/aac/
 
 RUN npm install -g cordova ionic
 RUN npm install && ionic cordova platform add browser
