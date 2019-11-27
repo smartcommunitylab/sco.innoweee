@@ -231,11 +231,11 @@ if (!!this.user && !!this.user.tokenInfo && !!this.user.tokenInfo.refresh_token)
       }
     }).toPromise().then(
        (response:any) =>{
-        if (response.data.access_token) {
+        if (response && response.access_token) {
           console.log('[LOGIN] AAC token refreshed');
-          this.saveToken(response.data);
+          this.saveToken(response);
           this.saveTokenInfo();
-          resolve(response.data.access_token);
+          resolve(response.access_token);
         } else {
           this.resetUser();
           console.log('[LOGIN] invalid refresh_token');
