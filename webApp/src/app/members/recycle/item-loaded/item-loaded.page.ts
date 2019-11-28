@@ -75,6 +75,13 @@ export class ItemLoadedPage extends MainPage implements OnInit {
 
 
   }
+  otherIsVisible() {
+    if (this.garbageCollectionName && this.garbageCollectionName.toLowerCase()=="r6")
+    {
+      return true;
+    }
+    return false;
+  }
   otherCategory() {
     this.openModal()
   }
