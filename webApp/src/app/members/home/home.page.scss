@@ -23,14 +23,15 @@ ion-grid {
 
         ion-img {
             padding: 4%;
+            height: 35vh;
         }
 
         ion-button {
-            width: 164px;
-            left: 50%;
-            transform: translateX(-50%);
-            position: absolute;
-            bottom: 25px;
+            // width: 164px;
+            // left: 50%;
+            // transform: translateX(-50%);
+            // position: absolute;
+            // bottom: 25px;
         }
 
         ion-col {
@@ -62,7 +63,9 @@ ion-grid {
             .robot-home {
                 ion-img {
                     // height: 541px;
-                    width: 70%;
+                    // width: 70%;
+                    // margin: auto;
+                    height: 67vh;
                     margin: auto;
 
                 }
@@ -80,10 +83,13 @@ ion-grid {
                 width: calc(70%);
                 margin: auto;
             }
-
+            .wanted-img {
+                height: 64vh;
+    
+            }
             .wanted-container {
                 padding: 8px;
-
+                
                 .wanted-title {
                     font-weight: bold;
                 }
@@ -126,4 +132,9 @@ ion-grid {
         font-size: 40px;
         text-align: center;
      }
+}
+.interaction-button{
+    position: absolute;
+    width: 99%;
+    bottom: 10px;
 }
