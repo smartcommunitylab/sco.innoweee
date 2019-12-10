@@ -39,7 +39,6 @@ export class ItemClassificationPage extends MainPage implements OnInit {
     this.route.queryParams
       .subscribe(params => {
         console.log(params); // {order: "popular"}
-
         this.item = JSON.parse(params.item);
         console.log(this.item); // popular
       });
@@ -55,7 +54,6 @@ export class ItemClassificationPage extends MainPage implements OnInit {
   }
   getBinString() {
     if (this.item.valuable) {
-
       return this.translate.instant("label_bin_recycle_string_value");
 
     }
@@ -66,7 +64,6 @@ export class ItemClassificationPage extends MainPage implements OnInit {
   }
   getMarkerString() {
     if (this.item.valuable) {
-
       return this.translate.instant("label_marker_recycle_string_value");
 
     }
