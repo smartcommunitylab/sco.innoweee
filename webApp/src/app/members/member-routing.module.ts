@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 const routes: Routes = [
   { path: 'game-selection', loadChildren: './game-selection/game-selection.module#GameSelectionPageModule' },
   { path: 'start', loadChildren: './recycle/start/start.module#StartPageModule' },
-  { path: 'item-classification', loadChildren: './recycle/item-classification/item-classification.module#ItemClassificationPageModule' },
+  { path: 'item-classification/:item', loadChildren: './recycle/item-classification/item-classification.module#ItemClassificationPageModule' },
   { path: 'item-loaded/:idItem/:manual', loadChildren: './recycle/item-loaded/item-loaded.module#ItemLoadedPageModule' },
   { path: 'recycle-results', loadChildren: './recycle/recycle-results/recycle-results.module#RecycleResultsPageModule' },
   { path: 'home', loadChildren: './home/home.module#HomePageModule' },

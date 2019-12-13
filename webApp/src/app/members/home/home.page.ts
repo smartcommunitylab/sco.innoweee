@@ -91,11 +91,13 @@ export class HomePage extends MainPage implements OnInit {
       return this.weeklyGarbage[this.translate.currentLang];
     else return ""
   }
+
   getDateMessageFrom() {
     if (this.weeklyGarbage)
       return this.weeklyDateFrom ;
     else return ""
   }
+  
   getDateMessageTo() {
     if (this.weeklyGarbage)
       return this.weeklyDateTo;

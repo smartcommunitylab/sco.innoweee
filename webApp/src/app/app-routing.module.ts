@@ -16,7 +16,7 @@ const routes: Routes = [
   { path: '', redirectTo: 'game-selection', pathMatch: 'full', canActivate: [AuthGuard]},
   { path: 'game-selection', loadChildren: './members/game-selection/game-selection.module#GameSelectionPageModule', canActivate: [AuthGuard] },
   { path: 'start', loadChildren: './members/recycle/start/start.module#StartPageModule' , canActivate: [AuthGuard]},
-  { path: 'item-classification', loadChildren: './members/recycle/item-classification/item-classification.module#ItemClassificationPageModule' , canActivate: [AuthGuard]},
+  { path: 'item-classification/:item', loadChildren: './members/recycle/item-classification/item-classification.module#ItemClassificationPageModule' , canActivate: [AuthGuard]},
   { path: 'item-loaded/:idItem/:manual', loadChildren: './members/recycle/item-loaded/item-loaded.module#ItemLoadedPageModule' , canActivate: [AuthGuard]},
   { path: 'recycle-results', loadChildren: './members/recycle/recycle-results/recycle-results.module#RecycleResultsPageModule' , canActivate: [AuthGuard]},
   { path: 'home', loadChildren: './members/home/home.module#HomePageModule' , canActivate: [AuthGuard]},

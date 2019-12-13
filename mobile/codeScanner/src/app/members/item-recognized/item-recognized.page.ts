@@ -41,10 +41,6 @@ export class ItemRecognizedPage implements OnInit {
       });
 
   }
-  // scanData(scanData: any): any {
-  //   throw new Error("Method not implemented.");
-  // }
-
 
   async presentToast(string) {
     const toast = await this.toastController.create({
@@ -53,6 +49,11 @@ export class ItemRecognizedPage implements OnInit {
     })
     toast.present();
   }
+
+  changeClass() {
+    this.router.navigate(['select-class']);
+  }
+
   checkIfPresent(scanData) {
     this.authService.getValidAACtoken().then( token => {
 
