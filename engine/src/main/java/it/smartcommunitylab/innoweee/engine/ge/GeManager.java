@@ -26,6 +26,7 @@ import it.smartcommunitylab.innoweee.engine.model.Category;
 import it.smartcommunitylab.innoweee.engine.model.Component;
 import it.smartcommunitylab.innoweee.engine.model.Game;
 import it.smartcommunitylab.innoweee.engine.model.Garbage;
+import it.smartcommunitylab.innoweee.engine.model.GarbageCollection;
 import it.smartcommunitylab.innoweee.engine.model.ItemEvent;
 import it.smartcommunitylab.innoweee.engine.model.Player;
 import it.smartcommunitylab.innoweee.engine.model.PlayerState;
@@ -239,6 +240,22 @@ public class GeManager {
 		}
 		PointDistribution pointDistribution = new PointDistribution(contributorCoinMap, pointStatusList);
 		return pointDistribution;
+	}
+	
+	public PlayersStatus getPlayersStatus(String gameId, List<Player> players, List<GarbageCollection> collections) {
+		PlayersStatus playersStatus = new PlayersStatus();
+		for(Player player : players) {
+			try {
+				PlayerStateDTO playerStateDTO = playerApi.readStateUsingGET(gameId, player.getObjectId());
+				playersStatus.addPlayerStatus(player.getObjectId(), null, playerStateDTO);
+				for(GarbageCollection collection : collections) {
+					playersStatus.addPlayerStatus(player.getObjectId(), collection.getNameGE(), playerStateDTO);
+				}
+			} catch (ApiException | IOException e) {
+				logger.warn("getPlayerCostMap - read player status error:{}", e.getMessage());
+			}
+		}
+		return playersStatus;
 	}
 	
 }
