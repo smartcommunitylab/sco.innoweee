@@ -187,6 +187,9 @@ public class PlayerController extends AuthController {
 		List<GameStatus> result = new ArrayList<GameStatus>();
 		List<Game> games = gameRepository.findByTenantId(tenantId);
 		for(Game game : games) {
+			if(Utils.isEmpty(game.getGeGameId())) {
+				continue;
+			}
 			List<GarbageCollection> collections = collectionRepository.findByGameId(tenantId, game.getObjectId());
 			List<Player> players = playerRepository.findByGameId(tenantId, game.getObjectId());
 			PlayersStatus playersStatus = geManager.getPlayersStatus(game.getGeGameId(), players, collections);
