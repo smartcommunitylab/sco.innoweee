@@ -189,7 +189,7 @@ public class PlayerController extends AuthController {
 		for(Game game : games) {
 			List<GarbageCollection> collections = collectionRepository.findByGameId(tenantId, game.getObjectId());
 			List<Player> players = playerRepository.findByGameId(tenantId, game.getObjectId());
-			PlayersStatus playersStatus = geManager.getPlayersStatus(game.getObjectId(), players, collections);
+			PlayersStatus playersStatus = geManager.getPlayersStatus(game.getGeGameId(), players, collections);
 			GameStatus gameStatus = new GameStatus();
 			gameStatus.setGameId(game.getObjectId());
 			for(Player player : players) {
