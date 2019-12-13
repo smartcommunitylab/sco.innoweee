@@ -234,7 +234,9 @@ public class GameController extends AuthController {
 		player.getRobot().getComponents().put(newComponent.getComponentId(), newComponent);
 		playerRepository.save(player);
 		imageManager.storeRobotImage(player);
-		GameAction gameAction = Utils.getBuildRobotGameAction(game, player, newComponent);
+		GarbageCollection actualCollection = collectionRepository.findActualCollection(
+				game.getTenantId(), game.getObjectId(), System.currentTimeMillis());
+		GameAction gameAction = Utils.getBuildRobotGameAction(game, actualCollection.getNameGE(), player, newComponent);
 		gameActionRepository.save(gameAction);
 		logger.info("buildRobot[{}]:{} / {}", player.getTenantId(), playerId, componentId);
 		return player.getRobot();

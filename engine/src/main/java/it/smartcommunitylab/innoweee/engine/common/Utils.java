@@ -291,7 +291,7 @@ public class Utils {
 		}
 	}
 		
-	public static GameAction getBuildRobotGameAction(Game game, Player player, Component component) {
+	public static GameAction getBuildRobotGameAction(Game game, String collectionName, Player player, Component component) {
 		Date now = new Date();
 		GameAction action = new GameAction();
 		action.setTenantId(game.getTenantId());
@@ -302,13 +302,14 @@ public class Utils {
 		action.setPlayerName(player.getName());
 		action.setActionType(Const.ACTION_BUILD_ROBOT);
 		action.getCustomData().put("componentId", component.getComponentId());
+		action.getCustomData().put("collectionName", collectionName);
 		action.getCustomData().putAll(component.getCostMap());
 		action.setCreationDate(now);
 		action.setLastUpdate(now);
 		return action;
 	}
 	
-	public static GameAction getReduceReportGameAction(Game game, Player player, ReduceReport report) {
+	public static GameAction getReduceReportGameAction(Game game, String collectionName, Player player, ReduceReport report) {
 		Date now = new Date();
 		GameAction action = new GameAction();
 		action.setTenantId(game.getTenantId());
@@ -320,12 +321,13 @@ public class Utils {
 		action.setActionType(Const.ACTION_ADD_POINT);
 		action.getCustomData().put("pointType", "reduceReport");
 		action.getCustomData().put(Const.COIN_REDUCE, report.getReduceCoin());
+		action.getCustomData().put("collectionName", collectionName);
 		action.setCreationDate(now);
 		action.setLastUpdate(now);
 		return action;
 	}
 	
-	public static GameAction getItemDeliveryGameAction(Game game, Player player, ItemEvent itemEvent) {
+	public static GameAction getItemDeliveryGameAction(Game game, String collectionName, Player player, ItemEvent itemEvent) {
 		Date now = new Date();
 		GameAction action = new GameAction();
 		action.setTenantId(game.getTenantId());
@@ -338,6 +340,7 @@ public class Utils {
 		action.getCustomData().put("pointType", "itemDelivery");
 		action.getCustomData().put("itemId", itemEvent.getItemId());
 		action.getCustomData().put("reusable", itemEvent.isReusable());
+		action.getCustomData().put("collectionName", collectionName);
 		action.setCreationDate(now);
 		action.setLastUpdate(now);
 		return action;		
