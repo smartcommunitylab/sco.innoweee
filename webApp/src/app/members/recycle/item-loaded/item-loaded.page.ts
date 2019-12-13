@@ -163,7 +163,7 @@ export class ItemLoadedPage extends MainPage implements OnInit {
       //go to item classification
       this.item.reusable = res.reusable;
       this.item.valuable = res.valuable
-      this.router.navigate(['item-classification'], { queryParams: { item: JSON.stringify(this.item) } });
+      this.router.navigate(['item-classification',JSON.stringify(this.item) ] );
 
       console.log("mandato");
     });

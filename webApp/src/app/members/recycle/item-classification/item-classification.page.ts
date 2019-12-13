@@ -23,6 +23,8 @@ export class ItemClassificationPage extends MainPage implements OnInit {
   message: any;
   disabled: boolean;
   playerData: any;
+  subscription: any;
+  paramsub: any;
 
   constructor(private route: ActivatedRoute,
     private profileService: ProfileService,
@@ -32,48 +34,54 @@ export class ItemClassificationPage extends MainPage implements OnInit {
     super(translate, authService, storage,navCtrl);
     this.itemSocketURL = environment.itemSocketURL;
     this.apiEndpoint = environment.apiEndpoint;
+   
   }
 
   ngOnInit() {
     super.ngOnInit();
-    this.route.queryParams
-      .subscribe(params => {
-        console.log(params); // {order: "popular"}
-        this.item = JSON.parse(params.item);
-        console.log(this.item); // popular
-      });
   }
   getColorMarker(){
-    if (this.item.valuable) {
+    if (this.item && this.item.valuable) {
       return "marker-green"
     }
-    if (this.item.reusable) {
+    if (this.item && this.item.reusable) {
       return "marker-blue"
     }
     return "marker-yellow"
   }
   getBinString() {
-    if (this.item.valuable) {
+    if (this.item && this.item.valuable) {
       return this.translate.instant("label_bin_recycle_string_value");
 
     }
-    if (this.item.reusable) {
+    if (this.item && this.item.reusable) {
       return this.translate.instant("label_bin_recycle_string_reuse");
     }
     return this.translate.instant("label_bin_recycle_string_recycle");
   }
   getMarkerString() {
-    if (this.item.valuable) {
+    if (this.item && this.item.valuable) {
       return this.translate.instant("label_marker_recycle_string_value");
 
     }
-    if (this.item.reusable) {
+    if (this.item && this.item.reusable) {
       return this.translate.instant("label_marker_recycle_string_reuse");
     }
     return this.translate.instant("label_marker_recycle_string_recycle");
   }
   ionViewWillEnter() {
-
+    if (this.route.snapshot && this.route.snapshot.paramMap) {
+      this.item= JSON.parse(this.route.snapshot.paramMap.get("item"))
+    }
+    // this.route.queryParamMap.subscribe(params => {
+    //   console.log(params);
+    // });
+    // this.paramsub = this.route.queryParams
+    // .subscribe(params => {
+    //   console.log(params); // {order: "popular"}
+    //   this.item = JSON.parse(params.item);
+    //   console.log(this.item); // popular
+    // });
     this.profileService.getLocalPlayerData().then(res => {
       this.playerData = res;
       this.connect(this.playerData.tenantId, this.playerData.objectId);
@@ -85,11 +93,11 @@ export class ItemClassificationPage extends MainPage implements OnInit {
     // let sock = new WebSocket("ws://localhost:2020/itemws/websocket");
     this.ws = Stomp.over(sock);
     let that = this;
-    this.ws.connect({}, function (frame) {
-      that.ws.subscribe("/errors", function (message) {
+    this.ws.connect({},  (frame) =>{
+      that.ws.subscribe("/errors",  (message) => {
         alert("Error " + message.body);
       });
-      that.ws.subscribe("/topic/item." + tenantId + "." + playerId, function (message) {
+      this.subscription = that.ws.subscribe("/topic/item." + tenantId + "." + playerId,  (message) => {
         console.log(message)
         that.message = JSON.parse(message.body);
         if (that.message && that.message.itemId) {
@@ -102,16 +110,36 @@ export class ItemClassificationPage extends MainPage implements OnInit {
       console.log("STOMP error " + error);
     });
   }
+  disconnect() {
+    if (this.ws != null) {
+      this.ws.ws.close();
+    }
+    this.setConnected(false);
+    console.log("Disconnected");
+  }
+
+  ionViewWillLeave() {
+    this.disconnect();
+  }
+  setConnected(connected) {
+    this.disabled = connected;
+    // this.showConversation = connected;
+    // this.greetings = [];
+  }
+  // ionViewDidLeave() {
+  //   this.subscription.unsubscribe();
+  //   this.paramsub.unsubscribe();
+  // }
   ionViewDidEnter() {
     super.ionViewDidEnter();
   }
   getValueString(): string {
-    if (this.item.valuable) {
+    if (this.item && this.item.valuable) {
 
       return this.translate.instant("label_recycle_string_value");
 
     }
-    if (this.item.reusable) {
+    if (this.item && this.item.reusable) {
       return this.translate.instant("label_recycle_string_reuse");
     }
     return this.translate.instant("label_recycle_string_recycle");
@@ -119,19 +147,17 @@ export class ItemClassificationPage extends MainPage implements OnInit {
 
   }
   getValueItem(): string {
-    if (this.item.valuable) {
-
+    if (this.item && this.item.valuable) {
       return this.translate.instant("label_recycle_value");
-
     }
-    if (this.item.reusable) {
+    if (this.item && this.item.reusable) {
       return this.translate.instant("label_recycle_reuse");
     }
     return this.translate.instant("label_recycle_recycle");
 
   }
   getPoints(): string {
-    if (this.item.reusable)
+    if (this.item && this.item.reusable)
       return this.translate.instant("label_point_reusable");
     return this.translate.instant("label_point_recicle");
   }

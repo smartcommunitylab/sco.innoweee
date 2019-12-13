@@ -4,7 +4,7 @@ import { WebsocketService } from 'src/app/services/websocket.service';
 import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client';
 import { ProfileService } from 'src/app/services/profile.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { GarbageCollectionService } from 'src/app/services/garbage-collection.service';
 import { AlertController, NavController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
@@ -24,8 +24,8 @@ export class StartPage extends MainPage implements OnInit {
 
   private itemSocketURL;
   private apiEndpoint;
-  greetings: string[] = [];
-  showConversation: boolean = false;
+  // greetings: string[] = [];
+  // showConversation: boolean = false;
   ws: any;
   name: string;
   disabled: boolean;
@@ -35,6 +35,9 @@ export class StartPage extends MainPage implements OnInit {
   garbageCollectionName: string;
   weeklyGarbage: string;
   manual: boolean;
+  subscription: any;
+  paramsub: any;
+  itemId: any;
   constructor(
     private profileService: ProfileService,
     private router: Router,
@@ -43,6 +46,7 @@ export class StartPage extends MainPage implements OnInit {
     public storage: Storage,
     private garbageCollection: GarbageCollectionService,
     private alertController: AlertController,
+    private route: ActivatedRoute,
     public navCtrl: NavController) {
     super(translate, authService, storage,navCtrl);
 
@@ -53,7 +57,7 @@ export class StartPage extends MainPage implements OnInit {
   ionViewWillEnter() {
     this.manual = false;
     this.message = null;
-    // this.manualItemId = new Date().getTime().toString();
+  
     this.manualItemId = "";
     this.profileService.getLocalPlayerData().then(res => {
       this.playerData = res;
@@ -80,11 +84,11 @@ export class StartPage extends MainPage implements OnInit {
     // let sock = new WebSocket("ws://localhost:2020/itemws/websocket");
     this.ws = Stomp.over(sock);
     let that = this;
-    this.ws.connect({}, function (frame) {
-      that.ws.subscribe("/errors", function (message) {
+    this.ws.connect({},  (frame) => {
+      that.ws.subscribe("/errors",  (message) => {
         alert("Error " + message.body);
       });
-      that.ws.subscribe("/topic/item." + tenantId + "." + playerId, function (message) {
+      this.subscription = that.ws.subscribe("/topic/item." + tenantId + "." + playerId,  (message) => {
         console.log(message)
         that.message = JSON.parse(message.body);
         if (that.message && that.message.itemId) {
@@ -97,6 +101,10 @@ export class StartPage extends MainPage implements OnInit {
       console.log("STOMP error " + error);
     });
   }
+
+  // ionViewDidLeave() {
+  //   this.subscription.unsubscribe();
+  // }
   enableManual() {
     this.manual = true;
     setTimeout(() => {
@@ -151,8 +159,8 @@ export class StartPage extends MainPage implements OnInit {
   }
   setConnected(connected) {
     this.disabled = connected;
-    this.showConversation = connected;
-    this.greetings = [];
+    // this.showConversation = connected;
+    // this.greetings = [];
   }
   ngOnInit() {
     super.ngOnInit();
