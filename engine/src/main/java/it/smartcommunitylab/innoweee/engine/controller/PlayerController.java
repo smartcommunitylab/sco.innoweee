@@ -25,12 +25,16 @@ import it.smartcommunitylab.innoweee.engine.common.Utils;
 import it.smartcommunitylab.innoweee.engine.exception.EntityNotFoundException;
 import it.smartcommunitylab.innoweee.engine.exception.UnauthorizedException;
 import it.smartcommunitylab.innoweee.engine.ge.GeManager;
+import it.smartcommunitylab.innoweee.engine.ge.PlayersStatus;
 import it.smartcommunitylab.innoweee.engine.img.ImageManager;
 import it.smartcommunitylab.innoweee.engine.model.Game;
+import it.smartcommunitylab.innoweee.engine.model.GameStatus;
+import it.smartcommunitylab.innoweee.engine.model.GarbageCollection;
 import it.smartcommunitylab.innoweee.engine.model.Player;
 import it.smartcommunitylab.innoweee.engine.model.Robot;
 import it.smartcommunitylab.innoweee.engine.repository.CatalogRepository;
 import it.smartcommunitylab.innoweee.engine.repository.GameRepository;
+import it.smartcommunitylab.innoweee.engine.repository.GarbageCollectionRepository;
 import it.smartcommunitylab.innoweee.engine.repository.PlayerRepository;
 
 @RestController
@@ -43,6 +47,8 @@ public class PlayerController extends AuthController {
 	private GameRepository gameRepository; 
 	@Autowired
 	private CatalogRepository catalogResopitory;
+	@Autowired
+	private GarbageCollectionRepository collectionRepository;
 	@Autowired
 	private ImageManager imageManager;
 	@Autowired
@@ -169,5 +175,36 @@ public class PlayerController extends AuthController {
 		}
 		logger.info("resetRobot[{}]:{}", player.getTenantId(), player.getObjectId());
 		return player.getRobot();
-	}	
+	}
+	
+	@GetMapping(value = "/api/player/{tenantId}/status")
+	public @ResponseBody List<GameStatus> getPlayersStatus(
+			@PathVariable String tenantId,
+			HttpServletRequest request) throws Exception {
+		if(!validateRole(Const.ROLE_OWNER, tenantId, request)) {
+			throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
+		}
+		List<GameStatus> result = new ArrayList<GameStatus>();
+		List<Game> games = gameRepository.findByTenantId(tenantId);
+		for(Game game : games) {
+			if(Utils.isEmpty(game.getGeGameId())) {
+				continue;
+			}
+			List<GarbageCollection> collections = collectionRepository.findByGameId(tenantId, game.getObjectId());
+			List<Player> players = playerRepository.findByGameId(tenantId, game.getObjectId());
+			PlayersStatus playersStatus = geManager.getPlayersStatus(game.getGeGameId(), players, collections);
+			GameStatus gameStatus = new GameStatus();
+			gameStatus.setGameId(game.getObjectId());
+			for(Player player : players) {
+				for(GarbageCollection collection : collections) {
+					player.getGameStates().add(playersStatus.getPlayerState(player.getObjectId(), collection.getNameGE()));
+				}
+				player.getGameStates().add(playersStatus.getPlayerState(player.getObjectId(), null));
+				gameStatus.getPlayers().add(player);
+			}
+			result.add(gameStatus);
+		}
+		logger.info("getPlayersStatus[{}]:{}", tenantId, result.size());
+		return result;
+	}
 }

@@ -3,12 +3,17 @@ package it.smartcommunitylab.innoweee.engine.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.data.annotation.Transient;
+
 public class Player extends BaseObject {
 	private String name;
 	private String gameId;
 	private boolean team;
 	private Robot robot;
 	private List<Contribution> contributions = new ArrayList<>();
+	
+	@Transient
+	private List<PlayerState> gameStates = new ArrayList<>();
 	
 	public String getName() {
 		return name;
@@ -39,5 +44,11 @@ public class Player extends BaseObject {
 	}
 	public void setContributions(List<Contribution> contributions) {
 		this.contributions = contributions;
+	}
+	public List<PlayerState> getGameStates() {
+		return gameStates;
+	}
+	public void setGameStates(List<PlayerState> gameStates) {
+		this.gameStates = gameStates;
 	}
 }
