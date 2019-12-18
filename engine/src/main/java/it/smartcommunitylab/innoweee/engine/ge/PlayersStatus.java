@@ -23,6 +23,8 @@ public class PlayersStatus {
 		boolean periodState = !StringUtils.isEmpty(collectionName);
 		if(periodState) {
 			playerState.setNameGE(collectionName);
+		} else {
+			playerState.setNameGE(globalState);
 		}
 		Set<GameConcept> scores = playerStateDTO.getState().get("PointConcept");
 		if(scores != null) {
@@ -215,5 +217,5 @@ public class PlayersStatus {
 		}
 		return statusMap.get(playerId).get(collectionName);
 	}
-
+	
 }

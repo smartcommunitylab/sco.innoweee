@@ -1,7 +1,7 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { APP_CONFIG_TOKEN, ApplicationConfig } from '../app-config';
+// import { APP_CONFIG_TOKEN, ApplicationConfig } from '../app-config';
 import { Router } from '@angular/router';
 import { Platform } from '@ionic/angular';
 import { resolve } from 'q';
@@ -66,6 +66,52 @@ export class AuthenticationService {
     profile: null,
     tokenInfo: null
   };
+
+  userLocalStorage = {
+		PROVIDER: 'user_provider',
+		PROFILE: 'user_profile',
+		TOKENINFO: 'user_tokenInfo',
+		getProvider:  ()=> {
+			return JSON.parse(localStorage.getItem(this.userLocalStorage.PROVIDER));
+		},
+		saveProvider:  ()=> {
+			localStorage.setItem(this.userLocalStorage.PROVIDER, JSON.stringify(this.user.provider));
+		},
+		getProfile:  ()=>{
+			return JSON.parse(localStorage.getItem(this.userLocalStorage.PROFILE));
+		},
+		saveProfile:  ()=> {
+			localStorage.setItem(this.userLocalStorage.PROFILE, JSON.stringify(this.user.profile));
+		},
+		getTokenInfo:  ()=> {
+			return JSON.parse(localStorage.getItem(this.userLocalStorage.TOKENINFO));
+		},
+		saveTokenInfo:  ()=>{
+			localStorage.setItem(this.userLocalStorage.TOKENINFO, JSON.stringify(this.user.tokenInfo));
+		},
+		getUser:  () => {
+			this.user = {
+				provider: this.userLocalStorage.getProvider(),
+				profile: this.userLocalStorage.getProfile(),
+				tokenInfo: this.userLocalStorage.getTokenInfo()
+			};
+            return this.user;
+		},
+		saveUser: function () {
+			this.saveProvider();
+			this.saveProfile();
+			this.saveTokenInfo();
+		},
+		deleteUser: function () {
+			localStorage.removeItem(this.PROVIDER);
+			localStorage.removeItem(this.PROFILE);
+			localStorage.removeItem(this.TOKENINFO);
+		}
+	};
+
+	userIsLogged = function () {
+		return (!!this.user && !!this.user.provider && !!this.user.profile && !!this.user.profile.userId && (this.settings.loginType == this.service.LOGIN_TYPE.COOKIE ? true : !!this.user.tokenInfo));
+	};
   libConfigOK;
   jsonURL = './assets/data/auth.json';
 
@@ -118,7 +164,7 @@ export class AuthenticationService {
         // undefined or true
         // settings = newSettings;
         this.libConfigOK = true;
-        this.setUser();
+        this.userLocalStorage.getUser();
         resolve();
       }
     })
@@ -151,7 +197,7 @@ export class AuthenticationService {
 			profile: undefined,
 			tokenInfo: undefined
 		};
-		this.deleteUser();
+		this.userLocalStorage.deleteUser();
 	};
   /*
 	 * GET (REFRESHING FIRST IF NEEDED) AAC TOKEN
@@ -185,11 +231,11 @@ if (!!this.user && !!this.user.tokenInfo && !!this.user.tokenInfo.refresh_token)
       }
     }).toPromise().then(
        (response:any) =>{
-        if (response.data.access_token) {
+        if (response && response.access_token) {
           console.log('[LOGIN] AAC token refreshed');
-          this.saveToken(response.data);
+          this.saveToken(response);
           this.saveTokenInfo();
-          resolve(response.data.access_token);
+          resolve(response.access_token);
         } else {
           this.resetUser();
           console.log('[LOGIN] invalid refresh_token');
@@ -393,6 +439,7 @@ if (!!this.user && !!this.user.tokenInfo && !!this.user.tokenInfo.refresh_token)
                    (profile) => {
                     this.user.profile = profile;
                     localStorage.setItem('user', JSON.stringify(this.user));
+                    this.userLocalStorage.saveUser();
                     resolve(profile);
                   },
                   (reason) => {

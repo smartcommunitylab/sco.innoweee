@@ -157,7 +157,7 @@ public class ItemController extends AuthController {
 		geManager.reduceReport(game.getGeGameId(), player.getObjectId(), report, 
 				actualCollection.getNameGE());
 		reduceReportRepository.save(report);
-		GameAction gameAction = Utils.getReduceReportGameAction(game, player, report);
+		GameAction gameAction = Utils.getReduceReportGameAction(game, actualCollection.getNameGE(), player, report);
 		gameActionRepository.save(gameAction);
 		logger.info("reduceReport[{}]:{} / {}", game.getTenantId(), 
 				report.getPlayerId(), report.getObjectId());		
@@ -240,7 +240,7 @@ public class ItemController extends AuthController {
 		geManager.itemDelivery(game.getGeGameId(), player.getObjectId(), itemEvent, 
 				actualCollection.getNameGE(), garbage, category);
 		itemRepository.save(itemEvent);
-		GameAction gameAction = Utils.getItemDeliveryGameAction(game, player, itemEvent);
+		GameAction gameAction = Utils.getItemDeliveryGameAction(game, actualCollection.getNameGE(), player, itemEvent);
 		gameActionRepository.save(gameAction);
 		logger.debug("itemDelivery:{} / {}", itemEvent.getItemType(), itemEvent.getItemId());
 		return itemEvent;

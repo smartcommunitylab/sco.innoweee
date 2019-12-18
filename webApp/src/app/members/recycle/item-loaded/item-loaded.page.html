@@ -98,7 +98,7 @@
                   {{getLabel(item.key)}}</ion-button>
               </ion-col>
             </ion-row>
-            <ion-row class="other-button" *ngIf="firstStep()">
+            <ion-row class="other-button" *ngIf="firstStep() && otherIsVisible()">
               <ion-col size="12">
                 <ion-button color="light" (click)="otherCategory()" expand="block" fill="outline">
                   {{'label_other_category'|translate}}</ion-button>

@@ -46,6 +46,14 @@ export class ModalCategory implements OnInit {
       })
     })
   }
+
+  isVisible(collection) {
+    if (collection && collection["nameGE"] &&  collection["nameGE"].toLowerCase() !="r6")
+    {
+      return true;
+    }
+    return false;
+  }
   orderCollection(res: any): any {
     return res.sort((obj1, obj2) => {
       if (obj1.from > obj2.from) {

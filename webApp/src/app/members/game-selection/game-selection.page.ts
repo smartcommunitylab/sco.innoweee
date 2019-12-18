@@ -133,6 +133,7 @@ export class GameSelectionPage implements OnInit {
         let refreshTimeout = setTimeout(() => {
           this.player = res[0];
           this.playerId = res[0].objectId;
+          this.playerName = res[0].name;
           this._cdr.detectChanges();
         }, REFRESH_TIME);
       }

@@ -62,7 +62,7 @@ export class ChangePage extends MainPage implements OnInit {
     this.profileService.getLocalPlayerData().then(res => {
       //get data and robot
       this.profileData = res
-      this.catalogService.getCatalog(this.profileData.tenantId).then(res => {
+      this.catalogService.getCatalog(this.profileData.tenantId,this.profileData.gameId).then(res => {
         this.catalog = res;
         this.enableButtons();
         this.garbageService.getActualCollection(this.profileData.gameId).then(res => {
@@ -355,7 +355,7 @@ export class ChangePage extends MainPage implements OnInit {
                 this.tmprobot.components[item.parentId] = item;
                 this.mapUri[item.type] = item.imageUri;
               }
-              this.updateState();
+              //this.updateState();
               this.profileService.setNewRobot(newRobot).then(res => {
                 this.tmprobot = newRobot;
                 this.profileService.getLocalPlayerData().then(res => {
@@ -366,7 +366,6 @@ export class ChangePage extends MainPage implements OnInit {
                     this.trying = false;
                   }
                   //load new components
-                  this.enableButtons();
                   loading.dismiss();
                 }, err => {
                   loading.dismiss();
@@ -377,6 +376,8 @@ export class ChangePage extends MainPage implements OnInit {
               this.profileService.getPlayerState(this.profileData.gameId, this.profileData.objectId).then(res => {
                 this.profileState = res;
                 this.profileService.setPlayerState(res);
+                this.enableButtons();
+
                 loading.dismiss();
               }, err => {
                 loading.dismiss();
