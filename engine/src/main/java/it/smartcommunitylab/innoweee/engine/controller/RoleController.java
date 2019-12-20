@@ -24,6 +24,7 @@ import it.smartcommunitylab.innoweee.engine.exception.EntityNotFoundException;
 import it.smartcommunitylab.innoweee.engine.exception.UnauthorizedException;
 import it.smartcommunitylab.innoweee.engine.repository.UserRepository;
 import it.smartcommunitylab.innoweee.engine.security.Authorization;
+import it.smartcommunitylab.innoweee.engine.security.RoleManager;
 import it.smartcommunitylab.innoweee.engine.security.User;
 
 @RestController
@@ -32,6 +33,8 @@ public class RoleController extends AuthController {
 	
 	@Autowired
 	private UserRepository userRepository;
+	@Autowired
+	private RoleManager roleManager;
 	
 	@GetMapping(value = "/api/role/{tenantId}/owner")
 	public @ResponseBody List<Authorization> addOwner(
@@ -45,22 +48,7 @@ public class RoleController extends AuthController {
 		if(user == null) {
 			throw new EntityNotFoundException("user not found");
 		}
-		List<Authorization> auths = new ArrayList<Authorization>();
-		Authorization auth = new Authorization();
-		auth.getActions().add(Const.AUTH_ACTION_READ);
-		auth.getActions().add(Const.AUTH_ACTION_ADD);
-		auth.getActions().add(Const.AUTH_ACTION_UPDATE);
-		auth.getActions().add(Const.AUTH_ACTION_DELETE);
-		auth.setRole(Const.ROLE_OWNER);
-		auth.setTenantId(tenantId);
-		auth.setInstituteId("*");
-		auth.setSchoolId("*");
-		auth.setGameId("*");
-		auth.getResources().add("*");
-		auths.add(auth);
-		String authKey = Utils.getAuthKey(tenantId, Const.ROLE_OWNER);
-		user.getRoles().put(authKey, auths);
-		userRepository.save(user);
+		List<Authorization> auths = roleManager.addOwner(user, tenantId);
 		logger.info("addOwner[{}]:{}", tenantId, email);
 		return auths;
 	}
@@ -81,24 +69,8 @@ public class RoleController extends AuthController {
 		if(user == null) {
 			throw new EntityNotFoundException("user not found");
 		}
-		List<Authorization> auths = new ArrayList<Authorization>();
-		Authorization auth = new Authorization();
-		auth.getActions().add(Const.AUTH_ACTION_READ);
-		auth.getActions().add(Const.AUTH_ACTION_ADD);
-		auth.getActions().add(Const.AUTH_ACTION_UPDATE);
-		auth.getActions().add(Const.AUTH_ACTION_DELETE);
-		auth.setRole(Const.ROLE_SCHOOL_OWNER);
-		auth.setTenantId(tenantId);
-		auth.setInstituteId(instituteId);
-		auth.setInstituteName(instituteName);
-		auth.setSchoolId(schoolId);
-		auth.setSchoolName(schoolName);
-		auth.setGameId("*");
-		auth.getResources().add("*");
-		auths.add(auth);
-		String authKey = Utils.getAuthKey(tenantId, Const.ROLE_SCHOOL_OWNER, instituteId, schoolId);
-		user.getRoles().put(authKey, auths);
-		userRepository.save(user);
+		List<Authorization> auths = roleManager.addSchoolOwner(user, tenantId, instituteId, instituteName, 
+				schoolId, schoolName);
 		logger.info("addSchoolOwner[{}]:{}", tenantId, email);
 		return auths;
 	}
@@ -119,36 +91,8 @@ public class RoleController extends AuthController {
 		if(user == null) {
 			throw new EntityNotFoundException("user not found");
 		}
-		
-		List<Authorization> auths = new ArrayList<Authorization>();
-		
-		Authorization auth = new Authorization();
-		auth.getActions().add(Const.AUTH_ACTION_READ);
-		auth.setRole(Const.ROLE_SCHOOL_TEACHER);
-		auth.setTenantId(tenantId);
-		auth.setInstituteId(instituteId);
-		auth.setInstituteName(instituteName);
-		auth.setSchoolId(schoolId);
-		auth.setSchoolName(schoolName);
-		auth.setGameId("*");
-		auth.getResources().add("*");
-		auths.add(auth);
-		
-		auth = new Authorization();
-		auth.getActions().add(Const.AUTH_ACTION_ADD);
-		auth.getActions().add(Const.AUTH_ACTION_UPDATE);
-		auth.setRole(Const.ROLE_SCHOOL_TEACHER);
-		auth.setTenantId(tenantId);
-		auth.setInstituteId(instituteId);
-		auth.setSchoolId(schoolId);
-		auth.setGameId("*");
-		auth.getResources().add(Const.AUTH_RES_Game_Item);
-		auth.getResources().add(Const.AUTH_RES_Game_Robot);
-		auths.add(auth);
-		
-		String authKey = Utils.getAuthKey(tenantId, Const.ROLE_SCHOOL_TEACHER, instituteId, schoolId);
-		user.getRoles().put(authKey, auths);
-		userRepository.save(user);
+		List<Authorization> auths = roleManager.addSchoolTeacher(user, tenantId, instituteId, instituteName, 
+				schoolId, schoolName);
 		logger.info("addTeacher[{}]:{}", tenantId, email);
 		return auths;
 	}
@@ -171,36 +115,8 @@ public class RoleController extends AuthController {
 		if(user == null) {
 			throw new EntityNotFoundException("user not found");
 		}
-		
-		List<Authorization> auths = new ArrayList<Authorization>();
-		
-		Authorization auth = new Authorization();
-		auth.getActions().add(Const.AUTH_ACTION_READ);
-		auth.setRole(Const.ROLE_SCHOOL_PARENT);
-		auth.setTenantId(tenantId);
-		auth.setInstituteId(instituteId);
-		auth.setInstituteName(instituteName);
-		auth.setSchoolId(schoolId);
-		auth.setSchoolName(schoolName);
-		auth.setGameId(gameId);
-		auth.setGameName(gameName);
-		auth.getResources().add("*");
-		auths.add(auth);
-		
-		auths = new ArrayList<Authorization>();
-		auth = new Authorization();
-		auth.getActions().add(Const.AUTH_ACTION_ADD);
-		auth.setRole(Const.ROLE_SCHOOL_PARENT);
-		auth.setTenantId(tenantId);
-		auth.setInstituteId(instituteId);
-		auth.setSchoolId(schoolId);
-		auth.setGameId(gameId);
-		auth.getResources().add(Const.AUTH_RES_Game_Item);
-		auths.add(auth);
-		
-		String authKey = Utils.getAuthKey(tenantId, Const.ROLE_SCHOOL_PARENT, instituteId, schoolId, gameId);
-		user.getRoles().put(authKey, auths);
-		userRepository.save(user);
+		List<Authorization> auths = roleManager.addParent(user, tenantId, instituteId, instituteName, 
+				schoolId, schoolName, gameId, gameName);
 		logger.info("addParent[{}]:{}", tenantId, email);
 		return auths;
 	}

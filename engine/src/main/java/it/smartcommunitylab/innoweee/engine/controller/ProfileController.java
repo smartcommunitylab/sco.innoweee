@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.smartcommunitylab.innoweee.engine.common.Const;
@@ -35,6 +36,12 @@ public class ProfileController extends AuthController {
 		}
 		logger.info("getProfile:{}", user.getEmail());
 		return user;
+	}
+	
+	@PostMapping(value="/api/profile/parent")
+	public User addParentRole() {
+		//TODO
+		return null;
 	}
 	
 }
