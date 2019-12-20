@@ -18,6 +18,7 @@ public class Game extends BaseObject {
 	private String confTemplateId;
 	private Map<String, String> params = new HashMap<>();
 	private String shortName;
+	private String checkCode;
 	
 	public String getInstituteId() {
 		return instituteId;
@@ -96,6 +97,12 @@ public class Game extends BaseObject {
 	}
 	public void setTeamName(String teamName) {
 		this.teamName = teamName;
+	}
+	public String getCheckCode() {
+		return checkCode;
+	}
+	public void setCheckCode(String checkCode) {
+		this.checkCode = checkCode;
 	}
 
 }

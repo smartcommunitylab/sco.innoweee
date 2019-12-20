@@ -99,12 +99,12 @@ public class ItemController extends AuthController {
 			HttpServletResponse response) throws Exception {
 		Optional<Player> optionalPlayer = playerRepository.findById(itemEvent.getPlayerId());
 		if(optionalPlayer.isEmpty()) {
-			throw new EntityNotFoundException("player entity not found");
+			throw new EntityNotFoundException(Const.ERROR_CODE_ENTITY + "player entity not found");
 		}
 		Player player = optionalPlayer.get();
 		Optional<Game> optionalGame = gameRepository.findById(player.getGameId());
 		if(optionalGame.isEmpty()) {
-			throw new EntityNotFoundException("game entity not found");
+			throw new EntityNotFoundException(Const.ERROR_CODE_ENTITY + "game entity not found");
 		}
 		Game game = optionalGame.get();
 		if(!validateAuthorization(game.getTenantId(), game.getInstituteId(), game.getSchoolId(), 
@@ -112,7 +112,7 @@ public class ItemController extends AuthController {
 			throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
 		}
 		if(StringUtils.isEmpty(itemEvent.getItemId())) {
-			throw new EntityNotFoundException("item id not found");
+			throw new EntityNotFoundException(Const.ERROR_CODE_ENTITY + "item id not found");
 		}
 		logger.info("recognizedEvent[{}]:{} / {}", game.getTenantId(), 
 				itemEvent.getPlayerId(), itemEvent.getItemId());
@@ -132,7 +132,7 @@ public class ItemController extends AuthController {
 		Player player = optionalPlayer.get();
 		Optional<Game> optionalGame = gameRepository.findById(player.getGameId());
 		if(optionalGame.isEmpty()) {
-			throw new EntityNotFoundException("game not found");
+			throw new EntityNotFoundException(Const.ERROR_CODE_ENTITY + "game not found");
 		}
 		Game game = optionalGame.get();
 		if(!validateAuthorization(game.getTenantId(), game.getInstituteId(), game.getSchoolId(), 
@@ -147,7 +147,7 @@ public class ItemController extends AuthController {
 		GarbageCollection actualCollection = collectionRepository.findActualCollection(
 				game.getTenantId(), game.getObjectId(), report.getTimestamp());
 		if(actualCollection == null) {
-			throw new EntityNotFoundException("collection not found");
+			throw new EntityNotFoundException(Const.ERROR_CODE_ENTITY + "collection not found");
 		}
 		Date now = new Date(); 
 		report.setTenantId(game.getTenantId());
@@ -172,12 +172,12 @@ public class ItemController extends AuthController {
 			HttpServletResponse response) throws Exception {
 		Optional<Player> optionalPlayer = playerRepository.findById(playerId);
 		if(optionalPlayer.isEmpty()) {
-			throw new EntityNotFoundException("player not found");
+			throw new EntityNotFoundException(Const.ERROR_CODE_ENTITY + "player not found");
 		}
 		Player player = optionalPlayer.get();
 		Optional<Game> optionalGame = gameRepository.findById(player.getGameId());
 		if(optionalGame.isEmpty()) {
-			throw new EntityNotFoundException("game not found");
+			throw new EntityNotFoundException(Const.ERROR_CODE_ENTITY + "game not found");
 		}
 		Game game = optionalGame.get();
 		if(!validateAuthorization(game.getTenantId(), game.getInstituteId(), game.getSchoolId(), 
@@ -201,12 +201,12 @@ public class ItemController extends AuthController {
 		long now = System.currentTimeMillis();
 		Optional<Player> optionalPlayer = playerRepository.findById(itemEvent.getPlayerId());
 		if(optionalPlayer.isEmpty()) {
-			throw new EntityNotFoundException("player not found");
+			throw new EntityNotFoundException(Const.ERROR_CODE_ENTITY + "player not found");
 		}
 		Player player = optionalPlayer.get();
 		Optional<Game> optionalGame = gameRepository.findById(player.getGameId());
 		if(optionalGame.isEmpty()) {
-			throw new EntityNotFoundException("game not found");
+			throw new EntityNotFoundException(Const.ERROR_CODE_ENTITY + "game not found");
 		}
 		Game game = optionalGame.get();
 		if(!validateAuthorization(game.getTenantId(), game.getInstituteId(), game.getSchoolId(), 
@@ -214,7 +214,7 @@ public class ItemController extends AuthController {
 			throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
 		}
 		if(itemRepository.findByItemId(itemEvent.getItemId()) != null) {
-			throw new EntityNotFoundException("item already used");
+			throw new EntityNotFoundException(Const.ERROR_CODE_APP + "item already used");
 		}
 		if(itemEvent.getTimestamp() == 0) {
 			itemEvent.setTimestamp(now);
@@ -223,17 +223,17 @@ public class ItemController extends AuthController {
 		GarbageCollection actualCollection = collectionRepository.findActualCollection(
 				game.getTenantId(), game.getObjectId(), itemEvent.getTimestamp());
 		if(actualCollection == null) {
-			throw new EntityNotFoundException("collection not found");
+			throw new EntityNotFoundException(Const.ERROR_CODE_ENTITY + "collection not found");
 		}
 		GarbageMap garbageMap = garbageMapRepository.findByTenantId(game.getTenantId());
 		Garbage garbage = garbageMap.getItems().get(itemEvent.getItemType());
 		if(garbage == null) {
-			throw new EntityNotFoundException("garbage not found");
+			throw new EntityNotFoundException(Const.ERROR_CODE_ENTITY + "garbage not found");
 		}
 		CategoryMap categoryMap = categoryMapRepository.findByTenantId(game.getTenantId());
 		Category category = categoryMap.getCategories().get(garbage.getCategory());
 		if(category == null) {
-			throw new EntityNotFoundException("category not found");
+			throw new EntityNotFoundException(Const.ERROR_CODE_ENTITY + "category not found");
 		}			
 		itemEvent.setReusable(getReusable(itemEvent, garbage));
 		itemEvent.setValuable(getValuable(itemEvent, garbage, actualCollection));

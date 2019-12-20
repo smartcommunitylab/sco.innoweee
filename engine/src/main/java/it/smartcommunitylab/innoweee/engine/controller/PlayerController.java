@@ -66,7 +66,7 @@ public class PlayerController extends AuthController {
 		Game game = optional.get();
 		if(!validateAuthorization(game.getTenantId(), game.getInstituteId(), game.getSchoolId(), 
 				game.getObjectId(), Const.AUTH_RES_Game_Player, Const.AUTH_ACTION_READ, request)) {
-			throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
+			throw new UnauthorizedException(Const.ERROR_CODE_ROLE + "role not valid");
 		}
 		List<Player> result = playerRepository.findByGameId(game.getTenantId(), gameId);
 		logger.info("searchPlayer[{}]:{} / {}", game.getTenantId(), gameId, result.size());
@@ -85,7 +85,7 @@ public class PlayerController extends AuthController {
 		Game game = optional.get();
 		if(!validateAuthorization(game.getTenantId(), game.getInstituteId(), game.getSchoolId(), 
 				game.getObjectId(), Const.AUTH_RES_Game_Player, Const.AUTH_ACTION_ADD, request)) {
-			throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
+			throw new UnauthorizedException(Const.ERROR_CODE_ROLE + "role not valid");
 		}
 		Date now = new Date();
 		if(StringUtils.isEmpty(player.getObjectId())) {
@@ -128,7 +128,7 @@ public class PlayerController extends AuthController {
 			HttpServletResponse response) throws Exception {
 		Optional<Player> optionalPlayer = playerRepository.findById(id);
 		if(optionalPlayer.isEmpty()) {
-			throw new EntityNotFoundException("player entity not found");
+			throw new EntityNotFoundException(Const.ERROR_CODE_ENTITY + "player entity not found");
 		}
 		Player player = optionalPlayer.get();
 		Optional<Game> optionalGame = gameRepository.findById(player.getGameId());
@@ -155,17 +155,17 @@ public class PlayerController extends AuthController {
 			HttpServletResponse response) throws Exception {
 		Optional<Player> optionalPlayer = playerRepository.findById(playerId);
 		if(optionalPlayer.isEmpty()) {
-			throw new EntityNotFoundException("player not found");
+			throw new EntityNotFoundException(Const.ERROR_CODE_ENTITY + "player not found");
 		}
 		Player player = optionalPlayer.get();
 		Optional<Game> optionalGame = gameRepository.findById(player.getGameId());
 		if(optionalGame.isEmpty()) {
-			throw new EntityNotFoundException("game not found");
+			throw new EntityNotFoundException(Const.ERROR_CODE_ENTITY + "game not found");
 		}
 		Game game = optionalGame.get();
 		if(!validateAuthorization(game.getTenantId(), game.getInstituteId(), game.getSchoolId(), 
 				game.getObjectId(), Const.AUTH_RES_Game_Robot, Const.AUTH_ACTION_UPDATE, request)) {
-			throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
+			throw new UnauthorizedException(Const.ERROR_CODE_ROLE + "role not valid");
 		}
 		if(!player.isTeam()) {
 			Utils.addNewRobot(player, catalogResopitory);
@@ -182,7 +182,7 @@ public class PlayerController extends AuthController {
 			@PathVariable String tenantId,
 			HttpServletRequest request) throws Exception {
 		if(!validateRole(Const.ROLE_OWNER, tenantId, request)) {
-			throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
+			throw new UnauthorizedException(Const.ERROR_CODE_ROLE + "role not valid");
 		}
 		List<GameStatus> result = new ArrayList<GameStatus>();
 		List<Game> games = gameRepository.findByTenantId(tenantId);

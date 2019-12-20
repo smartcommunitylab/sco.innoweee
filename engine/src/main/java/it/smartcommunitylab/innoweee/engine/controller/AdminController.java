@@ -70,7 +70,7 @@ public class AdminController extends AuthController {
 			HttpServletRequest request, 
 			HttpServletResponse response) throws Exception {
 		if(!validateRole(Const.ROLE_ADMIN, request)) {
-			throw new UnauthorizedException("Unauthorized Exception: role not valid");
+			throw new UnauthorizedException(Const.ERROR_CODE_ROLE + "role not valid");
 		}
 		catalogRepository.save(catalog);
 		logger.info("saveCatalog:{}", catalog.getId());
@@ -85,7 +85,7 @@ public class AdminController extends AuthController {
 			HttpServletRequest request, 
 			HttpServletResponse response) throws Exception {
 		if(!validateRole(Const.ROLE_ADMIN, request)) {
-			throw new UnauthorizedException("Unauthorized Exception: role not valid");
+			throw new UnauthorizedException(Const.ERROR_CODE_ROLE + "role not valid");
 		}
 		Catalog catalog = catalogRepository.findByGameId(tenantId, gameId);
 		if(catalog == null) {
@@ -127,7 +127,7 @@ public class AdminController extends AuthController {
 			HttpServletRequest request, 
 			HttpServletResponse response) throws Exception {
 		if(!validateRole(Const.ROLE_ADMIN, request)) {
-			throw new UnauthorizedException("Unauthorized Exception: role not valid");
+			throw new UnauthorizedException(Const.ERROR_CODE_ROLE + "role not valid");
 		}
 		garbageMapRepository.save(map);
 		logger.info("saveGarbageMap:{}", map.getId());
@@ -140,7 +140,7 @@ public class AdminController extends AuthController {
 			HttpServletRequest request, 
 			HttpServletResponse response) throws Exception {
 		if(!validateRole(Const.ROLE_ADMIN, request)) {
-			throw new UnauthorizedException("Unauthorized Exception: role not valid");
+			throw new UnauthorizedException(Const.ERROR_CODE_ROLE + "role not valid");
 		}
 		categoryMapRepository.save(map);
 		logger.info("saveCategoryMap:{}", map.getId());
@@ -153,7 +153,7 @@ public class AdminController extends AuthController {
 			HttpServletRequest request, 
 			HttpServletResponse response) throws Exception {
 		if(!validateRole(Const.ROLE_ADMIN, request)) {
-			throw new UnauthorizedException("Unauthorized Exception: role not valid");
+			throw new UnauthorizedException(Const.ERROR_CODE_ROLE + "role not valid");
 		}
 		valuableMapRepository.save(map);
 		logger.info("saveItemValuableMap:{}", map.getId());
@@ -166,7 +166,7 @@ public class AdminController extends AuthController {
 			@RequestBody TenantData data,
 			HttpServletRequest request) throws Exception {
 		if(!validateRole(Const.ROLE_ADMIN, request)) {
-			throw new UnauthorizedException("Unauthorized Exception: role not valid");
+			throw new UnauthorizedException(Const.ERROR_CODE_ROLE + "role not valid");
 		}
 		Date now = new Date();
 		
@@ -196,6 +196,7 @@ public class AdminController extends AuthController {
 		game.setGameName("Gioco " + school.getName());
 		game.setInstituteId(institute.getObjectId());
 		game.setSchoolId(school.getObjectId());
+		game.setCheckCode(data.getCheckCode());
 		game.setCreationDate(now);
 		game.setLastUpdate(now);
 		gameRepository.save(game);

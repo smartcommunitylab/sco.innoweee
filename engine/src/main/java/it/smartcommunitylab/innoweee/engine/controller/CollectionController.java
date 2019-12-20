@@ -43,7 +43,7 @@ public class CollectionController extends AuthController {
 			HttpServletResponse response) throws Exception {
 		Optional<Game> optional = gameRepository.findById(gameId);
 		if(optional.isEmpty()) {
-			throw new EntityNotFoundException("entity not found");
+			throw new EntityNotFoundException(Const.ERROR_CODE_ENTITY + "entity not found");
 		}
 		Game game = optional.get();
 		if(!validateAuthorization(game.getTenantId(), game.getInstituteId(), game.getSchoolId(), 
@@ -67,7 +67,7 @@ public class CollectionController extends AuthController {
 		Game game = optional.get();
 		if(!validateAuthorization(game.getTenantId(), game.getInstituteId(), game.getSchoolId(), 
 				game.getObjectId(), Const.AUTH_RES_Game_GarbageCollection, Const.AUTH_ACTION_ADD, request)) {
-			throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
+			throw new UnauthorizedException(Const.ERROR_CODE_ROLE + "role not valid");
 		}
 		Date now = new Date();
 		if(StringUtils.isEmpty(collection.getObjectId())) {
@@ -87,7 +87,7 @@ public class CollectionController extends AuthController {
 		for(GarbageCollection collection : collections) {
 			Optional<Game> optional = gameRepository.findById(collection.getGameId());
 			if(optional.isEmpty()) {
-				throw new EntityNotFoundException("entity not found");
+				throw new EntityNotFoundException(Const.ERROR_CODE_ENTITY + "entity not found");
 			}
 			Game game = optional.get();
 			if(!validateAuthorization(game.getTenantId(), game.getInstituteId(), game.getSchoolId(), 
@@ -111,7 +111,7 @@ public class CollectionController extends AuthController {
 			HttpServletResponse response) throws Exception {
 		Optional<GarbageCollection> optionalColl = collectionRepository.findById(id);
 		if(optionalColl.isEmpty()) {
-			throw new EntityNotFoundException("collection entity not found");
+			throw new EntityNotFoundException(Const.ERROR_CODE_ENTITY + "collection entity not found");
 		}
 		GarbageCollection collection = optionalColl.get();
 		Optional<Game> optionalGame = gameRepository.findById(collection.getGameId());

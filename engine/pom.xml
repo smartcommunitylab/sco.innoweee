@@ -11,7 +11,7 @@
 	</parent>
 	<groupId>it.smartcommunitylab.innoweee</groupId>
 	<artifactId>engine</artifactId>
-	<version>0.2</version>
+	<version>0.3</version>
 	<name>engine</name>
 	<description>InnWEEE project - Event Manager</description>
 

@@ -10,6 +10,8 @@ public class Const {
 	public static final String ROLE_USER = "user";
 	public static final String ROLE_OWNER = "owner";
 	public static final String ROLE_SCHOOL_OWNER = "school-owner";
+	public static final String ROLE_SCHOOL_TEACHER = "school-teacher";
+	public static final String ROLE_SCHOOL_PARENT = "school-parent";
 	
 	public static final String AUTH_ACTION_READ = "READ";
 	public static final String AUTH_ACTION_ADD = "ADD";
@@ -64,5 +66,13 @@ public class Const {
 	public static final String ACTION_ADD_POINT = "add_point";
 	public static final String ACTION_ADD_CONTRIBUTION = "add_contribution";
 	public static final String ACTION_ADD_ALTRUISTIC = "add_altruistic";
+	
+	public static final String ERROR_CODE_TOKEN = "EC01:";
+	public static final String ERROR_CODE_EMAIL = "EC02:";
+	public static final String ERROR_CODE_USER = "EC03:";
+	public static final String ERROR_CODE_ROLE = "EC04:";
+	public static final String ERROR_CODE_ENTITY = "EC10:";
+	public static final String ERROR_CODE_APP = "EC11:";
+	
 }
 

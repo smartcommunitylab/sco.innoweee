@@ -8,6 +8,7 @@ public class TenantData {
 	private String instituteName;
 	private String schoolId;
 	private String schoolName;
+	private String checkCode;
 	private List<String> classes = new ArrayList<String>();
 	private List<GarbageCollection> collections = new ArrayList<GarbageCollection>(); 
 	
@@ -46,5 +47,11 @@ public class TenantData {
 	}
 	public void setSchoolId(String schoolId) {
 		this.schoolId = schoolId;
+	}
+	public String getCheckCode() {
+		return checkCode;
+	}
+	public void setCheckCode(String checkCode) {
+		this.checkCode = checkCode;
 	}
 }

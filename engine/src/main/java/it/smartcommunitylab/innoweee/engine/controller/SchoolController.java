@@ -75,7 +75,7 @@ public class SchoolController extends AuthController {
 			HttpServletResponse response) throws Exception {
 		if(!validateAuthorization(school.getTenantId(), school.getInstituteId(), 
 				Const.AUTH_RES_School, Const.AUTH_ACTION_ADD, request)) {
-			throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
+			throw new UnauthorizedException(Const.ERROR_CODE_ROLE + "role not valid");
 		}
 		Date now = new Date();
 		school.setCreationDate(now);
@@ -96,7 +96,7 @@ public class SchoolController extends AuthController {
 		}
 		if(!validateAuthorization(school.getTenantId(), school.getInstituteId(), school.getObjectId(), 
 				Const.AUTH_RES_School, Const.AUTH_ACTION_UPDATE, request)) {
-			throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
+			throw new UnauthorizedException(Const.ERROR_CODE_ROLE + "role not valid");
 		}
 		Date now = new Date();
 		school.setLastUpdate(now);
@@ -117,7 +117,7 @@ public class SchoolController extends AuthController {
 		School school = optional.get();
 		if(!validateAuthorization(school.getTenantId(), school.getInstituteId(), school.getObjectId(), 
 				Const.AUTH_RES_School, Const.AUTH_ACTION_DELETE, request)) {
-			throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
+			throw new UnauthorizedException(Const.ERROR_CODE_ROLE + "role not valid");
 		}
 		schoolRepository.deleteById(objectId);
 		logger.info("deleteSchool[{}]:{}", school.getTenantId(), objectId);
