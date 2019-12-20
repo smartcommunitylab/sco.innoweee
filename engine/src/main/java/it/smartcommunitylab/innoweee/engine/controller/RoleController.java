@@ -70,7 +70,9 @@ public class RoleController extends AuthController {
 			@PathVariable String tenantId,
 			@RequestParam String email,
 			@RequestParam String instituteId,
+			@RequestParam String instituteName,
 			@RequestParam String schoolId,
+			@RequestParam String schoolName,
 			HttpServletRequest request) throws Exception {
 		if(!validateRole(Const.ROLE_OWNER, tenantId, request)) {
 			throw new UnauthorizedException(Const.ERROR_CODE_ROLE + "role not valid");
@@ -88,7 +90,9 @@ public class RoleController extends AuthController {
 		auth.setRole(Const.ROLE_SCHOOL_OWNER);
 		auth.setTenantId(tenantId);
 		auth.setInstituteId(instituteId);
+		auth.setInstituteName(instituteName);
 		auth.setSchoolId(schoolId);
+		auth.setSchoolName(schoolName);
 		auth.setGameId("*");
 		auth.getResources().add("*");
 		auths.add(auth);
@@ -104,7 +108,9 @@ public class RoleController extends AuthController {
 			@PathVariable String tenantId,
 			@RequestParam String email,
 			@RequestParam String instituteId,
+			@RequestParam String instituteName,
 			@RequestParam String schoolId,
+			@RequestParam String schoolName,
 			HttpServletRequest request) throws Exception {
 		if(!validateRole(Const.ROLE_OWNER, tenantId, request)) {
 			throw new UnauthorizedException(Const.ERROR_CODE_ROLE + "role not valid");
@@ -121,7 +127,9 @@ public class RoleController extends AuthController {
 		auth.setRole(Const.ROLE_SCHOOL_TEACHER);
 		auth.setTenantId(tenantId);
 		auth.setInstituteId(instituteId);
+		auth.setInstituteName(instituteName);
 		auth.setSchoolId(schoolId);
+		auth.setSchoolName(schoolName);
 		auth.setGameId("*");
 		auth.getResources().add("*");
 		auths.add(auth);
@@ -150,8 +158,11 @@ public class RoleController extends AuthController {
 			@PathVariable String tenantId,
 			@RequestParam String email,
 			@RequestParam String instituteId,
+			@RequestParam String instituteName,
 			@RequestParam String schoolId,
+			@RequestParam String schoolName,
 			@RequestParam String gameId,
+			@RequestParam String gameName,
 			HttpServletRequest request) throws Exception {
 		if(!validateRole(Const.ROLE_OWNER, tenantId, request)) {
 			throw new UnauthorizedException(Const.ERROR_CODE_ROLE + "role not valid");
@@ -168,8 +179,11 @@ public class RoleController extends AuthController {
 		auth.setRole(Const.ROLE_SCHOOL_PARENT);
 		auth.setTenantId(tenantId);
 		auth.setInstituteId(instituteId);
+		auth.setInstituteName(instituteName);
 		auth.setSchoolId(schoolId);
+		auth.setSchoolName(schoolName);
 		auth.setGameId(gameId);
+		auth.setGameName(gameName);
 		auth.getResources().add("*");
 		auths.add(auth);
 		
