@@ -1,6 +1,5 @@
 package it.smartcommunitylab.innoweee.engine.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -133,7 +132,7 @@ public class RoleController extends AuthController {
 		if(!StringUtils.isEmpty(user.getEmail())) {
 			userDb = userRepository.findByEmail(user.getEmail());
 		} else {
-			throw new EntityNotFoundException("email must be present");
+			throw new EntityNotFoundException(Const.ERROR_CODE_APP + "email must be present");
 		}
 		if(userDb == null) {
 			User newUser = new User();
@@ -141,32 +140,11 @@ public class RoleController extends AuthController {
 			newUser.setSurname(user.getSurname());
 			newUser.setEmail(user.getEmail());
 			newUser.setCf(user.getCf());
-    	
-  		List<Authorization> auths = new ArrayList<Authorization>();
-  		Authorization auth = new Authorization();
-  		auth.setRole(Const.ROLE_USER);
-  		auth.setTenantId(tenantId);
-  		auths.add(auth);
-  		String authKey = Utils.getAuthKey(tenantId, Const.ROLE_USER);
-  		newUser.getRoles().put(authKey, auths);
-  		
     	userRepository.save(newUser);
     	logger.info("saveUser new [{}]:{}", tenantId, user.getEmail());
     	return newUser;
     } else {
-    	user.setId(userDb.getId());
-    	if(!Utils.checkTenantIdAndRole(tenantId, Const.ROLE_USER, userDb)) {
-    		List<Authorization> auths = new ArrayList<Authorization>();
-    		Authorization auth = new Authorization();
-    		auth.setRole(Const.ROLE_USER);
-    		auth.setTenantId(tenantId);
-    		auths.add(auth);
-    		String authKey = Utils.getAuthKey(tenantId, Const.ROLE_USER);
-    		user.getRoles().put(authKey, auths);
-    	}
-    	userRepository.save(user);
-    	logger.info("saveUser update [{}]:{}", tenantId, user.getEmail());
-    	return user;
+    	return userDb;
     }
 	}
 	
