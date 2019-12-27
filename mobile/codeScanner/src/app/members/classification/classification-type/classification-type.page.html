@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar class="color-bar">
+      <ion-title class="game-title">{{'title_game_selection'|translate}}</ion-title>
+
+    <ion-buttons class="language" slot="end">
+        <ion-label> {{'label_logout'|translate}}                </ion-label>
+      <ion-button (click)="changeClass()">
+        <ion-icon slot="icon-only" name="log-out"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  {{'label_type'|translate}}
+  <ion-col *ngFor="let item of items| keyvalue">
+    <ion-button color="light" (click)="chooseCategory(item.value)" expand="block" fill="outline">
+      {{getLabel(item.key)}}</ion-button>
+  </ion-col>
+  <!-- <ion-button size="large" ion-button (click)="sayNo()" [disabled]="itemPresent">{{'label_no'|translate}}
+  </ion-button>
+  <ion-button size="large" ion-button (click)="sayYes()" >{{'label_yes'|translate}}
+  </ion-button> -->
+</ion-content>

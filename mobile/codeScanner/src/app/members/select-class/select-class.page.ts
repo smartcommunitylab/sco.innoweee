@@ -152,11 +152,11 @@ export class SelectClassPage implements OnInit {
     this.playerData = this.profileService.getPlayerDataFromList(this.playerId, this.players);
     // this.profileService.getPlayerState(this.gameId, this.playerId).then(res => {
       // this.playerState = res;
-      // this.profileService.setPlayerData(this.playerData);
+      this.profileService.setPlayerData(this.playerData);
       // this.profileService.setPlayerState(this.playerState);
       this.profileService.setPlayerName(this.playerName);
       this.profileService.setSchoolName(this.school["name"]);
-      this.router.navigate(['dashboard'], { queryParams: { playerId: this.playerId, playerName: this.playerName } });
+      this.router.navigate(['home'], { queryParams: { playerId: this.playerId, playerName: this.playerName, playerData: JSON.stringify(this.playerData) } });
     // })
   }
   async chooseClass() {

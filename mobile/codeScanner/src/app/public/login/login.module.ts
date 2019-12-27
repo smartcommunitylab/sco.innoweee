@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { LoginPage } from './login.page';
 import { TranslateModule } from '@ngx-translate/core';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 const routes: Routes = [
   {
@@ -20,7 +21,7 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    TranslateModule,
+    SharedModule,
     RouterModule.forChild(routes)
   ],
   declarations: [LoginPage]

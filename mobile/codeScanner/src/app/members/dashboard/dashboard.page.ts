@@ -56,9 +56,9 @@ export class DashboardPage implements OnInit {
     });
   }
 
-  changeClass() {
-    this.router.navigate(['select-class']);
-  }
+  // changeClass() {
+  //   this.router.navigate(['select-class']);
+  // }
   // checkIfPresent(scanData) {
   //   this.dataServerService.checkIfPresent(scanData.text, this.playerId).then(res => {
   //     console.log(res);

@@ -102,6 +102,7 @@
     <allow-navigation href="http://192.168.29.87:8104" sessionid="527823b8" />
     <allow-navigation href="http://192.168.29.87:8105" sessionid="39eec6a9" />
     <allow-navigation href="http://192.168.29.87:8106" sessionid="379a0ce2" />
+    <allow-navigation href="http://192.168.29.87:8109" sessionid="2df705d4" />
     <engine name="ios" spec="4.5.5" />
     <engine name="android" spec="7.1.0" />
 </widget>

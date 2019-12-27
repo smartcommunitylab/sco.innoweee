@@ -10,6 +10,9 @@ export class DataServerService {
   getItemApi: any;
   getRecognizedApi: any;
   getUsedApi: any;
+  getGameApi: any;
+  getGarbageApi: string;
+
   sendItem(id: string, playerId: string, token): any {
     let url: string = this.endPoint + this.getItemApi +  this.getRecognizedApi;
 
@@ -36,8 +39,22 @@ export class DataServerService {
       this.getItemApi=config.getItemApi;
       this.getRecognizedApi=config.getRecognizedApi;
       this.getUsedApi = config.getUsedApi;
+      this.getGameApi = config.getGameApi;
+      this.getGarbageApi = config.getGarbageApi;
   }
+  getGargabeMap(tenantId, token): Promise<any> {
+    let url: string = this.endPoint + this.getGarbageApi + tenantId ;
+    return this.http.get(url,{ headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token
 
+    }}).toPromise().then(response => {
+      return response;
+    }).catch(response => {
+      return this.handleError(response);
+    });
+  }
   checkIfPresent(id: string, idUser:string, token): Promise<any> {
     let url: string = this.endPoint + this.getItemApi + this.getUsedApi+"?playerId="+idUser+"&itemId="+encodeURIComponent(id);
 
@@ -55,7 +72,19 @@ export class DataServerService {
 
 
   }
+   getActualCollection(gameId, token): Promise<any> {
+    let url: string = this.endPoint + this.getGameApi + gameId + '/collection';
+    return this.http.get(url,{ headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token
 
+    }}).toPromise().then(response => {
+      return response;
+    }).catch(response => {
+      return this.handleError(response);
+    });
+  }
 
   private handleError(error: any): Promise<any> {
 
