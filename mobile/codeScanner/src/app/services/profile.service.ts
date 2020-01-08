@@ -154,14 +154,19 @@ export class ProfileService {
     this.playerData = players.filter(x => x.objectId == playerId)[0];
     return this.playerData;
   }
+  getPlayerData(): Object {
+    if (this.playerData)
+      return this.playerData
+    return null;
+  }
   getLocalPlayerData(): Promise<any> {
     return this.storage.get(PLAYER_DATA_KEY);
 
   }
-  // setPlayerData(data) {
-  //   this.storage.set(PLAYER_DATA_KEY,data);
-  //   // this.playerData = data;
-  // }
+  setPlayerData(data) {
+    this.storage.set(PLAYER_DATA_KEY,data);
+    // this.playerData = data;
+  }
   // setPlayerState(state) {
   //   this.storage.set(PLAYER_STATE_KEY,state);
   // }

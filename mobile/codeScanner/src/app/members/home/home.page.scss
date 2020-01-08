@@ -1,0 +1,30 @@
+
+ion-grid {
+    .class-selected {
+        text-align: center;
+        // font-weight: bold;
+        font-size: 24px;
+    }
+    .class-name {
+        text-align: center;
+        font-weight: bold;
+        font-size: 24px;
+    }
+    .procedure{
+        text-align: center;
+        font-weight: bold;
+        padding: 50px;
+    }
+    .scan-button{
+        text-align: center;
+
+    }
+    .home-button-icon{
+        position: absolute;
+        left: 16px;
+    }
+    ion-button {
+        --background: #0fb4d7;
+        --color:white;
+    }
+}

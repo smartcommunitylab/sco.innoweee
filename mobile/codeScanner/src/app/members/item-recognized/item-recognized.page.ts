@@ -1,32 +1,34 @@
 import { Component, OnInit } from '@angular/core';
-import {Location} from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { ProfileService } from 'src/app/services/profile.service';
 import { DataServerService } from 'src/app/services/data.service';
 import { ToastController } from '@ionic/angular';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { CommonPage } from 'src/app/class/common-page';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-item-recognized',
   templateUrl: './item-recognized.page.html',
   styleUrls: ['./item-recognized.page.scss'],
 })
-export class ItemRecognizedPage implements OnInit {
+export class ItemRecognizedPage extends CommonPage implements OnInit {
   item: any;
   itemPresent: boolean;
   scanData: any;
   playerId: any;
-  constructor(private router: Router,
-    private translate: TranslateService,
-    private toastController: ToastController,
-    private route: ActivatedRoute,
-    private dataServerService: DataServerService,
-    private location:Location,
-    private profileService: ProfileService,
-    private authService: AuthenticationService
+  constructor(public router: Router,
+    public translate: TranslateService,
+    public toastController: ToastController,
+    public route: ActivatedRoute,
+    public dataServerService: DataServerService,
+    public location:Location,
+    public profileService: ProfileService,
+    public authService: AuthenticationService
 
-  ) { }
+  ) {
+    super( router,translate, toastController,route,dataServerService,location,profileService,authService) }
 
   ngOnInit() {
     this.route.queryParams
@@ -50,9 +52,9 @@ export class ItemRecognizedPage implements OnInit {
     toast.present();
   }
 
-  changeClass() {
-    this.router.navigate(['select-class']);
-  }
+  // changeClass() {
+  //   this.router.navigate(['select-class']);
+  // }
 
   checkIfPresent(scanData) {
     this.authService.getValidAACtoken().then( token => {
@@ -69,6 +71,15 @@ export class ItemRecognizedPage implements OnInit {
       }
     })
   })
+  }
+  classify() {
+    if (!this.itemPresent) {
+      this.authService.getValidAACtoken().then( token => {
+        this.router.navigate(['classification-type']);
+      })
+    } else {
+      this.presentToast((this.translate.instant('toast_error')));
+    }
   }
   sendLim() {
     if (!this.itemPresent) {

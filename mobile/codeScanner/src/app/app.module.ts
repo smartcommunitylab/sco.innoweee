@@ -31,7 +31,8 @@ export function HttpLoaderFactory(http: HttpClient) {
   entryComponents: [],
   imports: [
     BrowserModule, 
-      FormsModule, ReactiveFormsModule,
+    FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     HttpModule,
     TranslateModule.forRoot({
@@ -52,11 +53,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     NativeStorage,
     AuthenticationService,
     AuthGuard,
-    // {
-    //   provide: HTTP_INTERCEPTORS,
-    //   useClass: TokenInterceptor,
-    //   multi: true
-    // },
+
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     {provide: APP_CONFIG_TOKEN, useValue: APP_CONFIG }
 
