@@ -68,12 +68,12 @@ public class ProfileController extends AuthController {
 			@PathVariable String gameCode,
 			@RequestBody User user,
 			HttpServletRequest request) throws Exception {
+		if(StringUtils.isEmpty(user.getEmail())) {
+			throw new EntityNotFoundException(Const.ERROR_CODE_APP + "email must be present");
+		}
 		Game game = gameRepository.findByCheckCode(gameCode);
 		if(game == null) {
 			throw new EntityNotFoundException(Const.ERROR_CODE_ENTITY + "game code not found");
-		}
-		if(StringUtils.isEmpty(user.getEmail())) {
-			throw new EntityNotFoundException(Const.ERROR_CODE_APP + "email must be present");
 		}
 		Optional<Institute> optInstitute = instituteRepository.findById(game.getInstituteId());
 		if(optInstitute.isEmpty()) {

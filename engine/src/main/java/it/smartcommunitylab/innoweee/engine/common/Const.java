@@ -31,6 +31,7 @@ public class Const {
 	public static final String AUTH_RES_Game_Player = "Game-Player";
 	public static final String AUTH_RES_Game_Robot = "Game-Robot";
 	public static final String AUTH_RES_Game_Item = "Game-Item";
+	public static final String AUTH_RES_Game_Point = "Game-Point";
 	
 	public static final String MEDIA_LINK = "link";
 	public static final String MEDIA_VIDEO = "video";

@@ -18,6 +18,7 @@ public class ItemEvent {
 	private boolean reusable;
 	private boolean valuable;
 	private boolean manual;
+	private boolean confirmed;
 	
 	public String getId() {
 		return id;
@@ -90,5 +91,11 @@ public class ItemEvent {
 	}
 	public void setSaveTime(Date saveTime) {
 		this.saveTime = saveTime;
+	}
+	public boolean isConfirmed() {
+		return confirmed;
+	}
+	public void setConfirmed(boolean confirmed) {
+		this.confirmed = confirmed;
 	}
 }

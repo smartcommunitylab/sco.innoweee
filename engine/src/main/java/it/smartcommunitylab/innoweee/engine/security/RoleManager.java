@@ -84,6 +84,7 @@ public class RoleManager {
 		auth.setSchoolId(schoolId);
 		auth.setGameId("*");
 		auth.getResources().add(Const.AUTH_RES_Game_Item);
+		auth.getResources().add(Const.AUTH_RES_Game_Point);
 		auth.getResources().add(Const.AUTH_RES_Game_Robot);
 		auths.add(auth);
 		

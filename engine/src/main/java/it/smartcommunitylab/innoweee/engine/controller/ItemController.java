@@ -136,7 +136,7 @@ public class ItemController extends AuthController {
 		}
 		Game game = optionalGame.get();
 		if(!validateAuthorization(game.getTenantId(), game.getInstituteId(), game.getSchoolId(), 
-				game.getObjectId(), Const.AUTH_RES_Game_Item, Const.AUTH_ACTION_ADD, request)) {
+				game.getObjectId(), Const.AUTH_RES_Game_Point, Const.AUTH_ACTION_ADD, request)) {
 			throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
 		}
 		if(timestamp != null) {
@@ -230,21 +230,64 @@ public class ItemController extends AuthController {
 		if(garbage == null) {
 			throw new EntityNotFoundException(Const.ERROR_CODE_ENTITY + "garbage not found");
 		}
+		itemEvent.setReusable(getReusable(itemEvent, garbage));
+		itemEvent.setValuable(getValuable(itemEvent, garbage, actualCollection));
+		itemEvent.setConfirmed(false);
+		itemRepository.save(itemEvent);
+		logger.debug("itemDelivery:{} / {}", itemEvent.getItemType(), itemEvent.getItemId());
+		return itemEvent;
+	}
+	
+	@GetMapping(value = "/api/item/confirm")
+	public @ResponseBody ItemEvent itemConfirmed(
+			@RequestParam String itemId, 
+			@RequestParam String playerId,			
+			HttpServletRequest request) throws Exception {
+		ItemEvent itemEvent = itemRepository.findByItemId(itemId);
+		if(itemEvent == null) {
+			throw new EntityNotFoundException(Const.ERROR_CODE_ENTITY + "item not found");
+		}
+		Optional<Player> optionalPlayer = playerRepository.findById(playerId);
+		if(optionalPlayer.isEmpty()) {
+			throw new EntityNotFoundException(Const.ERROR_CODE_ENTITY + "player not found");
+		}
+		Player player = optionalPlayer.get();
+		Optional<Game> optionalGame = gameRepository.findById(player.getGameId());
+		if(optionalGame.isEmpty()) {
+			throw new EntityNotFoundException(Const.ERROR_CODE_ENTITY + "game not found");
+		}
+		Game game = optionalGame.get();
+		if(!validateAuthorization(game.getTenantId(), game.getInstituteId(), game.getSchoolId(), 
+				game.getObjectId(), Const.AUTH_RES_Game_Point, Const.AUTH_ACTION_ADD, request)) {
+			throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
+		}
+		if(itemEvent.isConfirmed()) {
+			throw new EntityNotFoundException(Const.ERROR_CODE_APP + "item already confirmed");
+		}
+		GarbageCollection actualCollection = collectionRepository.findActualCollection(
+				game.getTenantId(), game.getObjectId(), itemEvent.getTimestamp());
+		if(actualCollection == null) {
+			throw new EntityNotFoundException(Const.ERROR_CODE_ENTITY + "collection not found");
+		}
+		GarbageMap garbageMap = garbageMapRepository.findByTenantId(game.getTenantId());
+		Garbage garbage = garbageMap.getItems().get(itemEvent.getItemType());
+		if(garbage == null) {
+			throw new EntityNotFoundException(Const.ERROR_CODE_ENTITY + "garbage not found");
+		}
 		CategoryMap categoryMap = categoryMapRepository.findByTenantId(game.getTenantId());
 		Category category = categoryMap.getCategories().get(garbage.getCategory());
 		if(category == null) {
 			throw new EntityNotFoundException(Const.ERROR_CODE_ENTITY + "category not found");
-		}			
-		itemEvent.setReusable(getReusable(itemEvent, garbage));
-		itemEvent.setValuable(getValuable(itemEvent, garbage, actualCollection));
+		}					
 		geManager.itemDelivery(game.getGeGameId(), player.getObjectId(), itemEvent, 
 				actualCollection.getNameGE(), garbage, category);
+		itemEvent.setConfirmed(true);
 		itemRepository.save(itemEvent);
 		GameAction gameAction = Utils.getItemDeliveryGameAction(game, actualCollection.getNameGE(), player, itemEvent);
-		gameActionRepository.save(gameAction);
-		logger.debug("itemDelivery:{} / {}", itemEvent.getItemType(), itemEvent.getItemId());
+		gameActionRepository.save(gameAction);		
+		logger.debug("itemConfirmed:{} / {}", itemEvent.getItemType(), itemEvent.getItemId());
 		return itemEvent;
-	}
+	}	
 	
 	@GetMapping(value = "/api/item/{tenantId}/csv")
 	public @ResponseBody String getItemCsv(
@@ -255,7 +298,7 @@ public class ItemController extends AuthController {
 		}
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
 		StringBuffer sb = new StringBuffer("instituteName,instituteId,schoolName,schoolId,");
-		sb.append("gameName,gameId,playerName,playerId,collection,itemId,itemType,isBroken,");
+		sb.append("gameName,gameId,playerName,playerId,collection,itemId,itemType,isConfirmed,isBroken,");
 		sb.append("isSwitchingOn,ageRange,isReusable,isValuable,weight,timestamp,saveTime\n");
 		List<Institute> instituteList = instituteRepository.findByTenantId(tenantId);
 		Map<String, Institute> instituteMap = new HashMap<>();
@@ -307,6 +350,7 @@ public class ItemController extends AuthController {
 				String collection = actualCollection.getNameGE();
 				String itemId = event.getItemId();
 				String itemType = event.getItemType();
+				String isConfirmed = String.valueOf(event.isConfirmed());
 				String isBroken = String.valueOf(event.isBroken());
 				String isSwitchingOn = String.valueOf(event.isSwitchingOn());
 				String ageRange = String.valueOf(event.getAge());
@@ -329,6 +373,7 @@ public class ItemController extends AuthController {
 				sb.append("\"" + collection + "\",");
 				sb.append("\"" + itemId + "\",");
 				sb.append("\"" + itemType + "\",");
+				sb.append("\"" + isConfirmed + "\",");
 				sb.append("\"" + isBroken + "\",");
 				sb.append("\"" + isSwitchingOn + "\",");
 				sb.append("\"" + ageRange + "\",");
