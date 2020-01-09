@@ -96,7 +96,7 @@ public class RoleController extends AuthController {
 		return auths;
 	}
 	
-	@GetMapping(value = "/api/role/{tenantId}/schoolteacher")
+	@GetMapping(value = "/api/role/{tenantId}/parent")
 	public @ResponseBody List<Authorization> addParent(
 			@PathVariable String tenantId,
 			@RequestParam String email,
