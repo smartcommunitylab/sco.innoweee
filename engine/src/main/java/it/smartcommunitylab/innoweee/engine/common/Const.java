@@ -75,5 +75,13 @@ public class Const {
 	public static final String ERROR_CODE_ENTITY = "EC10:";
 	public static final String ERROR_CODE_APP = "EC11:";
 	
+	public static int ITEM_STATE_NONE = 0;
+	public static int ITEM_STATE_CLASSIFIED = 1;
+	public static int ITEM_STATE_CONFIRMED = 2;
+	public static int ITEM_STATE_DISPOSED = 3;
+	public static int ITEM_STATE_COLLECTED = 4;
+	public static int ITEM_STATE_ARRIVED = 5;
+	public static int ITEM_STATE_CHECKED = 6;
+	
 }
 

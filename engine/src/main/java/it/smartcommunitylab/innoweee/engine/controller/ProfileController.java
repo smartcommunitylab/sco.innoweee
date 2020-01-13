@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import it.smartcommunitylab.innoweee.engine.common.Const;
 import it.smartcommunitylab.innoweee.engine.exception.EntityNotFoundException;
+import it.smartcommunitylab.innoweee.engine.manager.RoleManager;
 import it.smartcommunitylab.innoweee.engine.model.Game;
 import it.smartcommunitylab.innoweee.engine.model.Institute;
 import it.smartcommunitylab.innoweee.engine.model.School;
@@ -26,7 +27,6 @@ import it.smartcommunitylab.innoweee.engine.repository.InstituteRepository;
 import it.smartcommunitylab.innoweee.engine.repository.SchoolRepository;
 import it.smartcommunitylab.innoweee.engine.repository.UserRepository;
 import it.smartcommunitylab.innoweee.engine.security.Authorization;
-import it.smartcommunitylab.innoweee.engine.security.RoleManager;
 import it.smartcommunitylab.innoweee.engine.security.User;
 
 @RestController
@@ -91,7 +91,6 @@ public class ProfileController extends AuthController {
 			newUser.setName(user.getName());
 			newUser.setSurname(user.getSurname());
 			newUser.setEmail(user.getEmail());
-			newUser.setCf(user.getCf());
     	userRepository.save(newUser);
     	user = newUser;
     	logger.info("addParentRole save new user:{}", user.getEmail());

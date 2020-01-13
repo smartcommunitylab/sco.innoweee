@@ -1,4 +1,4 @@
-package it.smartcommunitylab.innoweee.engine.security;
+package it.smartcommunitylab.innoweee.engine.manager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +9,8 @@ import org.springframework.stereotype.Component;
 import it.smartcommunitylab.innoweee.engine.common.Const;
 import it.smartcommunitylab.innoweee.engine.common.Utils;
 import it.smartcommunitylab.innoweee.engine.repository.UserRepository;
+import it.smartcommunitylab.innoweee.engine.security.Authorization;
+import it.smartcommunitylab.innoweee.engine.security.User;
 
 @Component
 public class RoleManager {

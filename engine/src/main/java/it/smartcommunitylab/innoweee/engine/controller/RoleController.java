@@ -21,9 +21,9 @@ import it.smartcommunitylab.innoweee.engine.common.Const;
 import it.smartcommunitylab.innoweee.engine.common.Utils;
 import it.smartcommunitylab.innoweee.engine.exception.EntityNotFoundException;
 import it.smartcommunitylab.innoweee.engine.exception.UnauthorizedException;
+import it.smartcommunitylab.innoweee.engine.manager.RoleManager;
 import it.smartcommunitylab.innoweee.engine.repository.UserRepository;
 import it.smartcommunitylab.innoweee.engine.security.Authorization;
-import it.smartcommunitylab.innoweee.engine.security.RoleManager;
 import it.smartcommunitylab.innoweee.engine.security.User;
 
 @RestController

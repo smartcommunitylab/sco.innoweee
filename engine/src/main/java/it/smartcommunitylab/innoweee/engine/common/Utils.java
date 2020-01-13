@@ -424,5 +424,30 @@ public class Utils {
 		}
 		return result;
 	}
+	
+	public static String getItemState(int state) {
+		if(state == Const.ITEM_STATE_NONE) {
+			return "NONE";
+		}
+		if(state == Const.ITEM_STATE_CLASSIFIED) {
+			return "CLASSIFIED";
+		}
+		if(state == Const.ITEM_STATE_CONFIRMED) {
+			return "CONFIRMED";
+		}
+		if(state == Const.ITEM_STATE_DISPOSED) {
+			return "DISPOSED";
+		}
+		if(state == Const.ITEM_STATE_COLLECTED) {
+			return "COLLECTED";
+		}
+		if(state == Const.ITEM_STATE_ARRIVED) {
+			return "ARRIVED";
+		}
+		if(state == Const.ITEM_STATE_CHECKED) {
+			return "CHECKED";
+		}
+		return "unknown";
+	}
 
 }

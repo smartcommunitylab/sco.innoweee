@@ -30,11 +30,14 @@ import it.smartcommunitylab.innoweee.engine.img.ImageManager;
 import it.smartcommunitylab.innoweee.engine.model.Game;
 import it.smartcommunitylab.innoweee.engine.model.GameStatus;
 import it.smartcommunitylab.innoweee.engine.model.GarbageCollection;
+import it.smartcommunitylab.innoweee.engine.model.ItemEvent;
 import it.smartcommunitylab.innoweee.engine.model.Player;
+import it.smartcommunitylab.innoweee.engine.model.PlayerReport;
 import it.smartcommunitylab.innoweee.engine.model.Robot;
 import it.smartcommunitylab.innoweee.engine.repository.CatalogRepository;
 import it.smartcommunitylab.innoweee.engine.repository.GameRepository;
 import it.smartcommunitylab.innoweee.engine.repository.GarbageCollectionRepository;
+import it.smartcommunitylab.innoweee.engine.repository.ItemEventRepository;
 import it.smartcommunitylab.innoweee.engine.repository.PlayerRepository;
 
 @RestController
@@ -49,6 +52,8 @@ public class PlayerController extends AuthController {
 	private CatalogRepository catalogResopitory;
 	@Autowired
 	private GarbageCollectionRepository collectionRepository;
+	@Autowired
+	private ItemEventRepository itemEventRepository;
 	@Autowired
 	private ImageManager imageManager;
 	@Autowired
@@ -207,4 +212,37 @@ public class PlayerController extends AuthController {
 		logger.info("getPlayersStatus[{}]:{}", tenantId, result.size());
 		return result;
 	}
+
+	@GetMapping(value = "/api/player/{playerId}/report")
+	public @ResponseBody PlayerReport getPlayerReport(
+			@PathVariable String playerId,
+			HttpServletRequest request, 
+			HttpServletResponse response) throws Exception {
+		Optional<Player> optionalPlayer = playerRepository.findById(playerId);
+		if(optionalPlayer.isEmpty()) {
+			throw new EntityNotFoundException(Const.ERROR_CODE_ENTITY + "player not found");
+		}
+		Player player = optionalPlayer.get();
+		Optional<Game> optionalGame = gameRepository.findById(player.getGameId());
+		if(optionalGame.isEmpty()) {
+			throw new EntityNotFoundException(Const.ERROR_CODE_ENTITY + "game not found");
+		}
+		Game game = optionalGame.get();
+		if(!validateAuthorization(game.getTenantId(), game.getInstituteId(), game.getSchoolId(), 
+				game.getObjectId(), Const.AUTH_RES_Game_Item, Const.AUTH_ACTION_READ, request)) {
+			throw new UnauthorizedException(Const.ERROR_CODE_ROLE + "role not valid");
+		}
+		PlayerReport result = new PlayerReport();
+		List<ItemEvent> events = itemEventRepository.findByPlayerId(playerId);
+		for (ItemEvent itemEvent : events) {
+			if(itemEvent.getState() == Const.ITEM_STATE_CLASSIFIED) {
+				result.addItem();
+			} else if(itemEvent.getState() == Const.ITEM_STATE_CONFIRMED) {
+				result.addConfirmedItem();
+			}
+		}
+		logger.info("getPlayerReport[{}]:{}", player.getTenantId(), player.getObjectId());
+		return result;
+	}
+
 }
