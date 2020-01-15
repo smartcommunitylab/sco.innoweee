@@ -114,14 +114,16 @@ public class RoleManager {
 		auth.getResources().add("*");
 		auths.add(auth);
 		
-		auths = new ArrayList<Authorization>();
 		auth = new Authorization();
 		auth.getActions().add(Const.AUTH_ACTION_ADD);
 		auth.setRole(Const.ROLE_SCHOOL_PARENT);
 		auth.setTenantId(tenantId);
 		auth.setInstituteId(instituteId);
+		auth.setInstituteName(instituteName);
 		auth.setSchoolId(schoolId);
+		auth.setSchoolName(schoolName);
 		auth.setGameId(gameId);
+		auth.setGameName(gameName);
 		auth.getResources().add(Const.AUTH_RES_Game_Item);
 		auths.add(auth);
 		

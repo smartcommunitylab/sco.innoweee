@@ -449,5 +449,16 @@ public class Utils {
 		}
 		return "unknown";
 	}
+	
+	public static boolean isGamePeriodValid(Game game) {
+		boolean valid = false;
+		if((game.getFrom() != null) && (game.getTo() != null)) {
+			Date now = new Date();
+			if(now.after(game.getFrom()) || now.before(game.getTo())) {
+				valid = true;
+			}
+		}
+		return valid;
+	}
 
 }
