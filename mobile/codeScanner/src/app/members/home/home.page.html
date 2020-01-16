@@ -3,7 +3,7 @@
                   <ion-title class="game-title">{{'title_game_selection'|translate}}</ion-title>
       <ion-buttons class="language" slot="end">
               <ion-label> {{'label_logout'|translate}}                </ion-label>
-          <ion-button (click)="changeClass()">
+          <ion-button (click)="signOut()">
               <ion-icon slot="icon-only" name="log-out"></ion-icon>
           </ion-button>
       </ion-buttons>
@@ -30,7 +30,7 @@
         </div>
         <div class="date-label">
           <p>{{ 'label_from' | translate }}
-            <span>{{getDateMessageFrom()|date:'d/M/yyyy'}}</span>{{ 'label_to' | translate }}<span>{{getDateMessageTo()|date:'d/M/yyyy'}}</span>
+            <span>{{getDateMessageFrom()|date:'d '}}</span>{{ 'label_to' | translate }}<span>{{getDateMessageTo()|date:'d MMMM'}}</span>
           </p>
         </div>
       </div>

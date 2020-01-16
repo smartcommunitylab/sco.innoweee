@@ -15,6 +15,7 @@ export const environment = {
   production: false,
   appName: 'InnoWee',
     apiEndpoint: 'https://dev.smartcommunitylab.it/innoweee-engine/',
+    // apiEndpoint: 'http://192.168.42.60:2020/',
     getDomainApi: 'api/profile',
     getInstituteApi: '/api/institute/',
     getSchoolApi: 'api/school',
@@ -36,5 +37,18 @@ export const environment = {
     aacClientId: "2be89b9c-4050-4e7e-9042-c02b0d9121c6",
     redirectUrl: 'https://localhost:8100/',
     scope: 'profile.basicprofile.me profile.accountprofile.me',
-    aacUrl: 'https://am-dev.smartcommunitylab.it/aac/'
+    aacUrl: 'https://am-dev.smartcommunitylab.it/aac/',
+
+    cordova_identity_client: '2c53f587-693c-48fa-b579-65506d8d3221',
+  cordova_identity_server: 'https://aac.platform.smartcommunitylab.it/aac',
+  cordova_redirect_url: 'it.smartcommunitylab.innowee.codescanner://callback',
+  cordova_scopes: 'openid profile email profile.basicprofile.me',
+  cordova_end_session_redirect_url: 'it.smartcommunitylab.innowee.codescanner://logout',
+
+  implicit_identity_client: '2c53f587-693c-48fa-b579-65506d8d3221',
+  implicit_identity_server: 'https://aac.platform.smartcommunitylab.it/aac',
+  implicit_redirect_url: 'http://localhost:8100/callback',
+  implicit_scopes: 'openid profile email',
+  implicit_end_session_redirect_url: 'http://localhost:8100/logout',
+
 };

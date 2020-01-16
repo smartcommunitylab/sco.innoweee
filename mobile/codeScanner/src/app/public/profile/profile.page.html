@@ -1,0 +1,43 @@
+
+  <ion-header>
+    <ion-toolbar class="color-bar">
+      <ion-title class="game-title">{{'title_game_selection'|translate}}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content padding>
+  
+    <div class="logo">
+      <img src="./assets/logo.png" class="logo-nav" />
+    </div>
+  
+    <ion-grid>
+      <div class="question-screen"> 
+        <div class="col-vertical-center">
+          <div class="vertical-center right-box">
+            <div>
+                <ion-list>
+                    <ion-list-header>{{'login_title'|translate}}</ion-list-header>
+                      <ion-item>
+                        <ion-button  (click)="chooseProfile('PARENT')" expand="block" fill="outline">
+                          {{'label_parent'|translate}}</ion-button>
+                        </ion-item>
+                        <ion-item>
+
+                          <ion-button (click)="chooseProfile('TEACHER')" expand="block" fill="outline">
+                            {{'label_teacher'|translate}}</ion-button>
+                          </ion-item>
+                          <ion-item>
+
+                            <ion-button (click)="chooseProfile('WORKER')" expand="block" fill="outline">
+                              {{'label_worker'|translate}}</ion-button>
+                            </ion-item>
+
+ 
+                  </ion-list>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ion-grid>
+  </ion-content>

@@ -25,7 +25,7 @@
         "toast_ok":"Oggetto inviato alla lavagna",
         "toast_error":"Errore durante la comunicazione con il server",
         "toast_back":"Invio annullato",
-        "label_scan_procedure":"Preparare l'oggetto con il Barcode, premere il tasto IDENTIFICA OGGETTO e mettere a fuoco il codice.",
+        "label_scan_procedure":"Attacca l'etichetta all'oggetto che devi classificare. Scannerizza il codice identificativo o inseriscilo manualmente.",
         "label_logout":"Esci",
         "label_item_username":"Username",
         "label_item_password":"Password",
@@ -34,7 +34,7 @@
         "user_check":"Controllo utente",
         "wrong_user":"Username o password errati!",
         "wrong_credentials":"Username o password mancanti!",
-        "label_classify":"Classifica sul telefono",
+        "label_classify":"Conferma",
         "label_type":"Scegli la tipologia di oggetto:",
         "hint_working":"<b>Funziona</b> se lo puoi ancora usare per le sue funzioni principali. Per esempio: <i>un telefonino che funziona bene ma ha lo schermo leggermente graffiato</i>. <b>Non funziona</b> se non lo puoi più usare così com’è. Per esempio: <i>un asciugacapelli che si accende solo con aria fredda.</i>",
         "label_working":"L'oggetto funziona:",
@@ -50,6 +50,15 @@
         "answer_not_old":"No",
         "label_manual_insert":"Inserisici manualmente",
         "manual_insert_code":"Codice",
-        "label_insert_code":"Utilizza questo ID"
+        "label_insert_code":"Utilizza questo ID",
+        "label_parent":"Genitore",
+        "label_teacher":"Insegnante",
+        "label_worker":"Operatore",
+        "label_from": "Dal ",
+        "label_to":"al ",
+        "wrong_data_server":" Errore, dati mancanti",
+        "label_new_item":"Inserisci nuovo oggetto",
+        "label_end":"Termina inserimento"
+        
         
 }

@@ -6,6 +6,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { ProfileService } from 'src/app/services/profile.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { AuthService } from 'src/app/auth/auth.service';
+import { IAuthAction, AuthActions } from 'ionic-appauth';
 
 @Component({
   selector: 'app-home',
@@ -24,11 +26,13 @@ export class HomePage implements OnInit {
   weeklyDateTo: number = new Date().getTime();
   playerData: any;
   currentWeekLabel: any;
-  
+  action: IAuthAction;
+
   constructor(public navCtrl: NavController,
     private barcodeScanner: BarcodeScanner,
     private dataServerService: DataServerService,
     private route: ActivatedRoute,
+    private auth: AuthService,
     private authService: AuthenticationService,
     private translate: TranslateService,
     private profileService: ProfileService,
@@ -56,17 +60,26 @@ export class HomePage implements OnInit {
         this.profileService.getLocalPlayerData().then(res => {
           this.setCollectionData();
         })
-  } 
+  }
+  this.auth.authObservable.subscribe((action) => {
+    if (action.action === AuthActions.SignOutSuccess) {
+      this.navCtrl.navigateRoot('profile');
+    }
+  }); 
 }
-  setCollectionData() {
-    this.authService.getValidAACtoken().then( token => {
-    this.dataServerService.getActualCollection(this.profileService.getPlayerData()["gameId"],token).then(res => {
+  async setCollectionData() {
+    const token = await this.auth.getValidToken();
+    // this.authService.getValidAACtoken().then( token => {
+    this.dataServerService.getActualCollection(this.profileService.getPlayerData()["gameId"],token.accessToken).then(res => {
+     if (res){
       this.weeklyGarbage = res.message
-     this.weeklyDateFrom = res.from;
-     this.weeklyDateTo = res.to;
-     this.getWantedMessage();
+      this.weeklyDateFrom = res.from;
+      this.weeklyDateTo = res.to;
+      this.getWantedMessage();
+     }
     })
-   })  }
+  //  }) 
+   }
   scan() {
     this.options = {
       prompt: "Scan your barcode "
@@ -84,13 +97,13 @@ export class HomePage implements OnInit {
   manualInsert() {
     this.router.navigate(['manual-insert'], { queryParams: { playerId: this.playerId } });
   }
-  // changeClass() {
-  //   this.router.navigate(['select-class']);
-  // }
+  signOut() {
+    this.auth.signOut();
+  }
 
   getWantedMessage() {
-    if (this.weeklyGarbage && this.translate.currentLang && this.weeklyGarbage[this.translate.currentLang])
-      this.currentWeekLabel=this.weeklyGarbage[this.translate.currentLang];
+    if (this.weeklyGarbage && this.translate. defaultLang && this.weeklyGarbage[this.translate. defaultLang])
+      this.currentWeekLabel=this.weeklyGarbage[this.translate. defaultLang];
     else this.currentWeekLabel=""
   }
 

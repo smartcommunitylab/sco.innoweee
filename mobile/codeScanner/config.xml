@@ -103,6 +103,12 @@
     <allow-navigation href="http://192.168.29.87:8105" sessionid="39eec6a9" />
     <allow-navigation href="http://192.168.29.87:8106" sessionid="379a0ce2" />
     <allow-navigation href="http://192.168.29.87:8109" sessionid="2df705d4" />
+    <plugin name="cordova-plugin-secure-storage" spec="3.0.2" />
+    <plugin name="cordova-plugin-safariviewcontroller" spec="1.6.0" />
+    <plugin name="cordova-plugin-advanced-http" spec="2.3.1">
+        <variable name="OKHTTP_VERSION" value="3.10.0" />
+    </plugin>
+    <allow-navigation href="http://192.168.31.171:8100" sessionid="2bc01c8a" />
     <engine name="ios" spec="4.5.5" />
     <engine name="android" spec="7.1.0" />
 </widget>

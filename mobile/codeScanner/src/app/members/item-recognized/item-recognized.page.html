@@ -21,11 +21,11 @@
         <div *ngIf="item" class="interaction">
             <p><span *ngIf="!item">{{'label_id'|translate}}</span><span *ngIf="item">{{item}}</span><span class="bold"> {{item.text}}</span></p>
             <p *ngIf="itemPresent"><span class="bold">{{'label_item_present'|translate}}</span></p>
-            <ion-button size="large" ion-button (click)="sendLim()" [disabled]="itemPresent">{{'label_send_to_lim'|translate}}
+            <ion-button size="large" ion-button (click)="sendLim()" [hidden]="!isTeacher()" [disabled]="itemPresent">{{'label_send_to_lim'|translate}}
             </ion-button>
-            <ion-button size="large" ion-button (click)="classify()" [disabled]="itemPresent">{{'label_classify'|translate}}
+            <ion-button size="large" ion-button (click)="classify()" [hidden]="!isParent()"  [disabled]="itemPresent">{{'label_classify'|translate}}
             </ion-button>
-              <ion-button size="large" ion-button (click)="cancel()" >{{'label_cancel'|translate}}
+            <ion-button size="large" ion-button (click)="cancel()" >{{'label_cancel'|translate}}
                 </ion-button>
           </div>
       </ion-col>

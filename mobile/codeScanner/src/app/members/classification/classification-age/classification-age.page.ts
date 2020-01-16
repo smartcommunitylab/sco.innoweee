@@ -13,11 +13,10 @@ export class ClassificationAgePage implements OnInit {
   ngOnInit() {
   }
   sayYes() {
-    this.router.navigate(['classification-recap']);
+    this.router.navigate(['recap']);
 
   }
   sayNo() {
-    this.router.navigate(['classification-recap']);
-
+    this.router.navigate(['recap']);
   }
 }

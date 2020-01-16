@@ -5,14 +5,25 @@ import { Observable } from 'rxjs';
 import { Http, ResponseContentType } from '@angular/http';
 import { Storage } from '@ionic/storage';
 import { AlertController } from '@ionic/angular';
+import { NativeStorage } from '@ionic-native/native-storage/ngx';
 
 const PLAYER_DATA_KEY = "PLAYER_DATA"
 const PLAYER_STATE_KEY = "PLAYER_STATE"
 const ALL_PLAYERS_KEY = "ALL_PLAYERS"
+const TEACHER_KEY = "TEACHER"
+const PARENT_KEY = "PARENT"
 @Injectable({
   providedIn: 'root'
 })
 export class ProfileService {
+
+  getTeacherValue() {
+return   TEACHER_KEY;
+}
+  getParentValue() {
+    return   PARENT_KEY;
+    }
+
   endPoint: string = "";
   getDomainApi: string = "";
   getInstituteApi: string = "";
@@ -26,6 +37,7 @@ export class ProfileService {
   constructor(
     private storage:Storage,
     private http: HttpClient,
+    private nativeStorage: NativeStorage,
     private alertController: AlertController,
     @Inject(APP_CONFIG_TOKEN) private config: ApplicationConfig) {
     this.endPoint = config.apiEndpoint;
@@ -36,7 +48,28 @@ export class ProfileService {
     this.getPlayerApi = config.getPlayerApi;
     this.getRobotImageApi = config.getRobotImageApi;
   }
-
+  setProfileRole(profile: string) {
+    window.localStorage.setItem('profile',profile);
+  }
+  getProfileRole() {
+    return window.localStorage.getItem('profile');
+  }
+  // setProfile(profile: string): Promise<any>  {
+  //   return new Promise((resolve, reject) => { this.nativeStorage.setItem('profile', {profile: profile})
+  //   .then(
+  //     () => console.log('Stored item!'),
+  //     error => console.error('Error storing item', error)
+  //   );
+  //   })
+  // }
+  // getProfile(): Promise<any>  {
+  //   return new Promise((resolve, reject) => {this.nativeStorage.getItem('profile')
+  //   .then(
+  //     item => resolve(item),
+  //     error => console.log('error')
+  //   );
+  //   })
+  // }
   getDomain(token): Promise<any> {
     let url: string = this.endPoint + this.getDomainApi;
     // return Promise.resolve({"tenants":["TEST","TRENTO"]});

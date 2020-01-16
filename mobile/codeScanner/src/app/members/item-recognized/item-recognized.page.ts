@@ -7,6 +7,7 @@ import { ToastController } from '@ionic/angular';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { CommonPage } from 'src/app/class/common-page';
 import {Location} from '@angular/common';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-item-recognized',
@@ -18,10 +19,12 @@ export class ItemRecognizedPage extends CommonPage implements OnInit {
   itemPresent: boolean;
   scanData: any;
   playerId: any;
+  myRole: string;
   constructor(public router: Router,
     public translate: TranslateService,
     public toastController: ToastController,
     public route: ActivatedRoute,
+    private auth:AuthService,
     public dataServerService: DataServerService,
     public location:Location,
     public profileService: ProfileService,
@@ -41,7 +44,7 @@ export class ItemRecognizedPage extends CommonPage implements OnInit {
         }
         // console.log(JSON.parse(this.item)); // popular
       });
-
+      this.myRole = this.profileService.getProfileRole();
   }
 
   async presentToast(string) {
@@ -56,12 +59,13 @@ export class ItemRecognizedPage extends CommonPage implements OnInit {
   //   this.router.navigate(['select-class']);
   // }
 
-  checkIfPresent(scanData) {
-    this.authService.getValidAACtoken().then( token => {
+  async checkIfPresent(scanData) {
+    const token = await this.auth.getValidToken();
+    // this.authService.getValidAACtoken().then( token => {
 
-    this.dataServerService.checkIfPresent(scanData.text, this.playerId, token).then(res => {
+    this.dataServerService.checkIfPresent(scanData, this.playerId, token.accessToken).then(res => {
       // console.log(res);
-      if (res.result) {
+      if (res && res.result) {
         //ok
         this.itemPresent = true;
       }
@@ -70,29 +74,39 @@ export class ItemRecognizedPage extends CommonPage implements OnInit {
         this.itemPresent = false;
       }
     })
-  })
+  // })
   }
-  classify() {
+  async classify() {
     if (!this.itemPresent) {
-      this.authService.getValidAACtoken().then( token => {
+      // const token = await this.auth.getValidToken();
+
+      // this.authService.getValidAACtoken().then( token => {
         this.router.navigate(['classification-type']);
-      })
+      // })
     } else {
       this.presentToast((this.translate.instant('toast_error')));
     }
   }
-  sendLim() {
+  async sendLim() {
     if (!this.itemPresent) {
-      this.authService.getValidAACtoken().then( token => {
-      this.dataServerService.sendItem(this.item.text, this.playerId, token).then(res => {
+      const token = await this.auth.getValidToken();
+      // this.authService.getValidAACtoken().then( token => {
+      this.dataServerService.sendItem(this.item.text, this.playerId, token.accessToken).then(res => {
         // console.log(res);
         this.presentToast((this.translate.instant('toast_ok')));
         this.location.back();
       })
-    })
+    // })
     } else {
       this.presentToast((this.translate.instant('toast_error')));
     }
+  }
+  isParent() {
+    return this.myRole=== this.profileService.getParentValue();
+  }
+  isTeacher() {
+    return this.myRole=== this.profileService.getTeacherValue();
+
   }
   cancel() {
     this.location.back();

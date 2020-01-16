@@ -1,5 +1,8 @@
 <ion-header>
   <ion-toolbar class="color-bar">
+    <ion-buttons slot="start">
+      <ion-back-button class="language"></ion-back-button>
+    </ion-buttons>
       <ion-title class="game-title">{{'title_game_selection'|translate}}</ion-title>
 
     <ion-buttons class="language" slot="end">
@@ -14,7 +17,7 @@
 <ion-content padding>
   {{'label_type'|translate}}
   <ion-col *ngFor="let item of items| keyvalue">
-    <ion-button color="light" (click)="chooseCategory(item.value)" expand="block" fill="outline">
+    <ion-button  (click)="chooseCategory(item.value)" expand="block" fill="outline">
       {{getLabel(item.key)}}</ion-button>
   </ion-col>
   <!-- <ion-button size="large" ion-button (click)="sayNo()" [disabled]="itemPresent">{{'label_no'|translate}}

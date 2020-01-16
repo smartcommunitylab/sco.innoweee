@@ -6,6 +6,7 @@ import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { TranslateService } from '@ngx-translate/core';
+import { AuthService } from './auth/auth.service';
  
 @Component({
   selector: 'app-root',
@@ -18,6 +19,7 @@ export class AppComponent {
     private statusBar: StatusBar,
     private authenticationService: AuthenticationService,
     private router: Router,
+    private auth: AuthService,
     private translate: TranslateService
   ) {
     this.initializeApp();
@@ -31,6 +33,7 @@ export class AppComponent {
     this.platform.ready().then(() => {
       // this.statusBar.overlaysWebView(true);
       // this.statusBar.styleDefault();
+      this.auth.startUpAsync();
       this.splashScreen.hide();
       this.initTranslate();
       // this.authenticationService.authenticationState.subscribe(state => {
