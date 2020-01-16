@@ -1,5 +1,7 @@
 package it.smartcommunitylab.innoweee.engine.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -191,12 +193,20 @@ public class AdminController extends AuthController {
 		school.setLastUpdate(now);
 		schoolRepository.save(school);
 		
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(now);
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+		Date from = sdf.parse("01-01-" + calendar.get(Calendar.YEAR) + " 00:00:00");
+		Date to = sdf.parse("31-12-" + calendar.get(Calendar.YEAR) + " 23:59:59");
+		
 		Game game = new Game();
 		game.setTenantId(tenantId);
-		game.setGameName("Gioco " + school.getName());
+		game.setGameName("Gioco " + school.getName() + " " + calendar.get(Calendar.YEAR));
 		game.setInstituteId(institute.getObjectId());
 		game.setSchoolId(school.getObjectId());
 		game.setCheckCode(data.getCheckCode());
+		game.setFrom(from);
+		game.setTo(to);
 		game.setCreationDate(now);
 		game.setLastUpdate(now);
 		gameRepository.save(game);

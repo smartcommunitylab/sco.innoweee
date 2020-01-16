@@ -1,4 +1,4 @@
-package it.smartcommunitylab.innoweee.engine.security;
+package it.smartcommunitylab.innoweee.engine.manager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +9,8 @@ import org.springframework.stereotype.Component;
 import it.smartcommunitylab.innoweee.engine.common.Const;
 import it.smartcommunitylab.innoweee.engine.common.Utils;
 import it.smartcommunitylab.innoweee.engine.repository.UserRepository;
+import it.smartcommunitylab.innoweee.engine.security.Authorization;
+import it.smartcommunitylab.innoweee.engine.security.User;
 
 @Component
 public class RoleManager {
@@ -84,6 +86,7 @@ public class RoleManager {
 		auth.setSchoolId(schoolId);
 		auth.setGameId("*");
 		auth.getResources().add(Const.AUTH_RES_Game_Item);
+		auth.getResources().add(Const.AUTH_RES_Game_Point);
 		auth.getResources().add(Const.AUTH_RES_Game_Robot);
 		auths.add(auth);
 		
@@ -111,14 +114,16 @@ public class RoleManager {
 		auth.getResources().add("*");
 		auths.add(auth);
 		
-		auths = new ArrayList<Authorization>();
 		auth = new Authorization();
 		auth.getActions().add(Const.AUTH_ACTION_ADD);
 		auth.setRole(Const.ROLE_SCHOOL_PARENT);
 		auth.setTenantId(tenantId);
 		auth.setInstituteId(instituteId);
+		auth.setInstituteName(instituteName);
 		auth.setSchoolId(schoolId);
+		auth.setSchoolName(schoolName);
 		auth.setGameId(gameId);
+		auth.setGameName(gameName);
 		auth.getResources().add(Const.AUTH_RES_Game_Item);
 		auths.add(auth);
 		

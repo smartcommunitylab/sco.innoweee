@@ -80,7 +80,9 @@ public class GameController extends AuthController {
 		for(Game game : list) {
 			if(validateAuthorization(tenantId, instituteId, schoolId, game.getObjectId(), 
 				Const.AUTH_RES_Game, Const.AUTH_ACTION_READ, request)) {
-				result.add(game);
+				if(Utils.isGamePeriodValid(game)) {
+					result.add(game);
+				}
 			}
 		}
 		logger.info("searchGame[{}]:{} / {} / {}", tenantId, instituteId, schoolId, result.size());

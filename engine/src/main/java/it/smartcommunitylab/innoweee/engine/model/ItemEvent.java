@@ -1,6 +1,8 @@
 package it.smartcommunitylab.innoweee.engine.model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.data.annotation.Id;
 
@@ -18,6 +20,8 @@ public class ItemEvent {
 	private boolean reusable;
 	private boolean valuable;
 	private boolean manual;
+	private int state;
+	private List<ItemAction> actions = new ArrayList<ItemAction>();
 	
 	public String getId() {
 		return id;
@@ -90,5 +94,17 @@ public class ItemEvent {
 	}
 	public void setSaveTime(Date saveTime) {
 		this.saveTime = saveTime;
+	}
+	public int getState() {
+		return state;
+	}
+	public void setState(int state) {
+		this.state = state;
+	}
+	public List<ItemAction> getActions() {
+		return actions;
+	}
+	public void setActions(List<ItemAction> actions) {
+		this.actions = actions;
 	}
 }
