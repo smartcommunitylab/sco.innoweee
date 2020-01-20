@@ -3,10 +3,9 @@
     <ion-buttons slot="start">
       <ion-back-button class="language"></ion-back-button>
     </ion-buttons>
-      <ion-title class="game-title">{{'title_game_selection'|translate}}</ion-title>
-
+    <ion-title class="game-title">{{'title_game_selection'|translate}}</ion-title>
     <ion-buttons class="language" slot="end">
-        <ion-label> {{'label_logout'|translate}}                </ion-label>
+      <ion-label> {{'label_logout'|translate}} </ion-label>
       <ion-button (click)="changeClass()">
         <ion-icon slot="icon-only" name="log-out"></ion-icon>
       </ion-button>
@@ -14,10 +13,44 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-  {{'label_working'|translate}}
-<ion-button size="large" ion-button (click)="sayNo()" [disabled]="itemPresent">  {{'answer_working'|translate}}
-</ion-button>
-  <ion-button size="large" ion-button (click)="sayYes()" >{{'answer_not_working'|translate}}
-    </ion-button>
+<ion-content class="common-content" padding>
+  <ion-grid>
+    <div class="question-screen">
+      <div class="col-vertical-center">
+        <div class="vertical-center right-box">
+          <div class="popup-info">
+            <ion-button (click)="openInfo()">
+              <ion-icon slot="icon-only" name="help"></ion-icon>
+            </ion-button>
+          </div>
+          <div>
+            <ion-list>
+              <ion-list-header>
+                {{'label_working'|translate}}
+              </ion-list-header>
+              <ion-button color="light" (click)="sayNo()" expand="block" fill="outline">
+                {{'answer_working'|translate}}
+              </ion-button>
+              <ion-button color="light" (click)="sayYes()" expand="block" fill="outline">
+                {{'answer_not_working'|translate}}
+              </ion-button>
+            </ion-list>
+          </div>
+          <div class="info">
+            <ion-list>
+              <ion-list-header>
+                {{'label_recap'|translate}}
+              </ion-list-header>
+              <div class="recap">
+                <ion-item lines="none">{{getType()}}</ion-item>
+                <ion-item lines="none">{{getSwitching()}}</ion-item>
+                <ion-item lines="none">{{getBroken()}}</ion-item>
+                <ion-item lines="none">{{getAge()}}</ion-item>
+              </div>
+            </ion-list>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ion-grid>
 </ion-content>

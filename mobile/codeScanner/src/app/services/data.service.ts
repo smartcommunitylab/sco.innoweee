@@ -6,12 +6,42 @@ import { APP_CONFIG_TOKEN, ApplicationConfig } from '../app-config';
   providedIn: 'root'
 })
 export class DataServerService {
+  
   endPoint: any;
   getItemApi: any;
   getRecognizedApi: any;
   getUsedApi: any;
   getGameApi: any;
   getGarbageApi: string;
+  getDeliveryApi:string;
+
+
+
+  
+  constructor(private http: HttpClient,
+    @Inject(APP_CONFIG_TOKEN) private config: ApplicationConfig) {
+      this.endPoint=config.apiEndpoint;
+      this.getItemApi=config.getItemApi;
+      this.getRecognizedApi=config.getRecognizedApi;
+      this.getUsedApi = config.getUsedApi;
+      this.getDeliveryApi = config.getDeliveryApi;
+      this.getGameApi = config.getGameApi;
+      this.getGarbageApi = config.getGarbageApi;
+  }
+  itemDelivery(item,token): Promise<any> {
+    let url: string = this.endPoint + this.getItemApi+this.getDeliveryApi;
+    let body = item;    
+    return this.http.post(url,body,{ headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token
+
+    }}).toPromise().then(response => {
+      return response;
+    }).catch(response => {
+      return this.handleError(response);
+    });
+  }
 
   sendItem(id: string, playerId: string, token): any {
     let url: string = this.endPoint + this.getItemApi +  this.getRecognizedApi;
@@ -32,15 +62,6 @@ export class DataServerService {
       return this.handleError(response)
     });
 
-  }
-  constructor(private http: HttpClient,
-    @Inject(APP_CONFIG_TOKEN) private config: ApplicationConfig) {
-      this.endPoint=config.apiEndpoint;
-      this.getItemApi=config.getItemApi;
-      this.getRecognizedApi=config.getRecognizedApi;
-      this.getUsedApi = config.getUsedApi;
-      this.getGameApi = config.getGameApi;
-      this.getGarbageApi = config.getGarbageApi;
   }
   getGargabeMap(tenantId, token): Promise<any> {
     let url: string = this.endPoint + this.getGarbageApi + tenantId ;

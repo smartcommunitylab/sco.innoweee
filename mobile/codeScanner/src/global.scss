@@ -1,38 +1,123 @@
 // http://ionicframework.com/docs/theming/
-@import '~@ionic/angular/css/core.css';
-@import '~@ionic/angular/css/normalize.css';
-@import '~@ionic/angular/css/structure.css';
-@import '~@ionic/angular/css/typography.css';
+@import "~@ionic/angular/css/core.css";
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
 
-@import '~@ionic/angular/css/padding.css';
-@import '~@ionic/angular/css/float-elements.css';
-@import '~@ionic/angular/css/text-alignment.css';
-@import '~@ionic/angular/css/text-transformation.css';
-@import '~@ionic/angular/css/flex-utils.css';
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
 @font-face {
-    font-family: 'Montserrat';
-    src: url('./assets/font/Montserrat/Montserrat-Regular.ttf');
+  font-family: "Montserrat";
+  src: url("./assets/font/Montserrat/Montserrat-Regular.ttf");
+}
+$font-family-base: "Montserrat";
+$font-family-md-base: "Montserrat";
+$font-family-ios-base: "Montserrat";
+$font-family-wp-base: "Montserrat";
+* {
+  font-family: "Montserrat";
+}
+.color-bar {
+  --background: #0fb4d7;
+  --color: white;
+  .game-title {
+    text-align: center;
+    width: 100%;
   }
-  $font-family-base: "Montserrat"; 
-  $font-family-md-base: "Montserrat"; 
-  $font-family-ios-base: "Montserrat"; 
-  $font-family-wp-base: "Montserrat"; 
-  * {
-    font-family: 'Montserrat';
-  }
-  .color-bar {
-    --background: #0fb4d7;
-    --color: white;
-    .game-title {
-        text-align: center;
-        width: 100%;
+  .language {
+    ion-item {
+      min-width: 250px;
+      --background: #0fb4d7;
     }
-    .language {
-        ion-item {
-            min-width: 250px;
-            --background: #0fb4d7;
+  }
+}
+.recap{
+  border: solid 1px;
+  border-radius: 16px;
+  padding: 8px;
+}
+.common-content {
+  --background: #dcf5fa;
+  --padding-top: 0px;
+  --padding-bottom: 0px;
 
+  ion-grid {
+    --ion-grid-padding: 0px;
 
+    .question-screen {
+      .vertical-center {
+        background-color: white;
+      }
+
+      .right-box {
+        border-radius: 12px;
+        padding: 24px;
+        margin-top: 24px;
+        background-color: #0fb4d7;
+        color: white;
+        .popup-info {
+          position: absolute;
+          right: 20px;
+          top: 24px;
+          font-size: 17px;
+          z-index: 99;
+          ion-button{
+            --background: transparent;
+            --border-width: 2px;
+            --border-color: white;
+            --border-radius: 37px;
+            --border-style: solid;
+            --padding-bottom: 0px;
+            --padding-start: 0px;
+            --padding-end: 0px;
+            width: 32px;
+            --padding-top: 0px;
+            height: 32px;
+            ion-icon{
+              padding: 0px;
+    --padding-bottom: 0px;
+    --padding-start: 0px;
+    margin: 0px;
+    font-size: 32px;
+            }
+          }
         }
+        ion-list {
+          background-color: #0fb4d7;
+          color: white;
+
+          ion-list-header {
+            color: white;
+            text-align: center;
+            font-size: 24px;
+            justify-content: center;
+          }
+
+          ion-item {
+            --background: #0fb4d7;
+            --color: white;
+          
+            ion-input {
+              --background: #0fb4d7;
+              --color: white;
+            }
+
+            ion-label {
+              color: white;
+              background-color: #0fb4d7;
+              z-index: 999;
+            }
+
+            ion-button {
+              --color: black;
+              --background: #dcf5fa;
+            }
+          }
+        }
+      }
     }
+  }
 }

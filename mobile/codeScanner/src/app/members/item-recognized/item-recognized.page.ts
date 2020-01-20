@@ -8,6 +8,7 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 import { CommonPage } from 'src/app/class/common-page';
 import {Location} from '@angular/common';
 import { AuthService } from 'src/app/auth/auth.service';
+import { ClassificationService } from 'src/app/services/classification.service';
 
 @Component({
   selector: 'app-item-recognized',
@@ -28,7 +29,8 @@ export class ItemRecognizedPage extends CommonPage implements OnInit {
     public dataServerService: DataServerService,
     public location:Location,
     public profileService: ProfileService,
-    public authService: AuthenticationService
+    public authService: AuthenticationService,
+    public classificationService: ClassificationService
 
   ) {
     super( router,translate, toastController,route,dataServerService,location,profileService,authService) }
@@ -81,6 +83,9 @@ export class ItemRecognizedPage extends CommonPage implements OnInit {
       // const token = await this.auth.getValidToken();
 
       // this.authService.getValidAACtoken().then( token => {
+        this.classificationService.initializeItem();
+        this.classificationService.itemClassification.setItemId(this.item);
+
         this.router.navigate(['classification-type']);
       // })
     } else {

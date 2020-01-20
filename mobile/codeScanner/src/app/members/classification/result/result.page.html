@@ -1,4 +1,4 @@
-<ion-header>
+<!-- <ion-header>
   <ion-toolbar class="color-bar">
       <ion-title class="game-title">{{'title_game_selection'|translate}}</ion-title>
     <ion-buttons class="language" slot="end">
@@ -14,4 +14,68 @@
 riassunto finale
 <ion-button size="large" ion-button (click)="endCollection()" >{{'label_end'|translate}}</ion-button>
 
+</ion-content> -->
+<!-- <ion-header>
+  <ion-toolbar class="color-bar">
+    <ion-buttons slot="start">
+      <ion-back-button class="language"></ion-back-button>
+    </ion-buttons>
+      <ion-title class="game-title">{{'title_game_selection'|translate}}</ion-title>
+    <ion-buttons class="language" slot="end">
+        <ion-label> {{'label_logout'|translate}}                </ion-label>
+      <ion-button (click)="changeClass()">
+        <ion-icon slot="icon-only" name="log-out"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  {{'label_old'|translate}}
+<ion-button size="large" ion-button (click)="sayNo()" [disabled]="itemPresent">{{'answer_old'|translate}}
+</ion-button>
+  <ion-button size="large" ion-button (click)="sayYes()" >{{'answer_not_old'|translate}}
+    </ion-button>
+</ion-content> -->
+
+
+<ion-header>
+  <ion-toolbar class="color-bar">
+    <ion-buttons slot="start">
+      <ion-back-button class="language"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="game-title">{{'title_game_selection'|translate}}</ion-title>
+    <ion-buttons class="language" slot="end">
+      <ion-label> {{'label_logout'|translate}} </ion-label>
+      <ion-button (click)="changeClass()">
+        <ion-icon slot="icon-only" name="log-out"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="common-content"  padding>
+  <ion-grid>
+    <div class="question-screen">
+      <div class="col-vertical-center">
+        <div class="vertical-center right-box">
+          <div>
+            <ion-list>
+              <ion-list-header> 
+                {{'label_recap'|translate}}
+              </ion-list-header>
+                <!-- <ion-button color="light" (click)="sayNo()" expand="block" fill="outline">
+                  {{'answer_old'|translate}}
+                </ion-button>
+                <ion-button color="light" (click)="sayYes()" expand="block" fill="outline">
+                  {{'answer_not_old'|translate}}
+                </ion-button> -->
+                <ion-button size="large" color="light" ion-button (click)="endCollection()" expand="block" fill="outline">{{'label_end'|translate}}</ion-button>
+            </ion-list>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ion-grid>
 </ion-content>
+

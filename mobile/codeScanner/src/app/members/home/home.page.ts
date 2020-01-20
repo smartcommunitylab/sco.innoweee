@@ -69,7 +69,6 @@ export class HomePage implements OnInit {
 }
   async setCollectionData() {
     const token = await this.auth.getValidToken();
-    // this.authService.getValidAACtoken().then( token => {
     this.dataServerService.getActualCollection(this.profileService.getPlayerData()["gameId"],token.accessToken).then(res => {
      if (res){
       this.weeklyGarbage = res.message
@@ -78,7 +77,6 @@ export class HomePage implements OnInit {
       this.getWantedMessage();
      }
     })
-  //  }) 
    }
   scan() {
     this.options = {
