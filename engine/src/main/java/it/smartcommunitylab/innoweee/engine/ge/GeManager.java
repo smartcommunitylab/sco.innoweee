@@ -232,7 +232,7 @@ public class GeManager {
 			if(Utils.checkDonation(player, collectionName)) {
 				continue;
 			}
-			CoinMap coinMap = playersStatus.getPlayerTotalCoinMap(player.getObjectId(), collectionName);
+			CoinMap coinMap = playersStatus.getPlayerTotalCoinMap(player.getObjectId(), null);
 			double rank = Utils.getRank(coinMap);
 			PointStatus pointStatus = new PointStatus(player.getObjectId(), rank);
 			pointStatus.setCoinMap(coinMap);
