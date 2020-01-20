@@ -66,7 +66,6 @@ public class Const {
 	public static final String ACTION_BUILD_ROBOT = "build_robot";
 	public static final String ACTION_ADD_POINT = "add_point";
 	public static final String ACTION_ADD_CONTRIBUTION = "add_contribution";
-	public static final String ACTION_ADD_ALTRUISTIC = "add_altruistic";
 	
 	public static final String ERROR_CODE_TOKEN = "EC01:";
 	public static final String ERROR_CODE_EMAIL = "EC02:";
@@ -82,6 +81,9 @@ public class Const {
 	public static int ITEM_STATE_COLLECTED = 4;
 	public static int ITEM_STATE_ARRIVED = 5;
 	public static int ITEM_STATE_CHECKED = 6;
+	
+	public static final String WASTE_DISPOSAL = "waste_disposal";
+	public static final String WASTE_COLLECTION = "waste_collection";
 	
 }
 

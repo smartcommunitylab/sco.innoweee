@@ -165,6 +165,10 @@ public class AuthController {
 		}
 		return false;
 	}
+	
+	public boolean validateClient(HttpServletRequest request) {
+		return true;
+	}
 
 	@ExceptionHandler({EntityNotFoundException.class, StorageException.class})
 	@ResponseStatus(value=HttpStatus.BAD_REQUEST)
