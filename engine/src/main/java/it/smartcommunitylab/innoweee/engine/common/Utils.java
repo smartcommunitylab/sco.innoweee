@@ -347,7 +347,8 @@ public class Utils {
 	}
 	
 	public static GameAction getContributionAction(Game game, String collectionName, Player player, 
-			PointDistribution pointDistribution, Map<String, CoinMap> playerCoinMap) {
+			PointDistribution pointDistribution, Map<String, CoinMap> playerCoinMap, 
+			List<Component> componentsToBuild) {
 		Date now = new Date();
 		GameAction action = new GameAction();
 		action.setTenantId(game.getTenantId());
@@ -361,32 +362,24 @@ public class Utils {
 		action.getCustomData().put("pointStatusList", pointDistribution.getPointStatusList());
 		action.getCustomData().put("contribution", playerCoinMap);
 		action.getCustomData().put("collectionName", collectionName);
+		if(componentsToBuild.size() > 0) {
+			action.getCustomData().put("altruisticAction", Boolean.TRUE);
+			action.getCustomData().put("componentsToBuild", componentsToBuild);
+		} else {
+			action.getCustomData().put("altruisticAction", Boolean.FALSE);
+		}
 		action.setCreationDate(now);
 		action.setLastUpdate(now);
 		return action;		
 	}
 	
-	public static GameAction getAltruisticAction(Game game, String collectionName, Player player, 
+	public static List<Component> getAltruisticAction(Player player, 
 			Catalog catalog, CoinMap contributorCoinMap) {
 		List<Component> componentsToBuild = new ArrayList<Component>();
 		for(String componentId : player.getRobot().getComponents().keySet()) {
 			componentsToBuild.addAll(Utils.getComponentsToBuild(componentId, catalog, contributorCoinMap));
 		}
-		Date now = new Date();
-		GameAction action = new GameAction();
-		action.setTenantId(game.getTenantId());
-		action.setInstituteId(game.getInstituteId());
-		action.setSchoolId(game.getSchoolId());
-		action.setGameId(game.getObjectId());
-		action.setPlayerId(player.getObjectId());
-		action.setPlayerName(player.getName());
-		action.setActionType(Const.ACTION_ADD_ALTRUISTIC);
-		action.getCustomData().put("contributorCoinMap", contributorCoinMap);
-		action.getCustomData().put("collectionName", collectionName);
-		action.getCustomData().put("componentsToBuild", componentsToBuild);
-		action.setCreationDate(now);
-		action.setLastUpdate(now);
-		return action;		
+		return componentsToBuild;		
 	}
 	
 	private static List<Component> getComponentsToBuild(String componentId, Catalog catalog,
