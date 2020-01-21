@@ -85,5 +85,9 @@ public class Const {
 	public static final String WASTE_DISPOSAL = "waste_disposal";
 	public static final String WASTE_COLLECTION = "waste_collection";
 	
+	public static final String BIN_REUSE = "bin_reuse";
+	public static final String BIN_RECYCLE = "bin_recycle";
+	public static final String BIN_VALUE = "bin_value";
+	
 }
 

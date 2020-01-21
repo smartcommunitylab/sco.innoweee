@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -33,6 +34,8 @@ import it.smartcommunitylab.innoweee.engine.model.ItemValuableMap;
 import it.smartcommunitylab.innoweee.engine.model.Player;
 import it.smartcommunitylab.innoweee.engine.model.School;
 import it.smartcommunitylab.innoweee.engine.model.TenantData;
+import it.smartcommunitylab.innoweee.engine.model.WasteCollectorBin;
+import it.smartcommunitylab.innoweee.engine.model.WasteCollectorCard;
 import it.smartcommunitylab.innoweee.engine.repository.CatalogRepository;
 import it.smartcommunitylab.innoweee.engine.repository.CategoryMapRepository;
 import it.smartcommunitylab.innoweee.engine.repository.GameRepository;
@@ -42,6 +45,8 @@ import it.smartcommunitylab.innoweee.engine.repository.InstituteRepository;
 import it.smartcommunitylab.innoweee.engine.repository.ItemValuableMapRepository;
 import it.smartcommunitylab.innoweee.engine.repository.PlayerRepository;
 import it.smartcommunitylab.innoweee.engine.repository.SchoolRepository;
+import it.smartcommunitylab.innoweee.engine.repository.WasteCollectorBinRepository;
+import it.smartcommunitylab.innoweee.engine.repository.WasteCollectorCardRepository;
 
 @RestController
 public class AdminController extends AuthController {
@@ -65,6 +70,10 @@ public class AdminController extends AuthController {
 	private PlayerRepository playerRepository;
 	@Autowired
 	private GarbageCollectionRepository garbageCollectionRepository;
+	@Autowired
+	private WasteCollectorCardRepository collectorCardRepository;
+	@Autowired
+	private WasteCollectorBinRepository collectorBinRepository;
 
 	@PostMapping(value = "/admin/catalog")
 	public Catalog saveCatalog(
@@ -237,4 +246,30 @@ public class AdminController extends AuthController {
 		logger.info("initTenant:{}", tenantId);
 	}
 	
+	@PostMapping(value = "/admin/collector/cards")
+	public void saveCollectorCards(
+			@RequestBody List<WasteCollectorCard> cards,
+			HttpServletRequest request) throws Exception {
+		if(!validateRole(Const.ROLE_ADMIN, request)) {
+			throw new UnauthorizedException(Const.ERROR_CODE_ROLE + "role not valid");
+		}
+		for(WasteCollectorCard card : cards) {
+			collectorCardRepository.save(card);
+		}
+		logger.info("saveCollectorCards:{}", cards.size());
+	}
+	
+	@PostMapping(value = "/admin/collector/bins")
+	public void saveCollectorBins(
+			@RequestBody List<WasteCollectorBin> bins,
+			HttpServletRequest request) throws Exception {
+		if(!validateRole(Const.ROLE_ADMIN, request)) {
+			throw new UnauthorizedException(Const.ERROR_CODE_ROLE + "role not valid");
+		}
+		for(WasteCollectorBin bin : bins) {
+			collectorBinRepository.save(bin);
+		}
+		logger.info("saveCollectorBins:{}", bins.size());
+	}
+
 }
