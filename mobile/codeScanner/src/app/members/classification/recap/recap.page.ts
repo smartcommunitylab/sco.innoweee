@@ -45,8 +45,9 @@ export class RecapPage implements OnInit {
     this.itemClassification.setPlayerId(this.playerDataService.getPlayerData()["objectId"]);
     const token = await this.auth.getValidToken();
     this.dataService.itemDelivery(this.itemClassification,token.accessToken).then(res => {
-      //generate pop up for another insertion or terminate
-      this.showAlertDone();
+      //go to result
+      // this.showAlertDone();
+      this.router.navigate(['item-classified',JSON.stringify(res)]);
     }, err => {
       //if it is already inserted change id
       this.showAlertError();
@@ -73,6 +74,7 @@ export class RecapPage implements OnInit {
       const alert = await this.alertController.create({
         header: title,
         message: message,
+        backdropDismiss: false,
         buttons: [
           {
             text: 'Inserisci nuovo oggetto',

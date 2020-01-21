@@ -64,13 +64,13 @@ riassunto finale
               <ion-list-header> 
                 {{'label_recap'|translate}}
               </ion-list-header>
-                <!-- <ion-button color="light" (click)="sayNo()" expand="block" fill="outline">
-                  {{'answer_old'|translate}}
-                </ion-button>
-                <ion-button color="light" (click)="sayYes()" expand="block" fill="outline">
-                  {{'answer_not_old'|translate}}
-                </ion-button> -->
-                <ion-button size="large" color="light" ion-button (click)="endCollection()" expand="block" fill="outline">{{'label_end'|translate}}</ion-button>
+              <div class="recap">
+                <ion-item lines="none">{{totalItems}}</ion-item>
+                <!-- <ion-item lines="none">label_item_confirmed{{confirmedItems}}</ion-item> -->
+                </div>
+              <ion-button color="light" expand="block" [routerLink]="['/home']" fill="outline">
+                {{'label_end_recycle'|translate}}
+              </ion-button>
             </ion-list>
           </div>
         </div>

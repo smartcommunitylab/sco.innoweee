@@ -1,5 +1,6 @@
 import { InjectionToken } from '@angular/core';
 export interface ApplicationConfig {
+  getReportApi: string;
     appName: string;
     apiEndpoint: string;
     getDomainApi: string;
@@ -43,7 +44,8 @@ export const APP_CONFIG: ApplicationConfig = {
     getDeliveryApi:"/delivery",
     getGarbageApi:"api/garbageMap/",
     getRecognizedApi:"recognized",
-    getUsedApi:"/used"
+    getUsedApi:"/used",
+    getReportApi:"report"
 };
 
 // Create a config token to avoid naming conflicts

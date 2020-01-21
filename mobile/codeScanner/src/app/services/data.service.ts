@@ -7,6 +7,7 @@ import { APP_CONFIG_TOKEN, ApplicationConfig } from '../app-config';
 })
 export class DataServerService {
   
+  
   endPoint: any;
   getItemApi: any;
   getRecognizedApi: any;
@@ -14,6 +15,8 @@ export class DataServerService {
   getGameApi: any;
   getGarbageApi: string;
   getDeliveryApi:string;
+  getReportApi: string;
+  getPlayerApi: string;
 
 
 
@@ -27,7 +30,23 @@ export class DataServerService {
       this.getDeliveryApi = config.getDeliveryApi;
       this.getGameApi = config.getGameApi;
       this.getGarbageApi = config.getGarbageApi;
-  }
+      this.getReportApi = config.getReportApi;
+      this.getPlayerApi = config.getPlayerApi;
+  } 
+  getStat(playerId: string, token: any) {
+
+    // @GetMapping(value = "/api/player/{playerId}/report")
+    let url: string = this.endPoint + this.getPlayerApi +'/'+ playerId+'/'+this.getReportApi ;
+    return this.http.get(url,{ headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token
+
+    }}).toPromise().then(response => {
+      return response;
+    }).catch(response => {
+      return this.handleError(response);
+    });    }
   itemDelivery(item,token): Promise<any> {
     let url: string = this.endPoint + this.getItemApi+this.getDeliveryApi;
     let body = item;    

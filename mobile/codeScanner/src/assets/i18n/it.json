@@ -80,5 +80,22 @@
         "insert_error_title":"Errore",
         "insert_error_message":"Errore nell'inserimento dell'oggetto",
         "insert_done_title":"Oggetto inserito",
-        "insert_done_message":"L'oggetto e' stato inserito correttamente"
+        "insert_done_message":"L'oggetto e' stato inserito correttamente",
+        "label_recycle_string_value": "Questo oggetto HA VALORE",
+        "label_recycle_string_reuse": "Questo oggetto puo' essere RIUTILIZZATO",
+        "label_recycle_string_recycle": "Questo oggetto puo' essere RICICLATO",
+        "label_bin_recycle_string_value":"Green Idea",
+        "label_bin_recycle_string_reuse":"Riuso",
+        "label_bin_recycle_string_recycle":"Riciclo",
+        "label_point_reusable": "Guadagni un punto RIUSO",
+        "label_point_recicle": "Guadagni un punto RICICLO",
+        "label_well_done": "Ben fatto!",
+        "label_recycle_value": "L'oggetto va nel contenitore Riparo",
+        "label_recycle_reuse": "L'oggetto va nella contenitore Riuso",
+        "label_recycle_recycle": "L'oggetto va nel contenitore Riciclo",
+        "label_end_recycle": "Completa la raccolta",
+        "label_item_collected":"La tua classe ha raccolto  {{totalItems}} oggetti. Ricordati di portarli a scuola per ottenere i crediti riciclo/ riuso e riparo e conferirli con l'aiuto della tua insegnante all'interno dello smart bin corretto.",
+        "label_item_confirmed":"La tua classe ha raccolto  {{confirmedItems}} oggetti. Ricordati di portarli a scuola per ottenere i crediti riciclo/ riuso e riparo e conferirli con l'aiuto della tua insegnante all'interno dello smart bin corretto."
+
+
 }

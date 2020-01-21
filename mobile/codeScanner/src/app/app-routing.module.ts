@@ -20,6 +20,7 @@ const routes: Routes = [
   { path: 'callback', loadChildren: './auth/implicit/auth-callback/auth-callback.module#AuthCallbackPageModule' },
   { path: 'logout', loadChildren: './auth/implicit/end-session/end-session.module#EndSessionPageModule' },
   { path: 'result', loadChildren: './members/classification/result/result.module#ResultPageModule' },
+  { path: 'item-classified/:item', loadChildren: './members/classification/item-classified/item-classified.module#ItemClassifiedPageModule' },
   { path: '**', redirectTo: 'select-class', pathMatch: 'full'}
  
 ];
