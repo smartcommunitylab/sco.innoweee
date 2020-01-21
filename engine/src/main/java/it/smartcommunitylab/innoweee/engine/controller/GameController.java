@@ -311,14 +311,14 @@ public class GameController extends AuthController {
 			throw new StorageException("score too low");
 		}
 		Catalog catalog = catalogRepository.findByGameId(game.getTenantId(), gameId);
+		List<Component> componentsToBuild = new ArrayList<Component>();
 		if(catalog != null) {
-			GameAction altruisticAction = Utils.getAltruisticAction(game, collection.getNameGE(), player, 
-					catalog, pointDistribution.getContributorCoinMap());
-			gameActionRepository.save(altruisticAction);
+			componentsToBuild = Utils.getAltruisticAction(player, catalog, 
+					pointDistribution.getContributorCoinMap());
 		}
 		Map<String, CoinMap> playerCoinMap = pointDistribution.distribute();
 		GameAction gameAction = Utils.getContributionAction(game, collection.getNameGE(), player, 
-				pointDistribution, playerCoinMap);
+				pointDistribution, playerCoinMap, componentsToBuild);
 		gameActionRepository.save(gameAction);		
 		logger.info("sendContribution[{}]:{} / {} / {} / {}", game.getTenantId(), gameId, playerId, 
 				nameGE, playerCoinMap);

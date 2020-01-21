@@ -1,0 +1,17 @@
+[
+{
+	"binId":"1",
+	"binType":"bin_reuse",
+	"gameId":"11111"
+},
+{
+	"binId":"2",
+	"binType":"bin_recycle",
+	"gameId":"11111"
+},
+{
+	"binId":"3",
+	"binType":"bin_value",
+	"gameId":"11111"
+}
+]
