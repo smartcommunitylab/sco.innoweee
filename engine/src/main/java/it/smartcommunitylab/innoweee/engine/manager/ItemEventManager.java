@@ -25,6 +25,11 @@ public class ItemEventManager {
 		return itemEventRepository.findByPlayerIds(playerIds, sort);
 	}
 	
+	List<ItemEvent> findByDisposal(List<String> playerIds, boolean reusable, boolean valuable, 
+			int state, Date disposalDate, Sort sort) {
+		return itemEventRepository.findByDisposal(playerIds, reusable, valuable, state, disposalDate, sort);
+	}
+	
 	public ItemEvent itemClassified(ItemEvent itemEvent) {
 		ItemAction action = new ItemAction();
 		action.setActionType("CLASSIFIED");
@@ -41,6 +46,16 @@ public class ItemEventManager {
 		action.setTimestamp(new Date());
 		itemEvent.getActions().add(action);
 		itemEvent.setState(Const.ITEM_STATE_CONFIRMED);
+		itemEventRepository.save(itemEvent);
+		return itemEvent;
+	}
+	
+	public ItemEvent itemDisposed(ItemEvent itemEvent) {
+		ItemAction action = new ItemAction();
+		action.setActionType("DISPOSED");
+		action.setTimestamp(new Date());
+		itemEvent.getActions().add(action);
+		itemEvent.setState(Const.ITEM_STATE_DISPOSED);
 		itemEventRepository.save(itemEvent);
 		return itemEvent;
 	}

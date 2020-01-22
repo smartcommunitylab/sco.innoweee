@@ -17,7 +17,6 @@ import it.smartcommunitylab.innoweee.engine.model.Player;
 import it.smartcommunitylab.innoweee.engine.model.WasteCollectorAction;
 import it.smartcommunitylab.innoweee.engine.model.WasteCollectorBin;
 import it.smartcommunitylab.innoweee.engine.model.WasteCollectorCard;
-import it.smartcommunitylab.innoweee.engine.repository.ItemEventRepository;
 import it.smartcommunitylab.innoweee.engine.repository.PlayerRepository;
 import it.smartcommunitylab.innoweee.engine.repository.WasteCollectorActionRepository;
 import it.smartcommunitylab.innoweee.engine.repository.WasteCollectorBinRepository;
@@ -36,7 +35,7 @@ public class WasteCollectorManager {
 	@Autowired
 	private PlayerRepository playerRepository;
 	@Autowired
-	private ItemEventRepository itemEventRepository;
+	private ItemEventManager itemEventManager;
 	
 	public void addDisposalAction(WasteCollectorAction action) {
 		action.setObjectId(null);
@@ -78,11 +77,10 @@ public class WasteCollectorManager {
 
 	private void changeItemsStateToDisposed(List<String> playerIds, boolean reusable, boolean valuable, 
 			Date disposalDate, WasteCollectorBin bin, WasteCollectorCard card) {
-		List<ItemEvent> events = itemEventRepository.findByDisposal(playerIds, reusable, valuable, 
+		List<ItemEvent> events = itemEventManager.findByDisposal(playerIds, reusable, valuable, 
 				Const.ITEM_STATE_CONFIRMED, disposalDate, new Sort(Sort.Direction.DESC, "timestamp"));
 		for(ItemEvent event : events) {
-			event.setState(Const.ITEM_STATE_DISPOSED);
-			itemEventRepository.save(event);
+			itemEventManager.itemDisposed(event);
 		}
 		logger.info("addDisposalAction:set {} items to disposed state / {} / {} / {}", events.size(), 
 				bin.getBinType(), bin.getBinId(), card.getCardId());
