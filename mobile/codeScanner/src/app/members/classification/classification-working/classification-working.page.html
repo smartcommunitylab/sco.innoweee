@@ -42,10 +42,11 @@
                 {{'label_recap'|translate}}
               </ion-list-header>
               <div class="recap">
-                <ion-item lines="none">{{getType()}}</ion-item>
-                <ion-item lines="none">{{getSwitching()}}</ion-item>
-                <ion-item lines="none">{{getBroken()}}</ion-item>
-                <ion-item lines="none">{{getAge()}}</ion-item>
+                <ion-item lines="none"><ion-label>{{'label_recap_id'|translate}}</ion-label>{{getId()}}</ion-item>
+                <ion-item lines="none"><ion-label>{{'label_recap_type'|translate}}</ion-label>{{getType()}}</ion-item>
+                <ion-item lines="none"><ion-label>{{'label_recap_switch'|translate}}</ion-label>{{getSwitching()}}</ion-item>
+                <ion-item lines="none"><ion-label>{{'label_recap_broken'|translate}}</ion-label>{{getBroken()}}</ion-item>
+                <ion-item lines="none"><ion-label>{{'label_recap_age'|translate}}</ion-label>{{getAge()}}</ion-item>
               </div>
             </ion-list>
           </div>

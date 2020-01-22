@@ -60,6 +60,13 @@ export class ClassificationBrokenPage implements OnInit {
       return this.recap["old"];
     return ""
   }
+  getId() {
+    if (this.itemClassification)
+
+    return this.itemClassification.getItemId()
+    return ""
+  
+  }
   getBroken() {
     if (this.itemClassification){
     if (this.itemClassification.getBroken() == true)

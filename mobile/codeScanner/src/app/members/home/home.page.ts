@@ -85,7 +85,7 @@ export class HomePage implements OnInit {
     this.barcodeScanner.scan(this.options).then((barcodeData) => {
 
       console.log(barcodeData);
-      this.scanData = barcodeData;
+      this.scanData = barcodeData.text;
       this.router.navigate(['item-recognized'], { queryParams: { scanData: JSON.stringify(this.scanData), playerId: this.playerId } })
       // this.checkIfPresent(this.scanData);
     }, (err) => {

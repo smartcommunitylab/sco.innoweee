@@ -1,9 +1,9 @@
 <ion-header>
   <ion-toolbar class="color-bar">
-      <ion-title class="game-title">{{'title_game_selection'|translate}}</ion-title>
+    <ion-title class="game-title">{{'title_game_selection'|translate}}</ion-title>
 
     <ion-buttons class="language" slot="end">
-        <ion-label> {{'label_logout'|translate}}                </ion-label>
+      <ion-label> {{'label_logout'|translate}} </ion-label>
       <ion-button (click)="changeClass()">
         <ion-icon slot="icon-only" name="log-out"></ion-icon>
       </ion-button>
@@ -19,15 +19,24 @@
           <img src="./assets/qr-code.png">
         </div>
         <div *ngIf="item" class="interaction">
-            <p><span *ngIf="!item">{{'label_id'|translate}}</span><span *ngIf="item">{{item}}</span><span class="bold"> {{item.text}}</span></p>
+          <p><span *ngIf="!item">{{'label_id'|translate}}</span>
+            <span *ngIf="item.text; else manual_insert" class="bold"> {{item.text}}</span>
+
+
+            <ng-template #manual_insert><span *ngIf="item" class="bold">{{item}}</span></ng-template>
+
+
+            <!-- <p><span *ngIf="!item">{{'label_id'|translate}}</span><span *ngIf="item">{{item}}</span><span class="bold"> {{item.text}}</span></p> -->
             <p *ngIf="itemPresent"><span class="bold">{{'label_item_present'|translate}}</span></p>
-            <ion-button size="large" ion-button (click)="sendLim()" [hidden]="!isTeacher()" [disabled]="itemPresent">{{'label_send_to_lim'|translate}}
+            <ion-button size="large" ion-button (click)="sendLim()" [hidden]="!isTeacher()" [disabled]="itemPresent">
+              {{'label_send_to_lim'|translate}}
             </ion-button>
-            <ion-button size="large" ion-button (click)="classify()" [hidden]="!isParent()"  [disabled]="itemPresent">{{'label_classify'|translate}}
+            <ion-button size="large" ion-button (click)="classify()" [hidden]="!isParent()" [disabled]="itemPresent">
+              {{'label_classify'|translate}}
             </ion-button>
-            <ion-button size="large" ion-button (click)="cancel()" >{{'label_cancel'|translate}}
-                </ion-button>
-          </div>
+            <ion-button size="large" ion-button (click)="cancel()">{{'label_cancel'|translate}}
+            </ion-button>
+        </div>
       </ion-col>
     </ion-row>
   </ion-grid>

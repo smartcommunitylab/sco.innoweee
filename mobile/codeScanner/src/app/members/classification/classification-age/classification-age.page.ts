@@ -51,6 +51,13 @@ export class ClassificationAgePage implements OnInit {
       await alert.present();
     })
   }
+  getId() {
+    if (this.itemClassification)
+
+    return this.itemClassification.getItemId()
+    return ""
+  
+  }
   getAge() {
 
     if (this.itemClassification.getAge() == 0)

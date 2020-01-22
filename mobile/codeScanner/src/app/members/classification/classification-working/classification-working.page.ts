@@ -64,6 +64,13 @@ export class ClassificationWorkingPage implements OnInit {
 
       return this.recap["old"];
     return ""
+  }  
+  getId() {
+    if (this.itemClassification)
+
+    return this.itemClassification.getItemId()
+    return ""
+  
   }
   getBroken() {
     if (this.itemClassification){
