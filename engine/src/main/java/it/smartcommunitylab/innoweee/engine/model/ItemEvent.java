@@ -5,11 +5,16 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+@Document
 public class ItemEvent {
-	@Id
+	@Id	
 	private String id;
+	@Indexed 
 	private String playerId;
+	@Indexed 
 	private String itemId;
 	private String itemType;
 	private boolean broken;
@@ -20,6 +25,7 @@ public class ItemEvent {
 	private boolean reusable;
 	private boolean valuable;
 	private boolean manual;
+	@Indexed
 	private int state;
 	private List<ItemAction> actions = new ArrayList<ItemAction>();
 	
