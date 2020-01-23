@@ -229,7 +229,7 @@ public class ItemController extends AuthController {
 		itemEvent.setReusable(getReusable(itemEvent, garbage));
 		itemEvent.setValuable(getValuable(itemEvent, garbage, actualCollection));
 		itemEventManager.itemClassified(itemEvent);
-		logger.debug("itemDelivery:{} / {}", itemEvent.getItemType(), itemEvent.getItemId());
+		logger.info("itemDelivery:{} / {}", itemEvent.getItemType(), itemEvent.getItemId());
 		return itemEvent;
 	}
 	
@@ -279,7 +279,7 @@ public class ItemController extends AuthController {
 		itemEventManager.itemConfirmed(itemEvent);
 		GameAction gameAction = Utils.getItemDeliveryGameAction(game, actualCollection.getNameGE(), player, itemEvent);
 		gameActionRepository.save(gameAction);		
-		logger.debug("itemConfirmed:{} / {}", itemEvent.getItemType(), itemEvent.getItemId());
+		logger.info("itemConfirmed:{} / {}", itemEvent.getItemType(), itemEvent.getItemId());
 		return itemEvent;
 	}	
 	
@@ -381,10 +381,10 @@ public class ItemController extends AuthController {
 					sb.append("\"" + saveTime + "\"\n");
 				}
 			} catch (Exception e) {
-				logger.debug("getItemCsv error:{} / {}", event.getId(), e.getMessage());
+				logger.info("getItemCsv error:{} / {}", event.getId(), e.getMessage());
 			}
 		}
-		logger.debug("getItemCsv:{} / {}", tenantId, eventList.size());
+		logger.info("getItemCsv:{} / {}", tenantId, eventList.size());
 		return sb.toString();
 	}
 	
