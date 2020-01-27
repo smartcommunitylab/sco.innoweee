@@ -26,7 +26,6 @@ export class ProfileService {
   getRobotImageApi:string="";
   schoolName: string="";
   playerName:string="";
-  getAppUrl: string;
 
   constructor(private httpClient: HttpClient,
     private storage:Storage,
@@ -41,7 +40,6 @@ export class ProfileService {
     this.getGameApi = environment.getGameApi;
     this.getPlayerApi = environment.getPlayerApi;
     this.getRobotImageApi = environment.getRobotImageApi;
-    this.getAppUrl = environment.appUrl;
   }
 
   getDomain(): Promise<any> {
