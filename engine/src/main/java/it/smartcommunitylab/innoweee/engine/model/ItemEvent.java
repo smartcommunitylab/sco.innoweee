@@ -27,6 +27,8 @@ public class ItemEvent {
 	private boolean manual;
 	@Indexed
 	private int state;
+	private String stateNote;
+	private String collector;
 	private List<ItemAction> actions = new ArrayList<ItemAction>();
 	
 	public String getId() {
@@ -112,5 +114,17 @@ public class ItemEvent {
 	}
 	public void setActions(List<ItemAction> actions) {
 		this.actions = actions;
+	}
+	public String getStateNote() {
+		return stateNote;
+	}
+	public void setStateNote(String stateNote) {
+		this.stateNote = stateNote;
+	}
+	public String getCollector() {
+		return collector;
+	}
+	public void setCollector(String collector) {
+		this.collector = collector;
 	}
 }
