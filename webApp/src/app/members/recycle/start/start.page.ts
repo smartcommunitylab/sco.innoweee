@@ -97,7 +97,7 @@ export class StartPage extends MainPage implements OnInit {
         this.checkIfPresent(that.message.itemId,).then(res => {
         if (!res) {
           //new item
-          this.router.navigate(['item-loaded', that.message.itemId,, false]);
+          this.router.navigate(['item-loaded', that.message.itemId, false]);
 
         }
         else if (this.itemClassified(res)) {
