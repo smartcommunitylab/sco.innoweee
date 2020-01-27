@@ -15,5 +15,6 @@
         "classification_on":"Si accende",
         "classification_off":"Non si accende",
         "label_confirm":"Conferma",
-        "label_change":"Modifica"
+        "label_change":"Modifica",
+        "confirm_title":"Conferma i dati"
 }

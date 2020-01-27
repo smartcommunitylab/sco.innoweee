@@ -165,8 +165,9 @@
         "classification_fixed":"Integro",
         "classification_on":"Si accende",
         "classification_off":"Non si accende",
-        "label_confirm":"Conferma",
-        "label_change":"Modifica"
+        "label_confirm":"Confirm",
+        "label_change":"Modifica",
+        "confirm_title":"Confirm the data"
 
 
 

@@ -26,8 +26,8 @@
       <ion-col class="col-vertical-center" >
         <div class="vertical-center left-box">
           <div class="answers" *ngIf="item">
-            <p class="title-recap">{{'label_title_recap'|translate}}</p>
-            <p class="subtitle-recap">{{'label_subtitle_recap'|translate}}</p>
+            <p class="title-recap ion-text-center"  >{{'label_title_recap'|translate}}</p>
+            <p class="subtitle-recap ion-text-center">{{'label_subtitle_recap'|translate}}</p>
             <ion-item lines="none"><ion-label>{{'label_recap_id'|translate}}</ion-label>{{getId()}}</ion-item>
                 <ion-item lines="none"><ion-label>{{'label_recap_type'|translate}}</ion-label>{{getType()}}</ion-item>
                 <ion-item lines="none"><ion-label>{{'label_recap_switch'|translate}}</ion-label>{{getSwitching()}}</ion-item>
@@ -37,12 +37,12 @@
           </div>
           <div class="send-item">
             <ion-col>
-              <ion-button color="dark" (click)="cancel()" fill="outline">
+              <ion-button color="dark"  expand="block" (click)="cancel()" fill="outline">
                 {{'cancel_popup'|translate}}
               </ion-button>
             </ion-col>
             <ion-col>
-              <ion-button color="dark" (click)="confirm()" fill="outline">
+              <ion-button color="dark"  expand="block" (click)="confirm()" fill="outline">
                 {{'label_send_item'|translate}}
               </ion-button>
             </ion-col>

@@ -94,7 +94,20 @@ export class StartPage extends MainPage implements OnInit {
         that.message = JSON.parse(message.body);
         if (that.message && that.message.itemId) {
           //go to item-loaded
-          that.router.navigate(['item-loaded', that.message.itemId, false]);
+        this.checkIfPresent(that.message.itemId,).then(res => {
+        if (!res) {
+          //new item
+          this.router.navigate(['item-loaded', that.message.itemId,, false]);
+
+        }
+        else if (this.itemClassified(res)) {
+          this.router.navigate(['item-confirm',  JSON.stringify(res)]);
+
+        } else {
+          this.showErrorItem();
+        }
+      })
+          // that.router.navigate(['item-loaded', that.message.itemId, false]);
         }
       });
       that.disabled = true;
