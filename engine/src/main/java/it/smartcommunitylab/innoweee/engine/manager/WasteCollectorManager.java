@@ -77,7 +77,7 @@ public class WasteCollectorManager {
 
 	private void changeItemsStateToDisposed(List<String> playerIds, boolean reusable, boolean valuable, 
 			Date disposalDate, WasteCollectorBin bin, WasteCollectorCard card) {
-		List<ItemEvent> events = itemEventManager.findByDisposal(playerIds, reusable, valuable, 
+		List<ItemEvent> events = itemEventManager.findByParams(playerIds, reusable, valuable, 
 				Const.ITEM_STATE_CONFIRMED, disposalDate, new Sort(Sort.Direction.DESC, "timestamp"));
 		for(ItemEvent event : events) {
 			itemEventManager.itemDisposed(event);

@@ -25,9 +25,9 @@ public class ItemEventManager {
 		return itemEventRepository.findByPlayerIds(playerIds, sort);
 	}
 	
-	List<ItemEvent> findByDisposal(List<String> playerIds, boolean reusable, boolean valuable, 
+	List<ItemEvent> findByParams(List<String> playerIds, boolean reusable, boolean valuable, 
 			int state, Date disposalDate, Sort sort) {
-		return itemEventRepository.findByDisposal(playerIds, reusable, valuable, state, disposalDate, sort);
+		return itemEventRepository.findByParams(playerIds, reusable, valuable, state, disposalDate, sort);
 	}
 	
 	public ItemEvent itemClassified(ItemEvent itemEvent) {

@@ -21,7 +21,7 @@ public interface ItemEventRepository extends MongoRepository<ItemEvent, String> 
 	ItemEvent findByItemId(String itemId);
 	
 	@Query(value="{playerId:{$in:?0}, reusable:?1, valuable:?2, state:?3, saveTime:{$lte:?4}}")
-	List<ItemEvent> findByDisposal(List<String> playerIds, boolean reusable, boolean valuable, 
+	List<ItemEvent> findByParams(List<String> playerIds, boolean reusable, boolean valuable, 
 			int state, Date disposalDate, Sort sort);
 	
 }
