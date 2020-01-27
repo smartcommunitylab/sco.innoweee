@@ -7,5 +7,5 @@ import it.smartcommunitylab.innoweee.engine.model.WasteCollectorBin;
 
 @Repository
 public interface WasteCollectorBinRepository extends MongoRepository<WasteCollectorBin, String> {
-
+	WasteCollectorBin findByBinId(String binId);
 }

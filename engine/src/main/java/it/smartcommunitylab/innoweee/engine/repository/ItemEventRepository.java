@@ -1,5 +1,6 @@
 package it.smartcommunitylab.innoweee.engine.repository;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.domain.Sort;
@@ -18,4 +19,9 @@ public interface ItemEventRepository extends MongoRepository<ItemEvent, String> 
 	List<ItemEvent> findByPlayerIds(List<String> playerIds, Sort sort);
 	
 	ItemEvent findByItemId(String itemId);
+	
+	@Query(value="{playerId:{$in:?0}, reusable:?1, valuable:?2, state:?3, saveTime:{$lte:?4}}")
+	List<ItemEvent> findByParams(List<String> playerIds, boolean reusable, boolean valuable, 
+			int state, Date disposalDate, Sort sort);
+	
 }

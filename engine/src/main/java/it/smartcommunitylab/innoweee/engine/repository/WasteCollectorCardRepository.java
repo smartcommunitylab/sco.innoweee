@@ -7,5 +7,5 @@ import it.smartcommunitylab.innoweee.engine.model.WasteCollectorCard;
 
 @Repository
 public interface WasteCollectorCardRepository extends MongoRepository<WasteCollectorCard, String> {
-
+	WasteCollectorCard findByCardId(String cardId);
 }

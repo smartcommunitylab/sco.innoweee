@@ -32,7 +32,7 @@ public class SecurityConfig extends ResourceServerConfigurerAdapter {
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-				.antMatchers("/actuator/**").permitAll()
+				.antMatchers("/actuator/**", "/api/image/**").permitAll()
 				.antMatchers("/api/**", "/admin/**").authenticated()
 				.and().cors().and().csrf().disable();
 	}

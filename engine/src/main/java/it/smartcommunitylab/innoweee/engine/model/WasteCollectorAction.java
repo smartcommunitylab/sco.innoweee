@@ -17,6 +17,7 @@ public class WasteCollectorAction {
 	private double weight;
 	@JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ssZ")
 	private Date timestamp;
+	private String binType;
 	private Date saveTime;
 	
 	public String getObjectId() {
@@ -72,5 +73,11 @@ public class WasteCollectorAction {
 	}
 	public void setOrigin(String origin) {
 		this.origin = origin;
+	}
+	public String getBinType() {
+		return binType;
+	}
+	public void setBinType(String binType) {
+		this.binType = binType;
 	} 
 }

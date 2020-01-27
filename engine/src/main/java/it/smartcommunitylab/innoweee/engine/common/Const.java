@@ -12,6 +12,7 @@ public class Const {
 	public static final String ROLE_SCHOOL_OWNER = "school-owner";
 	public static final String ROLE_SCHOOL_TEACHER = "school-teacher";
 	public static final String ROLE_SCHOOL_PARENT = "school-parent";
+	public static final String ROLE_COLLECTOR_OPERATOR = "collector-operator";
 	
 	public static final String AUTH_ACTION_READ = "READ";
 	public static final String AUTH_ACTION_ADD = "ADD";
@@ -81,6 +82,7 @@ public class Const {
 	public static int ITEM_STATE_COLLECTED = 4;
 	public static int ITEM_STATE_ARRIVED = 5;
 	public static int ITEM_STATE_CHECKED = 6;
+	public static int ITEM_STATE_UNEXPECTED = 7;
 	
 	public static final String WASTE_DISPOSAL = "waste_disposal";
 	public static final String WASTE_COLLECTION = "waste_collection";
