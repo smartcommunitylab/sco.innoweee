@@ -13,7 +13,8 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Storage } from '@ionic/storage';
 import { environment } from './../../../../environments/environment';
 
-
+var ITEM_STATE_CLASSIFIED = 1;
+var ITEM_STATE_CONFIRMED = 2;
 @Component({
   selector: 'app-start',
   templateUrl: './start.page.html',
@@ -48,7 +49,7 @@ export class StartPage extends MainPage implements OnInit {
     private alertController: AlertController,
     private route: ActivatedRoute,
     public navCtrl: NavController) {
-    super(translate, authService, storage,navCtrl);
+    super(translate, authService, storage, navCtrl);
 
     this.itemSocketURL = environment.itemSocketURL;
     this.apiEndpoint = environment.apiEndpoint;
@@ -57,7 +58,7 @@ export class StartPage extends MainPage implements OnInit {
   ionViewWillEnter() {
     this.manual = false;
     this.message = null;
-  
+
     this.manualItemId = "";
     this.profileService.getLocalPlayerData().then(res => {
       this.playerData = res;
@@ -84,11 +85,11 @@ export class StartPage extends MainPage implements OnInit {
     // let sock = new WebSocket("ws://localhost:2020/itemws/websocket");
     this.ws = Stomp.over(sock);
     let that = this;
-    this.ws.connect({},  (frame) => {
-      that.ws.subscribe("/errors",  (message) => {
+    this.ws.connect({}, (frame) => {
+      that.ws.subscribe("/errors", (message) => {
         alert("Error " + message.body);
       });
-      this.subscription = that.ws.subscribe("/topic/item." + tenantId + "." + playerId,  (message) => {
+      this.subscription = that.ws.subscribe("/topic/item." + tenantId + "." + playerId, (message) => {
         console.log(message)
         that.message = JSON.parse(message.body);
         if (that.message && that.message.itemId) {
@@ -109,7 +110,7 @@ export class StartPage extends MainPage implements OnInit {
     this.manual = true;
     setTimeout(() => {
       this.manualID.setFocus();
-    },300);
+    }, 300);
     // this.manualID.setFocus();
   }
   manualInsert() {
@@ -117,16 +118,23 @@ export class StartPage extends MainPage implements OnInit {
       //go to item-loaded
       this.checkIfPresent(this.manualItemId).then(res => {
         if (!res) {
+          //new item
           this.router.navigate(['item-loaded', this.manualItemId, true]);
 
         }
-        else {
+        else if (this.itemClassified(res)) {
+          this.router.navigate(['item-confirm',  JSON.stringify(res)]);
+
+        } else {
           this.showErrorItem();
         }
       })
       //todo check if id is already present
 
     }
+  }
+  itemClassified(res: any) {
+    return (res.state == ITEM_STATE_CLASSIFIED)
   }
 
   async showErrorItem() {
@@ -146,7 +154,7 @@ export class StartPage extends MainPage implements OnInit {
   checkIfPresent(scanData): Promise<any> {
     return this.garbageCollection.checkIfPresent(scanData, this.playerData.objectId).then(res => {
       console.log(res);
-      return res.result
+      return res
     })
   }
 

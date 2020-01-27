@@ -5,10 +5,11 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Storage } from '@ionic/storage';
 import { getAllRouteGuards } from '@angular/router/src/utils/preactivation';
 import { async } from 'q';
-import { ModalController, LoadingController } from '@ionic/angular';
+import { ModalController, LoadingController, AlertController } from '@ionic/angular';
 import { ClassComponent } from './modals/class/class.component';
 import { OverlayEventDetail } from '@ionic/core';
 import { TranslateService } from '@ngx-translate/core';
+import { UtilsService } from 'src/app/services/utils.service';
 
 
 const PLAYER_DATA_KEY = 'playerData';
@@ -29,6 +30,8 @@ export class GameSelectionPage implements OnInit {
     private translate: TranslateService,
     private router: Router, private fb: FormBuilder,
     private _cdr: ChangeDetectorRef,
+    private utils:UtilsService,
+    private alertController: AlertController,
     public modalController: ModalController,
     private loadingCtrl: LoadingController) {
   }
@@ -73,6 +76,8 @@ export class GameSelectionPage implements OnInit {
         }, REFRESH_TIME);
 
       }
+    },err => {
+      this.utils.handleError(err);
     }
     )
   }
@@ -199,4 +204,5 @@ export class GameSelectionPage implements OnInit {
   getFooter() {
     return (this.translate.instant('footer_game_title'))
   }
+  
 }

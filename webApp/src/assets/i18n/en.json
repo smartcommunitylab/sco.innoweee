@@ -153,7 +153,20 @@
         "message_confirm":"Are you sure to give all your coins?",
         "header_donated":"CONGRATULATION!",
         "message_donated":" Thank you for your generosity! ! You gave your coins to class {{classe}} and you have earned a star!<br><div><ion-icon src=\"./assets/images/yellow.svg\" *ngIf=\"isFuture(contribute)\"></ion-icon></div>",
-        "donate_server_error":"Error with the server during your donation!"
+        "donate_server_error":"Error with the server during your donation!",
+        "label_recap_id":"ID:",
+        "label_recap_type":"Tipologia:",
+        "label_recap_switch":"Si accende:",
+        "label_recap_broken":"E' integro:",
+        "label_recap_age":"E' vecchio:",
+        "classification_new":"Nuovo",
+        "classification_old":"Vecchio",
+        "classification_broken":"Rotto",
+        "classification_fixed":"Integro",
+        "classification_on":"Si accende",
+        "classification_off":"Non si accende",
+        "label_confirm":"Conferma",
+        "label_change":"Modifica"
 
 
 

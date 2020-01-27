@@ -151,5 +151,18 @@
         "message_confirm":"Sei sicuro di voler donare tutti i tuoi crediti?",
         "header_donated":"COMPLIMENTI!",
         "message_donated":"Hai donato i tuoi punti residui alla classe {{classe}} ed hai guadagnato una stella!<br><div><ion-icon src=\"./assets/images/yellow.svg\" *ngIf=\"isFuture(contribute)\"></ion-icon></div>",
-        "donate_server_error":"Errore nella donazione dei tuoi punti"
+        "donate_server_error":"Errore nella donazione dei tuoi punti",
+        "label_recap_id":"ID:",
+        "label_recap_type":"Tipologia:",
+        "label_recap_switch":"Si accende:",
+        "label_recap_broken":"E' integro:",
+        "label_recap_age":"E' vecchio:",
+        "classification_new":"Nuovo",
+        "classification_old":"Vecchio",
+        "classification_broken":"Rotto",
+        "classification_fixed":"Integro",
+        "classification_on":"Si accende",
+        "classification_off":"Non si accende",
+        "label_confirm":"Conferma",
+        "label_change":"Modifica"
 }
