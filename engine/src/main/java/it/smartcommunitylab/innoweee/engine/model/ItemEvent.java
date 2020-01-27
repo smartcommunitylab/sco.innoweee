@@ -8,6 +8,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import it.smartcommunitylab.innoweee.engine.common.Utils;
+
 @Document
 public class ItemEvent {
 	@Id	
@@ -30,6 +32,14 @@ public class ItemEvent {
 	private String stateNote;
 	private String collector;
 	private List<ItemAction> actions = new ArrayList<ItemAction>();
+	
+	public void addStateNote(String note) {
+		if(Utils.isEmpty(this.stateNote)) {
+			this.stateNote = note;
+		} else {
+			this.stateNote += ";" + note;
+		}
+	}
 	
 	public String getId() {
 		return id;

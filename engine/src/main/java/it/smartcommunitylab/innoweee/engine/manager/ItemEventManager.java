@@ -161,5 +161,15 @@ public class ItemEventManager {
 		itemEventRepository.save(itemEvent);
 		return itemEvent;
 	}
+	
+	public ItemEvent itemChecked(ItemEvent itemEvent) {
+		ItemAction action = new ItemAction();
+		action.setActionType("CHECKED");
+		action.setTimestamp(new Date());
+		itemEvent.getActions().add(action);
+		itemEvent.setState(Const.ITEM_STATE_CHECKED);
+		itemEventRepository.save(itemEvent);
+		return itemEvent;		
+	}
 
 }
