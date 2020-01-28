@@ -160,7 +160,7 @@ public class AuthController {
 			for(String authKey : user.getRoles().keySet()) {
 				List<Authorization> authList = user.getRoles().get(authKey);
 				for(Authorization auth : authList) {
-					if(auth.getRole().equals(role)) {
+					if(auth.getRole().equals(role) || auth.getRole().equals(Const.ROLE_ADMIN)) {
 						return true;
 					}
 				}

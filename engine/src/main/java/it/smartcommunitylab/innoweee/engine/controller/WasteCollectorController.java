@@ -68,8 +68,8 @@ public class WasteCollectorController extends AuthController {
 		logger.info("addCollectionAction:{} / {} / {}", action.getOrigin(), action.getBinId(), action.getCardId());
 	}
 	
-	@GetMapping(value = "/api/collector/item/{tenantId}/check")
-	public @ResponseBody ItemReport checkItem(
+	@GetMapping(value = "/api/collector/item/{tenantId}/find")
+	public @ResponseBody ItemReport findItem(
 			@PathVariable String tenantId,
 			@RequestParam String itemId,
 			HttpServletRequest request) throws Exception {
@@ -95,11 +95,11 @@ public class WasteCollectorController extends AuthController {
 				}
 			}
 		}
-		logger.info("checkItem[{}]:{} / {}", tenantId, itemId, report);
+		logger.info("findItem[{}]:{} / {}", tenantId, itemId, report);
 		return report;
 	}
 	
-	@PutMapping(value = "/api/collector/item/{tenantId}/checked")
+	@PutMapping(value = "/api/collector/item/{tenantId}/check")
 	public @ResponseBody ItemEvent itemChecked(
 			@PathVariable String tenantId,
 			@RequestParam String itemId,
@@ -125,11 +125,35 @@ public class WasteCollectorController extends AuthController {
 			}
 			itemEventManager.itemChecked(itemEvent);
 		} else {
-			throw new EntityNotFoundException(Const.ERROR_CODE_APP + "item has a wronge state");
+			throw new EntityNotFoundException(Const.ERROR_CODE_APP + "item state not compatible");
 		}
+		logger.info("itemChecked[{}]:{}", tenantId, itemId);
 		return itemEvent; 
 	}
 	
+	@PutMapping(value = "/api/collector/item/{tenantId}/unexpected")
+	public @ResponseBody ItemEvent itemUnexpected(
+			@PathVariable String tenantId,
+			@RequestParam String itemId,
+			@RequestParam String itemType,
+			@RequestParam boolean broken,
+			@RequestParam String collector,
+			HttpServletRequest request) throws Exception {
+		if(!validateRole(Const.ROLE_COLLECTOR_OPERATOR, tenantId, request)) {
+			throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
+		}
+		ItemEvent itemEvent = itemEventManager.findByItemId(itemId);
+		if(itemEvent == null) {
+			itemEvent = new ItemEvent();
+			itemEvent.setItemId(itemId);
+			itemEvent.setItemType(itemType);
+			itemEvent.setBroken(broken);
+		}
+		itemEvent.setCollector(collector);
+		itemEventManager.itemUnexpected(itemEvent);
+		logger.info("itemUnexpected[{}]:{}", tenantId, itemId);
+		return itemEvent; 
+	}
 	
 	
 	
