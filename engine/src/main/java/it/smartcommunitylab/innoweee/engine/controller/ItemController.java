@@ -31,27 +31,20 @@ import it.smartcommunitylab.innoweee.engine.exception.EntityNotFoundException;
 import it.smartcommunitylab.innoweee.engine.exception.UnauthorizedException;
 import it.smartcommunitylab.innoweee.engine.ge.GeManager;
 import it.smartcommunitylab.innoweee.engine.manager.ItemEventManager;
-import it.smartcommunitylab.innoweee.engine.model.Category;
-import it.smartcommunitylab.innoweee.engine.model.CategoryMap;
 import it.smartcommunitylab.innoweee.engine.model.Game;
 import it.smartcommunitylab.innoweee.engine.model.GameAction;
-import it.smartcommunitylab.innoweee.engine.model.Garbage;
 import it.smartcommunitylab.innoweee.engine.model.GarbageCollection;
 import it.smartcommunitylab.innoweee.engine.model.GarbageMap;
 import it.smartcommunitylab.innoweee.engine.model.Institute;
 import it.smartcommunitylab.innoweee.engine.model.ItemEvent;
-import it.smartcommunitylab.innoweee.engine.model.ItemValuable;
-import it.smartcommunitylab.innoweee.engine.model.ItemValuableMap;
 import it.smartcommunitylab.innoweee.engine.model.Player;
 import it.smartcommunitylab.innoweee.engine.model.ReduceReport;
 import it.smartcommunitylab.innoweee.engine.model.School;
-import it.smartcommunitylab.innoweee.engine.repository.CategoryMapRepository;
 import it.smartcommunitylab.innoweee.engine.repository.GameActionRepository;
 import it.smartcommunitylab.innoweee.engine.repository.GameRepository;
 import it.smartcommunitylab.innoweee.engine.repository.GarbageCollectionRepository;
 import it.smartcommunitylab.innoweee.engine.repository.GarbageMapRepository;
 import it.smartcommunitylab.innoweee.engine.repository.InstituteRepository;
-import it.smartcommunitylab.innoweee.engine.repository.ItemValuableMapRepository;
 import it.smartcommunitylab.innoweee.engine.repository.PlayerRepository;
 import it.smartcommunitylab.innoweee.engine.repository.ReduceReportRepository;
 import it.smartcommunitylab.innoweee.engine.repository.SchoolRepository;
@@ -74,11 +67,7 @@ public class ItemController extends AuthController {
 	@Autowired
 	private GarbageMapRepository garbageMapRepository;
 	@Autowired
-	private CategoryMapRepository categoryMapRepository;
-	@Autowired
 	private ReduceReportRepository reduceReportRepository;
-	@Autowired
-	private ItemValuableMapRepository valuableMapRepository;
 	@Autowired
 	private GameActionRepository gameActionRepository;
 	@Autowired
@@ -194,7 +183,6 @@ public class ItemController extends AuthController {
 			@RequestBody ItemEvent itemEvent,
 			HttpServletRequest request, 
 			HttpServletResponse response) throws Exception {
-		long now = System.currentTimeMillis();
 		Optional<Player> optionalPlayer = playerRepository.findById(itemEvent.getPlayerId());
 		if(optionalPlayer.isEmpty()) {
 			throw new EntityNotFoundException(Const.ERROR_CODE_ENTITY + "player not found");
@@ -209,27 +197,12 @@ public class ItemController extends AuthController {
 				game.getObjectId(), Const.AUTH_RES_Game_Item, Const.AUTH_ACTION_ADD, request)) {
 			throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
 		}
-		if(itemEventManager.findByItemId(itemEvent.getItemId()) != null) {
-			throw new EntityNotFoundException(Const.ERROR_CODE_APP + "item already used");
-		}
-		if(itemEvent.getTimestamp() == 0) {
-			itemEvent.setTimestamp(now);
-		}
-		itemEvent.setSaveTime(new Date(now));
-		GarbageCollection actualCollection = collectionRepository.findActualCollection(
-				game.getTenantId(), game.getObjectId(), itemEvent.getTimestamp());
-		if(actualCollection == null) {
-			throw new EntityNotFoundException(Const.ERROR_CODE_ENTITY + "collection not found");
-		}
-		GarbageMap garbageMap = garbageMapRepository.findByTenantId(game.getTenantId());
-		Garbage garbage = garbageMap.getItems().get(itemEvent.getItemType());
-		if(garbage == null) {
-			throw new EntityNotFoundException(Const.ERROR_CODE_ENTITY + "garbage not found");
-		}
-		itemEvent.setReusable(getReusable(itemEvent, garbage));
-		itemEvent.setValuable(getValuable(itemEvent, garbage, actualCollection));
-		itemEventManager.itemClassified(itemEvent);
+		itemEventManager.itemClassified(itemEvent, game);
 		logger.info("itemDelivery:{} / {}", itemEvent.getItemType(), itemEvent.getItemId());
+		if(validateRole(Const.ROLE_SCHOOL_TEACHER, game.getTenantId(), request)) {
+			itemEventManager.itemConfirmed(itemEvent, game, player);
+			logger.info("itemDelivery: item confirmed {} / {}", itemEvent.getItemType(), itemEvent.getItemId());
+		}
 		return itemEvent;
 	}
 	
@@ -259,26 +232,7 @@ public class ItemController extends AuthController {
 		if(itemEvent.getState() >= Const.ITEM_STATE_CONFIRMED) {
 			throw new EntityNotFoundException(Const.ERROR_CODE_APP + "item already confirmed");
 		}
-		GarbageCollection actualCollection = collectionRepository.findActualCollection(
-				game.getTenantId(), game.getObjectId(), itemEvent.getTimestamp());
-		if(actualCollection == null) {
-			throw new EntityNotFoundException(Const.ERROR_CODE_ENTITY + "collection not found");
-		}
-		GarbageMap garbageMap = garbageMapRepository.findByTenantId(game.getTenantId());
-		Garbage garbage = garbageMap.getItems().get(itemEvent.getItemType());
-		if(garbage == null) {
-			throw new EntityNotFoundException(Const.ERROR_CODE_ENTITY + "garbage not found");
-		}
-		CategoryMap categoryMap = categoryMapRepository.findByTenantId(game.getTenantId());
-		Category category = categoryMap.getCategories().get(garbage.getCategory());
-		if(category == null) {
-			throw new EntityNotFoundException(Const.ERROR_CODE_ENTITY + "category not found");
-		}					
-		geManager.itemDelivery(game.getGeGameId(), player.getObjectId(), itemEvent, 
-				actualCollection.getNameGE(), garbage, category);
-		itemEventManager.itemConfirmed(itemEvent);
-		GameAction gameAction = Utils.getItemDeliveryGameAction(game, actualCollection.getNameGE(), player, itemEvent);
-		gameActionRepository.save(gameAction);		
+		itemEventManager.itemConfirmed(itemEvent, game, player);
 		logger.info("itemConfirmed:{} / {}", itemEvent.getItemType(), itemEvent.getItemId());
 		return itemEvent;
 	}	
@@ -388,32 +342,5 @@ public class ItemController extends AuthController {
 		return sb.toString();
 	}
 	
-	private boolean getValuable(ItemEvent event, Garbage garbage, 
-			GarbageCollection collection) {
-		ItemValuableMap valuableMap = valuableMapRepository.findByCollectionName(
-				collection.getTenantId(), collection.getNameGE());
-		if(valuableMap == null) {
-			return false;
-		}
-		List<ItemValuable> list = valuableMap.getItems().get(garbage.getId());
-		if(list == null) {
-			return false;
-		}
-		for(ItemValuable itemValuable : list) {
-			if((itemValuable.isBroken() == event.isBroken()) &&
-					itemValuable.isSwitchingOn() == event.isSwitchingOn() &&
-					itemValuable.getAge() >= event.getAge()) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	private boolean getReusable(ItemEvent event, Garbage garbage) {
-		if(event.isBroken() || !event.isSwitchingOn()) {
-			return false;
-		}
-		return true;
-	}
 
 }

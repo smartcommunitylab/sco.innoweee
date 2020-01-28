@@ -1,18 +1,35 @@
 package it.smartcommunitylab.innoweee.engine.controller;
 
+import java.util.Optional;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import it.smartcommunitylab.innoweee.engine.common.Const;
+import it.smartcommunitylab.innoweee.engine.exception.EntityNotFoundException;
 import it.smartcommunitylab.innoweee.engine.exception.UnauthorizedException;
+import it.smartcommunitylab.innoweee.engine.manager.ItemEventManager;
 import it.smartcommunitylab.innoweee.engine.manager.WasteCollectorManager;
+import it.smartcommunitylab.innoweee.engine.model.Game;
+import it.smartcommunitylab.innoweee.engine.model.ItemEvent;
+import it.smartcommunitylab.innoweee.engine.model.ItemReport;
+import it.smartcommunitylab.innoweee.engine.model.Player;
+import it.smartcommunitylab.innoweee.engine.model.School;
 import it.smartcommunitylab.innoweee.engine.model.WasteCollectorAction;
+import it.smartcommunitylab.innoweee.engine.repository.GameRepository;
+import it.smartcommunitylab.innoweee.engine.repository.PlayerRepository;
+import it.smartcommunitylab.innoweee.engine.repository.SchoolRepository;
 
 @RestController
 public class WasteCollectorController extends AuthController {
@@ -20,7 +37,15 @@ public class WasteCollectorController extends AuthController {
 	
 	@Autowired
 	private WasteCollectorManager wasteCollectorManager;
-	
+	@Autowired
+	private ItemEventManager itemEventManager;
+	@Autowired
+	private PlayerRepository playerRepository;
+	@Autowired
+	private GameRepository gameRepository; 
+	@Autowired
+	private SchoolRepository schoolRepository;
+
 	@PostMapping(value = "/api/collector/disposal")
 	public @ResponseBody void addDisposalAction(
 			@RequestBody WasteCollectorAction action,
@@ -42,5 +67,70 @@ public class WasteCollectorController extends AuthController {
 		wasteCollectorManager.addCollectionAction(action);
 		logger.info("addCollectionAction:{} / {} / {}", action.getOrigin(), action.getBinId(), action.getCardId());
 	}
+	
+	@GetMapping(value = "/api/collector/item/{tenantId}/check")
+	public @ResponseBody ItemReport checkItem(
+			@PathVariable String tenantId,
+			@RequestParam String itemId,
+			HttpServletRequest request) throws Exception {
+		if(!validateRole(Const.ROLE_COLLECTOR_OPERATOR, tenantId, request)) {
+			throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
+		}
+		ItemReport report = null;
+		ItemEvent itemEvent = itemEventManager.findByItemId(itemId);
+		if(itemEvent != null) {
+			report = new ItemReport(itemEvent);
+			Optional<Player> optionalPlayer = playerRepository.findById(itemEvent.getPlayerId());
+			if(optionalPlayer.isPresent()) {
+				Player player = optionalPlayer.get();
+				report.setPlayerName(player.getName());
+				Optional<Game> optionalGame = gameRepository.findById(player.getGameId());
+				if(optionalGame.isPresent()) {
+					Game game = optionalGame.get();
+					Optional<School> optionalSchool = schoolRepository.findById(game.getSchoolId());
+					if(optionalSchool.isPresent()) {
+						School school = optionalSchool.get();
+						report.setSchoolName(school.getName());
+					}
+				}
+			}
+		}
+		logger.info("checkItem[{}]:{} / {}", tenantId, itemId, report);
+		return report;
+	}
+	
+	@PutMapping(value = "/api/collector/item/{tenantId}/checked")
+	public @ResponseBody ItemEvent itemChecked(
+			@PathVariable String tenantId,
+			@RequestParam String itemId,
+			@RequestParam boolean broken,
+			@RequestParam String collector,
+			HttpServletRequest request) throws Exception {
+		if(!validateRole(Const.ROLE_COLLECTOR_OPERATOR, tenantId, request)) {
+			throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
+		}
+		ItemEvent itemEvent = itemEventManager.findByItemId(itemId);
+		if(itemEvent == null) {
+			throw new EntityNotFoundException(Const.ERROR_CODE_ENTITY + "item not found");
+		}
+		if(!itemEvent.isReusable() && !itemEvent.isValuable() && (
+				(itemEvent.getState() == Const.ITEM_STATE_CONFIRMED) ||
+				(itemEvent.getState() == Const.ITEM_STATE_DISPOSED))) {
+			itemEvent.setCollector(collector);
+			if(itemEvent.getState() == Const.ITEM_STATE_CONFIRMED) {
+				itemEvent.addStateNote("not in DISPOSED state");
+			}
+			if(itemEvent.isBroken() ^ broken) {
+				itemEvent.addStateNote("BROKEN flag changed");
+			}
+			itemEventManager.itemChecked(itemEvent);
+		} else {
+			throw new EntityNotFoundException(Const.ERROR_CODE_APP + "item has a wronge state");
+		}
+		return itemEvent; 
+	}
+	
+	
+	
 	
 }
