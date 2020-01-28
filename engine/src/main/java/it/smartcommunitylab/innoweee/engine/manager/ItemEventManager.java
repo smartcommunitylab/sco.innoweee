@@ -172,4 +172,14 @@ public class ItemEventManager {
 		return itemEvent;		
 	}
 
+	public ItemEvent itemUnexpected(ItemEvent itemEvent) {
+		ItemAction action = new ItemAction();
+		action.setActionType("UNEXPECTED");
+		action.setTimestamp(new Date());
+		itemEvent.getActions().add(action);
+		itemEvent.setState(Const.ITEM_STATE_UNEXPECTED);
+		itemEventRepository.save(itemEvent);
+		return itemEvent;		
+	}
+
 }
