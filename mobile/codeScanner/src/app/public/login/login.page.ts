@@ -32,9 +32,11 @@ export class LoginPage implements OnInit  {
   ngOnInit() {      
       this.auth.authObservable.subscribe(async (action) => {
         console.log("login back");
+        console.dir(action);
         if (action.action === AuthActions.SignInSuccess) {
           //check if profile is valid
-          const token = await this.auth.getValidToken();
+          // const token = await this.auth.getValidToken();
+          const token = action.tokenResponse;
           console.log("token: "+token.accessToken)
           this.profileService.getDomain(token.accessToken).then(res => {
             this.router.navigate(['select-class']);

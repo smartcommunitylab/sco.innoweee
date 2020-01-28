@@ -23,6 +23,7 @@
     <preference name="StatusBarStyle" value="lightcontent" />
     <platform name="android">
         <preference name="StatusBarOverlaysWebView" value="false" />
+        <preference name="AndroidLaunchMode" value="singleTask" />
         <allow-intent href="market:*" />
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
         <icon density="mdpi" src="resources/android/icon/drawable-mdpi-icon.png" />
@@ -108,7 +109,9 @@
     <plugin name="cordova-plugin-advanced-http" spec="2.3.1">
         <variable name="OKHTTP_VERSION" value="3.10.0" />
     </plugin>
-    <allow-navigation href="http://192.168.31.171:8100" sessionid="2bc01c8a" />
+    <allow-navigation href="http://192.168.31.171:8128" sessionid="a05d8927" />
+    <allow-navigation href="http://192.168.31.171:8129" sessionid="1bc44124" />
+    <allow-navigation href="http://192.168.31.171:8130" sessionid="415677d8" />
     <engine name="ios" spec="4.5.5" />
     <engine name="android" spec="7.1.0" />
 </widget>

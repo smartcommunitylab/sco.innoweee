@@ -144,8 +144,8 @@ export class SelectClassPage implements OnInit {
 
     // this.authService.getValidAACtoken().then( token => {
     this.profileService.getPlayer(this.gameId,token.accessToken).then(res => {
-      console.log(res);
-      this.players = res;
+      // console.log(res);
+      this.players = this.orderPlayer(res);
       this.profileService.setAllPlayers(this.players); // it is promise
       if (res.length == 1) {
         let refreshTimeout = setTimeout(() => {
@@ -157,6 +157,19 @@ export class SelectClassPage implements OnInit {
       }
     });
   // })
+  }
+  orderPlayer(res: any) {
+    return res.sort((obj1, obj2) => {
+      if (obj1.name > obj2.name) {
+          return 1;
+      }
+  
+      if (obj1.name < obj2.name) {
+          return -1;
+      }
+  
+      return 0;
+  });
   }
 
   setPlayer(player) {

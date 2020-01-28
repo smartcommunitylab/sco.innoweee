@@ -103,6 +103,10 @@ export class HomePage extends CommonPage implements OnInit {
   signOut() {
     this.auth.signOut();
   }
+  changeClass() {
+    this.auth.signOut();
+    this.profileService.cleanPlayer();
+  }
 
   getWantedMessage() {
     if (this.weeklyGarbage && this.translate. defaultLang && this.weeklyGarbage[this.translate. defaultLang])
