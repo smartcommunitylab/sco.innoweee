@@ -135,8 +135,20 @@ public class RoleManager {
 	
 	public List<Authorization> addCollectorOperator(User user, String tenantId) {
 		List<Authorization> auths = new ArrayList<Authorization>();
+		
 		Authorization auth = new Authorization();
 		auth.getActions().add(Const.AUTH_ACTION_READ);
+		auth.setRole(Const.ROLE_COLLECTOR_OPERATOR);
+		auth.setTenantId(tenantId);
+		auth.setInstituteId("*");
+		auth.setSchoolId("*");
+		auth.setGameId("*");
+		auth.getResources().add(Const.AUTH_RES_Game_Item);
+		auth.getResources().add(Const.AUTH_RES_GarbageMap);
+		auth.getResources().add(Const.AUTH_RES_CategoryMap);
+		auths.add(auth);
+		
+		auth = new Authorization();
 		auth.getActions().add(Const.AUTH_ACTION_UPDATE);
 		auth.setRole(Const.ROLE_COLLECTOR_OPERATOR);
 		auth.setTenantId(tenantId);
@@ -145,6 +157,7 @@ public class RoleManager {
 		auth.setGameId("*");
 		auth.getResources().add(Const.AUTH_RES_Game_Item);
 		auths.add(auth);
+		
 		String authKey = Utils.getAuthKey(tenantId, Const.ROLE_COLLECTOR_OPERATOR);
 		user.getRoles().put(authKey, auths);
 		userRepository.save(user);
