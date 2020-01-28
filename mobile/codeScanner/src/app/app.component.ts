@@ -31,18 +31,9 @@ export class AppComponent {
   }
   initializeApp() {
     this.platform.ready().then(() => {
-      // this.statusBar.overlaysWebView(true);
-      // this.statusBar.styleDefault();
       this.auth.startUpAsync();
       this.splashScreen.hide();
       this.initTranslate();
-      // this.authenticationService.authenticationState.subscribe(state => {
-      //   if (state) {
-      //     this.router.navigate(['members', 'select-class']);
-      //   } else {
-      //     this.router.navigate(['login']);
-      //   }
-      // });
  
     });
   }

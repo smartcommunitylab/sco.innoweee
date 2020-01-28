@@ -1,24 +1,40 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ClassificationService } from 'src/app/services/classification.service';
 import { TranslateService } from '@ngx-translate/core';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
 import { ItemClassification } from 'src/app/class/item-classification';
+import { CommonPage } from 'src/app/class/common-page';
+import { DataServerService } from 'src/app/services/data.service';
+import { AuthService } from 'src/app/auth/auth.service';
+import { ProfileService } from 'src/app/services/profile.service';
+import { AuthenticationService } from 'src/app/services/authentication.service';
+import { async } from 'rxjs/internal/scheduler/async';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-classification-working',
   templateUrl: './classification-working.page.html',
   styleUrls: ['./classification-working.page.scss'],
 })
-export class ClassificationWorkingPage implements OnInit {
+export class ClassificationWorkingPage extends CommonPage implements OnInit {
   private itemClassification:ItemClassification;
   recap: any={};
 
   constructor(
-    private router: Router,
     public translate: TranslateService,
+    public router: Router,
     private alertController: AlertController,
-    private classificationService: ClassificationService) { }
+    public toastController: ToastController,
+    public route: ActivatedRoute,
+    public dataServerService: DataServerService,
+    public location: Location,
+    private auth: AuthService,
+    public profileService: ProfileService,
+    private classificationService: ClassificationService,
+    public authService: AuthenticationService) {
+    super(router, translate, toastController, route, dataServerService, location, profileService, authService)
+  }
 
   ngOnInit() {
     this.itemClassification = this.classificationService.itemClassification;

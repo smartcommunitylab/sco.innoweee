@@ -1,17 +1,36 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AlertController, ToastController } from '@ionic/angular';
+import { DataServerService } from 'src/app/services/data.service';
+import { AuthService } from 'src/app/auth/auth.service';
+import { ProfileService } from 'src/app/services/profile.service';
+import { ClassificationService } from 'src/app/services/classification.service';
+import { AuthenticationService } from 'src/app/services/authentication.service';
+import { CommonPage } from 'src/app/class/common-page';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-item-classified',
   templateUrl: './item-classified.page.html',
   styleUrls: ['./item-classified.page.scss'],
 })
-export class ItemClassifiedPage implements OnInit {
+export class ItemClassifiedPage extends CommonPage implements OnInit {
   item: any;
 
-  constructor(private translate: TranslateService,
-    private route:ActivatedRoute) { }
+  constructor( public translate: TranslateService,
+    public router: Router,
+    private alertController: AlertController,
+    public toastController: ToastController,
+    public route: ActivatedRoute,
+    public dataServerService: DataServerService,
+    public location: Location,
+    private auth: AuthService,
+    public profileService: ProfileService,
+    private classificationService: ClassificationService,
+    public authService: AuthenticationService) {
+    super(router, translate, toastController, route, dataServerService, location, profileService, authService)
+   }
 
   ngOnInit() {
   }

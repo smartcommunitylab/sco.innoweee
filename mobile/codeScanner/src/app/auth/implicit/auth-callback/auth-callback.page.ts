@@ -27,7 +27,7 @@ export class AuthCallbackPage implements OnInit {
       take(1))
     .subscribe((action) => {
       if (action.action === AuthActions.SignInSuccess) {
-        this.navCtrl.navigateRoot('select-class');
+        this.navCtrl.navigateRoot('login');
       } else {
         this.navCtrl.navigateRoot('profile');
       }

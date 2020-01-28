@@ -20,6 +20,7 @@ export interface ApplicationConfig {
     getGarbageApi:string;
     getRecognizedApi:string;
     getUsedApi:string;
+    parentApi:string;
 }
 
 // Configuration values for our app
@@ -45,7 +46,8 @@ export const APP_CONFIG: ApplicationConfig = {
     getGarbageApi:"api/garbageMap/",
     getRecognizedApi:"recognized",
     getUsedApi:"/used",
-    getReportApi:"report"
+    getReportApi:"report",
+    parentApi:"/parent"
 };
 
 // Create a config token to avoid naming conflicts

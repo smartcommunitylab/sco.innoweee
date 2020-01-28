@@ -4,28 +4,32 @@ import { ProfileService } from 'src/app/services/profile.service';
 import { AuthService } from 'src/app/auth/auth.service';
 import { DataServerService } from 'src/app/services/data.service';
 import { TranslateService } from '@ngx-translate/core';
-import { AlertController } from '@ionic/angular';
-import { ClassificationService } from 'src/app/services/classification.service';
+import { AlertController, ToastController } from '@ionic/angular';
+import { CommonPage } from 'src/app/class/common-page';
+import { AuthenticationService } from 'src/app/services/authentication.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-manual-insert',
   templateUrl: './manual-insert.page.html',
   styleUrls: ['./manual-insert.page.scss'],
 })
-export class ManualInsertPage implements OnInit {
+export class ManualInsertPage extends CommonPage implements OnInit {
   scanData: any = null;
   playerId: any;
 
-  constructor(
-    private translate: TranslateService,
-    private router: Router,
-    private route: ActivatedRoute,
-    private classificationService:ClassificationService,
-    private alertController:  AlertController,
+  constructor(public translate: TranslateService,
+    public router: Router,
+    public toastController: ToastController,
+    public profileService: ProfileService,
+    public route: ActivatedRoute,
+    private alertController:AlertController,
+    public dataServerService: DataServerService,
+    public location: Location,
     private auth: AuthService,
-    private dataServerService: DataServerService,
-    private profileService: ProfileService
-    ) { }
+    public authService: AuthenticationService) {
+    super(router, translate, toastController, route, dataServerService, location, profileService, authService)
+   }
 
   ngOnInit() {
     this.route.queryParams

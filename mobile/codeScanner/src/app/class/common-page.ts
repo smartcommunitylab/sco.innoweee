@@ -6,6 +6,7 @@ import { DataServerService } from '../services/data.service';
 import { ProfileService } from '../services/profile.service';
 import { AuthenticationService } from '../services/authentication.service';
 import {Location} from '@angular/common';
+import { AuthService } from '../auth/auth.service';
 
 export class CommonPage implements OnInit {
     category: any;
@@ -26,6 +27,7 @@ export class CommonPage implements OnInit {
 
     }
     changeClass() {
-        this.router.navigate(['select-class']);
+        // this.auth.signOut();
+        // this.profileService.cleanPlayer();
       }
 }

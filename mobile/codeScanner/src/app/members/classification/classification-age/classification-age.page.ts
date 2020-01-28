@@ -1,22 +1,37 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ClassificationService } from 'src/app/services/classification.service';
 import { TranslateService } from '@ngx-translate/core';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
 import { ItemClassification } from 'src/app/class/item-classification';
+import { CommonPage } from 'src/app/class/common-page';
+import { DataServerService } from 'src/app/services/data.service';
+import { AuthService } from 'src/app/auth/auth.service';
+import { ProfileService } from 'src/app/services/profile.service';
+import { Location } from '@angular/common';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-classification-age',
   templateUrl: './classification-age.page.html',
   styleUrls: ['./classification-age.page.scss'],
 })
-export class ClassificationAgePage implements OnInit {
+export class ClassificationAgePage extends CommonPage implements OnInit {
   private itemClassification: ItemClassification;
   recap: any = {};
-  constructor(private router: Router,
+  constructor(public router: Router,
     public translate: TranslateService,
     private alertController: AlertController,
-    private classificationService: ClassificationService) { }
+    public toastController: ToastController,
+    public route: ActivatedRoute,
+    public dataServerService: DataServerService,
+    public location: Location,
+    private auth: AuthService,
+    public profileService: ProfileService,
+    private classificationService: ClassificationService,
+    public authService: AuthenticationService) {
+    super(router, translate, toastController, route, dataServerService, location, profileService, authService)
+  }
 
   ngOnInit() {
     this.itemClassification = this.classificationService.itemClassification;

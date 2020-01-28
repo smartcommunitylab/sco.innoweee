@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from 'src/app/auth/auth.service';
 import { IAuthAction, AuthActions } from 'ionic-appauth';
+import { ProfileService } from 'src/app/services/profile.service';
 
 @Component({
   selector: 'app-login',
@@ -24,72 +25,30 @@ export class LoginPage implements OnInit  {
     private translate: TranslateService,
     private toastController: ToastController,
     private auth: AuthService,
+    private profileService: ProfileService,
   private navCtrl: NavController,
     private router: Router) { }
 
-  ngOnInit() {
-    // this.presentLoading().then(() => {
-      this.auth.authObservable.subscribe((action) => {
+  ngOnInit() {      
+      this.auth.authObservable.subscribe(async (action) => {
+        console.log("login back");
         if (action.action === AuthActions.SignInSuccess) {
-          this.router.navigate(['select-class']);
+          //check if profile is valid
+          const token = await this.auth.getValidToken();
+          console.log("token: "+token.accessToken)
+          this.profileService.getDomain(token.accessToken).then(res => {
+            this.router.navigate(['select-class']);
+          }, err => {
+            //check error
+            this.router.navigate(['register-parent']);
+          })
         }
       });
-  //     this.authService.init().then(() => {
-  //     this.authService.getValidAACtoken().then((validToken) =>{
-  //     this.router.navigate(['select-class']);
-  //     // this.dismissLoading()
-  //   },err => {
-  //     // this.translate.get('wrong_credentials').subscribe(async (res: string) => {
-  //     //   this.presentToast(res);
-  //     // });
-  //   })
-  // })
-// })
+
 }
 login() {
   this.auth.signIn();
 }
-
-  // login() {
-  //   this.presentLoading().then(() => {
-  //     this.authService.init().then(() => {
-  //       this.authService.login(this.authService.PROVIDER.INTERNAL, this.user).then(
-  //         (profile) => {
-  //           this.router.navigate(['select-class']);
-  //           this.dismissLoading()
-  //         },
-  //          (res) => {
-  //            if (res && res.error && res == "Invalid credentials"){
-  //             this.translate.get('wrong_credentials').subscribe(async (res: string) => {
-  //               this.presentToast(res);
-  //             });
-  //            }
-  //            else if (res && res.error && res.error.error=='invalid_grant')
-  //             {
-  //               //invalid credential
-  //               this.translate.get('wrong_user').subscribe(async (res: string) => {
-  //                 this.presentToast(res);
-  //               });
-
-                
-  //             }
-  //             else if (res && res.error)
-  //             {
-  //               //invalid credential
-  //               this.translate.get('toast_error').subscribe(async (res: string) => {
-  //                 this.presentToast(res);
-  //               });
-
-                
-  //             }
-  //           this.dismissLoading()
-
-  //         })
-  //     })
-  //   })
-
-  //   // )}).finally(() => {  });
-  // }
   async presentToast(string) {
     const toast = await this.toastController.create({
       message: string,
@@ -120,8 +79,5 @@ login() {
 
   }
 
-  // login() {
-  //   this.authService.login();
-  // }
 
 }

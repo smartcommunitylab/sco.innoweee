@@ -57,9 +57,7 @@ export class ItemRecognizedPage extends CommonPage implements OnInit {
     toast.present();
   }
 
-  // changeClass() {
-  //   this.router.navigate(['select-class']);
-  // }
+
 
   async checkIfPresent(scanData) {
     const token = await this.auth.getValidToken();
@@ -96,7 +94,7 @@ export class ItemRecognizedPage extends CommonPage implements OnInit {
     if (!this.itemPresent) {
       const token = await this.auth.getValidToken();
       // this.authService.getValidAACtoken().then( token => {
-      this.dataServerService.sendItem(this.item.text, this.playerId, token.accessToken).then(res => {
+      this.dataServerService.sendItem(this.item, this.playerId, token.accessToken).then(res => {
         // console.log(res);
         this.presentToast((this.translate.instant('toast_ok')));
         this.location.back();

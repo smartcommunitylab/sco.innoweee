@@ -171,6 +171,7 @@ export class SelectClassPage implements OnInit {
       // this.profileService.setPlayerState(this.playerState);
       this.profileService.setPlayerName(this.playerName);
       this.profileService.setSchoolName(this.school["name"]);
+      this.profileService.memorizePlayer(this.playerId,this.playerData, this.playerName, this.school["name"]);
       this.router.navigate(['home'], { queryParams: { playerId: this.playerId, playerName: this.playerName, playerData: JSON.stringify(this.playerData) } });
     // })
   }

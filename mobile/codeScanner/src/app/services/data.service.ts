@@ -63,7 +63,7 @@ export class DataServerService {
   }
 
   sendItem(id: string, playerId: string, token): any {
-    let url: string = this.endPoint + this.getItemApi +  this.getRecognizedApi;
+    let url: string = this.endPoint + this.getItemApi +"/"+  this.getRecognizedApi;
 
     let body = {
       "itemId": id,
@@ -131,16 +131,16 @@ export class DataServerService {
     return new Promise<string>((resolve, reject) => {
       console.error('An error occurred', error);
 
-      if ((error.status == 401) || (error.status == 403)) {
-        // display toast and redirect to logout.
-        var errorObj = JSON.parse(error._body)
-        var errorMsg = 'Per favore accedi di nuovo.';
-        if (errorObj.errorMsg) {
-          errorMsg = errorObj.errorMsg;
-        }
-      } else {
-        Promise.reject(error);
-      }
+      // if ((error.status == 401) || (error.status == 403)) {
+      //   // display toast and redirect to logout.
+      //   var errorObj = JSON.parse(error._body)
+      //   var errorMsg = 'Per favore accedi di nuovo.';
+      //   if (errorObj.errorMsg) {
+      //     errorMsg = errorObj.errorMsg;
+      //   }
+      // } else {
+        reject();
+      // }
     });
 
   }

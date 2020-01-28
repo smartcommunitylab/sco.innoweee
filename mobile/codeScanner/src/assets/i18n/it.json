@@ -100,6 +100,12 @@
         "label_recap_type":"Tipologia:",
         "label_recap_switch":"Si accende:",
         "label_recap_broken":"E' integro:",
-        "label_recap_age":"E' vecchio:"
+        "label_recap_age":"E' vecchio:",
+        "title_register_parent":"Registrazione Genitore",
+        "label_register_parent_name":"Nome",
+        "label_register_parent_surname":"Cognome",
+        "label_register_parent_email":"Email",
+        "label_register_parent_code":"PIN",
+        "label_register":"REGISTRATI"
 
 }

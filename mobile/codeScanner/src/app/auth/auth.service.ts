@@ -50,6 +50,7 @@ export class AuthService extends IonicAuth  {
     if (this.platform.is('cordova')) {
       (<any>window).handleOpenURL = (callbackUrl) => {
         this.ngZone.run(() => {
+          console.log(callbackUrl);
             this.handleCallback(callbackUrl);
         });
       };

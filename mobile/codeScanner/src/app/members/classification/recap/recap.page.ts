@@ -5,29 +5,36 @@ import { ItemClassification } from 'src/app/class/item-classification';
 import { ProfileService } from 'src/app/services/profile.service';
 import { DataServerService } from 'src/app/services/data.service';
 import { AuthService } from 'src/app/auth/auth.service';
-import { ModalController, AlertController } from '@ionic/angular';
+import { ModalController, AlertController, ToastController } from '@ionic/angular';
 import { ModalPage } from './modal/modal.page';
 import { TranslateService } from '@ngx-translate/core';
+import { AuthenticationService } from 'src/app/services/authentication.service';
+import { CommonPage } from 'src/app/class/common-page';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-recap',
   templateUrl: './recap.page.html',
   styleUrls: ['./recap.page.scss'],
 })
-export class RecapPage implements OnInit {
+export class RecapPage extends CommonPage implements OnInit {
   private itemClassification: ItemClassification;
   recap: any = {};
-  constructor(
-    private router: Router,
-    private route: ActivatedRoute,
-    private playerDataService: ProfileService,
+  constructor( public translate: TranslateService,
+    public router: Router,
     private alertController: AlertController,
-    private dataService: DataServerService,
+    public toastController: ToastController,
+    public profileService: ProfileService,
+    private modalController:ModalController,
+    public route: ActivatedRoute,
+    private dataService:DataServerService,
+    public dataServerService: DataServerService,
+    public location: Location,
     private auth: AuthService,
-    private modalController: ModalController,
-    private translate: TranslateService,
-    private classificationService: ClassificationService
-  ) { }
+    private classificationService: ClassificationService,
+    public authService: AuthenticationService) {
+    super(router, translate, toastController, route, dataServerService, location, profileService, authService)
+   }
 
   ngOnInit() {
     this.itemClassification = this.classificationService.itemClassification;
@@ -42,7 +49,7 @@ export class RecapPage implements OnInit {
   }
   async confirm() {
     //add id and send item
-    this.itemClassification.setPlayerId(this.playerDataService.getPlayerData()["objectId"]);
+    this.itemClassification.setPlayerId(this.profileService.getPlayerData()["objectId"]);
     const token = await this.auth.getValidToken();
     this.dataService.itemDelivery(this.itemClassification, token.accessToken).then(res => {
       //go to result

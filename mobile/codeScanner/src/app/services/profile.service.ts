@@ -16,6 +16,49 @@ const PARENT_KEY = "PARENT"
   providedIn: 'root'
 })
 export class ProfileService {
+  registerParent(user: any,gameCode:any, token):  Promise<any> {
+    let url: string = this.endPoint + this.getDomainApi+this.parentApi+"/"+gameCode;
+    let body = user;    
+    return this.http.post(url,body,{ headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token
+
+    }}).toPromise().then(response => {
+      return response;
+    }).catch(response => {
+      return this.handleError(response);
+    });
+  }
+
+  getMemorizedPlayerId() {
+    return JSON.parse(localStorage.getItem("playerId"));
+  }
+  getMemorizedPlayerData() {
+    return JSON.parse(localStorage.getItem("playerData"));
+
+  }
+  getMemorizedPlayerName() {
+    return JSON.parse(localStorage.getItem("playerName"));
+
+  }
+  getMemorizedSchool() {
+    return JSON.parse(localStorage.getItem("schoolName"));
+
+  }
+  memorizePlayer(playerId,playerData, playerName, schoolName) {
+    localStorage.setItem("playerId",JSON.stringify(playerId));
+    localStorage.setItem("playerData",JSON.stringify(playerData));
+    localStorage.setItem("playerName",JSON.stringify(playerName));
+    localStorage.setItem("schoolName",JSON.stringify(schoolName));
+  }
+  cleanPlayer() {
+    localStorage.removeItem("playerId");
+    localStorage.removeItem("playerData");
+    localStorage.removeItem("playerName");
+    localStorage.removeItem("schoolName");
+    localStorage.removeItem("profile");
+  }
 
   getTeacherValue() {
 return   TEACHER_KEY;
@@ -30,6 +73,7 @@ return   TEACHER_KEY;
   getSchoolApi: string = "";
   getGameApi: string = "";
   getPlayerApi: string = "";
+  parentApi:string = "";
   playerData: any;
   getRobotImageApi:string="";
   playerName: any;
@@ -47,6 +91,7 @@ return   TEACHER_KEY;
     this.getGameApi = config.getGameApi;
     this.getPlayerApi = config.getPlayerApi;
     this.getRobotImageApi = config.getRobotImageApi;
+    this.parentApi = config.parentApi;
   }
   setProfileRole(profile: string) {
     window.localStorage.setItem('profile',profile);
@@ -197,6 +242,8 @@ return   TEACHER_KEY;
 
   }
   setPlayerData(data) {
+    this.playerData = data;
+
     this.storage.set(PLAYER_DATA_KEY,data);
     // this.playerData = data;
   }
@@ -237,33 +284,36 @@ return this.schoolName;
   private handleError(error: any): Promise<any> {
 
     return new Promise<string>(async (resolve, reject) => {
-      console.error('An error occurred', error);
+      reject(error);
 
-      if ((error.status == 401) || (error.status == 403)) {
-        // display toast and redirect to logout.
-        var errorObj = JSON.parse(error._body)
-        var errorMsg = 'Per favore accedi di nuovo.';
-        if (errorObj.errorMsg) {
-          errorMsg = errorObj.errorMsg;
-        }
-      } else {
+      // console.error('An error occurred', error);
+
+      // if ((error.status == 401) || (error.status == 403))  {
+      //   // // display toast and redirect to logout.
+      //   // var errorObj = JSON.parse(error._body)
+      //   // var errorMsg = 'Per favore accedi di nuovo.';
+      //   // if (errorObj.errorMsg) {
+      //   //   errorMsg = errorObj.errorMsg;
+      //   // }
+      //   reject();
+      // } else {
         
-          //loading was wrong, reload app
+      //     //loading was wrong, reload app
     
-          const alert = await this.alertController.create({
-            header: 'Errore di comunicazione',
-            subHeader: 'Problema nella comunicazione con il server',
-            message: 'Riavvia l\'aplicazione e assicurati di avere connettivita`',
-            backdropDismiss: false ,
-            buttons: [{
-              text: 'Riavvia',
-              handler: () => {
-                window.location.reload();
-              }
-          }]
-          });
-          return await alert.present();
-        }      
+      //     const alert = await this.alertController.create({
+      //       header: 'Errore di comunicazione',
+      //       subHeader: 'Problema nella comunicazione con il server',
+      //       message: 'Riavvia l\'aplicazione e assicurati di avere connettivita`',
+      //       backdropDismiss: false ,
+      //       buttons: [{
+      //         text: 'Riavvia',
+      //         handler: () => {
+      //           window.location.reload();
+      //         }
+      //     }]
+      //     });
+      //     return await alert.present();
+      //   }      
     });
 
   }

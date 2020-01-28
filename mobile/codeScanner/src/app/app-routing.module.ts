@@ -21,6 +21,7 @@ const routes: Routes = [
   { path: 'logout', loadChildren: './auth/implicit/end-session/end-session.module#EndSessionPageModule' },
   { path: 'result', loadChildren: './members/classification/result/result.module#ResultPageModule' },
   { path: 'item-classified/:item', loadChildren: './members/classification/item-classified/item-classified.module#ItemClassifiedPageModule' },
+  { path: 'register-parent', loadChildren: './members/register-parent/register-parent.module#RegisterParentPageModule' },
   { path: '**', redirectTo: 'select-class', pathMatch: 'full'}
  
 ];
