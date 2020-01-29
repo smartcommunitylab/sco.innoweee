@@ -17,6 +17,7 @@ export class ItemConfirmPage implements OnInit {
   recap: any = {};
   item: any;
   playerData: any;
+  garbageCollectionName: any;
 
   constructor(
     private translate: TranslateService,
@@ -25,6 +26,7 @@ export class ItemConfirmPage implements OnInit {
     private navCtrl: NavController,
     private router: Router,
     private utils:UtilsService,
+    private garbageCollection: GarbageCollectionService,
     private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -40,7 +42,19 @@ export class ItemConfirmPage implements OnInit {
       this.recap["off"] = this.translate.instant("classification_off");
     }
     )
+      this.profileService.getLocalPlayerData().then(res => {
+        this.playerData = res;
+        this.garbageCollection.getActualCollection(this.playerData.gameId).then(res => {
+          this.garbageCollectionName = res.nameGE;
+        });
+      });
+  
+  
+  
+    
   }
+
+  
   getAge() {
 
     if (this.item.age == 0)
@@ -93,7 +107,13 @@ export class ItemConfirmPage implements OnInit {
     })
   })
 }
-
+getImgName() {
+  if (this.garbageCollectionName) {
+    return './assets/images/collection/' + this.garbageCollectionName.toLowerCase() + ".png";
+  }
+  else
+    return ""
+}
   cancel() {
     this.navCtrl.navigateRoot('/home')
   }
