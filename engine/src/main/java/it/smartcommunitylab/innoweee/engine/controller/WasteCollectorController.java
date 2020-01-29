@@ -21,6 +21,7 @@ import it.smartcommunitylab.innoweee.engine.exception.EntityNotFoundException;
 import it.smartcommunitylab.innoweee.engine.exception.UnauthorizedException;
 import it.smartcommunitylab.innoweee.engine.manager.ItemEventManager;
 import it.smartcommunitylab.innoweee.engine.manager.WasteCollectorManager;
+import it.smartcommunitylab.innoweee.engine.model.CollectorReport;
 import it.smartcommunitylab.innoweee.engine.model.Game;
 import it.smartcommunitylab.innoweee.engine.model.ItemEvent;
 import it.smartcommunitylab.innoweee.engine.model.ItemReport;
@@ -148,6 +149,8 @@ public class WasteCollectorController extends AuthController {
 			itemEvent.setItemId(itemId);
 			itemEvent.setItemType(itemType);
 			itemEvent.setBroken(broken);
+			itemEvent.setTenantId(tenantId);
+			itemEvent.setTimestamp(System.currentTimeMillis());
 		}
 		itemEvent.setCollector(collector);
 		itemEventManager.itemUnexpected(itemEvent);
@@ -155,6 +158,17 @@ public class WasteCollectorController extends AuthController {
 		return itemEvent; 
 	}
 	
+	@GetMapping(value = "/api/collector/item/{tenantId}/report")
+	public @ResponseBody CollectorReport operatorReport(
+			@PathVariable String tenantId,
+			HttpServletRequest request) throws Exception {
+		if(!validateRole(Const.ROLE_COLLECTOR_OPERATOR, tenantId, request)) {
+			throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
+		}
+		CollectorReport report = wasteCollectorManager.getOperatorReport(tenantId);
+		logger.info("operatorReport[{}]:{}", tenantId, report);
+		return report;
+	}
 	
 	
 }

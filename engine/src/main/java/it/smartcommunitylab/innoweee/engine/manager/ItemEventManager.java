@@ -55,9 +55,18 @@ public class ItemEventManager {
 		return itemEventRepository.findByPlayerIds(playerIds, sort);
 	}
 	
+	public List<ItemEvent> findByPlayerIdsOrTenant(List<String> playerIds, String tenantId, Sort sort) {
+		return itemEventRepository.findByPlayerIdsOrTenant(playerIds, tenantId, sort);
+	}
+	
 	public List<ItemEvent> findByParams(List<String> playerIds, boolean reusable, boolean valuable, 
 			int state, Date disposalDate, Sort sort) {
 		return itemEventRepository.findByParams(playerIds, reusable, valuable, state, disposalDate, sort);
+	}
+	
+	public int countByParams(List<String> playerIds, List<Integer> states, 
+			boolean reusable, boolean valuable) {
+		return itemEventRepository.countByParams(playerIds, states, reusable, valuable);
 	}
 	
 	public ItemEvent itemClassified(ItemEvent itemEvent, Game game) throws Exception {

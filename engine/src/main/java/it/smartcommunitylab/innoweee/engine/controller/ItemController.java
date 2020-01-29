@@ -247,7 +247,7 @@ public class ItemController extends AuthController {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
 		StringBuffer sb = new StringBuffer("instituteName,instituteId,schoolName,schoolId,");
 		sb.append("gameName,gameId,playerName,playerId,collection,itemId,itemType,state,isBroken,");
-		sb.append("isSwitchingOn,ageRange,isReusable,isValuable,weight,timestamp,saveTime\n");
+		sb.append("isSwitchingOn,ageRange,isReusable,isValuable,weight,timestamp,saveTime,collector,stateNote\n");
 		List<Institute> instituteList = instituteRepository.findByTenantId(tenantId);
 		Map<String, Institute> instituteMap = new HashMap<>();
 		List<String> institues = new ArrayList<>();
@@ -277,38 +277,74 @@ public class ItemController extends AuthController {
 			players.add(player.getObjectId());
 		}
 		GarbageMap garbageMap = garbageMapRepository.findByTenantId(tenantId);
-		List<ItemEvent> eventList = itemEventManager.findByPlayerIds(players, 
+		List<ItemEvent> eventList = itemEventManager.findByPlayerIdsOrTenant(players, tenantId, 
 				new Sort(Sort.Direction.DESC, "timestamp"));
 		for(ItemEvent event : eventList) {
 			try {
-				Player player = playerMap.get(event.getPlayerId());
-				Game game = gameMap.get(player.getGameId());
-				School school = schoolMap.get(game.getSchoolId());
-				Institute institute = instituteMap.get(game.getInstituteId());
-				GarbageCollection actualCollection = collectionRepository.findActualCollection(tenantId, 
-						game.getObjectId(), event.getTimestamp());
-				String instituteName = institute.getName();
-				String instituteId = institute.getObjectId();
-				String schoolName = school.getName();
-				String schoolId = school.getObjectId();
-				String gameName = game.getGameName();
-				String gameId = game.getObjectId();
-				String playerName = player.getName();
-				String playerId = player.getObjectId();
-				String collection = actualCollection.getNameGE();
-				String itemId = event.getItemId();
-				String itemType = event.getItemType();
-				String state = Utils.getItemState(event.getState());
-				String isBroken = String.valueOf(event.isBroken());
-				String isSwitchingOn = String.valueOf(event.isSwitchingOn());
-				String ageRange = String.valueOf(event.getAge());
-				String isReusable = String.valueOf(event.isReusable());
-				String isValuable = String.valueOf(event.isValuable());
-				String weight = String.valueOf(garbageMap.getItems().get(itemType).getWeight());
-				String timestamp = sdf.format(new Date(event.getTimestamp()));
+				String instituteName = null;
+				String instituteId = null;
+				String schoolName = null;
+				String schoolId = null;
+				String gameName = null;
+				String gameId = null;
+				String playerName = null;
+				String playerId = null;
+				String collection = null;
+				String itemId = null;
+				String itemType = null;
+				String state = null;
+				String isBroken = null;
+				String isSwitchingOn = null;
+				String ageRange = null;
+				String isReusable = null;
+				String isValuable = null;
+				String weight = null;
+				String timestamp = null;
 				String saveTime = null;
-				if(event.getSaveTime() != null) {
-					saveTime = sdf.format(event.getSaveTime());
+				String collector = null;
+				String stateNote = null;
+				if(Utils.isEmpty(event.getPlayerId())) {
+					itemId = event.getItemId();
+					itemType = event.getItemType();
+					isBroken = String.valueOf(event.isBroken());
+					state = Utils.getItemState(event.getState());
+					collector = event.getCollector();
+					stateNote = event.getStateNote();
+					timestamp = sdf.format(new Date(event.getTimestamp()));
+					if(event.getSaveTime() != null) {
+						saveTime = sdf.format(event.getSaveTime());
+					}
+				} else {
+					Player player = playerMap.get(event.getPlayerId());
+					Game game = gameMap.get(player.getGameId());
+					School school = schoolMap.get(game.getSchoolId());
+					Institute institute = instituteMap.get(game.getInstituteId());
+					GarbageCollection actualCollection = collectionRepository.findActualCollection(tenantId, 
+							game.getObjectId(), event.getTimestamp());
+					instituteName = institute.getName();
+					instituteId = institute.getObjectId();
+					schoolName = school.getName();
+					schoolId = school.getObjectId();
+					gameName = game.getGameName();
+					gameId = game.getObjectId();
+					playerName = player.getName();
+					playerId = player.getObjectId();
+					collection = actualCollection.getNameGE();
+					itemId = event.getItemId();
+					itemType = event.getItemType();
+					state = Utils.getItemState(event.getState());
+					isBroken = String.valueOf(event.isBroken());
+					isSwitchingOn = String.valueOf(event.isSwitchingOn());
+					ageRange = String.valueOf(event.getAge());
+					isReusable = String.valueOf(event.isReusable());
+					isValuable = String.valueOf(event.isValuable());
+					weight = String.valueOf(garbageMap.getItems().get(itemType).getWeight());
+					collector = event.getCollector();			
+					stateNote = event.getStateNote();
+					timestamp = sdf.format(new Date(event.getTimestamp()));
+					if(event.getSaveTime() != null) {
+						saveTime = sdf.format(event.getSaveTime());
+					}
 				}
 				sb.append("\"" + instituteName + "\",");
 				sb.append("\"" + instituteId + "\",");
@@ -329,11 +365,9 @@ public class ItemController extends AuthController {
 				sb.append("\"" + isValuable + "\",");
 				sb.append("\"" + weight + "\",");
 				sb.append("\"" + timestamp + "\",");
-				if(StringUtils.isEmpty(saveTime)) {
-					sb.append("\n");
-				} else {
-					sb.append("\"" + saveTime + "\"\n");
-				}
+				sb.append("\"" + saveTime + "\",");
+				sb.append("\"" + collector + "\",");
+				sb.append("\"" + stateNote + "\"\n");
 			} catch (Exception e) {
 				logger.info("getItemCsv error:{} / {}", event.getId(), e.getMessage());
 			}

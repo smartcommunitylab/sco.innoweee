@@ -440,6 +440,9 @@ public class Utils {
 		if(state == Const.ITEM_STATE_CHECKED) {
 			return "CHECKED";
 		}
+		if(state == Const.ITEM_STATE_UNEXPECTED) {
+			return "UNEXPECTED";
+		}
 		return "unknown";
 	}
 	

@@ -12,11 +12,15 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
 import it.smartcommunitylab.innoweee.engine.common.Const;
+import it.smartcommunitylab.innoweee.engine.common.Utils;
+import it.smartcommunitylab.innoweee.engine.model.CollectorReport;
+import it.smartcommunitylab.innoweee.engine.model.Game;
 import it.smartcommunitylab.innoweee.engine.model.ItemEvent;
 import it.smartcommunitylab.innoweee.engine.model.Player;
 import it.smartcommunitylab.innoweee.engine.model.WasteCollectorAction;
 import it.smartcommunitylab.innoweee.engine.model.WasteCollectorBin;
 import it.smartcommunitylab.innoweee.engine.model.WasteCollectorCard;
+import it.smartcommunitylab.innoweee.engine.repository.GameRepository;
 import it.smartcommunitylab.innoweee.engine.repository.PlayerRepository;
 import it.smartcommunitylab.innoweee.engine.repository.WasteCollectorActionRepository;
 import it.smartcommunitylab.innoweee.engine.repository.WasteCollectorBinRepository;
@@ -36,6 +40,8 @@ public class WasteCollectorManager {
 	private PlayerRepository playerRepository;
 	@Autowired
 	private ItemEventManager itemEventManager;
+	@Autowired
+	private GameRepository gameRepository;
 	
 	public void addDisposalAction(WasteCollectorAction action) {
 		action.setObjectId(null);
@@ -95,6 +101,37 @@ public class WasteCollectorManager {
 			action.setBinType(bin.getBinType());
 		}		
 		actionRepository.save(action);
+	}
+	
+	public CollectorReport getOperatorReport(String tenantId) {
+		List<Game> games = gameRepository.findByTenantId(tenantId);
+		List<String> gameIds = new ArrayList<String>();
+		for(Game game : games) {
+			if(Utils.isGamePeriodValid(game)) {
+				gameIds.add(game.getObjectId());
+			}
+		}
+		List<Player> players = playerRepository.findByGameIds(gameIds);
+		List<String> playerIds = getPlayerIds(players);
+		List<Integer> states = new ArrayList<Integer>();
+		states.add(Const.ITEM_STATE_DISPOSED);
+		int totaleAttesi = itemEventManager.countByParams(playerIds, states, false, false);
+		states.clear();
+		states.add(Const.ITEM_STATE_DISPOSED);
+		states.add(Const.ITEM_STATE_CHECKED);
+		int totaleConferiti = itemEventManager.countByParams(playerIds, states, false, false);
+		states.clear();
+		states.add(Const.ITEM_STATE_CHECKED);
+		int totaleCorrispondenti = itemEventManager.countByParams(playerIds, states, false, false);
+		states.clear();
+		states.add(Const.ITEM_STATE_UNEXPECTED);
+		int totaleInattesi = itemEventManager.countByParams(playerIds, states, false, false);
+		CollectorReport report = new CollectorReport();
+		report.setTotaleAttesi(totaleAttesi);
+		report.setTotaleConferiti(totaleConferiti);
+		report.setTotaleCorrispondenti(totaleCorrispondenti);
+		report.setTotaleInattesi(totaleInattesi);
+		return report;
 	}
 	
 }
