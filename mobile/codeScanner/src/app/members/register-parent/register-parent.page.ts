@@ -29,11 +29,11 @@ export class RegisterParentPage extends CommonPage implements OnInit {
     private dataService: DataServerService,
     public dataServerService: DataServerService,
     public location: Location,
-    private auth: AuthService,
+    public auth: AuthService,
     private barcodeScanner: BarcodeScanner,
     private navCtrl: NavController,
     public authService: AuthenticationService) {
-    super(router, translate, toastController, route, dataServerService, location, profileService, authService)
+    super(auth, router, translate, toastController, route, dataServerService, location, profileService, authService)
   }
 
   ngOnInit() {

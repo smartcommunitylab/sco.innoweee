@@ -26,11 +26,11 @@ export class ClassificationAgePage extends CommonPage implements OnInit {
     public route: ActivatedRoute,
     public dataServerService: DataServerService,
     public location: Location,
-    private auth: AuthService,
+    public auth: AuthService,
     public profileService: ProfileService,
     private classificationService: ClassificationService,
     public authService: AuthenticationService) {
-    super(router, translate, toastController, route, dataServerService, location, profileService, authService)
+    super(auth, router, translate, toastController, route, dataServerService, location, profileService, authService)
   }
 
   ngOnInit() {
@@ -90,7 +90,7 @@ export class ClassificationAgePage extends CommonPage implements OnInit {
     return ""
   }
   getType() {
-    return this.itemClassification.getItemType()
+    return this.itemClassification.getItemValue()
   }
   getSwitching() {
     if (this.itemClassification.getSwitchingOn() == true)

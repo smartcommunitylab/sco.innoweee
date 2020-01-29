@@ -30,10 +30,10 @@ export class RecapPage extends CommonPage implements OnInit {
     private dataService:DataServerService,
     public dataServerService: DataServerService,
     public location: Location,
-    private auth: AuthService,
+    public auth: AuthService,
     private classificationService: ClassificationService,
     public authService: AuthenticationService) {
-    super(router, translate, toastController, route, dataServerService, location, profileService, authService)
+    super(auth, router, translate, toastController, route, dataServerService, location, profileService, authService)
    }
 
   ngOnInit() {
@@ -122,7 +122,9 @@ export class RecapPage extends CommonPage implements OnInit {
   }
 
   getType() {
-    return this.itemClassification.getItemType()
+    if (this.itemClassification)
+      return this.itemClassification.getItemValue()
+    return ""
   }
 
   getSwitching() {

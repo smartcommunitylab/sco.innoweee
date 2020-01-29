@@ -29,11 +29,11 @@ export class ClassificationWorkingPage extends CommonPage implements OnInit {
     public route: ActivatedRoute,
     public dataServerService: DataServerService,
     public location: Location,
-    private auth: AuthService,
+    public auth: AuthService,
     public profileService: ProfileService,
     private classificationService: ClassificationService,
     public authService: AuthenticationService) {
-    super(router, translate, toastController, route, dataServerService, location, profileService, authService)
+    super(auth,router, translate, toastController, route, dataServerService, location, profileService, authService)
   }
 
   ngOnInit() {
@@ -100,7 +100,7 @@ export class ClassificationWorkingPage extends CommonPage implements OnInit {
   getType() {
     if (this.itemClassification)
 
-    return this.itemClassification.getItemType()
+    return this.itemClassification.getItemValue()
     return ""
   }
   getSwitching() {

@@ -38,11 +38,11 @@ export class HomePage extends CommonPage implements OnInit {
     private dataService:DataServerService,
     public dataServerService: DataServerService,
     public location: Location,
-    private auth: AuthService,
+    public auth: AuthService,
     private barcodeScanner:BarcodeScanner,
     private navCtrl:NavController,
     public authService: AuthenticationService) {
-    super(router, translate, toastController, route, dataServerService, location, profileService, authService)
+    super(auth,router, translate, toastController, route, dataServerService, location, profileService, authService)
    }
   ionViewWillEnter() {
     this.scanData = null;
@@ -103,10 +103,10 @@ export class HomePage extends CommonPage implements OnInit {
   signOut() {
     this.auth.signOut();
   }
-  changeClass() {
-    this.auth.signOut();
-    this.profileService.cleanPlayer();
-  }
+  // changeClass() {
+  //   this.auth.signOut();
+  //   this.profileService.cleanPlayer();
+  // }
 
   getWantedMessage() {
     if (this.weeklyGarbage && this.translate. defaultLang && this.weeklyGarbage[this.translate. defaultLang])

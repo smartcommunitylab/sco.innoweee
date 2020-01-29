@@ -31,11 +31,11 @@ export class ClassificationTypePage extends CommonPage implements OnInit {
     public route: ActivatedRoute,
     public dataServerService: DataServerService,
     public location: Location,
-    private auth: AuthService,
+    public auth: AuthService,
     public profileService: ProfileService,
     private classificationService: ClassificationService,
     public authService: AuthenticationService) {
-    super(router, translate, toastController, route, dataServerService, location, profileService, authService)
+    super(auth, router, translate, toastController, route, dataServerService, location, profileService, authService)
   }
 
 
@@ -95,7 +95,8 @@ export class ClassificationTypePage extends CommonPage implements OnInit {
     });
   }
   chooseCategory(item) {
-    this.classificationService.itemClassification.setItemType(item);
+    this.classificationService.itemClassification.setItemType(item.value);
+    this.classificationService.itemClassification.setItemValue(this.getLabel(item.key));
     this.router.navigate(['classification-working']);
   }
 

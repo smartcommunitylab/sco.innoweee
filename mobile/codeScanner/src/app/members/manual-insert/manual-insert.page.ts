@@ -26,9 +26,9 @@ export class ManualInsertPage extends CommonPage implements OnInit {
     private alertController:AlertController,
     public dataServerService: DataServerService,
     public location: Location,
-    private auth: AuthService,
+    public auth: AuthService,
     public authService: AuthenticationService) {
-    super(router, translate, toastController, route, dataServerService, location, profileService, authService)
+    super(auth, router, translate, toastController, route, dataServerService, location, profileService, authService)
    }
 
   ngOnInit() {

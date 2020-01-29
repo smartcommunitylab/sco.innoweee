@@ -2,6 +2,7 @@ export class ItemClassification {
     playerId:string;
     itemId:string;
     itemType:any;
+    itemValue:any;
     switchingOn:boolean;
     broken:boolean;
     age:number;
@@ -23,6 +24,12 @@ export class ItemClassification {
     }
     getItemType(){
         return this.itemType;
+    }
+    setItemValue(value){
+        this.itemValue=value;
+    }
+    getItemValue(){
+        return this.itemValue;
     }
     setSwitchingOn(switchingOn){
         this.switchingOn=switchingOn;

@@ -13,6 +13,7 @@ export class CommonPage implements OnInit {
     mypos: { lat: number, long: number };
   
     constructor(
+        public auth: AuthService,
         public router: Router,
         public translate: TranslateService,
         public toastController: ToastController,
@@ -26,8 +27,9 @@ export class CommonPage implements OnInit {
     ngOnInit() {
 
     }
+    
     changeClass() {
-        // this.auth.signOut();
-        // this.profileService.cleanPlayer();
+         this.auth.signOut();
+         this.profileService.cleanPlayer();
       }
 }

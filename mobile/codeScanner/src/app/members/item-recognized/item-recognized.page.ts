@@ -25,7 +25,7 @@ export class ItemRecognizedPage extends CommonPage implements OnInit {
     public translate: TranslateService,
     public toastController: ToastController,
     public route: ActivatedRoute,
-    private auth:AuthService,
+    public auth:AuthService,
     public dataServerService: DataServerService,
     public location:Location,
     public profileService: ProfileService,
@@ -33,7 +33,7 @@ export class ItemRecognizedPage extends CommonPage implements OnInit {
     public classificationService: ClassificationService
 
   ) {
-    super( router,translate, toastController,route,dataServerService,location,profileService,authService) }
+    super( auth,router,translate, toastController,route,dataServerService,location,profileService,authService) }
 
   ngOnInit() {
     this.route.queryParams
