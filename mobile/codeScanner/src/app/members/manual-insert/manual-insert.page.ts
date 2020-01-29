@@ -41,14 +41,14 @@ export class ManualInsertPage extends CommonPage implements OnInit {
     //check if it is already inserted
     const token = await this.auth.getValidToken();
     this.dataServerService.checkIfPresent(this.scanData,this.profileService.getPlayerData()["objectId"],token.accessToken).then(res => {
-      if (res) {
-        //ok
-        this.showDoubleId();
-      }
-      else {
+      // if (res) {
+      //   //ok
+      //   this.showDoubleId();
+      // }
+      // else {
         //already used
         this.router.navigate(['item-recognized'], { queryParams: { scanData: JSON.stringify(this.scanData), playerId: this.playerId } })  }
-      }  
+      // }  
     )}
   showDoubleId() {
     this.translate.get('classification_double_id_title').subscribe(async (res: string) => {
