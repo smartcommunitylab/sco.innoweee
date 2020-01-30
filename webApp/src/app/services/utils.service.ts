@@ -3,7 +3,7 @@ import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 const ERROR_ITEM_CONFIRMED = 'EC11:item already confirmed';
-const ERROR_PLAYERID_WRONG = 'EC12:playerId not corresponding show alert';
+const ERROR_PLAYERID_WRONG = 'EC12:playerId not corresponding';
 
 @Injectable({
   providedIn: 'root'
