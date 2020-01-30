@@ -18,14 +18,17 @@ export class ItemConfirmPage implements OnInit {
   item: any;
   playerData: any;
   garbageCollectionName: any;
+  garbageMap: any;
+  items: any;
+  types: any;
 
   constructor(
     private translate: TranslateService,
     private garbageCollectionService: GarbageCollectionService,
-    private profileService:ProfileService,
+    private profileService: ProfileService,
     private navCtrl: NavController,
     private router: Router,
-    private utils:UtilsService,
+    private utils: UtilsService,
     private garbageCollection: GarbageCollectionService,
     private route: ActivatedRoute) { }
 
@@ -42,19 +45,32 @@ export class ItemConfirmPage implements OnInit {
       this.recap["off"] = this.translate.instant("classification_off");
     }
     )
-      this.profileService.getLocalPlayerData().then(res => {
-        this.playerData = res;
-        this.garbageCollection.getActualCollection(this.playerData.gameId).then(res => {
+    this.profileService.getLocalPlayerData().then(res => {
+      this.playerData = res;
+      this.garbageCollection.getActualCollection(this.playerData.gameId).then(res => {
+        if (res) {
+          this.items = res.items
           this.garbageCollectionName = res.nameGE;
+        }
+        this.garbageCollection.getGargabeMap(this.playerData.tenantId).then(res => {
+          this.garbageMap = res;
+          this.fillSteps();
         });
       });
-  
-  
-  
-    
+    });
+  }
+  fillSteps() {
+    this.items.forEach(element => {
+      this.types.push({
+        "label": {
+          "it": this.garbageMap[element].name.it,
+          "en": this.garbageMap[element].name.en
+        },
+        "value": element
+      })
+    });
   }
 
-  
   getAge() {
 
     if (this.item.age == 0)
@@ -80,15 +96,21 @@ export class ItemConfirmPage implements OnInit {
     return ""
   }
   getType() {
-    if (this.item)
-      return this.item.itemType
+    if (this.item && this.item.itemType) {
+      try {
+        return this.types.filter(x => this.item.itemType == x.value)[0].label[this.translate.currentLang];
+      }
+      catch (err) {
+        return ""
+      }
+    }
     return ""
   }
   getSwitching() {
     if (this.item) {
       if (this.item.switchingOn == true)
         return this.recap["on"];
-      if (this.item.switchingOn== false)
+      if (this.item.switchingOn == false)
         return this.recap["off"];
       return ""
     }
@@ -96,24 +118,24 @@ export class ItemConfirmPage implements OnInit {
   confirm() {
     this.profileService.getLocalPlayerData().then(res => {
       this.playerData = res;
-    this.garbageCollectionService.confirmItem(this.item.itemId,this.playerData.objectId).then(res => {
-      //show alert confirmed and go out
-      console.log('confermato');
-      this.item.reusable = res.reusable;
-      this.item.valuable = res.valuable
-      this.router.navigate(['item-classification',JSON.stringify(this.item) ] );
-    },err => {
-      this.utils.handleError(err);
+      this.garbageCollectionService.confirmItem(this.item.itemId, this.playerData.objectId).then(res => {
+        //show alert confirmed and go out
+        console.log('confermato');
+        this.item.reusable = res.reusable;
+        this.item.valuable = res.valuable
+        this.router.navigate(['item-classification', JSON.stringify(this.item)]);
+      }, err => {
+        this.utils.handleError(err);
+      })
     })
-  })
-}
-getImgName() {
-  if (this.garbageCollectionName) {
-    return './assets/images/collection/' + this.garbageCollectionName.toLowerCase() + ".png";
   }
-  else
-    return ""
-}
+  getImgName() {
+    if (this.garbageCollectionName) {
+      return './assets/images/collection/' + this.garbageCollectionName.toLowerCase() + ".png";
+    }
+    else
+      return ""
+  }
   cancel() {
     this.navCtrl.navigateRoot('/home')
   }
