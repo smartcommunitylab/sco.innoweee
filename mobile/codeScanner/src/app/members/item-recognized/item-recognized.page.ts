@@ -73,7 +73,9 @@ export class ItemRecognizedPage extends CommonPage implements OnInit {
         //already used
         this.itemPresent = false;
       }
-    })
+    },err => {
+      //presente con altro player id? Eccezione
+  })
   // })
   }
   async classify() {

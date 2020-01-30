@@ -165,5 +165,17 @@
         "classification_off":"Non si accende",
         "label_confirm":"Conferma",
         "label_change":"Modifica",
-        "confirm_title":"Conferma i dati"
+        "confirm_title":"Conferma i dati",
+        "alert_user_not_register_title":"Utente non registrato",
+        "alert_user_not_register_subtitle":"L'utente inserito non e' registrato",
+        "alert_user_not_register_message":"Utilizzare le credenziali fornite con la documentazione",
+        "button_restart":"Riavvia",
+        "alert_item_confirmed_title":"Oggetto gia' inserito",
+        "alert_item_confirmed_subtitle":"L'oggetto risulta gia' inserito",
+        "alert_item_confirmed_message":"L'oggetto risulta gia' inserito nel database. In caso contrario procedere con la registrazione alla lavagna",
+        "buttoninsert":"Inserisci nuovo oggetto",
+        "alert_different_class_title":"Classe differente",
+        "alert_different_class_message":"L'utente che ha catalogato l'oggetto risulta appartenere ad un'altra classe. Verificare chi ha effettuato l'inserimento",
+        "error_server_title":"Errore di comunicazione con il server",
+        "error_server_message":"Riavvia l'aplicazione e assicurati di avere connettivita`"
 }

@@ -49,7 +49,9 @@ export class ManualInsertPage extends CommonPage implements OnInit {
         //already used
         this.router.navigate(['item-recognized'], { queryParams: { scanData: JSON.stringify(this.scanData), playerId: this.playerId } })  }
       // }  
-    )}
+    ), err => {
+        //presente con altro player id? Eccezione
+    }}
   showDoubleId() {
     this.translate.get('classification_double_id_title').subscribe(async (res: string) => {
       var title = res;
