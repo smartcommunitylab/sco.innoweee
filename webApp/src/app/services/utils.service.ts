@@ -57,6 +57,23 @@ export class UtilsService {
         });
         return await alert.present();
 
+      }else if (error.error && error.error.errorMsg=="EC12:playerId not corresponding show alert")
+      {
+        const alert = await this.alertController.create({
+          header: "Classe differente",
+          message: "L'utente che ha catalogato l'oggetto risulta appartenere ad un'altra classe. Verificare chi ha effettuato l'inserimento",
+          backdropDismiss: false ,
+          buttons: [{
+            text: 'Annulla'
+        },{
+          text: 'Inserisci nuovo oggetto',
+          handler: () => {
+            this.router.navigate(['start']);
+          }
+      }]
+        });
+        return await alert.present();
+
       }
       else{
         
