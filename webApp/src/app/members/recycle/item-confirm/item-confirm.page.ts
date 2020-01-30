@@ -20,7 +20,7 @@ export class ItemConfirmPage implements OnInit {
   garbageCollectionName: any;
   garbageMap: any;
   items: any;
-  types: any;
+  types: any =[];
 
   constructor(
     private translate: TranslateService,
@@ -63,8 +63,8 @@ export class ItemConfirmPage implements OnInit {
     this.items.forEach(element => {
       this.types.push({
         "label": {
-          "it": this.garbageMap[element].name.it,
-          "en": this.garbageMap[element].name.en
+          "it": this.garbageMap.items[element].name.it,
+          "en": this.garbageMap.items[element].name.en
         },
         "value": element
       })
