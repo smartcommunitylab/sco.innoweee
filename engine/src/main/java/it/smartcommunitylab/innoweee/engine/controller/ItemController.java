@@ -174,6 +174,9 @@ public class ItemController extends AuthController {
 			throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
 		}
 		ItemEvent itemEvent = itemEventManager.findByItemId(itemId);
+		if(!playerId.equals(itemEvent.getPlayerId())) {
+			throw new EntityNotFoundException(Const.ERROR_CODE_PLAYER + "playerId not corresponding");
+		}
 		logger.info("isItemUsed[{}]:{} / {}", game.getTenantId(), itemId, itemEvent);		
 		return itemEvent;
 	}
@@ -215,6 +218,9 @@ public class ItemController extends AuthController {
 		if(itemEvent == null) {
 			throw new EntityNotFoundException(Const.ERROR_CODE_ENTITY + "item not found");
 		}
+		if(!playerId.equals(itemEvent.getPlayerId())) {
+			throw new EntityNotFoundException(Const.ERROR_CODE_APP + "playerId not corresponding");
+		}
 		Optional<Player> optionalPlayer = playerRepository.findById(playerId);
 		if(optionalPlayer.isEmpty()) {
 			throw new EntityNotFoundException(Const.ERROR_CODE_ENTITY + "player not found");
@@ -230,7 +236,7 @@ public class ItemController extends AuthController {
 			throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
 		}
 		if(itemEvent.getState() >= Const.ITEM_STATE_CONFIRMED) {
-			throw new EntityNotFoundException(Const.ERROR_CODE_APP + "item already confirmed");
+			throw new EntityNotFoundException(Const.ERROR_CODE_PLAYER + "item already confirmed");
 		}
 		itemEventManager.itemConfirmed(itemEvent, game, player);
 		logger.info("itemConfirmed:{} / {}", itemEvent.getItemType(), itemEvent.getItemId());
