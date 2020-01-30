@@ -174,7 +174,7 @@ public class ItemController extends AuthController {
 			throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
 		}
 		ItemEvent itemEvent = itemEventManager.findByItemId(itemId);
-		if(!playerId.equals(itemEvent.getPlayerId())) {
+		if((itemEvent != null) && !playerId.equals(itemEvent.getPlayerId())) {
 			throw new EntityNotFoundException(Const.ERROR_CODE_PLAYER + "playerId not corresponding");
 		}
 		logger.info("isItemUsed[{}]:{} / {}", game.getTenantId(), itemId, itemEvent);		
