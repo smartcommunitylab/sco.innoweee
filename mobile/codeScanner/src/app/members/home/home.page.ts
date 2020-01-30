@@ -35,15 +35,15 @@ export class HomePage extends CommonPage implements OnInit {
     public toastController: ToastController,
     public profileService: ProfileService,
     public route: ActivatedRoute,
-    private dataService:DataServerService,
+    private dataService: DataServerService,
     public dataServerService: DataServerService,
     public location: Location,
     public auth: AuthService,
-    private barcodeScanner:BarcodeScanner,
-    private navCtrl:NavController,
+    private barcodeScanner: BarcodeScanner,
+    private navCtrl: NavController,
     public authService: AuthenticationService) {
-    super(auth,router, translate, toastController, route, dataServerService, location, profileService, authService)
-   }
+    super(auth, router, translate, toastController, route, dataServerService, location, profileService, authService)
+  }
   ionViewWillEnter() {
     this.scanData = null;
     this.itemPresent = false;
@@ -54,35 +54,39 @@ export class HomePage extends CommonPage implements OnInit {
         console.log(params); // {order: "popular"}
         this.playerId = params.playerId;
         this.playerName = params.playerName;
-        console.log("params.playerData"+params.playerData)
+        console.log("params.playerData" + params.playerData)
         this.playerData = JSON.parse(params.playerData);
         console.log(this.playerName); // popular
       });
-      if (this.profileService.getPlayerData())
-      {
+    if (this.profileService.getPlayerData()) {
+      this.setCollectionData();
+    } else {
+      this.profileService.getLocalPlayerData().then(res => {
         this.setCollectionData();
-       } else {
-        this.profileService.getLocalPlayerData().then(res => {
-          this.setCollectionData();
-        })
-  }
-  this.auth.authObservable.subscribe((action) => {
-    if (action.action === AuthActions.SignOutSuccess) {
-      this.navCtrl.navigateRoot('profile');
+      })
     }
-  }); 
-}
+    this.auth.authObservable.subscribe((action) => {
+      if (action.action === AuthActions.SignOutSuccess) {
+        this.navCtrl.navigateRoot('profile');
+      }
+    });
+  }
   async setCollectionData() {
-    const token = await this.auth.getValidToken();
-    this.dataServerService.getActualCollection(this.profileService.getPlayerData()["gameId"],token.accessToken).then(res => {
-     if (res){
-      this.weeklyGarbage = res.message
-      this.weeklyDateFrom = res.from;
-      this.weeklyDateTo = res.to;
-      this.getWantedMessage();
-     }
-    })
-   }
+    try {
+      const token = await this.auth.getValidToken();
+
+      this.dataServerService.getActualCollection(this.profileService.getPlayerData()["gameId"], token.accessToken).then(res => {
+        if (res) {
+          this.weeklyGarbage = res.message
+          this.weeklyDateFrom = res.from;
+          this.weeklyDateTo = res.to;
+          this.getWantedMessage();
+        }
+      })
+    } catch (e) {
+      console.log(e);
+    }
+  }
   scan() {
     this.options = {
       prompt: "Scan your barcode "
@@ -103,23 +107,19 @@ export class HomePage extends CommonPage implements OnInit {
   signOut() {
     this.auth.signOut();
   }
-  // changeClass() {
-  //   this.auth.signOut();
-  //   this.profileService.cleanPlayer();
-  // }
 
   getWantedMessage() {
-    if (this.weeklyGarbage && this.translate. defaultLang && this.weeklyGarbage[this.translate. defaultLang])
-      this.currentWeekLabel=this.weeklyGarbage[this.translate. defaultLang];
-    else this.currentWeekLabel=""
+    if (this.weeklyGarbage && this.translate.defaultLang && this.weeklyGarbage[this.translate.defaultLang])
+      this.currentWeekLabel = this.weeklyGarbage[this.translate.defaultLang];
+    else this.currentWeekLabel = ""
   }
 
   getDateMessageFrom() {
     if (this.weeklyGarbage)
-      return this.weeklyDateFrom ;
+      return this.weeklyDateFrom;
     else return ""
   }
-  
+
   getDateMessageTo() {
     if (this.weeklyGarbage)
       return this.weeklyDateTo;

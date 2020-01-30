@@ -17,7 +17,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { registerLocaleData } from '@angular/common';
 import localeIt from '@angular/common/locales/it';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
-import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { AuthenticationService } from './services/authentication.service';
 import { AuthGuard } from './guards/auth.guard';
 import {TokenInterceptor} from './interceptors/token-interceptor'
@@ -50,7 +49,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     SplashScreen,
     BarcodeScanner,
     GooglePlus,
-    NativeStorage,
     AuthenticationService,
     AuthGuard,
 

@@ -1,6 +1,9 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { APP_CONFIG_TOKEN, ApplicationConfig } from '../app-config';
+import { TranslateService } from '@ngx-translate/core';
+import { AlertController } from '@ionic/angular';
+const ERROR_PLAYERID_WRONG = 'EC12:playerId not corresponding';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +25,8 @@ export class DataServerService {
 
   
   constructor(private http: HttpClient,
+    private translate:TranslateService,
+    private alertController:AlertController,
     @Inject(APP_CONFIG_TOKEN) private config: ApplicationConfig) {
       this.endPoint=config.apiEndpoint;
       this.getItemApi=config.getItemApi;
@@ -139,7 +144,23 @@ export class DataServerService {
       //     errorMsg = errorObj.errorMsg;
       //   }
       // } else {
+        if (error.error && error.error.errorMsg == ERROR_PLAYERID_WRONG) {
+          this.translate.get('alert_different_class_title').subscribe(async (res: string) => {
+            var message = this.translate.instant('alert_different_class_message');
+            var buttoncancel = this.translate.instant('cancel_popup');
+            const alert = await this.alertController.create({
+              header: res,
+              message: message,
+              backdropDismiss: false,
+              buttons: [{
+                text: buttoncancel
+              }]
+            });
+            return await alert.present();
+          })
+        } else {
         reject();
+      }
       // }
     });
 

@@ -31,7 +31,10 @@ export class AppComponent {
   }
   initializeApp() {
     this.platform.ready().then(() => {
+      console.log('ready');
       this.auth.startUpAsync();
+      console.log('ready');
+
       this.splashScreen.hide();
       this.initTranslate();
  

@@ -65,7 +65,7 @@ export class ItemRecognizedPage extends CommonPage implements OnInit {
 
     this.dataServerService.checkIfPresent(scanData, this.playerId, token.accessToken).then(res => {
       // console.log(res);
-      if (res && res.result) {
+      if (res) {
         //ok
         this.itemPresent = true;
       }
