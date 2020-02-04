@@ -27,10 +27,17 @@ $font-family-wp-base: "Montserrat";
     text-align: center;
     width: 100%;
   }
+  ion-back-button {
+    --color:white!important;
+
+  }
   .language {
     ion-item {
       min-width: 250px;
       --background: #0fb4d7;
+    }
+    ion-button{
+      --color:white!important;
     }
   }
 }

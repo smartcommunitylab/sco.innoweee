@@ -21,6 +21,7 @@ export class ItemRecognizedPage extends CommonPage implements OnInit {
   scanData: any;
   playerId: any;
   myRole: string;
+  itemClassified: any;
   constructor(public router: Router,
     public translate: TranslateService,
     public toastController: ToastController,
@@ -68,6 +69,7 @@ export class ItemRecognizedPage extends CommonPage implements OnInit {
       if (res) {
         //ok
         this.itemPresent = true;
+        this.itemClassified=res.state;
       }
       else {
         //already used
@@ -93,7 +95,7 @@ export class ItemRecognizedPage extends CommonPage implements OnInit {
     }
   }
   async sendLim() {
-    if (!this.itemPresent) {
+    // if (!this.itemPresent) {
       const token = await this.auth.getValidToken();
       // this.authService.getValidAACtoken().then( token => {
       this.dataServerService.sendItem(this.item, this.playerId, token.accessToken).then(res => {
@@ -102,9 +104,9 @@ export class ItemRecognizedPage extends CommonPage implements OnInit {
         this.location.back();
       })
     // })
-    } else {
-      this.presentToast((this.translate.instant('toast_error')));
-    }
+    // } else {
+    //   this.presentToast((this.translate.instant('toast_error')));
+    // }
   }
   isParent() {
     return this.myRole=== this.profileService.getParentValue();

@@ -28,11 +28,12 @@
             <ng-template #manual_insert><span *ngIf="item" class="bold">{{item}}</span></ng-template>
 
 
-            <!-- <p><span *ngIf="!item">{{'label_id'|translate}}</span><span *ngIf="item">{{item}}</span><span class="bold"> {{item.text}}</span></p> -->
-            <p *ngIf="itemPresent"><span class="bold">{{'label_item_present'|translate}}</span></p>
-            <ion-button size="large" ion-button (click)="sendLim()" [hidden]="!isTeacher()" [disabled]="itemPresent">
+            <p *ngIf="itemClassified==2"><span class="bold">{{'label_item_present'|translate}}</span></p>
+            <!-- teacher send item to LIM for classifiying  -->
+            <ion-button size="large" ion-button (click)="sendLim()" [hidden]="!isTeacher()" [disabled]="itemClassified==2">
               {{'label_send_to_lim'|translate}}
             </ion-button>
+            <!-- parent classifies the item -->
             <ion-button size="large" ion-button (click)="classify()" [hidden]="!isParent()" [disabled]="itemPresent">
               {{'label_classify'|translate}}
             </ion-button>

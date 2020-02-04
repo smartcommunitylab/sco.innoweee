@@ -1,13 +1,18 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
 import { ProfileService } from 'src/app/services/profile.service';
 import { TranslateService } from '@ngx-translate/core';
 import { OverlayEventDetail } from '@ionic/core';
-import { ModalController, AlertController } from '@ionic/angular';
+import { ModalController, AlertController, ToastController } from '@ionic/angular';
 import { ClassComponent } from './modal/class/class.component'
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { AuthService } from 'src/app/auth/auth.service';
+import { CommonPage } from 'src/app/class/common-page';
+import { DataServerService } from 'src/app/services/data.service';
+import { ClassificationService } from 'src/app/services/classification.service';
+import {Location} from '@angular/common';
+
 const REFRESH_TIME = 500;
 @Component({
   selector: 'app-select-class',
@@ -16,7 +21,7 @@ const REFRESH_TIME = 500;
 })
 
 
-export class SelectClassPage implements OnInit {
+export class SelectClassPage extends CommonPage implements OnInit {
   domain: string = "";
   domains: [];
   institute = {};
@@ -35,19 +40,21 @@ export class SelectClassPage implements OnInit {
   playerState: {};
   playerName: any;
   profile:string;
-  constructor(
-    private auth: AuthService,
-    private profileService: ProfileService,
-    private router: Router, 
-    private fb: FormBuilder,
+  constructor(public router: Router,
+    public translate: TranslateService,
+    public toastController: ToastController,
+    public route: ActivatedRoute,
+    public auth:AuthService,
+    public dataServerService: DataServerService,
     private _cdr: ChangeDetectorRef,
-    private translate: TranslateService,
     private modalController: ModalController,
-    private authService:AuthenticationService,
-    private alertController:AlertController,
-    private translateService: TranslateService) {
-      console.log('select-class')
-  }
+    public location:Location,
+    public profileService: ProfileService,
+    public authService: AuthenticationService,
+    public classificationService: ClassificationService
+
+  ) {
+    super( auth,router,translate, toastController,route,dataServerService,location,profileService,authService) }
 
   ngOnInit() {
     this.getDomain();

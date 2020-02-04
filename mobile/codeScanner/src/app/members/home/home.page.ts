@@ -10,6 +10,7 @@ import { AuthService } from 'src/app/auth/auth.service';
 import { IAuthAction, AuthActions } from 'ionic-appauth';
 import { CommonPage } from 'src/app/class/common-page';
 import { Location } from '@angular/common';
+import { isEmpty } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
@@ -29,6 +30,7 @@ export class HomePage extends CommonPage implements OnInit {
   playerData: any;
   currentWeekLabel: any;
   action: IAuthAction;
+  schoolName: any;
 
   constructor(public translate: TranslateService,
     public router: Router,
@@ -52,11 +54,22 @@ export class HomePage extends CommonPage implements OnInit {
     this.route.queryParams
       .subscribe(params => {
         console.log(params); // {order: "popular"}
-        this.playerId = params.playerId;
-        this.playerName = params.playerName;
-        console.log("params.playerData" + params.playerData)
-        this.playerData = JSON.parse(params.playerData);
-        console.log(this.playerName); // popular
+        if (Object.keys(params).length === 0){
+          this.playerId = this.profileService.getMemorizedPlayerId();
+          this.playerData = this.profileService.getMemorizedPlayerData();
+          this.playerName = this.profileService.getMemorizedPlayerName();
+          this.schoolName = this.profileService.getMemorizedSchool();
+          this.profileService.setPlayerData(this.playerData);
+        // this.profileService.setPlayerState(this.playerState);
+        this.profileService.setPlayerName(this.playerName);
+        this.profileService.setSchoolName(this.schoolName);
+        }
+        else {
+          this.playerId = params.playerId;
+          this.playerName = params.playerName;
+          this.playerData = JSON.parse(params.playerData);
+        }
+        
       });
     if (this.profileService.getPlayerData()) {
       this.setCollectionData();

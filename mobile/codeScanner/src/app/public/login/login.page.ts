@@ -29,7 +29,8 @@ export class LoginPage implements OnInit  {
   private navCtrl: NavController,
     private router: Router) { }
 
-  ngOnInit() {      
+  ngOnInit() {
+      
       this.auth.authObservable.subscribe(async (action) => {
         console.log("login back");
         console.dir(action);
@@ -48,7 +49,14 @@ export class LoginPage implements OnInit  {
       });
 
 }
-login() {
+ionViewDidEnter() {
+  this.login();
+}
+  async login() {
+  const loading = await this.loadingController.create({
+    duration: 2000
+  });
+  await loading.present();
   this.auth.signIn();
 }
   async presentToast(string) {

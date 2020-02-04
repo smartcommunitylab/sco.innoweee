@@ -25,6 +25,11 @@ ion-grid {
     }
     ion-button {
         --background: #0fb4d7;
+        --background-activated: white;
+        --border-style:solid;
+        --border-width:1px;
+        --border-color: #0fb4d7;
+        --color-activated:#0fb4d7;
         --color:white;
     }
 }

@@ -109,6 +109,6 @@
         "label_register":"REGISTRATI",
         "alert_different_class_title":"Classe differente",
         "alert_different_class_message":"L'utente che ha catalogato l'oggetto risulta appartenere ad un'altra classe. Verificare chi ha effettuato l'inserimento",
-        "cancel_popup":"Annulla"
-
+        "cancel_popup":"Annulla",
+        "empty_id":"Campo vuoto! Inserire un codice"
 }

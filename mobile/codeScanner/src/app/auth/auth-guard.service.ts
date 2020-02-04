@@ -26,7 +26,11 @@ export class AuthGuardService implements CanActivate {
     .toPromise();
 
     if (!authenticated) {
-      this.navCtrl.navigateRoot('landing');
+      console.log('not authenticated');
+      this.navCtrl.navigateRoot('profile');
+    } else {
+      console.log('authenticated');
+
     }
     return authenticated;
   }

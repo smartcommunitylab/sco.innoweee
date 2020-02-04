@@ -78,14 +78,21 @@ export class AuthService extends IonicAuth  {
    * Extension to force cleanup even before end session confirmation. Optional, may be revised.
    */
   public async signOut() {
+    console.log("starting sign out");
     await super.signOut();
-    this.EndSessionCallBack();
+    console.log("starting end session callback");
+
+    //this.EndSessionCallBack();
+    console.log("after end session callback");
+
     // this.storage.removeItem('token_response');
     // this.authSubject.next(AuthActionBuilder.SignOutSuccess());
   }
 
   private addConfig() {
+    console.log('add config');
     if (this.platform.is('cordova')) {
+      console.log('cordova');
       this.authConfig = {
         identity_client: environment.cordova_identity_client,
         identity_server: environment.cordova_identity_server,
@@ -107,6 +114,7 @@ export class AuthService extends IonicAuth  {
   }
 
   private handleCallback(callbackUrl: string): void {
+    console.log("handle callback"+callbackUrl);
     if ((callbackUrl).indexOf(this.authConfig.redirect_url) === 0) {
       this.AuthorizationCallBack(callbackUrl);
     }

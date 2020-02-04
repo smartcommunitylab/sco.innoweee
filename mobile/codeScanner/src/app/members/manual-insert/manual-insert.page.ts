@@ -23,35 +23,45 @@ export class ManualInsertPage extends CommonPage implements OnInit {
     public toastController: ToastController,
     public profileService: ProfileService,
     public route: ActivatedRoute,
-    private alertController:AlertController,
+    private alertController: AlertController,
     public dataServerService: DataServerService,
     public location: Location,
     public auth: AuthService,
     public authService: AuthenticationService) {
     super(auth, router, translate, toastController, route, dataServerService, location, profileService, authService)
-   }
+  }
 
   ngOnInit() {
     this.route.queryParams
-    .subscribe(params => {
-      this.playerId = params.playerId;
-    })
+      .subscribe(params => {
+        this.playerId = params.playerId;
+      })
   }
   async insertCode() {
     //check if it is already inserted
-    const token = await this.auth.getValidToken();
-    this.dataServerService.checkIfPresent(this.scanData,this.profileService.getPlayerData()["objectId"],token.accessToken).then(res => {
-      // if (res) {
-      //   //ok
-      //   this.showDoubleId();
-      // }
-      // else {
+    if (this.scanData) {
+      const token = await this.auth.getValidToken();
+      this.dataServerService.checkIfPresent(this.scanData, this.profileService.getPlayerData()["objectId"], token.accessToken).then(res => {
         //already used
-        this.router.navigate(['item-recognized'], { queryParams: { scanData: JSON.stringify(this.scanData), playerId: this.playerId } })  }
-      // }  
-    ), err => {
+        this.router.navigate(['item-recognized'], { queryParams: { scanData: JSON.stringify(this.scanData), playerId: this.playerId } })
+      }
+        // }  
+      ), err => {
         //presente con altro player id? Eccezione
-    }}
+      }
+    } else {
+      this.translate.get('empty_id').subscribe(res => {
+        this.presentToast(res)
+      })
+   }
+  }
+  async presentToast(string) {
+    const toast = await this.toastController.create({
+      message: string,
+      duration: 2000
+    })
+    toast.present();
+  }
   showDoubleId() {
     this.translate.get('classification_double_id_title').subscribe(async (res: string) => {
       var title = res;
@@ -63,12 +73,13 @@ export class ManualInsertPage extends CommonPage implements OnInit {
       });
 
       await alert.present();
-    })  }
-    getFooter() {
-      return (this.getSchoolName())
-    }
-  
-    getSchoolName() {
-      return this.profileService.getSchoolName();
-    }
+    })
   }
+  getFooter() {
+    return (this.getSchoolName())
+  }
+
+  getSchoolName() {
+    return this.profileService.getSchoolName();
+  }
+}
