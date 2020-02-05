@@ -1,11 +1,12 @@
 import { AuthenticationService } from './../../services/authentication.service';
 import { Component, OnInit } from '@angular/core';
-import { LoadingController, ToastController, NavController } from '@ionic/angular';
+import { LoadingController, ToastController, NavController, Platform } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from 'src/app/auth/auth.service';
 import { IAuthAction, AuthActions } from 'ionic-appauth';
 import { ProfileService } from 'src/app/services/profile.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,17 @@ import { ProfileService } from 'src/app/services/profile.service';
 export class LoginPage implements OnInit  {
   loading: HTMLIonLoadingElement;
   action: IAuthAction;
+  token:any;
+    private subscription: Subscription;
 
+//   const TEACHER_KEY = "school-teacher"
+// const PARENT_KEY = "school-parent"
+// const OPERATOR_KEY = "collector-operator"
+  navigateFirst = {
+    "school-teacher":"select-class",
+    "school-parent":"select-class",
+    "collector-operator":"home-operator",
+  }
   user = {
     email: '',
     password: ''
@@ -25,6 +36,7 @@ export class LoginPage implements OnInit  {
     private translate: TranslateService,
     private toastController: ToastController,
     private auth: AuthService,
+    private platform:Platform,
     private profileService: ProfileService,
   private navCtrl: NavController,
     private router: Router) { }
@@ -37,10 +49,19 @@ export class LoginPage implements OnInit  {
         if (action.action === AuthActions.SignInSuccess) {
           //check if profile is valid
           // const token = await this.auth.getValidToken();
-          const token = action.tokenResponse;
-          console.log("token: "+token.accessToken)
-          this.profileService.getDomain(token.accessToken).then(res => {
-            this.router.navigate(['select-class']);
+          this.token = action.tokenResponse;
+          // console.log("token: "+token.accessToken)
+          this.profileService.getDomain(this.token.accessToken).then(res => {
+            //check if domain is correct
+            if (this.checkProfileDomain(res))
+              {
+              this.navigateToFirstPage();
+                }else{
+              //error
+              this.router.navigate(['profile']);
+                this.presentToast("Profilo errato");
+
+            }
           }, err => {
             //check error
             this.router.navigate(['register-parent']);
@@ -49,8 +70,44 @@ export class LoginPage implements OnInit  {
       });
 
 }
+  navigateToFirstPage() {
+    var selected=this.profileService.getProfileRole();
+    console.log("struct:"+JSON.stringify(this.navigateFirst));
+    console.log("selected:"+selected);
+    this.router.navigate([this.navigateFirst[selected]]);
+  }
+  checkProfileDomain(res: any):boolean {
+    var returnVar=false;
+    var selected=this.profileService.getProfileRole();
+    for(var key in res.roles) {
+      console.log("key: "+JSON.stringify(key));
+      res.roles[key].forEach(element => {
+        console.log("role: "+JSON.stringify(element.role));
+        console.log("selected: "+selected);
+
+        if (element.role === selected)
+        returnVar= true
+          if (element.role === this.profileService.getOwnerKey())
+          returnVar= true
+          if (element.role === this.profileService.getSchoolOwnerKey() && (selected==this.profileService.getTecherKey() ||selected==this.profileService.getParentKey())  )
+          returnVar= true
+        });
+    }
+    return returnVar
+  }
 ionViewDidEnter() {
   this.login();
+  // this.subscription = this.platform.resume.subscribe(async () => {
+  //   this.profileService.getDomain(this.token.accessToken).then(res => {
+      
+  //   }, err => {
+  //     //check error
+  //     this.router.navigate(['register-parent']);
+  //   })
+  // });
+}
+ngOnDestroy() {
+  this.subscription.unsubscribe();
 }
   async login() {
   const loading = await this.loadingController.create({

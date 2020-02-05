@@ -107,7 +107,6 @@
     <plugin name="cordova-plugin-advanced-http" spec="2.3.1">
         <variable name="OKHTTP_VERSION" value="3.10.0" />
     </plugin>
-    <allow-navigation href="http://192.168.31.171:8100" sessionid="6ab69ca2" />
     <engine name="android" spec="8.1.0" />
     <engine name="ios" spec="5.1.1" />
 </widget>

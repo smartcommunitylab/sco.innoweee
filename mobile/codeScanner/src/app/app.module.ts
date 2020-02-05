@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -51,7 +51,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     GooglePlus,
     AuthenticationService,
     AuthGuard,
-
+    { provide: LOCALE_ID, useValue: 'it-IT' },
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     {provide: APP_CONFIG_TOKEN, useValue: APP_CONFIG }
 

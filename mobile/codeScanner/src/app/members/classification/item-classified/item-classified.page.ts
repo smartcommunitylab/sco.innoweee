@@ -41,6 +41,32 @@ export class ItemClassifiedPage extends CommonPage implements OnInit {
     }
 
   }
+  getColorMarker(){
+    if (this.item && this.item.valuable) {
+      return "marker-green"
+    }
+    if (this.item && this.item.reusable) {
+      return "marker-blue"
+    }
+    return "marker-yellow"
+  }
+  
+textColor(color) {
+    if (this.isDarkColor(color)) return '#fff';
+    return '#000';
+};
+isDarkColor (color) {
+    if (!color) return true;
+    var c = color.substring(1); // strip #
+    var rgb = parseInt(c, 16); // convert rrggbb to decimal
+    var r = (rgb >> 16) & 0xff; // extract red
+    var g = (rgb >> 8) & 0xff; // extract green
+    var b = (rgb >> 0) & 0xff; // extract blue
+
+    var luma = (r + g + b) / 3; //0.2126 * r + 0.7152 * g + 0.0722 * b; // per ITU-R BT.709
+
+    return luma < 128;
+};
   // getColorMarker(){
   //   if (this.item && this.item.valuable) {
   //     return "marker-green"

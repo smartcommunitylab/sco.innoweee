@@ -23,6 +23,10 @@ const routes: Routes = [
   { path: 'result', loadChildren: './members/classification/result/result.module#ResultPageModule' },
   { path: 'item-classified/:item', loadChildren: './members/classification/item-classified/item-classified.module#ItemClassifiedPageModule' },
   { path: 'register-parent', loadChildren: './members/register-parent/register-parent.module#RegisterParentPageModule' },
+  { path: 'home-operator', loadChildren: './members/operatore/home/home.module#HomePageModule' },
+  { path: 'stats', loadChildren: './members/operatore/stats/stats.module#StatsPageModule' },
+  { path: 'insert-new', loadChildren: './members/operatore/insert-new/insert-new.module#InsertNewPageModule' },
+  { path: 'insert-old', loadChildren: './members/operatore/insert-old/insert-old.module#InsertOldPageModule' },
   { path: '**', redirectTo: 'select-class', pathMatch: 'full'}
  
 ];
