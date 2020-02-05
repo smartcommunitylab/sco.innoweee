@@ -31,6 +31,7 @@ export class HomePage extends CommonPage implements OnInit {
   currentWeekLabel: any;
   action: IAuthAction;
   schoolName: any;
+  myRole: string;
 
   constructor(public translate: TranslateService,
     public router: Router,
@@ -83,6 +84,11 @@ export class HomePage extends CommonPage implements OnInit {
         this.navCtrl.navigateRoot('profile');
       }
     });
+    this.myRole = this.profileService.getProfileRole();
+  }
+  
+  isParent() {
+    return this.myRole=== this.profileService.getParentValue();
   }
   async setCollectionData() {
     try {

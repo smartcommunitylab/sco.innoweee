@@ -38,7 +38,7 @@
     </ion-row>
       <ion-row>
           <ion-col class="procedure">
-              <ion-label>
+              <ion-label [hidden]="!isParent()">
                   {{'label_scan_procedure'|translate}}
               </ion-label>
           </ion-col>
