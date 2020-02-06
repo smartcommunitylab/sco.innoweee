@@ -172,7 +172,7 @@ export class StartPage extends MainPage implements OnInit {
     var state = this.calculateState(item)
     let headerLabel = this.translate.instant("duplicate_id_header");
     let subtitleLabel = this.translate.instant("duplicate_id_subtitle");
-    let messageLabel = this.translate.instant("duplicate_id_message", { id: item.id, state: state });
+    let messageLabel = this.translate.instant("duplicate_id_message", { id: item.itemId, state: state });
 
     const alert = await this.alertController.create({
       header: headerLabel,
