@@ -265,6 +265,31 @@ public class GameController extends AuthController {
 		return playerState;
 	}
 	
+	@GetMapping(value = "/api/game/{gameId}/reduce/{playerId}")
+	public @ResponseBody Double getCollectionTotalReducePoints(
+			@PathVariable String gameId,
+			@PathVariable String playerId,
+			HttpServletRequest request) throws Exception {
+		Optional<Game> optionalGame = gameRepository.findById(gameId);
+		if(optionalGame.isEmpty()) {
+			throw new EntityNotFoundException("game not found");
+		}
+		Game game = optionalGame.get();
+		if(!validateAuthorization(game.getTenantId(), game.getInstituteId(), game.getSchoolId(), 
+				game.getObjectId(), Const.AUTH_RES_Game_Player, Const.AUTH_ACTION_READ, request)) {
+			throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
+		}
+		GarbageCollection collection = collectionRepository.findActualCollection(game.getTenantId(), 
+				gameId, System.currentTimeMillis());
+		if(collection == null) {
+			throw new EntityNotFoundException("collection not found");
+		}
+		String nameGE = collection.getNameGE();
+		PlayerState playerState = geManager.getPlayerState(game.getGeGameId(), playerId, nameGE);
+		logger.info("getCollectionTotalReducePoints[{}]:{} / {} / {}", game.getTenantId(), gameId, playerId, nameGE);
+		return playerState.getTotalReduceCoin();
+	}
+
 	@GetMapping(value = "/api/game/{gameId}/contribution/{playerId}")
 	public @ResponseBody Player sendContribution(
 			@PathVariable String gameId,
