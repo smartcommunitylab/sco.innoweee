@@ -103,7 +103,8 @@ export class StartPage extends MainPage implements OnInit {
 
         }
         else if (this.itemClassified(res)) {
-          this.router.navigate(['item-confirm',  JSON.stringify(res)]);
+          this.confirm(res);
+          // this.router.navigate(['item-confirm',  JSON.stringify(res)]);
 
         } else {
           this.showErrorItem();
