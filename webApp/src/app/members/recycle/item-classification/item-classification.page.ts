@@ -71,6 +71,7 @@ export class ItemClassificationPage extends MainPage implements OnInit {
     }
     return this.translate.instant("label_marker_recycle_string_recycle");
   }
+  
   ionViewWillEnter() {
     if (this.route.snapshot && this.route.snapshot.paramMap) {
       this.item= JSON.parse(this.route.snapshot.paramMap.get("item"))

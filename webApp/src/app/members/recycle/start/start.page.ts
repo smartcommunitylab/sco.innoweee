@@ -89,7 +89,7 @@ export class StartPage extends MainPage implements OnInit {
     let that = this;
     this.ws.connect({}, (frame) => {
       that.ws.subscribe("/errors", (message) => {
-        alert("Error " + message.body);
+         console.log("Error " + message.body);
       });
       this.subscription = that.ws.subscribe("/topic/item." + tenantId + "." + playerId, (message) => {
         console.log(message)
@@ -107,7 +107,7 @@ export class StartPage extends MainPage implements OnInit {
           // this.router.navigate(['item-confirm',  JSON.stringify(res)]);
 
         } else {
-          this.showErrorItem();
+          this.showErrorItem(res);
         }
       })
           // that.router.navigate(['item-loaded', that.message.itemId, false]);
@@ -143,7 +143,7 @@ export class StartPage extends MainPage implements OnInit {
           //this.router.navigate(['item-confirm',  JSON.stringify(res)]);
 
         } else {
-          this.showErrorItem();
+          this.showErrorItem(res);
         }
       })
       //todo check if id is already present
@@ -168,10 +168,11 @@ export class StartPage extends MainPage implements OnInit {
       })
     })
   }
-  async showErrorItem() {
+  async showErrorItem(item) {
+    var state = this.calculateState(item)
     let headerLabel = this.translate.instant("duplicate_id_header");
     let subtitleLabel = this.translate.instant("duplicate_id_subtitle");
-    let messageLabel = this.translate.instant("duplicate_id_message");
+    let messageLabel = this.translate.instant("duplicate_id_message", { id: item.id, state: state });
 
     const alert = await this.alertController.create({
       header: headerLabel,
@@ -182,6 +183,17 @@ export class StartPage extends MainPage implements OnInit {
 
     await alert.present();
   }
+  private calculateState(item: any) {
+      if (item && item.valuable) {
+        return this.translate.instant("label_bin_value");
+  
+      }
+      if (item && item.reusable) {
+        return this.translate.instant("label_bin_reuse");
+      }
+      return this.translate.instant("label_bin_recycle");
+   }
+
   checkIfPresent(scanData): Promise<any> {
     return this.garbageCollection.checkIfPresent(scanData, this.playerData.objectId).then(res => {
       console.log(res);

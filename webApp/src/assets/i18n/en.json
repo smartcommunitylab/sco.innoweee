@@ -87,7 +87,7 @@
         "total_reuse_coins":"Total reuse Item",
         "duplicate_id_header":"Error",
         "duplicate_id_subtitle":"Id duplicated",
-        "duplicate_id_message":"This Id seems alredy used",
+        "duplicate_id_message":"This Id seems alredy used. The item with ID {{id}} should be put in the bin {{state}}",
         "label_enter":"Enter",
         "footer_game_title":"WWEEE R Robots",
         "title_material":"Insights",
@@ -167,7 +167,10 @@
         "classification_off":"Non si accende",
         "label_confirm":"Confirm",
         "label_change":"Modifica",
-        "confirm_title":"Confirm the data"
+        "confirm_title":"Confirm the data",
+        "label_bin_value":"VALUE",
+        "label_bin_reuse":"REUSED",
+        "label_bin_recycle":"RECYCLED"
 
 
 
