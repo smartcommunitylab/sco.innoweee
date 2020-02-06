@@ -12,6 +12,7 @@ import { MainPage } from 'src/app/class/MainPage';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Storage } from '@ionic/storage';
 import { environment } from './../../../../environments/environment';
+import { UtilsService } from 'src/app/services/utils.service';
 
 var ITEM_STATE_CLASSIFIED = 1;
 var ITEM_STATE_CONFIRMED = 2;
@@ -45,6 +46,7 @@ export class StartPage extends MainPage implements OnInit {
     public translate: TranslateService,
     public authService: AuthenticationService,
     public storage: Storage,
+    private utils:UtilsService,
     private garbageCollection: GarbageCollectionService,
     private alertController: AlertController,
     private route: ActivatedRoute,
@@ -133,10 +135,11 @@ export class StartPage extends MainPage implements OnInit {
         if (!res) {
           //new item
           this.router.navigate(['item-loaded', this.manualItemId, true]);
-
         }
         else if (this.itemClassified(res)) {
-          this.router.navigate(['item-confirm',  JSON.stringify(res)]);
+          //confirm item
+          this.confirm(res);
+          //this.router.navigate(['item-confirm',  JSON.stringify(res)]);
 
         } else {
           this.showErrorItem();
@@ -150,6 +153,20 @@ export class StartPage extends MainPage implements OnInit {
     return (res.state == ITEM_STATE_CLASSIFIED)
   }
 
+  confirm(item) {
+    this.profileService.getLocalPlayerData().then(res => {
+      this.playerData = res;
+      this.garbageCollection.confirmItem(item.itemId, this.playerData.objectId).then(res => {
+        //show alert confirmed and go out
+        console.log('confermato');
+        item.reusable = res.reusable;
+        item.valuable = res.valuable
+        this.router.navigate(['item-classification', JSON.stringify(item)]);
+      }, err => {
+        this.utils.handleError(err);
+      })
+    })
+  }
   async showErrorItem() {
     let headerLabel = this.translate.instant("duplicate_id_header");
     let subtitleLabel = this.translate.instant("duplicate_id_subtitle");
