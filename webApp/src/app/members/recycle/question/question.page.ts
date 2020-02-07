@@ -18,7 +18,7 @@ export class QuestionPage extends MainPage implements OnInit {
   weeklyQuestion: any;
   coinsGained: number = 0;
   numberReplies: number = 0;
-  credit = false;
+  credit = true;
   replies = {
     0: {
       answer: "reply_0_question",
@@ -61,6 +61,7 @@ export class QuestionPage extends MainPage implements OnInit {
         }
       });
       this.garbageCollection.getCredit(this.playerData.gameId,this.playerData.objectId).then(res => {
+        (res==0)?this.credit=true:this.credit=false;
         console.log(JSON.stringify(res));
       });
       
