@@ -27,6 +27,7 @@ const routes: Routes = [
   { path: 'stats', loadChildren: './members/operatore/stats/stats.module#StatsPageModule' },
   { path: 'insert-new', loadChildren: './members/operatore/insert-new/insert-new.module#InsertNewPageModule' },
   { path: 'insert-old', loadChildren: './members/operatore/insert-old/insert-old.module#InsertOldPageModule' },
+  { path: 'operatore-manual-insert', loadChildren: './members/operatore/operatore-manual-insert/operatore-manual-insert.module#OperatoreManualInsertPageModule' },
   { path: '**', redirectTo: 'select-class', pathMatch: 'full'}
  
 ];

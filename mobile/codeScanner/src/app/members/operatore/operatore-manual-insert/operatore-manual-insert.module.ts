@@ -5,13 +5,12 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { StatsPage } from './stats.page';
-import { SharedModule } from 'src/app/shared/shared.module';
+import { OperatoreManualInsertPage } from './operatore-manual-insert.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: StatsPage
+    component: OperatoreManualInsertPage
   }
 ];
 
@@ -20,9 +19,8 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    SharedModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [StatsPage]
+  declarations: [OperatoreManualInsertPage]
 })
-export class StatsPageModule {}
+export class OperatoreManualInsertPageModule {}
