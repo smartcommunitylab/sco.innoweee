@@ -28,7 +28,7 @@
             <ng-template #manual_insert><span *ngIf="item" class="bold">{{item}}</span></ng-template>
 
 
-            <p *ngIf="itemClassified==2"><span class="bold">{{'label_item_present'|translate}}</span></p>
+            <p *ngIf="itemClassified==2"><span class="bold">{{alreadyClassified}}</span></p>
             <!-- teacher send item to LIM for classifiying  -->
             <ion-button size="large" ion-button (click)="sendLim()" [hidden]="!isTeacher()" [disabled]="itemClassified==2">
               {{'label_send_to_lim'|translate}}

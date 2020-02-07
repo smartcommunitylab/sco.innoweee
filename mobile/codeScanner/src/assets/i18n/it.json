@@ -17,7 +17,7 @@
         "label_send_to_lim":" Invia oggetto alla lavagna",
         "label_class_selected":"Classe selezionata:",
         "label_id":"Identificatore",
-        "label_item_present":"Oggetto gia' inserito",
+        "label_item_present":"Oggetto gia' inserito. Inserirlo nel bidone {{itemInfo}}",
         "label_enter":"Accedi",
         "footer_game_title":"WEEE R Robots",
         "label_cancel":"Annulla",
@@ -110,5 +110,8 @@
         "alert_different_class_title":"Classe differente",
         "alert_different_class_message":"L'utente che ha catalogato l'oggetto risulta appartenere ad un'altra classe. Verificare chi ha effettuato l'inserimento",
         "cancel_popup":"Annulla",
-        "empty_id":"Campo vuoto! Inserire un codice"
+        "empty_id":"Campo vuoto! Inserire un codice",
+        "label_bin_value":"VALORE",
+        "label_bin_reuse":"RIUSO",
+        "label_bin_recycle":"RICICLO"
 }

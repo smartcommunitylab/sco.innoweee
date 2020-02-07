@@ -114,10 +114,16 @@ export class AuthService extends IonicAuth  {
   }
 
   private handleCallback(callbackUrl: string): void {
-    console.log("handle callback"+callbackUrl);
+    console.log("handle callback: "+callbackUrl);
     if ((callbackUrl).indexOf(this.authConfig.redirect_url) === 0) {
       console.log("authorization");
+      var code = this.getParameterByName('code',callbackUrl);
+      if (callbackUrl.length>10 && callbackUrl.slice(-1)=='#'){
+        callbackUrl= callbackUrl.slice(0, -1)
 
+      }
+      //decode
+      callbackUrl=decodeURI(callbackUrl);
       this.AuthorizationCallBack(callbackUrl);
     }
 
@@ -127,4 +133,13 @@ export class AuthService extends IonicAuth  {
       this.EndSessionCallBack();
     }
   }
+  private getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, '\\$&');
+    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+}
 }

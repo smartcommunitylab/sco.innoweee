@@ -22,6 +22,8 @@ export class ItemRecognizedPage extends CommonPage implements OnInit {
   playerId: any;
   myRole: string;
   itemClassified: any;
+  itemInfo: any ="";
+  alreadyClassified: string;
   constructor(public router: Router,
     public translate: TranslateService,
     public toastController: ToastController,
@@ -70,6 +72,10 @@ export class ItemRecognizedPage extends CommonPage implements OnInit {
         //ok
         this.itemPresent = true;
         this.itemClassified=res.state;
+        if (this.itemClassified==2) {
+          this.itemInfo = this.calculateState(res);
+          this.getAlreadyClassified();
+        }
       }
       else {
         //already used
@@ -80,6 +86,23 @@ export class ItemRecognizedPage extends CommonPage implements OnInit {
   })
   // })
   }
+  getAlreadyClassified() {
+    if (this.itemInfo){
+    this.translate.get('label_item_present', { itemInfo: this.itemInfo }).subscribe((s: string) => {
+      this.alreadyClassified= s;
+    });
+    }
+  }
+    private calculateState(item: any) {
+      if (item && item.valuable) {
+        return this.translate.instant("label_bin_value");
+  
+      }
+      if (item && item.reusable) {
+        return this.translate.instant("label_bin_reuse");
+      }
+      return this.translate.instant("label_bin_recycle");
+   }  
   async classify() {
     if (!this.itemPresent) {
       // const token = await this.auth.getValidToken();

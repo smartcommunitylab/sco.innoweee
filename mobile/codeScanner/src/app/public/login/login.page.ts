@@ -107,6 +107,7 @@ ionViewDidEnter() {
   // });
 }
 ngOnDestroy() {
+  if (this.subscription)
   this.subscription.unsubscribe();
 }
   async login() {
