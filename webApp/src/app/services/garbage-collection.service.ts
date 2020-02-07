@@ -11,6 +11,7 @@ import { UtilsService } from './utils.service';
   providedIn: 'root'
 })
 export class GarbageCollectionService {
+
   endPoint;
   getGameApi;
   actualCollection:any;
@@ -49,6 +50,14 @@ export class GarbageCollectionService {
    getArrayResources():any[] {
      return this.arrayResources;
    }
+   getCredit(gameId: any, objectId: any):Promise<any> {
+    let url: string = this.endPoint + this.getGameApi + gameId + this.getReduceApi+'/'+objectId;
+    return this.http.get(url).toPromise().then(response => {
+      return response;
+    }).catch(response => {
+      return this.utils.handleError(response);
+    });
+  }
    getActualCollection(gameId): Promise<any> {
     let url: string = this.endPoint + this.getGameApi + gameId + '/collection';
     return this.http.get(url).toPromise().then(response => {

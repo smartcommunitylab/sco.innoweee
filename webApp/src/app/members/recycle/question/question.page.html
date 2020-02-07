@@ -41,9 +41,10 @@
       </ion-col>
       <ion-col class="col-dark col-vertical-center">
         <div class="vertical-center">
-          <ion-row>
+          <ion-row *ngIf="!credit">
             <ion-col class="ion-text-center">
-              <span class="bold">{{'number_replies'|translate}} </span> {{getNumberReplies()}}
+              <!-- <span class="bold">{{'number_replies'|translate}} </span> {{getNumberReplies()}} -->
+              <span class="warning">{{'warning_replies'|translate}} </span> 
             </ion-col>
           </ion-row>
           <ion-row>

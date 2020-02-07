@@ -117,14 +117,17 @@ export class AuthService extends IonicAuth  {
     console.log("handle callback: "+callbackUrl);
     if ((callbackUrl).indexOf(this.authConfig.redirect_url) === 0) {
       console.log("authorization");
-      var code = this.getParameterByName('code',callbackUrl);
-      if (callbackUrl.length>10 && callbackUrl.slice(-1)=='#'){
+      //decode and strip last char if the string ends with #. 
+      //This issue is connected with a problem with HTTP2 and the Android library below
+      //customurlscheme that send and Intent with a # at the end of the string as it was aprt of 
+      //parameter instead part of the fragment 
+      if (callbackUrl.slice(-1)=='#'){
         callbackUrl= callbackUrl.slice(0, -1)
 
       }
-      //decode
       callbackUrl=decodeURI(callbackUrl);
-      this.AuthorizationCallBack(callbackUrl);
+
+            this.AuthorizationCallBack(callbackUrl);
     }
 
     if ((callbackUrl).indexOf(this.authConfig.end_session_redirect_url) === 0) {

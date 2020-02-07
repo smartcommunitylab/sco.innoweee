@@ -132,7 +132,7 @@ export class GameSelectionPage implements OnInit {
     this.gameId = game.objectId;
     this.profileService.getPlayer(this.gameId).then(res => {
       console.log(res);
-      this.players = res;
+      this.players = this.orderPlayer(res);
       this.profileService.setAllPlayers(this.players); // it is promise
       if (res.length == 1) {
         let refreshTimeout = setTimeout(() => {
@@ -143,6 +143,19 @@ export class GameSelectionPage implements OnInit {
         }, REFRESH_TIME);
       }
     });
+  }
+  private orderPlayer(res: any) {
+    return res.sort((obj1, obj2) => {
+      if (obj1.name > obj2.name) {
+          return 1;
+      }
+  
+      if (obj1.name < obj2.name) {
+          return -1;
+      }
+  
+      return 0;
+  });
   }
 
   setPlayer(player) {
