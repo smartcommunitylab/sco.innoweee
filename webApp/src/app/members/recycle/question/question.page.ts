@@ -37,6 +37,7 @@ export class QuestionPage extends MainPage implements OnInit {
       value: 10
     }
   }
+  warningReply: string;
   constructor(public translate: TranslateService,
     public storage: Storage,
     public toastController: ToastController,
@@ -64,7 +65,9 @@ export class QuestionPage extends MainPage implements OnInit {
         (res==0)?this.credit=true:this.credit=false;
         console.log(JSON.stringify(res));
       });
-      
+      this.translate.get('warning_replies').subscribe(async (res: string) => { 
+        this.warningReply=res;
+      })
     });
 
   }

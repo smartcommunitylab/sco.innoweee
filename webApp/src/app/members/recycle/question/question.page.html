@@ -44,7 +44,7 @@
           <ion-row *ngIf="!credit">
             <ion-col class="ion-text-center">
               <!-- <span class="bold">{{'number_replies'|translate}} </span> {{getNumberReplies()}} -->
-              <span class="warning">{{'warning_replies'|translate}} </span> 
+              <span class="warning"  [innerHTML]="warningReply" > </span> 
             </ion-col>
           </ion-row>
           <ion-row>
