@@ -125,9 +125,9 @@ public class RoleController extends AuthController {
 			@PathVariable String tenantId,
 			@RequestParam String email,
 			HttpServletRequest request) throws Exception {
-//		if(!validateRole(Const.ROLE_OWNER, tenantId, request)) {
-//			throw new UnauthorizedException(Const.ERROR_CODE_ROLE + "role not valid");
-//		}
+		if(!validateRole(Const.ROLE_OWNER, tenantId, request)) {
+			throw new UnauthorizedException(Const.ERROR_CODE_ROLE + "role not valid");
+		}
 		User user = userRepository.findByEmail(email);
 		if(user == null) {
 			throw new EntityNotFoundException("user not found");
