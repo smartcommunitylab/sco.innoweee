@@ -9,6 +9,7 @@ const ERROR_PLAYERID_WRONG = 'EC12:playerId not corresponding';
   providedIn: 'root'
 })
 export class DataServerService {
+
   
   
   endPoint: any;
@@ -20,6 +21,8 @@ export class DataServerService {
   getDeliveryApi:string;
   getReportApi: string;
   getPlayerApi: string;
+  getCollectorApi: string;
+  itemApi: string;
 
 
 
@@ -37,10 +40,29 @@ export class DataServerService {
       this.getGarbageApi = config.getGarbageApi;
       this.getReportApi = config.getReportApi;
       this.getPlayerApi = config.getPlayerApi;
-  } 
-  getStat(playerId: string, token: any) {
+      this.getCollectorApi= config.getCollectorApi;
+      this.getCollectorApi= config.getCollectorApi;
+      this.itemApi = config.itemApi;
 
+  } 
+
+  findItem(itemId: any, tenantID: any, token: string) {
+    ///api/collector/item/{tenantId}/find
+    let url: string = this.endPoint + this.getCollectorApi +'/'+ this.itemApi+'/'+tenantID+'/find?itemId='+ itemId;
+    return this.http.get(url,{ headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token
+
+    }}).toPromise().then(response => {
+      return response;
+    }).catch(response => {
+      return this.handleError(response);
+    });   }
+
+  getStat(playerId: string, token: any) {
     // @GetMapping(value = "/api/player/{playerId}/report")
+
     let url: string = this.endPoint + this.getPlayerApi +'/'+ playerId+'/'+this.getReportApi ;
     return this.http.get(url,{ headers: {
       'Accept': 'application/json',

@@ -42,7 +42,7 @@ export class HomePage extends CommonPage implements OnInit  {
 
       console.log(barcodeData);
       this.scanData = barcodeData.text;
-      this.router.navigate(['item-old']);
+      this.router.navigate(['insert-old']);
       // this.checkIfPresent(this.scanData);
     }, (err) => {
       console.log("Error occured : " + err);
@@ -51,12 +51,15 @@ export class HomePage extends CommonPage implements OnInit  {
   manualInsert() {
     this.router.navigate(['operatore-manual-insert'] );
   }
+  stats() {
+    this.router.navigate(['stats'] );
+  }
   getFooter() {
-    return (this.getSchoolName())
+    // return (this.getSchoolName())
   }
 
-  getSchoolName() {
-    return this.profileService.getSchoolName();
-  }
+  // getSchoolName() {
+  //   return this.profileService.getSchoolName();
+  // }
 
 }

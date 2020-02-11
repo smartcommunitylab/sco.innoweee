@@ -38,7 +38,7 @@ export class LoginPage implements OnInit  {
     private auth: AuthService,
     private platform:Platform,
     private profileService: ProfileService,
-  private navCtrl: NavController,
+    private navCtrl: NavController,
     private router: Router) { }
 
   ngOnInit() {
@@ -46,13 +46,19 @@ export class LoginPage implements OnInit  {
       this.auth.authObservable.subscribe(async (action) => {
         console.log("login back");
         console.dir(action);
+
         if (action.action === AuthActions.SignInSuccess) {
+          const loading = await this.loadingController.create({
+            duration: 2000
+          });
+          await loading.present();
           //check if profile is valid
           // const token = await this.auth.getValidToken();
           this.token = action.tokenResponse;
           // console.log("token: "+token.accessToken)
           this.profileService.getDomain(this.token.accessToken).then(res => {
             //check if domain is correct
+            this.profileService.setDomainMemorized(res);
             if (this.checkProfileDomain(res))
               {
               this.navigateToFirstPage();
@@ -74,7 +80,8 @@ export class LoginPage implements OnInit  {
     var selected=this.profileService.getProfileRole();
     console.log("struct:"+JSON.stringify(this.navigateFirst));
     console.log("selected:"+selected);
-    this.router.navigate([this.navigateFirst[selected]]);
+    this.navCtrl.navigateRoot(this.navigateFirst[selected]);
+    // this.router.navigate([this.navigateFirst[selected]]);
   }
   checkProfileDomain(res: any):boolean {
     var returnVar=false;

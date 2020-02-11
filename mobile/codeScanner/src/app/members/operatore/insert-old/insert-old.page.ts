@@ -33,10 +33,7 @@ export class InsertOldPage extends CommonPage implements OnInit  {
   }
 
   getFooter() {
-    return (this.getSchoolName())
+    //return (this.getSchoolName())
   }
 
-  getSchoolName() {
-    return this.profileService.getSchoolName();
-  }
 }

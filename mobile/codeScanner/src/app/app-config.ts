@@ -7,13 +7,16 @@ export interface ApplicationConfig {
     getInstituteApi: string;
     getSchoolApi: string;
     getGameApi: string;
+    getCollectorApi: string;
     getPlayerApi: string;
     getMaterialApi:string;
     getCatalogApi:string;
     buyComponentApi:string;
     robotApi:string;
     getRobotImageApi:string;
+    itemApi:string;
     getItemApi:string;
+    getFindApi:string;
     getReduceApi:string;
     itemSocketURL:string;
     getDeliveryApi:string;
@@ -31,6 +34,8 @@ export const APP_CONFIG: ApplicationConfig = {
     // apiEndpoint: 'http://192.168.42.60:2020/',
     getDomainApi: 'api/profile',
     getInstituteApi: 'api/institute',
+    getCollectorApi: 'api/collector',
+    getFindApi: '/find',
     getSchoolApi: 'api/school',
     getGameApi: 'api/game/',
     getPlayerApi: 'api/player',
@@ -47,7 +52,9 @@ export const APP_CONFIG: ApplicationConfig = {
     getRecognizedApi:"recognized",
     getUsedApi:"/used",
     getReportApi:"report",
-    parentApi:"/parent"
+    parentApi:"/parent",
+    itemApi: '/item',
+
 };
 
 // Create a config token to avoid naming conflicts

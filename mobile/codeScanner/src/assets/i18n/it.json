@@ -113,5 +113,6 @@
         "empty_id":"Campo vuoto! Inserire un codice",
         "label_bin_value":"VALORE",
         "label_bin_reuse":"RIUSO",
-        "label_bin_recycle":"RICICLO"
+        "label_bin_recycle":"RICICLO",
+        "label_stats":"Statistiche"
 }

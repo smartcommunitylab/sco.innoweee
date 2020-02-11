@@ -9,6 +9,7 @@ import { AlertController } from '@ionic/angular';
 const PLAYER_DATA_KEY = "PLAYER_DATA"
 const PLAYER_STATE_KEY = "PLAYER_STATE"
 const ALL_PLAYERS_KEY = "ALL_PLAYERS"
+const DOMAIN_KEY = "DOMAIN"
 const TEACHER_KEY = "school-teacher"
 const PARENT_KEY = "school-parent"
 const OPERATOR_KEY = "collector-operator"
@@ -18,6 +19,7 @@ const SCHOOL_OWNER_KEY = "school-owner";
   providedIn: 'root'
 })
 export class ProfileService {
+
   getParentKey() {
 return PARENT_KEY  }
   getTecherKey() {
@@ -28,6 +30,16 @@ return SCHOOL_OWNER_KEY
   getOwnerKey() {
     return OWNER_KEY;
   }
+  getOperatorKey() {
+    return OPERATOR_KEY;
+      }
+      setDomainMemorized(res: any) {
+        localStorage.setItem(DOMAIN_KEY,JSON.stringify(res))
+      }
+      getDomainMemorized() {
+        return JSON.parse(localStorage.getItem(DOMAIN_KEY));
+      }      
+
   registerParent(user: any, gameCode: any, token): Promise<any> {
     let url: string = this.endPoint + this.getDomainApi + this.parentApi + "/" + gameCode;
     let body = user;
@@ -67,6 +79,7 @@ return SCHOOL_OWNER_KEY
     localStorage.setItem("schoolName", JSON.stringify(schoolName));
   }
   cleanPlayer() {
+    localStorage.removeItem("DOMAIN");
     localStorage.removeItem("playerId");
     localStorage.removeItem("playerData");
     localStorage.removeItem("playerName");

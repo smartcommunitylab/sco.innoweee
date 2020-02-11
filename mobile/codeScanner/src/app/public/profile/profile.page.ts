@@ -16,8 +16,8 @@ export class ProfilePage implements OnInit {
 
   constructor(
     private profileService: ProfileService,
-    private auth:AuthService,
-    private platform:Platform,
+    private auth: AuthService,
+    private platform: Platform,
     private router: Router
   ) { }
 
@@ -27,29 +27,38 @@ export class ProfilePage implements OnInit {
       var playerData = this.profileService.getMemorizedPlayerData();
       var playerName = this.profileService.getMemorizedPlayerName();
       var schoolName = this.profileService.getMemorizedSchool();
-      if (localStorage.getItem('profile') && playerId && playerData && playerName && schoolName){
-        // const token = await this.auth.getValidToken();
-  
-        // console.log('ho tuttto e vado in home'+playereId + playerData + playerName + schoolName+token);
-        this.profileService.setPlayerData(playerData);
-        // this.profileService.setPlayerState(this.playerState);
-        this.profileService.setPlayerName(playerName);
-        this.profileService.setSchoolName(schoolName);
-        this.router.navigate(['home'], { queryParams: { playerId: playerId, playerName: playerName, playerData: JSON.stringify(playerData) } });
+      if ((this.isNotOperator(localStorage.getItem('profile')))) {
+        console.log('teacher or parent')
+
+      if (localStorage.getItem('profile') && playerId && playerData && playerName && schoolName) {
+          this.profileService.setPlayerData(playerData);
+          this.profileService.setPlayerName(playerName);
+          this.profileService.setSchoolName(schoolName);
+          this.router.navigate(['home'], { queryParams: { playerId: playerId, playerName: playerName, playerData: JSON.stringify(playerData) } });
+        } 
+
       }
-    });
-    
-  // })
+      else {
+        console.log('operator')
+        this.router.navigate(['home-operator']);
+      }
+    })
   }
+  private isNotOperator(arg0: string) {
+    if ((arg0 != this.profileService.getOwnerKey()) && (arg0 != this.profileService.getOperatorKey()))
+      return true;
+    return false
+  }
+
+
   playerData(playerData: any): any {
     throw new Error("Method not implemented.");
   }
 
 
-  chooseProfile(profile:string){
+  chooseProfile(profile: string) {
     this.profileService.setProfileRole(profile);
-      this.router.navigate(['login']);
-
+    this.router.navigate(['login']);
   }
 
 }

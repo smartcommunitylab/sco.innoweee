@@ -29,7 +29,14 @@ export class CommonPage implements OnInit {
     }
     
     changeClass() {
+        try{
+          console.log("signing out");
+
          this.auth.signOut();
          this.profileService.cleanPlayer();
+        
+      } catch (err) {
+        console.log("cleaned");
       }
+    }
 }
