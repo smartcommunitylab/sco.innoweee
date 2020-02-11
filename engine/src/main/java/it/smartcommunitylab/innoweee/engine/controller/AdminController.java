@@ -204,7 +204,7 @@ public class AdminController extends AuthController {
 		
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(now);
-		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Date from = sdf.parse(data.getGameFrom() + " 00:00:00");
 		Date to = sdf.parse(data.getGameTo() + " 23:59:59");
 		
