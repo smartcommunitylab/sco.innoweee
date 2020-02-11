@@ -120,6 +120,23 @@ public class RoleController extends AuthController {
 		return auths;
 	}
 	
+	@GetMapping(value = "/api/role/{tenantId}/collector/operator")
+	public @ResponseBody List<Authorization> addCollectorOperator(
+			@PathVariable String tenantId,
+			@RequestParam String email,
+			HttpServletRequest request) throws Exception {
+		if(!validateRole(Const.ROLE_OWNER, tenantId, request)) {
+			throw new UnauthorizedException(Const.ERROR_CODE_ROLE + "role not valid");
+		}
+		User user = userRepository.findByEmail(email);
+		if(user == null) {
+			throw new EntityNotFoundException("user not found");
+		}
+		List<Authorization> auths = roleManager.addCollectorOperator(user, tenantId);
+		logger.info("addCollectorOperator[{}]:{}", tenantId, email);
+		return auths;
+	}
+	
 	@PostMapping(value = "/api/role/{tenantId}/user")
 	public @ResponseBody User saveUser(
 			@PathVariable String tenantId,
