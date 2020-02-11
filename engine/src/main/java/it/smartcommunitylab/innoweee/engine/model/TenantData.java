@@ -9,6 +9,8 @@ public class TenantData {
 	private String schoolId;
 	private String schoolName;
 	private String checkCode;
+	private String gameFrom;
+	private String gameTo;
 	private List<String> classes = new ArrayList<String>();
 	private List<GarbageCollection> collections = new ArrayList<GarbageCollection>(); 
 	
@@ -53,5 +55,17 @@ public class TenantData {
 	}
 	public void setCheckCode(String checkCode) {
 		this.checkCode = checkCode;
+	}
+	public String getGameFrom() {
+		return gameFrom;
+	}
+	public void setGameFrom(String gameFrom) {
+		this.gameFrom = gameFrom;
+	}
+	public String getGameTo() {
+		return gameTo;
+	}
+	public void setGameTo(String gameTo) {
+		this.gameTo = gameTo;
 	}
 }

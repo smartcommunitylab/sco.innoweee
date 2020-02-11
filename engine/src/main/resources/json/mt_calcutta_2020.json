@@ -2,6 +2,8 @@
 	"instituteName":"IC Antonio Bresciani",
 	"schoolName":"SP M.T. di Calcutta",
 	"classes":["1A","2A","3A","3B","4A","4B","5A","5B"],
+	"gameFrom": "2020-03-02",
+	"gameTo": "2020-04-17",
 	"checkCode":"",
 	"collections": [
 	{
