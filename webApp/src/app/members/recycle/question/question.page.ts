@@ -62,7 +62,7 @@ export class QuestionPage extends MainPage implements OnInit {
         }
       });
       this.garbageCollection.getCredit(this.playerData.gameId,this.playerData.objectId).then(res => {
-        (res==0)?this.credit=true:this.credit=false;
+        (res==0)?this.credit=false:this.credit=true;
         console.log(JSON.stringify(res));
       });
       this.translate.get('warning_replies').subscribe(async (res: string) => { 
