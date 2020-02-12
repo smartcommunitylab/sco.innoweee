@@ -4,7 +4,7 @@ import { FormBuilder } from '@angular/forms';
 import { ProfileService } from 'src/app/services/profile.service';
 import { TranslateService } from '@ngx-translate/core';
 import { OverlayEventDetail } from '@ionic/core';
-import { ModalController, AlertController, ToastController } from '@ionic/angular';
+import { ModalController, AlertController, ToastController, NavController } from '@ionic/angular';
 import { ClassComponent } from './modal/class/class.component'
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { AuthService } from 'src/app/auth/auth.service';
@@ -51,7 +51,8 @@ export class SelectClassPage extends CommonPage implements OnInit {
     public location:Location,
     public profileService: ProfileService,
     public authService: AuthenticationService,
-    public classificationService: ClassificationService
+    public classificationService: ClassificationService,
+    private navCtrl: NavController
 
   ) {
     super( auth,router,translate, toastController,route,dataServerService,location,profileService,authService) }
@@ -192,7 +193,9 @@ export class SelectClassPage extends CommonPage implements OnInit {
       this.profileService.setPlayerName(this.playerName);
       this.profileService.setSchoolName(this.school["name"]);
       this.profileService.memorizePlayer(this.playerId,this.playerData, this.playerName, this.school["name"]);
-      this.router.navigate(['home'], { queryParams: { playerId: this.playerId, playerName: this.playerName, playerData: JSON.stringify(this.playerData) } });
+      this.navCtrl.navigateRoot('/home', { queryParams: { playerId: this.playerId, playerName: this.playerName, playerData: JSON.stringify(this.playerData) } });
+
+      // this.router.navigate(['home'], { queryParams: { playerId: this.playerId, playerName: this.playerName, playerData: JSON.stringify(this.playerData) } });
     // })
   }
   async chooseClass() {

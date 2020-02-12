@@ -19,7 +19,20 @@ const SCHOOL_OWNER_KEY = "school-owner";
   providedIn: 'root'
 })
 export class ProfileService {
+  checkServer() : Promise<any> {
+    let url: string = 'https://aac.platform.smartcommunitylab.it/aac/.well-known/openid-configuration';
+    return this.http.get(url,{
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
 
+      }
+    }).toPromise().then(response => {
+      return response;
+    }).catch(response => {
+      return this.handleError(response);
+    });
+  }
   getParentKey() {
 return PARENT_KEY  }
   getTecherKey() {

@@ -25,4 +25,6 @@ export class HomePage {
       console.log("Error occured : " + err);
     });
   }
+
+  
 }

@@ -31,6 +31,8 @@ export class LoginPage implements OnInit  {
     email: '',
     password: ''
   };
+  public onlineOffline: boolean = navigator.onLine;
+
   constructor(private authService: AuthenticationService,
     private loadingController: LoadingController,
     private translate: TranslateService,
@@ -72,6 +74,11 @@ export class LoginPage implements OnInit  {
             //check error
             this.router.navigate(['register-parent']);
           })
+        } else {
+          if (!navigator.onLine) {
+            this.presentToast("Connessione assente");
+
+            }
         }
       });
 
@@ -104,14 +111,6 @@ export class LoginPage implements OnInit  {
   }
 ionViewDidEnter() {
   this.login();
-  // this.subscription = this.platform.resume.subscribe(async () => {
-  //   this.profileService.getDomain(this.token.accessToken).then(res => {
-      
-  //   }, err => {
-  //     //check error
-  //     this.router.navigate(['register-parent']);
-  //   })
-  // });
 }
 ngOnDestroy() {
   if (this.subscription)

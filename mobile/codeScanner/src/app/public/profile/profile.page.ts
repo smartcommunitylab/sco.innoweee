@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ProfileService } from 'src/app/services/profile.service';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
-import { Platform } from '@ionic/angular';
+import { Platform, ToastController } from '@ionic/angular';
 import { AuthActions } from 'ionic-appauth';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-profile',
@@ -18,7 +19,9 @@ export class ProfilePage implements OnInit {
     private profileService: ProfileService,
     private auth: AuthService,
     private platform: Platform,
-    private router: Router
+    private router: Router,
+    private translate: TranslateService,
+    private toastController: ToastController
   ) { }
 
   async ngOnInit() {
@@ -58,7 +61,19 @@ export class ProfilePage implements OnInit {
 
   chooseProfile(profile: string) {
     this.profileService.setProfileRole(profile);
-    this.router.navigate(['login']);
+    //try to access to url
+    this.profileService.checkServer().then(()=>{
+      this.router.navigate(['login']);
+    }, err =>{
+      //error with connection
+      this.translate.get('toast_error').subscribe(async (res: string) => {
+        const toast = await this.toastController.create({
+          message: res,
+          duration: 2000
+        })
+        toast.present();
+      })
+    })
   }
 
 }

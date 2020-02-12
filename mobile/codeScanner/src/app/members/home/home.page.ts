@@ -32,6 +32,7 @@ export class HomePage extends CommonPage implements OnInit {
   action: IAuthAction;
   schoolName: any;
   myRole: string;
+  garbageCollectionName: any;
 
   constructor(public translate: TranslateService,
     public router: Router,
@@ -55,22 +56,22 @@ export class HomePage extends CommonPage implements OnInit {
     this.route.queryParams
       .subscribe(params => {
         console.log(params); // {order: "popular"}
-        if (Object.keys(params).length === 0){
+        if (Object.keys(params).length === 0) {
           this.playerId = this.profileService.getMemorizedPlayerId();
           this.playerData = this.profileService.getMemorizedPlayerData();
           this.playerName = this.profileService.getMemorizedPlayerName();
           this.schoolName = this.profileService.getMemorizedSchool();
           this.profileService.setPlayerData(this.playerData);
-        // this.profileService.setPlayerState(this.playerState);
-        this.profileService.setPlayerName(this.playerName);
-        this.profileService.setSchoolName(this.schoolName);
+          // this.profileService.setPlayerState(this.playerState);
+          this.profileService.setPlayerName(this.playerName);
+          this.profileService.setSchoolName(this.schoolName);
         }
         else {
           this.playerId = params.playerId;
           this.playerName = params.playerName;
           this.playerData = JSON.parse(params.playerData);
         }
-        
+
       });
     if (this.profileService.getPlayerData()) {
       this.setCollectionData();
@@ -86,9 +87,9 @@ export class HomePage extends CommonPage implements OnInit {
     });
     this.myRole = this.profileService.getProfileRole();
   }
-  
+
   isParent() {
-    return this.myRole=== this.profileService.getParentValue();
+    return this.myRole === this.profileService.getParentValue();
   }
   async setCollectionData() {
     try {
@@ -96,6 +97,7 @@ export class HomePage extends CommonPage implements OnInit {
 
       this.dataServerService.getActualCollection(this.profileService.getPlayerData()["gameId"], token.accessToken).then(res => {
         if (res) {
+          this.garbageCollectionName = res.nameGE;
           this.weeklyGarbage = res.message
           this.weeklyDateFrom = res.from;
           this.weeklyDateTo = res.to;
@@ -111,11 +113,11 @@ export class HomePage extends CommonPage implements OnInit {
       prompt: "Scan your barcode "
     }
     this.barcodeScanner.scan(this.options).then((barcodeData) => {
-
       console.log(barcodeData);
-      this.scanData = barcodeData.text;
-      this.router.navigate(['item-recognized'], { queryParams: { scanData: JSON.stringify(this.scanData), playerId: this.playerId } })
-      // this.checkIfPresent(this.scanData);
+      if (barcodeData && barcodeData.cancelled!=true) {
+        this.scanData = barcodeData.text;
+        this.router.navigate(['item-recognized'], { queryParams: { scanData: JSON.stringify(this.scanData), playerId: this.playerId } })
+      }
     }, (err) => {
       console.log("Error occured : " + err);
     });
@@ -144,43 +146,6 @@ export class HomePage extends CommonPage implements OnInit {
       return this.weeklyDateTo;
     else return ""
   }
-  // checkIfPresent(scanData) {
-  //   this.dataServerService.checkIfPresent(scanData.text, this.playerId).then(res => {
-  //     console.log(res);
-  //     if (res.result) {
-  //       //ok
-  //       this.itemPresent = true;
-  //     }
-  //     else {
-  //       //already used
-  //       this.itemPresent = false;
-  //     }
-
-
-  //   })
-  // }
-
-  // sendLim() {
-  //   if (!this.itemPresent) {
-  //     this.dataServerService.sendItem(this.scanData.text, this.playerId).then(res => {
-  //       console.log(res);
-  //     })
-  //   } else {
-  //     this.presentToast("ola");
-  //   }
-
-
-
-
-  // }
-
-  // async presentToast(string) {
-  //   const toast = await this.toastController.create({
-  //     message: string,
-  //     duration: 2000
-  //   })
-  //   toast.present();
-  // }
 
   getFooter() {
     return (this.getSchoolName())
@@ -193,5 +158,12 @@ export class HomePage extends CommonPage implements OnInit {
   getClassName() {
     return this.profileService.getPlayerName();
 
+  }
+  getImgName() {
+    if (this.garbageCollectionName) {
+      return './assets/images/collection/' + this.garbageCollectionName.toLowerCase() + ".png";
+    }
+    else
+      return ""
   }
 }
