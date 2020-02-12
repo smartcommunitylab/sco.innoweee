@@ -12,6 +12,9 @@ ion-grid {
         .bold {
             font-weight: bold;
         }
+        .buttons{
+            ion-button{margin-top: 50px;}
+        }
     }
 
     ion-button {

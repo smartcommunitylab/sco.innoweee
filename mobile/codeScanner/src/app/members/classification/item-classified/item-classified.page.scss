@@ -9,12 +9,15 @@
     --border-color:white!important;
     --color-activated:rgb(72,160,53)!important;
     --color:white;
+    margin-top: 32px;
+
     }
 }
 .marker-yellow{
     background-color: rgb(251,201,46)!important;
     color: black!important;
     ion-button {
+        margin-top: 32px;
 
     --background: rgb(251,201,46)!important;
     --background-activated: black!important;
@@ -29,6 +32,7 @@
     background-color:  rgb(25,155,217)!important;
     color:white!important;
     ion-button {
+        margin-top: 32px;
 
     --background: rgb(25,155,217)!important;
     --background-activated: white;

@@ -28,7 +28,7 @@
               <ion-list-header> {{'label_type'|translate}}</ion-list-header>
               <ion-col *ngFor="let item of items| keyvalue">
                 <ion-button color="light" (click)="chooseCategory(item)" expand="block" fill="outline">
-                  {{getLabel(item.key)}}
+                  <span class="item-text-wrap">{{getLabel(item.key)}}</span>
                 </ion-button>
               </ion-col>
             </ion-list>
