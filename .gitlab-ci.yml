@@ -71,7 +71,7 @@ build_mobile:
       - mobile/codeScanner/www/
   script:
     - cd mobile/codeScanner
-    # - npm install && ionic cordova platform add android
+    - npm install
     - ionic cordova platform add android
     - ng run app:ionic-cordova-build --platform=android
   only:
