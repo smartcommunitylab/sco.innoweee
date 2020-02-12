@@ -86,8 +86,6 @@ deploy_mobile:
     - build_mobile
   script:
     - cd mobile/codeScanner
-    - ls -la
-    - echo $BLOB
     - /cordova-hpc/node_modules/.bin/cordova-hcp build
     - azcopy copy './www/*' $BLOB --recursive --cache-control $CACHE --overwrite 'true'
   only:
