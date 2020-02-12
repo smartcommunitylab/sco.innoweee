@@ -83,7 +83,7 @@ deploy_mobile:
   environment:
     name: develop
   dependencies:
-    - build
+    - build_mobile
   script:
     - cd mobile/codeScanner
     - ls -la
