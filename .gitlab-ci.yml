@@ -13,7 +13,7 @@ variables:
   IMAGE_FRONTEND_LATEST: smartcommunitylab/innoweee-frontend:latest
   DOCKER_DRIVER: overlay
   BLOB: "$BLOB_URL$CNAME$TOKEN"
-  CACHE: '60'
+  CACHE: 'max-age=60,public,must-revalidate'
 
 build_backend:
   stage: build
