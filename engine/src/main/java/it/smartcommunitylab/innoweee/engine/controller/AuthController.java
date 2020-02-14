@@ -10,17 +10,19 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import it.smartcommunitylab.innoweee.engine.common.Const;
 import it.smartcommunitylab.innoweee.engine.common.Utils;
 import it.smartcommunitylab.innoweee.engine.exception.EntityNotFoundException;
 import it.smartcommunitylab.innoweee.engine.exception.StorageException;
 import it.smartcommunitylab.innoweee.engine.exception.UnauthorizedException;
 import it.smartcommunitylab.innoweee.engine.repository.UserRepository;
-import it.smartcommunitylab.innoweee.engine.security.AuthManager;
 import it.smartcommunitylab.innoweee.engine.security.Authorization;
 import it.smartcommunitylab.innoweee.engine.security.User;
 
@@ -31,23 +33,12 @@ public class AuthController {
 	@Autowired
 	private UserRepository userRepository;
 	
-	@Autowired
-	private AuthManager authManager;
-	
 	public User getUserByEmail(HttpServletRequest request) throws Exception {
-		String token = request.getHeader("Authorization");
-//		String token = "Bearer xxxxxx";
-		if(StringUtils.isEmpty(token)) {
-			throw new UnauthorizedException("Unauthorized Exception: token not valid");
-		}
-		String email = authManager.getCache().get(token);
-//		String email = "admin@test.com";
-		if(StringUtils.isEmpty(email)) {
-			throw new UnauthorizedException("Unauthorized Exception: email not valid");
-		}
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String email = authentication.getName();
 		User user = userRepository.findByEmail(email);
 		if(user == null) {
-			throw new UnauthorizedException("Unauthorized Exception: user not found");
+			throw new UnauthorizedException(Const.ERROR_CODE_USER + "user not found");
 		}
 		return user;
 	}
@@ -151,6 +142,9 @@ public class AuthController {
 			for(String authKey : user.getRoles().keySet()) {
 				List<Authorization> authList = user.getRoles().get(authKey);
 				for(Authorization auth : authList) {
+					if(auth.getRole().equals(Const.ROLE_ADMIN)) {
+						return true;
+					}
 					if(auth.getRole().equals(role) && auth.getTenantId().equals(tenantId)) {
 						return true;
 					}
@@ -166,13 +160,17 @@ public class AuthController {
 			for(String authKey : user.getRoles().keySet()) {
 				List<Authorization> authList = user.getRoles().get(authKey);
 				for(Authorization auth : authList) {
-					if(auth.getRole().equals(role)) {
+					if(auth.getRole().equals(role) || auth.getRole().equals(Const.ROLE_ADMIN)) {
 						return true;
 					}
 				}
 			}
 		}
 		return false;
+	}
+	
+	public boolean validateClient(HttpServletRequest request) {
+		return true;
 	}
 
 	@ExceptionHandler({EntityNotFoundException.class, StorageException.class})

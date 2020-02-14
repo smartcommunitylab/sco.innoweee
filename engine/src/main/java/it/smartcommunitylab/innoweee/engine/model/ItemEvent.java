@@ -1,13 +1,22 @@
 package it.smartcommunitylab.innoweee.engine.model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+import it.smartcommunitylab.innoweee.engine.common.Utils;
+
+@Document
 public class ItemEvent {
-	@Id
+	@Id	
 	private String id;
+	@Indexed 
 	private String playerId;
+	@Indexed 
 	private String itemId;
 	private String itemType;
 	private boolean broken;
@@ -18,6 +27,20 @@ public class ItemEvent {
 	private boolean reusable;
 	private boolean valuable;
 	private boolean manual;
+	@Indexed
+	private int state;
+	private String stateNote;
+	private String collector;
+	private List<ItemAction> actions = new ArrayList<ItemAction>();
+	private String tenantId;
+	
+	public void addStateNote(String note) {
+		if(Utils.isEmpty(this.stateNote)) {
+			this.stateNote = note;
+		} else {
+			this.stateNote += ";" + note;
+		}
+	}
 	
 	public String getId() {
 		return id;
@@ -90,5 +113,37 @@ public class ItemEvent {
 	}
 	public void setSaveTime(Date saveTime) {
 		this.saveTime = saveTime;
+	}
+	public int getState() {
+		return state;
+	}
+	public void setState(int state) {
+		this.state = state;
+	}
+	public List<ItemAction> getActions() {
+		return actions;
+	}
+	public void setActions(List<ItemAction> actions) {
+		this.actions = actions;
+	}
+	public String getStateNote() {
+		return stateNote;
+	}
+	public void setStateNote(String stateNote) {
+		this.stateNote = stateNote;
+	}
+	public String getCollector() {
+		return collector;
+	}
+	public void setCollector(String collector) {
+		this.collector = collector;
+	}
+
+	public String getTenantId() {
+		return tenantId;
+	}
+
+	public void setTenantId(String tenantId) {
+		this.tenantId = tenantId;
 	}
 }

@@ -87,7 +87,7 @@
         "total_reuse_coins":"Total reuse Item",
         "duplicate_id_header":"Error",
         "duplicate_id_subtitle":"Id duplicated",
-        "duplicate_id_message":"This Id seems alredy used",
+        "duplicate_id_message":"This Id seems alredy used. The item with ID {{id}} should be put in the bin {{state}}",
         "label_enter":"Enter",
         "footer_game_title":"WWEEE R Robots",
         "title_material":"Insights",
@@ -153,7 +153,26 @@
         "message_confirm":"Are you sure to give all your coins?",
         "header_donated":"CONGRATULATION!",
         "message_donated":" Thank you for your generosity! ! You gave your coins to class {{classe}} and you have earned a star!<br><div><ion-icon src=\"./assets/images/yellow.svg\" *ngIf=\"isFuture(contribute)\"></ion-icon></div>",
-        "donate_server_error":"Error with the server during your donation!"
+        "donate_server_error":"Error with the server during your donation!",
+        "label_recap_id":"ID:",
+        "label_recap_type":"Tipologia:",
+        "label_recap_switch":"Si accende:",
+        "label_recap_broken":"E' integro:",
+        "label_recap_age":"E' vecchio:",
+        "classification_new":"Nuovo",
+        "classification_old":"Vecchio",
+        "classification_broken":"Rotto",
+        "classification_fixed":"Integro",
+        "classification_on":"Si accende",
+        "classification_off":"Non si accende",
+        "label_confirm":"Confirm",
+        "label_change":"Modifica",
+        "confirm_title":"Confirm the data",
+        "label_bin_value":"VALUE",
+        "label_bin_reuse":"REUSED",
+        "label_bin_recycle":"RECYCLED",
+        "warning_replies":"<b>WARNING</b><br> Ricordatevi di rispondere alla domanda riduco per ottenere i crediti necessari all'acquisto del robot"
+
 
 
 

@@ -1,6 +1,5 @@
 package it.smartcommunitylab.innoweee.engine.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +21,7 @@ import it.smartcommunitylab.innoweee.engine.common.Const;
 import it.smartcommunitylab.innoweee.engine.common.Utils;
 import it.smartcommunitylab.innoweee.engine.exception.EntityNotFoundException;
 import it.smartcommunitylab.innoweee.engine.exception.UnauthorizedException;
+import it.smartcommunitylab.innoweee.engine.manager.RoleManager;
 import it.smartcommunitylab.innoweee.engine.repository.UserRepository;
 import it.smartcommunitylab.innoweee.engine.security.Authorization;
 import it.smartcommunitylab.innoweee.engine.security.User;
@@ -32,6 +32,8 @@ public class RoleController extends AuthController {
 	
 	@Autowired
 	private UserRepository userRepository;
+	@Autowired
+	private RoleManager roleManager;
 	
 	@GetMapping(value = "/api/role/{tenantId}/owner")
 	public @ResponseBody List<Authorization> addOwner(
@@ -39,28 +41,13 @@ public class RoleController extends AuthController {
 			@RequestParam String email,
 			HttpServletRequest request) throws Exception {
 		if(!validateRole(Const.ROLE_ADMIN, request)) {
-			throw new UnauthorizedException("Unauthorized Exception: role not valid");
+			throw new UnauthorizedException(Const.ERROR_CODE_ROLE + "role not valid");
 		}
 		User user = userRepository.findByEmail(email);
 		if(user == null) {
 			throw new EntityNotFoundException("user not found");
 		}
-		List<Authorization> auths = new ArrayList<Authorization>();
-		Authorization auth = new Authorization();
-		auth.getActions().add(Const.AUTH_ACTION_READ);
-		auth.getActions().add(Const.AUTH_ACTION_ADD);
-		auth.getActions().add(Const.AUTH_ACTION_UPDATE);
-		auth.getActions().add(Const.AUTH_ACTION_DELETE);
-		auth.setRole(Const.ROLE_OWNER);
-		auth.setTenantId(tenantId);
-		auth.setInstituteId("*");
-		auth.setSchoolId("*");
-		auth.setGameId("*");
-		auth.getResources().add("*");
-		auths.add(auth);
-		String authKey = Utils.getAuthKey(tenantId, Const.ROLE_OWNER);
-		user.getRoles().put(authKey, auths);
-		userRepository.save(user);
+		List<Authorization> auths = roleManager.addOwner(user, tenantId);
 		logger.info("addOwner[{}]:{}", tenantId, email);
 		return auths;
 	}
@@ -70,32 +57,83 @@ public class RoleController extends AuthController {
 			@PathVariable String tenantId,
 			@RequestParam String email,
 			@RequestParam String instituteId,
+			@RequestParam String instituteName,
 			@RequestParam String schoolId,
+			@RequestParam String schoolName,
 			HttpServletRequest request) throws Exception {
 		if(!validateRole(Const.ROLE_OWNER, tenantId, request)) {
-			throw new UnauthorizedException("Unauthorized Exception: role not valid");
+			throw new UnauthorizedException(Const.ERROR_CODE_ROLE + "role not valid");
 		}
 		User user = userRepository.findByEmail(email);
 		if(user == null) {
 			throw new EntityNotFoundException("user not found");
 		}
-		List<Authorization> auths = new ArrayList<Authorization>();
-		Authorization auth = new Authorization();
-		auth.getActions().add(Const.AUTH_ACTION_READ);
-		auth.getActions().add(Const.AUTH_ACTION_ADD);
-		auth.getActions().add(Const.AUTH_ACTION_UPDATE);
-		auth.getActions().add(Const.AUTH_ACTION_DELETE);
-		auth.setRole(Const.ROLE_SCHOOL_OWNER);
-		auth.setTenantId(tenantId);
-		auth.setInstituteId(instituteId);
-		auth.setSchoolId(schoolId);
-		auth.setGameId("*");
-		auth.getResources().add("*");
-		auths.add(auth);
-		String authKey = Utils.getAuthKey(tenantId, Const.ROLE_SCHOOL_OWNER);
-		user.getRoles().put(authKey, auths);
-		userRepository.save(user);
+		List<Authorization> auths = roleManager.addSchoolOwner(user, tenantId, instituteId, instituteName, 
+				schoolId, schoolName);
 		logger.info("addSchoolOwner[{}]:{}", tenantId, email);
+		return auths;
+	}
+	
+	@GetMapping(value = "/api/role/{tenantId}/schoolteacher")
+	public @ResponseBody List<Authorization> addSchoolTeacher(
+			@PathVariable String tenantId,
+			@RequestParam String email,
+			@RequestParam String instituteId,
+			@RequestParam String instituteName,
+			@RequestParam String schoolId,
+			@RequestParam String schoolName,
+			HttpServletRequest request) throws Exception {
+		if(!validateRole(Const.ROLE_OWNER, tenantId, request)) {
+			throw new UnauthorizedException(Const.ERROR_CODE_ROLE + "role not valid");
+		}
+		User user = userRepository.findByEmail(email);
+		if(user == null) {
+			throw new EntityNotFoundException("user not found");
+		}
+		List<Authorization> auths = roleManager.addSchoolTeacher(user, tenantId, instituteId, instituteName, 
+				schoolId, schoolName);
+		logger.info("addTeacher[{}]:{}", tenantId, email);
+		return auths;
+	}
+	
+	@GetMapping(value = "/api/role/{tenantId}/parent")
+	public @ResponseBody List<Authorization> addParent(
+			@PathVariable String tenantId,
+			@RequestParam String email,
+			@RequestParam String instituteId,
+			@RequestParam String instituteName,
+			@RequestParam String schoolId,
+			@RequestParam String schoolName,
+			@RequestParam String gameId,
+			@RequestParam String gameName,
+			HttpServletRequest request) throws Exception {
+		if(!validateRole(Const.ROLE_OWNER, tenantId, request)) {
+			throw new UnauthorizedException(Const.ERROR_CODE_ROLE + "role not valid");
+		}
+		User user = userRepository.findByEmail(email);
+		if(user == null) {
+			throw new EntityNotFoundException("user not found");
+		}
+		List<Authorization> auths = roleManager.addParent(user, tenantId, instituteId, instituteName, 
+				schoolId, schoolName, gameId, gameName);
+		logger.info("addParent[{}]:{}", tenantId, email);
+		return auths;
+	}
+	
+	@GetMapping(value = "/api/role/{tenantId}/collector/operator")
+	public @ResponseBody List<Authorization> addCollectorOperator(
+			@PathVariable String tenantId,
+			@RequestParam String email,
+			HttpServletRequest request) throws Exception {
+		if(!validateRole(Const.ROLE_OWNER, tenantId, request)) {
+			throw new UnauthorizedException(Const.ERROR_CODE_ROLE + "role not valid");
+		}
+		User user = userRepository.findByEmail(email);
+		if(user == null) {
+			throw new EntityNotFoundException("user not found");
+		}
+		List<Authorization> auths = roleManager.addCollectorOperator(user, tenantId);
+		logger.info("addCollectorOperator[{}]:{}", tenantId, email);
 		return auths;
 	}
 	
@@ -105,13 +143,13 @@ public class RoleController extends AuthController {
 			@RequestBody User user,
 			HttpServletRequest request) throws Exception {
 		if(!validateRole(Const.ROLE_OWNER, tenantId, request)) {
-			throw new UnauthorizedException("Unauthorized Exception: role not valid");
+			throw new UnauthorizedException(Const.ERROR_CODE_ROLE + "role not valid");
 		}
 		User userDb = null;
 		if(!StringUtils.isEmpty(user.getEmail())) {
 			userDb = userRepository.findByEmail(user.getEmail());
 		} else {
-			throw new EntityNotFoundException("email must be present");
+			throw new EntityNotFoundException(Const.ERROR_CODE_APP + "email must be present");
 		}
 		if(userDb == null) {
 			User newUser = new User();
@@ -119,32 +157,11 @@ public class RoleController extends AuthController {
 			newUser.setSurname(user.getSurname());
 			newUser.setEmail(user.getEmail());
 			newUser.setCf(user.getCf());
-    	
-  		List<Authorization> auths = new ArrayList<Authorization>();
-  		Authorization auth = new Authorization();
-  		auth.setRole(Const.ROLE_USER);
-  		auth.setTenantId(tenantId);
-  		auths.add(auth);
-  		String authKey = Utils.getAuthKey(tenantId, Const.ROLE_USER);
-  		newUser.getRoles().put(authKey, auths);
-  		
     	userRepository.save(newUser);
     	logger.info("saveUser new [{}]:{}", tenantId, user.getEmail());
     	return newUser;
     } else {
-    	user.setId(userDb.getId());
-    	if(!Utils.checkTenantIdAndRole(tenantId, Const.ROLE_USER, userDb)) {
-    		List<Authorization> auths = new ArrayList<Authorization>();
-    		Authorization auth = new Authorization();
-    		auth.setRole(Const.ROLE_USER);
-    		auth.setTenantId(tenantId);
-    		auths.add(auth);
-    		String authKey = Utils.getAuthKey(tenantId, Const.ROLE_USER);
-    		user.getRoles().put(authKey, auths);
-    	}
-    	userRepository.save(user);
-    	logger.info("saveUser update [{}]:{}", tenantId, user.getEmail());
-    	return user;
+    	return userDb;
     }
 	}
 	
@@ -154,7 +171,7 @@ public class RoleController extends AuthController {
 			@RequestParam String email,
 			HttpServletRequest request) throws Exception {
 		if(!validateRole(Const.ROLE_OWNER, tenantId, request)) {
-			throw new UnauthorizedException("Unauthorized Exception: role not valid");
+			throw new UnauthorizedException(Const.ERROR_CODE_ROLE + "role not valid");
 		}
 		User user = getUserByEmail(request);
 		if(user == null) {
@@ -163,10 +180,10 @@ public class RoleController extends AuthController {
 		List<String> userRoles = Utils.getUserRoles(user);
 		List<String> userTenantIds = Utils.getUserTenantIds(user);
   	if(!userTenantIds.contains(tenantId)) {
-  		throw new UnauthorizedException("Unauthorized Exception: dataset not allowed");
+  		throw new UnauthorizedException(Const.ERROR_CODE_APP + "dataset not allowed");
   	}
   	if(userRoles.contains(Const.ROLE_ADMIN)) {
-  		throw new UnauthorizedException("Unauthorized Exception: unable to delete admin user");
+  		throw new UnauthorizedException(Const.ERROR_CODE_APP + "unable to delete admin user");
   	}
   	userRepository.delete(user);
   	logger.info("removeUser[{}]:{}", tenantId, email);

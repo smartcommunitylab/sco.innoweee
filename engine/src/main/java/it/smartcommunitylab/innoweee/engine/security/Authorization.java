@@ -7,8 +7,11 @@ public class Authorization {
 	private String role;
 	private String tenantId;
 	private String instituteId;
+	private String instituteName;
 	private String schoolId;
+	private String schoolName;
 	private String gameId;
+	private String gameName;
 	private List<String> resources = new ArrayList<>();
 	private List<String> actions  = new ArrayList<>();
 	
@@ -53,5 +56,23 @@ public class Authorization {
 	}
 	public void setTenantId(String tenantId) {
 		this.tenantId = tenantId;
+	}
+	public String getInstituteName() {
+		return instituteName;
+	}
+	public void setInstituteName(String instituteName) {
+		this.instituteName = instituteName;
+	}
+	public String getSchoolName() {
+		return schoolName;
+	}
+	public void setSchoolName(String schoolName) {
+		this.schoolName = schoolName;
+	}
+	public String getGameName() {
+		return gameName;
+	}
+	public void setGameName(String gameName) {
+		this.gameName = gameName;
 	}
 }

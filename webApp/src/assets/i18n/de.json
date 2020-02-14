@@ -2,5 +2,19 @@
         "button_recycle": "Inizia raccolta",
         "button_robot": "Inizia raccolta",
         "button_material": "Inizia raccolta",
-        "button_my_team": "Inizia raccolta"
+        "button_my_team": "Inizia raccolta",
+        "label_recap_id":"ID:",
+        "label_recap_type":"Tipologia:",
+        "label_recap_switch":"Si accende:",
+        "label_recap_broken":"E' integro:",
+        "label_recap_age":"E' vecchio:",
+        "classification_new":"Nuovo",
+        "classification_old":"Vecchio",
+        "classification_broken":"Rotto",
+        "classification_fixed":"Integro",
+        "classification_on":"Si accende",
+        "classification_off":"Non si accende",
+        "label_confirm":"Conferma",
+        "label_change":"Modifica",
+        "confirm_title":"Conferma i dati"
 }

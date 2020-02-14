@@ -1,0 +1,48 @@
+
+
+<ion-header>
+  <ion-toolbar class="color-bar">
+    <ion-buttons slot="start">
+      <ion-back-button class="language"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="game-title">{{'title_game_selection'|translate}}</ion-title>
+    <ion-buttons class="language" slot="end">
+      <ion-label> {{'label_logout'|translate}} </ion-label>
+      <ion-button (click)="changeClass()">
+        <ion-icon slot="icon-only" name="log-out"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="common-content" padding>
+  <ion-grid>
+    <div class="question-screen">
+      <div class="col-vertical-center">
+        <div class="vertical-center right-box">
+          <div>
+            <ion-list>
+              <ion-list-header> 
+                {{'label_recap'|translate}}
+              </ion-list-header>
+              <div class="recap">
+                <ion-item lines="none"><ion-label>{{'label_recap_id'|translate}}</ion-label>{{getId()}}</ion-item>
+                <ion-item lines="none"><ion-label>{{'label_recap_type'|translate}}</ion-label>{{getType()}}</ion-item>
+                <ion-item lines="none"><ion-label>{{'label_recap_switch'|translate}}</ion-label>{{getSwitching()}}</ion-item>
+                <ion-item lines="none"><ion-label>{{'label_recap_broken'|translate}}</ion-label>{{getBroken()}}</ion-item>
+                <ion-item lines="none"><ion-label>{{'label_recap_age'|translate}}</ion-label>{{getAge()}}</ion-item>
+              </div>
+              <!-- {{itemClassification.playerId}}</ion-item> -->
+                <ion-button color="light" (click)="confirm()" expand="block" fill="outline">
+                  {{'label_confirm'|translate}}
+                </ion-button>
+                <ion-button color="light" (click)="change()" expand="block" fill="outline">
+                  {{'label_change'|translate}}
+                </ion-button>
+            </ion-list>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ion-grid>
+</ion-content>

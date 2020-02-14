@@ -347,7 +347,8 @@ public class Utils {
 	}
 	
 	public static GameAction getContributionAction(Game game, String collectionName, Player player, 
-			PointDistribution pointDistribution, Map<String, CoinMap> playerCoinMap) {
+			PointDistribution pointDistribution, Map<String, CoinMap> playerCoinMap, 
+			List<Component> componentsToBuild) {
 		Date now = new Date();
 		GameAction action = new GameAction();
 		action.setTenantId(game.getTenantId());
@@ -361,32 +362,24 @@ public class Utils {
 		action.getCustomData().put("pointStatusList", pointDistribution.getPointStatusList());
 		action.getCustomData().put("contribution", playerCoinMap);
 		action.getCustomData().put("collectionName", collectionName);
+		if(componentsToBuild.size() > 0) {
+			action.getCustomData().put("altruisticAction", Boolean.TRUE);
+			action.getCustomData().put("componentsToBuild", componentsToBuild);
+		} else {
+			action.getCustomData().put("altruisticAction", Boolean.FALSE);
+		}
 		action.setCreationDate(now);
 		action.setLastUpdate(now);
 		return action;		
 	}
 	
-	public static GameAction getAltruisticAction(Game game, String collectionName, Player player, 
+	public static List<Component> getAltruisticAction(Player player, 
 			Catalog catalog, CoinMap contributorCoinMap) {
 		List<Component> componentsToBuild = new ArrayList<Component>();
 		for(String componentId : player.getRobot().getComponents().keySet()) {
 			componentsToBuild.addAll(Utils.getComponentsToBuild(componentId, catalog, contributorCoinMap));
 		}
-		Date now = new Date();
-		GameAction action = new GameAction();
-		action.setTenantId(game.getTenantId());
-		action.setInstituteId(game.getInstituteId());
-		action.setSchoolId(game.getSchoolId());
-		action.setGameId(game.getObjectId());
-		action.setPlayerId(player.getObjectId());
-		action.setPlayerName(player.getName());
-		action.setActionType(Const.ACTION_ADD_ALTRUISTIC);
-		action.getCustomData().put("contributorCoinMap", contributorCoinMap);
-		action.getCustomData().put("collectionName", collectionName);
-		action.getCustomData().put("componentsToBuild", componentsToBuild);
-		action.setCreationDate(now);
-		action.setLastUpdate(now);
-		return action;		
+		return componentsToBuild;		
 	}
 	
 	private static List<Component> getComponentsToBuild(String componentId, Catalog catalog,
@@ -423,6 +416,45 @@ public class Utils {
 			}
 		}
 		return result;
+	}
+	
+	public static String getItemState(int state) {
+		if(state == Const.ITEM_STATE_NONE) {
+			return "NONE";
+		}
+		if(state == Const.ITEM_STATE_CLASSIFIED) {
+			return "CLASSIFIED";
+		}
+		if(state == Const.ITEM_STATE_CONFIRMED) {
+			return "CONFIRMED";
+		}
+		if(state == Const.ITEM_STATE_DISPOSED) {
+			return "DISPOSED";
+		}
+		if(state == Const.ITEM_STATE_COLLECTED) {
+			return "COLLECTED";
+		}
+		if(state == Const.ITEM_STATE_ARRIVED) {
+			return "ARRIVED";
+		}
+		if(state == Const.ITEM_STATE_CHECKED) {
+			return "CHECKED";
+		}
+		if(state == Const.ITEM_STATE_UNEXPECTED) {
+			return "UNEXPECTED";
+		}
+		return "unknown";
+	}
+	
+	public static boolean isGamePeriodValid(Game game) {
+		boolean valid = false;
+		if((game.getFrom() != null) && (game.getTo() != null)) {
+			Date now = new Date();
+			if(now.after(game.getFrom()) || now.before(game.getTo())) {
+				valid = true;
+			}
+		}
+		return valid;
 	}
 
 }

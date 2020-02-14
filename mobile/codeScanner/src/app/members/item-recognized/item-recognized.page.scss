@@ -1,19 +1,4 @@
-.color-bar {
-    --background: #0fb4d7;
-    --color: white;
-    .game-title {
-        text-align: center;
-        width: 100%;
-    }
-    .language {
-        ion-item {
-            min-width: 250px;
-            --background: #0fb4d7;
 
-
-        }
-    }
-}
 
 ion-grid {
     .qr-code {
@@ -27,12 +12,20 @@ ion-grid {
         .bold {
             font-weight: bold;
         }
+        .buttons{
+            ion-button{margin-top: 50px;}
+        }
     }
 
     ion-button {
         --background: #0fb4d7;
-        --color: white;
+        --background-activated: white;
+        --border-style:solid;
+        --border-width:1px;
+        --border-color: #0fb4d7;
+        --color-activated:#0fb4d7;
+        --color:white;
         font-size: medium;
-        max-width: 100%;
+        width: 100%;
     }
 }

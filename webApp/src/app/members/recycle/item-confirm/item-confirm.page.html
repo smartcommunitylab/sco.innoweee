@@ -1,0 +1,61 @@
+<ion-header>
+  <ion-toolbar class="color-bar">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">{{'confirm_title'|translate|uppercase}}</ion-title>
+
+    <ion-buttons class="language" slot="end">
+      <ion-item>
+        <ion-label>{{'label_language_selection'|translate}}</ion-label>
+        <ion-select [(ngModel)]="language" (ionChange)="changeLanguage()">
+          <ion-select-option value="en" selected="true">English</ion-select-option>
+          <ion-select-option value="it">Italiano</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-button (click)="logout()">
+        <ion-icon slot="icon-only" name="log-out"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-grid>
+    <ion-row class="question-screen">
+      <ion-col>
+        <div class="vertical-center left-box">
+          <p class="title-recap ion-text-center">{{'label_title_recap'|translate}}</p>
+          <p class="subtitle-recap ion-text-center">{{'label_subtitle_recap'|translate}}</p>
+          <ion-img [src]="getImgName()"></ion-img>
+        </div>
+      </ion-col>
+      <ion-col class="col-vertical-center" >
+        <div class="vertical-center right-box">
+          <div class="answers" *ngIf="item">
+            <p class="title-recap ion-text-center"  >{{'label_title_recap'|translate}}</p>
+            <p class="subtitle-recap ion-text-center">{{'label_subtitle_recap'|translate}}</p>
+            <ion-item lines="none"><ion-label>{{'label_recap_id'|translate}}</ion-label><span>{{getId()}}</span></ion-item>
+                <ion-item lines="none"><ion-label>{{'label_recap_type'|translate}}</ion-label><span>{{getType()}}</span></ion-item>
+                <ion-item lines="none"><ion-label>{{'label_recap_switch'|translate}}</ion-label><span>{{getSwitching()}}</span></ion-item>
+                <ion-item lines="none"><ion-label>{{'label_recap_broken'|translate}}</ion-label><span>{{getBroken()}}</span></ion-item>
+                <ion-item lines="none"><ion-label>{{'label_recap_age'|translate}}</ion-label><span>{{getAge()}}</span></ion-item>
+          </div>
+          <div class="send-item">
+            <ion-col>
+              <ion-button color="light"  expand="block" (click)="cancel()" fill="outline">
+                {{'cancel_popup'|translate}}
+              </ion-button>
+            </ion-col>
+            <ion-col>
+              <ion-button color="light"  expand="block" (click)="confirm()" fill="outline">
+                {{'label_send_item'|translate}}
+              </ion-button>
+            </ion-col>
+          </div>
+        </div>
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+</ion-content>

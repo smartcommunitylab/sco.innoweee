@@ -30,7 +30,9 @@ export class ItemClassificationPage extends MainPage implements OnInit {
     private profileService: ProfileService,
     public navCtrl: NavController, 
     private router: Router,
-    public translate: TranslateService, public authService: AuthenticationService, public storage: Storage) {
+    public translate: TranslateService, 
+    public authService: AuthenticationService, 
+    public storage: Storage) {
     super(translate, authService, storage,navCtrl);
     this.itemSocketURL = environment.itemSocketURL;
     this.apiEndpoint = environment.apiEndpoint;
@@ -69,6 +71,7 @@ export class ItemClassificationPage extends MainPage implements OnInit {
     }
     return this.translate.instant("label_marker_recycle_string_recycle");
   }
+  
   ionViewWillEnter() {
     if (this.route.snapshot && this.route.snapshot.paramMap) {
       this.item= JSON.parse(this.route.snapshot.paramMap.get("item"))

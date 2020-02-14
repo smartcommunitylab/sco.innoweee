@@ -20,14 +20,15 @@ export const environment = {
     getRobotImageApi:"api/image/robot/",
     getItemApi:"api/item",
     getReduceApi:"/reduce",
+    getConfirmApi:"api/item/confirm",
     itemSocketURL:"itemws",
     getDeliveryApi:"/delivery",
     getGarbageApi:"api/garbageMap/",
     getUsedApi:"/used",
-    aacClientId: "2be89b9c-4050-4e7e-9042-c02b0d9121c6",
-    redirectUrl: 'https://dev.smartcommunitylab.it/innoweee/',
-    scope: 'profile.basicprofile.me profile.accountprofile.me',
-    aacUrl: 'https://am-dev.smartcommunitylab.it/aac/'
+    aacClientId: "2c53f587-693c-48fa-b579-65506d8d3221",
+    redirectUrl: 'http://localhost:8100/',
+    scope: 'openid profile email profile.basicprofile.me',
+    aacUrl: 'https://aac.platform.smartcommunitylab.it/aac'
 };
 
 /*

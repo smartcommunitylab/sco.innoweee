@@ -80,7 +80,9 @@ public class GameController extends AuthController {
 		for(Game game : list) {
 			if(validateAuthorization(tenantId, instituteId, schoolId, game.getObjectId(), 
 				Const.AUTH_RES_Game, Const.AUTH_ACTION_READ, request)) {
-				result.add(game);
+				if(Utils.isGamePeriodValid(game)) {
+					result.add(game);
+				}
 			}
 		}
 		logger.info("searchGame[{}]:{} / {} / {}", tenantId, instituteId, schoolId, result.size());
@@ -263,6 +265,31 @@ public class GameController extends AuthController {
 		return playerState;
 	}
 	
+	@GetMapping(value = "/api/game/{gameId}/reduce/{playerId}")
+	public @ResponseBody Double getCollectionTotalReducePoints(
+			@PathVariable String gameId,
+			@PathVariable String playerId,
+			HttpServletRequest request) throws Exception {
+		Optional<Game> optionalGame = gameRepository.findById(gameId);
+		if(optionalGame.isEmpty()) {
+			throw new EntityNotFoundException("game not found");
+		}
+		Game game = optionalGame.get();
+		if(!validateAuthorization(game.getTenantId(), game.getInstituteId(), game.getSchoolId(), 
+				game.getObjectId(), Const.AUTH_RES_Game_Player, Const.AUTH_ACTION_READ, request)) {
+			throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
+		}
+		GarbageCollection collection = collectionRepository.findActualCollection(game.getTenantId(), 
+				gameId, System.currentTimeMillis());
+		if(collection == null) {
+			throw new EntityNotFoundException("collection not found");
+		}
+		String nameGE = collection.getNameGE();
+		PlayerState playerState = geManager.getPlayerState(game.getGeGameId(), playerId, nameGE);
+		logger.info("getCollectionTotalReducePoints[{}]:{} / {} / {}", game.getTenantId(), gameId, playerId, nameGE);
+		return playerState.getTotalReduceCoin();
+	}
+
 	@GetMapping(value = "/api/game/{gameId}/contribution/{playerId}")
 	public @ResponseBody Player sendContribution(
 			@PathVariable String gameId,
@@ -277,7 +304,7 @@ public class GameController extends AuthController {
 		}
 		Game game = optionalGame.get();
 		if(!validateAuthorization(game.getTenantId(), game.getInstituteId(), game.getSchoolId(), 
-				game.getObjectId(), Const.AUTH_RES_Game_Player, Const.AUTH_ACTION_UPDATE, request)) {
+				game.getObjectId(), Const.AUTH_RES_Game_Item, Const.AUTH_ACTION_ADD, request)) {
 			throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
 		}
 		Optional<Player> optionalPlayer = playerRepository.findById(playerId);
@@ -309,14 +336,14 @@ public class GameController extends AuthController {
 			throw new StorageException("score too low");
 		}
 		Catalog catalog = catalogRepository.findByGameId(game.getTenantId(), gameId);
+		List<Component> componentsToBuild = new ArrayList<Component>();
 		if(catalog != null) {
-			GameAction altruisticAction = Utils.getAltruisticAction(game, collection.getNameGE(), player, 
-					catalog, pointDistribution.getContributorCoinMap());
-			gameActionRepository.save(altruisticAction);
+			componentsToBuild = Utils.getAltruisticAction(player, catalog, 
+					pointDistribution.getContributorCoinMap());
 		}
 		Map<String, CoinMap> playerCoinMap = pointDistribution.distribute();
 		GameAction gameAction = Utils.getContributionAction(game, collection.getNameGE(), player, 
-				pointDistribution, playerCoinMap);
+				pointDistribution, playerCoinMap, componentsToBuild);
 		gameActionRepository.save(gameAction);		
 		logger.info("sendContribution[{}]:{} / {} / {} / {}", game.getTenantId(), gameId, playerId, 
 				nameGE, playerCoinMap);

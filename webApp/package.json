@@ -30,6 +30,7 @@
     "@ngx-translate/core": "^11.0.1",
     "@ngx-translate/http-loader": "^4.0.0",
     "angular2-websocket": "^0.9.8",
+    "cordova-android": "7.1.4",
     "cordova-browser": "5.0.4",
     "cordova-ios": "4.5.5",
     "cordova-plugin-device": "^2.0.3",
@@ -84,7 +85,8 @@
     },
     "platforms": [
       "browser",
-      "ios"
+      "ios",
+      "android"
     ]
   }
 }

@@ -6,7 +6,7 @@
     </ion-row>
     <ion-row>
       <div  *ngFor="let listPlayer of classes">
-      <ion-col *ngIf="listPlayer.team==false" >
+      <ion-col size="4" *ngIf="listPlayer.team==false" >
         <ion-button (click)="selectClass(listPlayer)">{{listPlayer.name}}</ion-button>
       </ion-col>
     </div>

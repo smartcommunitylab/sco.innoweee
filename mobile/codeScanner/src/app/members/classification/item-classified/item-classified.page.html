@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar class="color-bar">
+    <ion-buttons slot="start">
+      <ion-back-button class="language"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="game-title">{{'title_game_selection'|translate}}</ion-title>
+    <ion-buttons class="language" slot="end">
+      <ion-label> {{'label_logout'|translate}} </ion-label>
+      <ion-button (click)="changeClass()">
+        <ion-icon slot="icon-only" name="log-out"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="common-content" padding>
+  <ion-grid>
+    <div class="question-screen">
+      <div class="col-vertical-center">
+        <div class="vertical-center right-box" [ngClass]="getColorMarker()">
+          <div>
+            <div class="title-result ion-padding ion-text-center">
+              {{'label_well_done'|translate|uppercase}}
+            </div>
+            <div class="subtitle-result ion-padding">
+              {{getValueString()}}
+            </div>
+            <div class="ion-padding">
+              {{getValueItem()}}
+            </div>
+            <div class="ion-padding">
+              {{getPoints()}}
+            </div>
+            <ion-button expand="block" [routerLink]="['/home']" fill="outline">
+              {{'label_new_item'|translate}}
+            </ion-button>
+            <ion-button  expand="block" [routerLink]="['/result']" fill="outline">
+              {{'label_end_recycle'|translate}}
+            </ion-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ion-grid>
+</ion-content>
