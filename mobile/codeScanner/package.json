@@ -32,6 +32,7 @@
     "@ngx-translate/http-loader": "^4.0.0",
     "@openid/appauth": "^1.2.6",
     "cordova-android": "8.1.0",
+    "cordova-hot-code-push-plugin": "^1.5.3",
     "cordova-ios": "5.1.1",
     "cordova-plugin-advanced-http": "2.3.1",
     "cordova-plugin-customurlscheme": "5.0.0",
@@ -105,7 +106,8 @@
       "cordova-plugin-advanced-http": {
         "OKHTTP_VERSION": "3.10.0"
       },
-      "cordova-plugin-nativestorage": {}
+      "cordova-plugin-nativestorage": {},
+      "cordova-hot-code-push-plugin": {}
     },
     "platforms": [
       "android",

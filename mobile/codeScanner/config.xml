@@ -109,4 +109,8 @@
     </plugin>
     <engine name="android" spec="8.1.0" />
     <engine name="ios" spec="5.1.1" />
+    <plugin name="cordova-hot-code-push-plugin" spec="^1.5.3" />
+    <chcp>
+    <config-file url="https://hcp.smartcommunitylab.it/innoweee/chcp.json"/>
+</chcp>
 </widget>
