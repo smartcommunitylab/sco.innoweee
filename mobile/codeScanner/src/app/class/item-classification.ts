@@ -49,5 +49,11 @@ export class ItemClassification {
     getAge(){
         return this.age;
     }
+    reset() {
+        this.age=null;
+        this.broken = null;
+        this.switchingOn=null;
+        this.itemType=null;
+    }
 
 }

@@ -45,70 +45,70 @@ export class LoginPage implements OnInit  {
 
   ngOnInit() {
       
-      this.auth.authObservable.subscribe(async (action) => {
-        console.log("login back");
-        console.dir(action);
+    // this.subscription = this.auth.authObservable.subscribe(async (action) => {
+    //     console.log("login back");
+    //     console.dir(action);
 
-        if (action.action === AuthActions.SignInSuccess) {
-          const loading = await this.loadingController.create({
-            duration: 2000
-          });
-          await loading.present();
-          //check if profile is valid
-          // const token = await this.auth.getValidToken();
-          this.token = action.tokenResponse;
-          // console.log("token: "+token.accessToken)
-          this.profileService.getDomain(this.token.accessToken).then(res => {
-            //check if domain is correct
-            this.profileService.setDomainMemorized(res);
-            if (this.checkProfileDomain(res))
-              {
-              this.navigateToFirstPage();
-                }else{
-              //error
-              this.router.navigate(['profile']);
-                this.presentToast("Profilo errato");
+    //     if (action.action === AuthActions.SignInSuccess) {
+    //       const loading = await this.loadingController.create({
+    //         duration: 2000
+    //       });
+    //       await loading.present();
+    //       //check if profile is valid
+    //       // const token = await this.auth.getValidToken();
+    //       this.token = action.tokenResponse;
+    //       // console.log("token: "+token.accessToken)
+    //       this.profileService.getDomain(this.token.accessToken).then(res => {
+    //         //check if domain is correct
+    //         this.profileService.setDomainMemorized(res);
+    //         if (this.checkProfileDomain(res))
+    //           {
+    //           this.navigateToFirstPage();
+    //             }else{
+    //           //error
+    //           this.router.navigate(['profile']);
+    //             this.presentToast("Profilo errato");
 
-            }
-          }, err => {
-            //check error
-            this.router.navigate(['register-parent']);
-          })
-        } else {
-          if (!navigator.onLine) {
-            this.presentToast("Connessione assente");
+    //         }
+    //       }, err => {
+    //         //check error
+    //         this.router.navigate(['register-parent']);
+    //       })
+    //     } else {
+    //       if (!navigator.onLine) {
+    //         this.presentToast("Connessione assente");
 
-            }
-        }
-      });
+    //         }
+    //     }
+    //   });
 
 }
-  navigateToFirstPage() {
-    var selected=this.profileService.getProfileRole();
-    console.log("struct:"+JSON.stringify(this.navigateFirst));
-    console.log("selected:"+selected);
-    this.navCtrl.navigateRoot(this.navigateFirst[selected]);
-    // this.router.navigate([this.navigateFirst[selected]]);
-  }
-  checkProfileDomain(res: any):boolean {
-    var returnVar=false;
-    var selected=this.profileService.getProfileRole();
-    for(var key in res.roles) {
-      console.log("key: "+JSON.stringify(key));
-      res.roles[key].forEach(element => {
-        console.log("role: "+JSON.stringify(element.role));
-        console.log("selected: "+selected);
+  // navigateToFirstPage() {
+  //   var selected=this.profileService.getProfileRole();
+  //   console.log("struct:"+JSON.stringify(this.navigateFirst));
+  //   console.log("selected:"+selected);
+  //   this.navCtrl.navigateRoot(this.navigateFirst[selected]);
+  //   // this.router.navigate([this.navigateFirst[selected]]);
+  // }
+  // checkProfileDomain(res: any):boolean {
+  //   var returnVar=false;
+  //   var selected=this.profileService.getProfileRole();
+  //   for(var key in res.roles) {
+  //     console.log("key: "+JSON.stringify(key));
+  //     res.roles[key].forEach(element => {
+  //       console.log("role: "+JSON.stringify(element.role));
+  //       console.log("selected: "+selected);
 
-        if (element.role === selected)
-        returnVar= true
-          if (element.role === this.profileService.getOwnerKey())
-          returnVar= true
-          if (element.role === this.profileService.getSchoolOwnerKey() && (selected==this.profileService.getTecherKey() ||selected==this.profileService.getParentKey())  )
-          returnVar= true
-        });
-    }
-    return returnVar
-  }
+  //       if (element.role === selected)
+  //       returnVar= true
+  //         if (element.role === this.profileService.getOwnerKey())
+  //         returnVar= true
+  //         if (element.role === this.profileService.getSchoolOwnerKey() && (selected==this.profileService.getTecherKey() ||selected==this.profileService.getParentKey())  )
+  //         returnVar= true
+  //       });
+  //   }
+  //   return returnVar
+  // }
 ionViewDidEnter() {
   this.login();
 }

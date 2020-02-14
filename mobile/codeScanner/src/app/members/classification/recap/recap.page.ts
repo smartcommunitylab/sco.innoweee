@@ -134,6 +134,7 @@ export class RecapPage extends CommonPage implements OnInit {
   }
 
   change() {
+    this.itemClassification.reset();
     this.router.navigate(['classification-type']);
   }
   

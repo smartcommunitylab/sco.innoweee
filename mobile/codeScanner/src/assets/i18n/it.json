@@ -114,5 +114,7 @@
         "label_bin_value":"VALORE",
         "label_bin_reuse":"RIUSO",
         "label_bin_recycle":"RICICLO",
-        "label_stats":"Statistiche"
+        "label_stats":"Statistiche",
+        "wrong_profile_title":"Profilo errato",
+        "wrong_profile_message":"Questo account risulta associato ad un altro profilo. Uscire dal sistema e rientrare con l'account corretto"
 }
