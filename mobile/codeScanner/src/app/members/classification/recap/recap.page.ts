@@ -144,4 +144,16 @@ export class RecapPage extends CommonPage implements OnInit {
     });
     return await modal.present();
   }
+
+  getFooter() {
+    return (this.getClassName()) +' - '+(this.getSchoolName())
+  }
+
+  getSchoolName() {
+    return this.profileService.getSchoolName();
+  }
+  getClassName() {
+    return this.profileService.getPlayerName();
+
+  }
 }

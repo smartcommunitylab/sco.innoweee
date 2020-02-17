@@ -31,6 +31,10 @@
                   <span class="item-text-wrap">{{getLabel(item.key)}}</span>
                 </ion-button>
               </ion-col>
+                <ion-col size="12" class="other-button" *ngIf="otherIsVisible()">
+                  <ion-button color="light" (click)="otherCategory()" expand="block" fill="outline">
+                    {{'label_other_category'|translate}}</ion-button>
+                </ion-col>
             </ion-list>
           </div>
         </div>
@@ -38,3 +42,8 @@
     </div>
   </ion-grid>
 </ion-content>
+<ion-footer>
+  <ion-toolbar class="color-bar">
+      <ion-title class="ion-text-center">{{ getFooter()}}</ion-title>
+  </ion-toolbar>
+</ion-footer>

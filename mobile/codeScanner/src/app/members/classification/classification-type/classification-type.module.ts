@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { ClassificationTypePage } from './classification-type.page';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { ModalCategory } from './modal/modalCategory';
 
 const routes: Routes = [
   {
@@ -23,6 +24,7 @@ const routes: Routes = [
     SharedModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [ClassificationTypePage]
+  entryComponents:[ModalCategory],
+  declarations: [ClassificationTypePage,ModalCategory]
 })
 export class ClassificationTypePageModule {}

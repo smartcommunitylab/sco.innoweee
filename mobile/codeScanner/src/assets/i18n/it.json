@@ -116,5 +116,8 @@
         "label_bin_recycle":"RICICLO",
         "label_stats":"Statistiche",
         "wrong_profile_title":"Profilo errato",
-        "wrong_profile_message":"Questo account risulta associato ad un altro profilo. Uscire dal sistema e rientrare con l'account corretto"
+        "wrong_profile_message":"Questo account risulta associato ad un altro profilo. Uscire dal sistema e rientrare con l'account corretto",
+        "label_other_category": "Altra categoria",
+        "other_item": "Oggetto generico",
+        "title_type_selection":"Seleziona la tipologia"
 }

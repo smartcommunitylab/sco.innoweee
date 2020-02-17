@@ -99,4 +99,15 @@ export class ClassificationAgePage extends CommonPage implements OnInit {
       return this.recap["off"];
     return ""
   }
+  getFooter() {
+    return (this.getClassName()) +' - '+(this.getSchoolName())
+  }
+
+  getSchoolName() {
+    return this.profileService.getSchoolName();
+  }
+  getClassName() {
+    return this.profileService.getPlayerName();
+
+  }
 }

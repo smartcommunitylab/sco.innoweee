@@ -1,0 +1,36 @@
+.color-bar {
+    --background: #0fb4d7;
+    --color: white;
+    ion-button {
+      --color:white!important;
+  
+    }
+  }
+ion-content {
+    --background: #dcf5fa;
+    .label-row {
+        margin: 8px;
+
+        .box {
+            border-radius: 12px;
+            padding: 8px;
+            background-color: #0fb4d7;
+            color: white;
+            margin: 4px;
+            border: solid 3px white;
+        }
+    }
+
+    .class-img {
+        // max-width: 100px!important;
+        height: 50px !important;
+        position: relative;
+     top: 50%;
+     transform: perspective(1px) translateY(-50%);
+    }
+}
+.back{
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+}

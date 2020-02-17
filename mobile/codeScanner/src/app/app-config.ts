@@ -8,6 +8,7 @@ export interface ApplicationConfig {
     getSchoolApi: string;
     getGameApi: string;
     getCollectorApi: string;
+    getCollectionApi:string;
     getPlayerApi: string;
     getMaterialApi:string;
     getCatalogApi:string;
@@ -35,6 +36,7 @@ export const APP_CONFIG: ApplicationConfig = {
     getDomainApi: 'api/profile',
     getInstituteApi: 'api/institute',
     getCollectorApi: 'api/collector',
+    getCollectionApi:'api/collection/',
     getFindApi: '/find',
     getSchoolApi: 'api/school',
     getGameApi: 'api/game/',

@@ -148,7 +148,7 @@ export class HomePage extends CommonPage implements OnInit {
   }
 
   getFooter() {
-    return (this.getSchoolName())
+    return (this.getClassName()) +' - '+(this.getSchoolName())
   }
 
   getSchoolName() {

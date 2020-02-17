@@ -64,13 +64,12 @@ export class DashboardPage extends CommonPage implements OnInit {
   }
 
   getFooter() {
-    return (this.getSchoolName())
+    return (this.getClassName()) +' - '+(this.getSchoolName())
   }
 
   getSchoolName() {
     return this.profileService.getSchoolName();
   }
-
   getClassName() {
     return this.profileService.getPlayerName();
 
