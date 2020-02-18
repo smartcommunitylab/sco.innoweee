@@ -21,7 +21,7 @@
 			"en":"How old is the fridge you have at home?"
 		},
 		"specialCollection":false,
-		"items":["Blender","Centrifuge","Electrical coffe grinder","Coffe machine","Electrical knife","Electrical grater","Tea kettle","Hand vacuum","Minipimer","Squeezer","Toaster"],
+		"items":["Ice cream maker","Hand mixer","Milk frother","Baby bottle warmer","Steriliser","Fryer","Electric food steamer","Electric food processor","Egg cooker","Hot dog toaster maker machine","Bread maker","Baby food blender","Digital kitchen scales","Fabric shaver","Vacuum sealer","Food dehydrator","Handy steam cleaner","Electric window vacuum cleaner","Vertical / steam iron","Electric slow cookers","Blender","Centrifuge","Electrical coffe grinder","Coffe machine","Electrical knife","Electrical grater","Tea kettle","Hand vacuum","Minipimer","Squeezer","Toaster"],
 		"links":[
         {
             "name" : "Greta Thunberg: una piccola eroina che lotta per la difesa del nostro pianeta",
@@ -95,7 +95,7 @@
 			"en":"How old is the computer you have at home?"
 		},
 		"specialCollection":true,
-		"items":["Docking station","E-reader","Flash drive","Computer components","Router","Answering machine","Calculator","Cordless","Decoder","Fax","GPS system","Landline phone","Modem","Trackpad","Walkie Talkie","Keyboard","Mouse"],
+		"items":["USB stick","Power adapters","Small electric components","Printed Circuit Boards (PCBs)","Docking station","E-reader","Flash drive","Computer components","Router","Answering machine","Calculator","Cordless","Decoder","Fax","GPS system","Landline phone","Modem","Trackpad","Walkie Talkie","Keyboard","Mouse"],
 		"links":[
         {
             "name" : "Il riciclo dei RAEE?",
@@ -126,7 +126,7 @@
 			"en":"How old is the hair dryer you have at home?"
 		},
 		"specialCollection":false,
-		"items":["Curling iron","Electric ear cleaner","Electric razor","Electric toothbrush","Hair cutter","Hair dryer","Aerosol machine","Other appliances for body care","Electrical weighing scale"],
+		"items":["Hair removal epilator","Electric toothbrush","Aerosol machine","Digital body weighing bathroom scale","Nasal aspirator","Electric air humudifiers","Electric air purifiers","Curling iron","Electric ear cleaner","Electric razor","Electric toothbrush","Hair cutter","Hair dryer","Aerosol machine","Other appliances for body care","Electrical weighing scale"],
 		"links":[
         {
             "name" : "I flussi dei RAEE",
