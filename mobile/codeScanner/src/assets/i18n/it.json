@@ -18,6 +18,7 @@
         "label_class_selected":"Classe selezionata:",
         "label_id":"Identificatore",
         "label_item_present":"Oggetto gia' inserito. Inserirlo nel bidone {{itemInfo}}",
+        "label_item_present_parent":"Oggetto gia' inserito. Porta l'oggetto a scuola e inseriscilo nel bidone {{itemInfo}}",
         "label_enter":"Accedi",
         "footer_game_title":"WEEE R Robots",
         "label_cancel":"Annulla",
@@ -59,7 +60,7 @@
         "wrong_data_server":" Errore, dati mancanti",
         "label_new_item":"Inserisci nuovo oggetto",
         "label_end":"Termina inserimento",
-        "label_role":"Scegli il ruolo",
+        "label_role":"Ciao, scegli il tuo ruolo",
         "label_recap":"Ricapitolando",
         "classification_type_working_title":"Funziona?",
         "classification_type_working_message":"<b>Funziona</b> se lo puoi ancora usare per le sue funzioni principali. <br>Per esempio: <i>un telefonino che funziona bene ma ha lo schermo leggermente graffiato</i>.<br> <b>Non funziona</b> se non lo puoi più usare così com’è.<br> Per esempio: <i>un asciugacapelli che si accende solo con aria fredda.</i>",
@@ -108,7 +109,7 @@
         "label_register_parent_code":"Codice scuola",
         "label_register":"REGISTRATI",
         "alert_different_class_title":"Classe differente",
-        "alert_different_class_message":"L'utente che ha catalogato l'oggetto risulta appartenere ad un'altra classe. Verificare chi ha effettuato l'inserimento",
+        "alert_different_class_message":"Questo codice è già stato usato da un'altra classe. Scegline un'altro",
         "cancel_popup":"Annulla",
         "empty_id":"Campo vuoto! Inserire un codice",
         "label_bin_value":"VALORE",
@@ -119,5 +120,6 @@
         "wrong_profile_message":"Questo account risulta associato ad un altro profilo. Uscire dal sistema e rientrare con l'account corretto",
         "label_other_category": "Altra categoria",
         "other_item": "Oggetto generico",
-        "title_type_selection":"Seleziona la tipologia"
+        "title_type_selection":"Seleziona la tipologia",
+        "toast_select_data":"Seleziona tutti i dati per accedere"
 }

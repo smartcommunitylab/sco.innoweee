@@ -185,6 +185,7 @@ export class SelectClassPage extends CommonPage implements OnInit {
     this.playerName = player.name;
   }
   getPlayerData() {
+    if (this.checkSelection()){
     this.playerData = this.profileService.getPlayerDataFromList(this.playerId, this.players);
     // this.profileService.getPlayerState(this.gameId, this.playerId).then(res => {
       // this.playerState = res;
@@ -197,6 +198,17 @@ export class SelectClassPage extends CommonPage implements OnInit {
 
       // this.router.navigate(['home'], { queryParams: { playerId: this.playerId, playerName: this.playerName, playerData: JSON.stringify(this.playerData) } });
     // })
+    } else {
+      this.translate.get('toast_select_data').subscribe(s=> {
+        this.presentToast(s);
+
+      })
+    }
+  }
+  checkSelection() {
+    if (this.playerName)
+    return true;
+    return false;
   }
   async chooseClass() {
     const modal: HTMLIonModalElement =
@@ -218,7 +230,13 @@ export class SelectClassPage extends CommonPage implements OnInit {
 
   }
 
-
+  async presentToast(string) {
+    const toast = await this.toastController.create({
+      message: string,
+      duration: 2000
+    })
+    toast.present();
+  }
   getFooter() {
     return (this.translate.instant('footer_game_title'))
   }
