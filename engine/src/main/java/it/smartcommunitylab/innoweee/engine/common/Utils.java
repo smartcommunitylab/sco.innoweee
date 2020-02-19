@@ -406,6 +406,21 @@ public class Utils {
 		return rank;
 	}
 	
+	public static double getRank(CoinMap coinMap, Player player) {
+		CoinMap rankCoinMap = new CoinMap(coinMap.getReduceCoin(), coinMap.getReuseCoin(), coinMap.getRecycleCoin());
+		for(Contribution contribution : player.getContributions()) {
+			for(ContributionPoint point : contribution.getReceivedPoints()) {
+				CoinMap receivedCoinMap = point.getCoinMap();
+				rankCoinMap.addCoinMap(receivedCoinMap);
+			}
+			for(ContributionPoint point : contribution.getDonatedPoints()) {
+				CoinMap donatedCoinMap = point.getCoinMap();
+				rankCoinMap.subCoinMap(donatedCoinMap);
+			}
+		}
+		return getRank(rankCoinMap);
+	}
+	
 	public static boolean isEmpty(CoinMap coinMap) {
 		boolean result = true;
 		if(coinMap != null) {
