@@ -112,5 +112,5 @@
         <config-file url="https://hcp.smartcommunitylab.it/innoweee/chcp.json" />
     </chcp>
     <engine name="android" spec="8.1.0" />
-    <engine name="ios" spec="4.5.5" />
+    <engine name="ios" spec="5.0.1" />
 </widget>

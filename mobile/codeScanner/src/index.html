@@ -3,22 +3,73 @@
 
 <head>
   <meta charset="utf-8" />
-  <title>Ionic App</title>
+  <title>Weee R Robots</title>
 
-  <base href="./" />
+  <base href="" />
+
   <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <meta name="format-detection" content="telephone=no" />
   <meta name="msapplication-tap-highlight" content="no" />
-
+  <link rel="icon" type="image/x-icon" href="assets/icon/favicon.ico">
   <link rel="icon" type="image/png" href="assets/icon/favicon.png" />
 
   <!-- add to homescreen for ios -->
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <script>
+    var global = global || window;
+    var Buffer = Buffer || [];
+    var process = process || {
+      env: { DEBUG: undefined },
+      version: []
+    };
+  </script>
+    <script type="text/javascript">
+      var originalFetch = window.fetch;
+      window.fetch = function () {
+          var args = [];
+          for (var _i = 0; _i < arguments.length; _i++) {
+              args[_i] = arguments[_i];
+          }
+          var url = args[0];
+          if (typeof url === 'string' && url.match(/\.svg/)) {
+              return new Promise(function (resolve, reject) {
+                  var req = new XMLHttpRequest();
+                  req.open('GET', url, true);
+                  req.addEventListener('load', function () {
+                      resolve({ ok: true, status: 200, text: function () { return Promise.resolve(req.responseText); } });
+                  });
+                  req.addEventListener('error', reject);
+                  req.send();
+              });
+          }
+          else {
+              return originalFetch.apply(void 0, args);
+          }
+      };
+  </script>
+
 </head>
 
 <body>
   <app-root></app-root>
 </body>
-
+<!-- <script type="text/javascript">
+    // links catch-all/handler
+    document.onclick = function (e) {
+        console.log('ciao');
+        e = e ||  window.event;
+        console.log(window.event)
+        var element = e.target || e.srcElement;
+        // making sure there's an URL
+        if ((element.tagName == 'A') && (element.href)) {
+          // opening in a new window
+          e.preventDefault();
+          console.log("opening")
+          alert("opening");
+            window.open(element.href, "_system");
+            return false;
+        }
+    };
+</script> -->
 </html>
