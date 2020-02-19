@@ -87,8 +87,16 @@ export class ItemRecognizedPage extends CommonPage implements OnInit {
   // })
   }
   getAlreadyClassified() {
+    var label = ''
     if (this.itemInfo){
-    this.translate.get('label_item_present', { itemInfo: this.itemInfo }).subscribe((s: string) => {
+      if (this.isTeacher())
+      {
+        label ='label_item_present'
+      }
+      else {
+        label ='label_item_present_parent'
+      }
+    this.translate.get(label, { itemInfo: this.itemInfo }).subscribe((s: string) => {
       this.alreadyClassified= s;
     });
     }
@@ -144,7 +152,7 @@ export class ItemRecognizedPage extends CommonPage implements OnInit {
 
   }
   getFooter() {
-    return ( this.getSchoolName())
+    return (this.getClassName()) +' - '+(this.getSchoolName())
   }
 
   getSchoolName() {

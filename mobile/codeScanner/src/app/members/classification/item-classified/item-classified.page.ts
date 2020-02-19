@@ -124,4 +124,16 @@ isDarkColor (color) {
       return this.translate.instant("label_point_reusable");
     return this.translate.instant("label_point_recicle");
   }
+
+  getFooter() {
+    return (this.getClassName()) +' - '+(this.getSchoolName())
+  }
+
+  getSchoolName() {
+    return this.profileService.getSchoolName();
+  }
+  getClassName() {
+    return this.profileService.getPlayerName();
+
+  }
 }

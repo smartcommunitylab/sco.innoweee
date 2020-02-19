@@ -10,6 +10,12 @@ import { ClassComponent } from './modals/class/class.component';
 import { OverlayEventDetail } from '@ionic/core';
 import { TranslateService } from '@ngx-translate/core';
 import { UtilsService } from 'src/app/services/utils.service';
+import { MainPage } from 'src/app/class/MainPage';
+import { MaterialService } from 'src/app/services/material.service';
+import { GarbageCollectionService } from 'src/app/services/garbage-collection.service';
+import { GameService } from 'src/app/services/game.service';
+import { AuthenticationService } from 'src/app/services/authentication.service';
+import { NavController } from '@ionic/angular';
 
 
 const PLAYER_DATA_KEY = 'playerData';
@@ -20,21 +26,27 @@ const REFRESH_TIME = 200;
   templateUrl: './game-selection.page.html',
   styleUrls: ['./game-selection.page.scss'],
 })
-export class GameSelectionPage implements OnInit {
+export class GameSelectionPage extends MainPage implements OnInit {
   playerName: any;
-  // @Output() title = new EventEmitter<string>();
-  // setTitle(title:string){
-  //    this.title.emit(title);
-  // }
-  constructor(private profileService: ProfileService,
-    private translate: TranslateService,
-    private router: Router, private fb: FormBuilder,
-    private _cdr: ChangeDetectorRef,
+  
+
+
+  constructor(
+    translate: TranslateService,
+    storage: Storage,
+    private router: Router,
+    private materialService: MaterialService,
+    private profileService: ProfileService,
+    private garbageCollection: GarbageCollectionService,
+    private gameService: GameService,
     private utils:UtilsService,
-    private alertController: AlertController,
+    private _cdr: ChangeDetectorRef,
     public modalController: ModalController,
-    private loadingCtrl: LoadingController) {
-  }
+    public navCtrl: NavController, 
+    authService: AuthenticationService) {
+    super(translate, authService, storage,navCtrl);
+    }
+ 
   domain: string = "";
   domains: [];
   institute = {};

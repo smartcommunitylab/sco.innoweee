@@ -22,6 +22,7 @@ export class DataServerService {
   getReportApi: string;
   getPlayerApi: string;
   getCollectorApi: string;
+  getCollectionApi:string;
   itemApi: string;
 
 
@@ -41,7 +42,7 @@ export class DataServerService {
       this.getReportApi = config.getReportApi;
       this.getPlayerApi = config.getPlayerApi;
       this.getCollectorApi= config.getCollectorApi;
-      this.getCollectorApi= config.getCollectorApi;
+      this.getCollectionApi= config.getCollectionApi;
       this.itemApi = config.itemApi;
 
   } 
@@ -111,6 +112,20 @@ export class DataServerService {
   }
   getGargabeMap(tenantId, token): Promise<any> {
     let url: string = this.endPoint + this.getGarbageApi + tenantId ;
+    return this.http.get(url,{ headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token
+
+    }}).toPromise().then(response => {
+      return response;
+    }).catch(response => {
+      return this.handleError(response);
+    });
+  }
+
+  getCollections(gameId, token): Promise<any> {
+    let url: string = this.endPoint + this.getCollectionApi  +gameId  ;
     return this.http.get(url,{ headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',

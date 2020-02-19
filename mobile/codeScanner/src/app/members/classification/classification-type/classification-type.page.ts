@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CommonPage } from 'src/app/class/common-page';
 import { TranslateService } from '@ngx-translate/core';
-import { ToastController, AlertController } from '@ionic/angular';
+import { ToastController, AlertController, ModalController } from '@ionic/angular';
 import { DataServerService } from 'src/app/services/data.service';
 import { ProfileService } from 'src/app/services/profile.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
@@ -10,6 +10,7 @@ import { Location } from '@angular/common';
 import { AuthService } from 'src/app/auth/auth.service';
 import { ClassificationService } from 'src/app/services/classification.service';
 import { ItemClassification } from 'src/app/class/item-classification';
+import { ModalCategory } from './modal/modalCategory';
 
 @Component({
   selector: 'app-classification-type',
@@ -34,6 +35,7 @@ export class ClassificationTypePage extends CommonPage implements OnInit {
     public auth: AuthService,
     public profileService: ProfileService,
     private classificationService: ClassificationService,
+    private modalController: ModalController,
     public authService: AuthenticationService) {
     super(auth, router, translate, toastController, route, dataServerService, location, profileService, authService)
   }
@@ -78,8 +80,9 @@ export class ClassificationTypePage extends CommonPage implements OnInit {
     })
   }
   getLabel(item) {
-    if (this.answer && this.answer[item] && this.translate)
-      return this.translate.instant(this.answer[item].label[this.translate.defaultLang]);
+    // if (this.answer && this.answer[item] && this.translate)
+      // return this.translate.instant(this.answer[item].label[this.translate.defaultLang]);
+      return this.translate.instant(item.label[this.translate.defaultLang]);
   }
 
   fillSteps() {
@@ -99,5 +102,54 @@ export class ClassificationTypePage extends CommonPage implements OnInit {
     this.classificationService.itemClassification.setItemValue(this.getLabel(item.key));
     this.router.navigate(['classification-working']);
   }
+  getFooter() {
+    return (this.getClassName()) +' - '+(this.getSchoolName())
+  }
 
+  getSchoolName() {
+    return this.profileService.getSchoolName();
+  }
+  getClassName() {
+    return this.profileService.getPlayerName();
+
+  }
+  otherIsVisible() {
+    if (this.garbageCollectionName && this.garbageCollectionName.toLowerCase()=="r6")
+    {
+      return true;
+    }
+    return false;
+  }
+  otherCategory() {
+    this.openModal()
+  }
+  async openModal() {
+    const modal = await this.modalController.create({
+      component: ModalCategory,
+      // backdropDismiss:false,
+      cssClass: 'modal-category',
+      componentProps: {
+        // "paramID": 123,
+        // "paramTitle": "Test Title"
+      }
+    });
+
+    modal.onDidDismiss().then((dataReturned) => {
+      if (dataReturned.data !== null) {
+        // this.dataReturned = dataReturned.data;
+        //alert('Modal Sent Data :'+ dataReturned);
+        // console.log(dataReturned)
+        // if (dataReturned.data["itemType"])
+        //   this.chooseCategory(dataReturned.data["itemType"]);
+        // if (dataReturned.data["timestamp"])
+        //   this.item.timestamp = dataReturned.data["timestamp"]
+          this.classificationService.itemClassification.setItemType(dataReturned.data["itemType"].value);
+    this.classificationService.itemClassification.setItemValue(this.getLabel(dataReturned.data["itemType"]));
+    this.router.navigate(['classification-working']);
+
+      }
+    });
+
+    return await modal.present();
+  }
 }

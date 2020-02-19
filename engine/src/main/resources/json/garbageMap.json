@@ -10,6 +10,267 @@
       },
       "weight" : 0.0
     },
+    "Electric air purifiers" : {
+      "id" : "Electric air purifiers",
+      "category" : "Small household appliances",
+      "name" : {
+        "en" : "Electric air purifiers",
+        "it" : "Purificatore d'aria elettrico"
+      },
+      "weight" : 2.1    
+    },
+    "Electric air humudifiers" : {
+      "id" : "Electric air humudifiers",
+      "category" : "Small household appliances",
+      "name" : {
+        "en" : "Electric air humudifiers",
+        "it" : "Umidificatore d'aria elettrico "
+      },
+      "weight" : 2.1    
+    },
+    "Electric slow cookers" : {
+      "id" : "Electric slow cookers",
+      "category" : "Small household appliances",
+      "name" : {
+        "en" : "Electric slow cookers",
+        "it" : "Pentola elettrica"
+      },
+      "weight" : 4.5    
+    },
+    "Vertical / steam iron" : {
+      "id" : "Vertical / steam iron",
+      "category" : "Small household appliances",
+      "name" : {
+        "en" : "Vertical / steam iron",
+        "it" : "Ferro da stiro verticale"
+      },
+      "weight" : 1.1    
+    },
+    "Nasal aspirator" : {
+      "id" : "Nasal aspirator",
+      "category" : "Small household appliances",
+      "name" : {
+        "en" : "Nasal aspirator",
+        "it" : "Aspiragocce elettrico"
+      },
+      "weight" : 0.25    
+    },
+    "Electric window vacuum cleaner" : {
+      "id" : "Electric window vacuum cleaner",
+      "category" : "Small household appliances",
+      "name" : {
+        "en" : "Electric window vacuum cleaner",
+        "it" : "Asciugavetri elettrico / lavavetri elettrico"
+      },
+      "weight" : 0.85    
+    },
+    "Handy steam cleaner" : {
+      "id" : "Handy steam cleaner",
+      "category" : "Small household appliances",
+      "name" : {
+        "en" : "Handy steam cleaner",
+        "it" : "Pistola a vapore portatile"
+      },
+      "weight" : 1.3    
+    },
+    "Food dehydrator" : {
+      "id" : "Food dehydrator",
+      "category" : "Small household appliances",
+      "name" : {
+        "en" : "Food dehydrator",
+        "it" : "Essiccatore per frutta"
+      },
+      "weight" : 3.0    
+    },
+    "Vacuum sealer" : {
+      "id" : "Vacuum sealer",
+      "category" : "Small household appliances",
+      "name" : {
+        "en" : "Vacuum sealer",
+        "it" : "Macchina sottovuoto per alimenti"
+      },
+      "weight" : 1.5    
+    },
+    "Fabric shaver" : {
+      "id" : "Fabric shaver",
+      "category" : "Small household appliances",
+      "name" : {
+        "en" : "Fabric shaver",
+        "it" : "Levapelucchi elettrico"
+      },
+      "weight" : 0.2    
+    },
+    "Digital kitchen scales" : {
+      "id" : "Digital kitchen scales",
+      "category" : "Small household appliances",
+      "name" : {
+        "en" : "Digital kitchen scales",
+        "it" : "Bilancia da cucina"
+      },
+      "weight" : 0.64    
+    },
+    "Digital body weighing bathroom scale" : {
+      "id" : "Digital body weighing bathroom scale",
+      "category" : "Small household appliances",
+      "name" : {
+        "en" : "Digital body weighing bathroom scale",
+        "it" : "Bilancia da bagno"
+      },
+      "weight" : 2.4    
+    },
+    "Printed Circuit Boards (PCBs)" : {
+      "id" : "Printed Circuit Boards (PCBs)",
+      "category" : "IT and telecommunications",
+      "name" : {
+        "en" : "Printed Circuit Boards (PCBs)",
+        "it" : "Schede interne di pc o di altre apparecchiature"
+      },
+      "weight" : 0.15    
+    },
+    "Small electric components" : {
+      "id" : "Small electric components",
+      "category" : "IT and telecommunications",
+      "name" : {
+        "en" : "Small electric components",
+        "it" : "Piccoli componenti elettronici"
+      },
+      "weight" : 0.25    
+    },
+    "Power adapters" : {
+      "id" : "Power adapters",
+      "category" : "IT and telecommunications",
+      "name" : {
+        "en" : "Power adapters",
+        "it" : "Adattatori"
+      },
+      "weight" : 0.2    
+    },
+    "USB stick" : {
+      "id" : "USB stick",
+      "category" : "IT and telecommunications",
+      "name" : {
+        "en" : "USB stick",
+        "it" : "Chiavette usb"
+      },
+      "weight" : 0.015    
+    },
+    "Baby food blender" : {
+      "id" : "Baby food blender",
+      "category" : "Small household appliances",
+      "name" : {
+        "en" : "Baby food blender",
+        "it" : "Cuocipappa / omogeneizzatore"
+      },
+      "weight" : 2.0    
+    },
+    "Bread maker" : {
+      "id" : "Bread maker",
+      "category" : "Small household appliances",
+      "name" : {
+        "en" : "Bread maker",
+        "it" : "Macchina del pane"
+      },
+      "weight" : 5.0    
+    },
+    "Hot dog toaster maker machine" : {
+      "id" : "Hot dog toaster maker machine",
+      "category" : "Small household appliances",
+      "name" : {
+        "en" : "Hot dog toaster maker machine",
+        "it" : "Macchina hot dog"
+      },
+      "weight" : 2.5    
+    },
+    "Hair removal epilator" : {
+      "id" : "Hair removal epilator",
+      "category" : "Small household appliances",
+      "name" : {
+        "en" : "Hair removal epilator",
+        "it" : "Epilatore elettrico"
+      },
+      "weight" : 0.4    
+    },
+    "Egg cooker" : {
+      "id" : "Egg cooker",
+      "category" : "Small household appliances",
+      "name" : {
+        "en" : "Egg cooker",
+        "it" : "Cuoci uova elettrico"
+      },
+      "weight" : 0.92    
+    },
+    "Electric food processor" : {
+      "id" : "Electric food processor",
+      "category" : "Small household appliances",
+      "name" : {
+        "en" : "Electric food processor",
+        "it" : "Tritatutto"
+      },
+      "weight" : 1.6    
+    },
+    "Electric food steamer" : {
+      "id" : "Electric food steamer",
+      "category" : "Small household appliances",
+      "name" : {
+        "en" : "Electric food steamer",
+        "it" : "Vaporiera"
+      },
+      "weight" : 2.4    
+    },
+    "Fryer" : {
+      "id" : "Fryer",
+      "category" : "Small household appliances",
+      "name" : {
+        "en" : "Fryer",
+        "it" : "Friggitrice"
+      },
+      "weight" : 2.8    
+    },
+    "Steriliser" : {
+      "id" : "Steriliser",
+      "category" : "Electrical and electronic tools",
+      "name" : {
+        "en" : "Steriliser",
+        "it" : "Sterilizzatore"
+      },
+      "weight" : 2.5    
+    },
+    "Baby bottle warmer" : {
+      "id" : "Baby bottle warmer",
+      "category" : "Small household appliances",
+      "name" : {
+        "en" : "Baby bottle warmer",
+        "it" : "Scalda biberon"
+      },
+      "weight" : 0.4    
+    },
+    "Milk frother" : {
+      "id" : "Milk frother",
+      "category" : "Small household appliances",
+      "name" : {
+        "en" : "Milk frother",
+        "it" : "Montalatte elettrico"
+      },
+      "weight" : 0.95    
+    },
+    "Hand mixer" : {
+      "id" : "Hand mixer",
+      "category" : "Small household appliances",
+      "name" : {
+        "en" : "Hand mixer",
+        "it" : "Sbattitore elettrico"
+      },
+      "weight" : 1.58    
+    },
+    "Ice cream maker" : {
+      "id" : "Ice cream maker",
+      "category" : "Small household appliances",
+      "name" : {
+        "en" : "Ice cream maker",
+        "it" : "Macchina per gelato"
+      },
+      "weight" : 8.0    
+    },
     "Electrical weighing scale" : {
       "id" : "Electrical weighing scale",
       "category" : "Small household appliances",
