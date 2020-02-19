@@ -25,5 +25,17 @@ public class CoinMap {
 	public double getRecycleCoin() {
 		return recycleCoin;
 	}
+	
+	public void addCoinMap(CoinMap coinMap) {
+		this.reduceCoin += coinMap.getReduceCoin();
+		this.reuseCoin += coinMap.getReuseCoin();
+		this.recycleCoin += coinMap.getRecycleCoin();		
+	}
+	
+	public void subCoinMap(CoinMap coinMap) {
+		this.reduceCoin -= coinMap.getReduceCoin();
+		this.reuseCoin -= coinMap.getReuseCoin();
+		this.recycleCoin -= coinMap.getRecycleCoin();		
+	}
 
 }

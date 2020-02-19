@@ -233,7 +233,7 @@ public class GeManager {
 				continue;
 			}
 			CoinMap coinMap = playersStatus.getPlayerTotalCoinMap(player.getObjectId(), null);
-			double rank = Utils.getRank(coinMap);
+			double rank = Utils.getRank(coinMap, player);
 			PointStatus pointStatus = new PointStatus(player.getObjectId(), rank);
 			pointStatus.setCoinMap(coinMap);
 			pointStatusList.add(pointStatus);
