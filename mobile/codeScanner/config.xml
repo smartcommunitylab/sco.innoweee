@@ -109,5 +109,5 @@
     </plugin>
     <plugin name="cordova-hot-code-push-plugin" spec="^1.5.3" />
     <engine name="android" spec="8.1.0" />
-    <engine name="ios" spec="4.5.5" />
+    <engine name="ios" spec="~4.5.5" />
 </widget>
