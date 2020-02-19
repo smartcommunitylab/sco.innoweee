@@ -108,6 +108,9 @@
         <variable name="OKHTTP_VERSION" value="3.10.0" />
     </plugin>
     <plugin name="cordova-hot-code-push-plugin" spec="^1.5.3" />
+    <chcp>
+        <config-file url="https://hcp.smartcommunitylab.it/innoweee/chcp.json" />
+    </chcp>
     <engine name="android" spec="8.1.0" />
-    <engine name="ios" spec="~4.5.5" />
+    <engine name="ios" spec="4.5.5" />
 </widget>
