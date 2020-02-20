@@ -145,15 +145,6 @@
       },
       "weight" : 0.2    
     },
-    "USB stick" : {
-      "id" : "USB stick",
-      "category" : "IT and telecommunications",
-      "name" : {
-        "en" : "USB stick",
-        "it" : "Chiavette usb"
-      },
-      "weight" : 0.015    
-    },
     "Baby food blender" : {
       "id" : "Baby food blender",
       "category" : "Small household appliances",

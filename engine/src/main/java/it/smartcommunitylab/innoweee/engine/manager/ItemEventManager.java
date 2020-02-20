@@ -51,6 +51,14 @@ public class ItemEventManager {
 		return itemEventRepository.findByItemId(itemId);
 	}
 	
+	public List<ItemEvent> findByPlayerId(String playerId) {
+		return itemEventRepository.findByPlayerId(playerId);
+	}
+	
+	public List<ItemEvent> findByTenantId(String tenantId) {
+		return itemEventRepository.findByTenantId(tenantId);
+	}
+	
 	public List<ItemEvent> findByPlayerIds(List<String> playerIds, Sort sort) {
 		return itemEventRepository.findByPlayerIds(playerIds, sort);
 	}
