@@ -2,6 +2,7 @@ package it.smartcommunitylab.innoweee.engine.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -16,7 +17,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -277,15 +277,16 @@ public class ItemController extends AuthController {
 		}
 		List<Player> playerList = playerRepository.findByGameIds(games);
 		Map<String, Player> playerMap = new HashMap<>();
-		List<String> players = new ArrayList<>();
+		List<ItemEvent> globalEventList = new ArrayList<ItemEvent>();
 		for(Player player : playerList) {
 			playerMap.put(player.getObjectId(), player);
-			players.add(player.getObjectId());
+			List<ItemEvent> eventList = itemEventManager.findByPlayerId(player.getObjectId());
+			globalEventList.addAll(eventList);
 		}
+		globalEventList.addAll(itemEventManager.findByTenantId(tenantId));
+		globalEventList.sort(Comparator.comparing(ItemEvent::getTimestamp).reversed());
 		GarbageMap garbageMap = garbageMapRepository.findByTenantId(tenantId);
-		List<ItemEvent> eventList = itemEventManager.findByPlayerIdsOrTenant(players, tenantId, 
-				new Sort(Sort.Direction.DESC, "timestamp"));
-		for(ItemEvent event : eventList) {
+		for(ItemEvent event : globalEventList) {
 			try {
 				String instituteName = null;
 				String instituteId = null;
@@ -378,7 +379,7 @@ public class ItemController extends AuthController {
 				logger.info("getItemCsv error:{} / {}", event.getId(), e.getMessage());
 			}
 		}
-		logger.info("getItemCsv:{} / {}", tenantId, eventList.size());
+		logger.info("getItemCsv:{} / {}", tenantId, globalEventList.size());
 		return sb.toString();
 	}
 	
