@@ -15,6 +15,8 @@ public interface ItemEventRepository extends MongoRepository<ItemEvent, String> 
 	
 	List<ItemEvent> findByPlayerId(String playerId);
 	
+	List<ItemEvent> findByTenantId(String tenantId);
+	
 	@Query(value="{playerId:{$in:?0}}")
 	List<ItemEvent> findByPlayerIds(List<String> playerIds, Sort sort);
 	
