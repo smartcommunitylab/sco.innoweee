@@ -95,7 +95,7 @@
 			"en":"How old is the computer you have at home?"
 		},
 		"specialCollection":true,
-		"items":["USB stick","Power adapters","Small electric components","Printed Circuit Boards (PCBs)","Docking station","E-reader","Flash drive","Computer components","Router","Answering machine","Calculator","Cordless","Decoder","Fax","GPS system","Landline phone","Modem","Trackpad","Walkie Talkie","Keyboard","Mouse"],
+		"items":["Power adapters","Small electric components","Printed Circuit Boards (PCBs)","Docking station","E-reader","Flash drive","Computer components","Router","Answering machine","Calculator","Cordless","Decoder","Fax","GPS system","Landline phone","Modem","Trackpad","Walkie Talkie","Keyboard","Mouse"],
 		"links":[
         {
             "name" : "Il riciclo dei RAEE?",
