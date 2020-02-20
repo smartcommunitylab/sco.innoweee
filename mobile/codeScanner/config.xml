@@ -5,6 +5,7 @@
     <author email="info@smartcommunitylab.it" href="http://www.smartcommunitylab.it">Smart Community Lab</author>
     <content src="index.html" />
     <access origin="*" />
+    <allow-navigation href="*" />
     <allow-intent href="http://localhost:8100/*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -118,5 +119,5 @@
     <plugin name="cordova-plugin-nativestorage" spec="^2.3.2" />
     <plugin name="cordova-hot-code-push-plugin" spec="1.5.3" />
     <engine name="android" spec="8.1.0" />
-    <engine name="ios" spec="5.0.1" />
+    <engine name="ios" spec="~4.5.5" />
 </widget>
