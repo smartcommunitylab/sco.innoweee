@@ -40,7 +40,7 @@ public class JsonExportTest {
 				Garbage garbage = new Garbage();
 				garbage.setCategory(category);
 				garbage.setWeight(weight);
-				garbage.setId(nameEn);
+				garbage.setItemId(nameEn);
 				garbage.getName().put("en", nameEn);
 				garbage.getName().put("it", nameIt);
 				garbageMap.getItems().put(nameEn, garbage);

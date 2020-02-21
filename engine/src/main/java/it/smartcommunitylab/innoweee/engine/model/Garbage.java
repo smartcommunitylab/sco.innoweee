@@ -4,17 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Garbage {
-	private String id;
+	private String itemId;
 	private String category;
 	private Map<String, String> name = new HashMap<String, String>();
 	private double weight;
 	
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
 	public String getCategory() {
 		return category;
 	}
@@ -32,6 +26,12 @@ public class Garbage {
 	}
 	public void setName(Map<String, String> name) {
 		this.name = name;
+	}
+	public String getItemId() {
+		return itemId;
+	}
+	public void setItemId(String itemId) {
+		this.itemId = itemId;
 	}
 	
 }
