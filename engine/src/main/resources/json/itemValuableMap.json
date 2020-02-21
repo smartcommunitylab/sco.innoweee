@@ -7,19 +7,19 @@
 			{
 				"broken": false,
 				"switchingOn": true,
-				"age": 1
+				"age": 0
 			},
 			{
 				"broken": true,
 				"switchingOn": true,
-				"age": 1
+				"age": -1
 			}
 		],
 		"Scanner": [
 			{
 				"broken": false,
 				"switchingOn": true,
-				"age": 1
+				"age": -1
 			},
 			{
 				"broken": true,
@@ -31,7 +31,7 @@
 			{
 				"broken": false,
 				"switchingOn": true,
-				"age": 1
+				"age": -1
 			},
 			{
 				"broken": true,
@@ -43,19 +43,19 @@
 			{
 				"broken": false,
 				"switchingOn": true,
-				"age": 1
+				"age": -1
 			},
 			{
 				"broken": true,
 				"switchingOn": true,
-				"age": 1
+				"age": -1
 			}
 		],
 		"Printer": [
 			{
 				"broken": false,
 				"switchingOn": true,
-				"age": 1
+				"age": -1
 			},
 			{
 				"broken": true,
@@ -67,7 +67,7 @@
 			{
 				"broken": false,
 				"switchingOn": true,
-				"age": 1
+				"age": -1
 			},
 			{
 				"broken": true,
@@ -91,7 +91,7 @@
 			{
 				"broken": false,
 				"switchingOn": true,
-				"age": 1
+				"age": -1
 			},
 			{
 				"broken": true,
@@ -103,7 +103,7 @@
 			{
 				"broken": false,
 				"switchingOn": true,
-				"age": 1
+				"age": -1
 			},
 			{
 				"broken": true,
@@ -115,7 +115,7 @@
 			{
 				"broken": false,
 				"switchingOn": true,
-				"age": 1
+				"age": 0
 			},
 			{
 				"broken": true,
@@ -127,31 +127,31 @@
 			{
 				"broken": false,
 				"switchingOn": true,
-				"age": 1
+				"age": 0
 			},
 			{
 				"broken": true,
 				"switchingOn": true,
-				"age": 1
+				"age": -1
 			}
 		],
 		"Trackpad": [
 			{
 				"broken": false,
 				"switchingOn": true,
-				"age": 1
+				"age": -1
 			},
 			{
 				"broken": true,
 				"switchingOn": true,
-				"age": 1
+				"age": -1
 			}
 		],
 		"GPS system": [
 			{
 				"broken": false,
 				"switchingOn": true,
-				"age": 1
+				"age": -1
 			},
 			{
 				"broken": true,
@@ -168,14 +168,14 @@
 			{
 				"broken": true,
 				"switchingOn": true,
-				"age": 1
+				"age": -1
 			}
 		],
 		"E-reader": [
 			{
 				"broken": false,
 				"switchingOn": true,
-				"age": 1
+				"age": -1
 			},
 			{
 				"broken": true,
@@ -187,19 +187,19 @@
 			{
 				"broken": false,
 				"switchingOn": true,
-				"age": 1
+				"age": -1
 			},
 			{
 				"broken": true,
 				"switchingOn": true,
-				"age": 1
+				"age": -1
 			}
 		],
 		"Keyboard": [
 			{
 				"broken": false,
 				"switchingOn": true,
-				"age": 1
+				"age": -1
 			},
 			{
 				"broken": true,
@@ -211,7 +211,7 @@
 			{
 				"broken": false,
 				"switchingOn": true,
-				"age": 1
+				"age": -1
 			},
 			{
 				"broken": true,
@@ -223,7 +223,7 @@
 			{
 				"broken": false,
 				"switchingOn": true,
-				"age": 1
+				"age": -1
 			},
 			{
 				"broken": true,
@@ -235,7 +235,7 @@
 			{
 				"broken": false,
 				"switchingOn": true,
-				"age": 1
+				"age": -1
 			},
 			{
 				"broken": true,
@@ -247,19 +247,19 @@
 			{
 				"broken": false,
 				"switchingOn": true,
-				"age": 1
+				"age": 0
 			},
 			{
 				"broken": true,
 				"switchingOn": true,
-				"age": 1
+				"age": -1
 			}
 		],
 		"Answering machine": [
 			{
 				"broken": false,
 				"switchingOn": true,
-				"age": 1
+				"age": -1
 			},
 			{
 				"broken": true,
@@ -271,7 +271,7 @@
 			{
 				"broken": false,
 				"switchingOn": true,
-				"age": 1
+				"age": -1
 			},
 			{
 				"broken": true,
@@ -283,7 +283,7 @@
 			{
 				"broken": false,
 				"switchingOn": true,
-				"age": 1
+				"age": -1
 			},
 			{
 				"broken": true,
@@ -295,19 +295,19 @@
 			{
 				"broken": false,
 				"switchingOn": true,
-				"age": 1
+				"age": -1
 			},
 			{
 				"broken": true,
 				"switchingOn": true,
-				"age": 1
+				"age": -1
 			}
 		],
 		"Fax": [
 			{
 				"broken": false,
 				"switchingOn": true,
-				"age": 1
+				"age": -1
 			},
 			{
 				"broken": true,
@@ -324,19 +324,19 @@
 			{
 				"broken": true,
 				"switchingOn": true,
-				"age": 1
+				"age": -1
 			}
 		],
 		"Smartphone": [
 			{
 				"broken": false,
 				"switchingOn": true,
-				"age": 1
+				"age": 0
 			},
 			{
 				"broken": true,
 				"switchingOn": true,
-				"age": 1
+				"age": -1
 			}
 		]
 	}
