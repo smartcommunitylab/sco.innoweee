@@ -116,7 +116,7 @@ public class ItemEventManager {
 		if(valuableMap == null) {
 			return false;
 		}
-		List<ItemValuable> list = valuableMap.getItems().get(garbage.getId());
+		List<ItemValuable> list = valuableMap.getItems().get(garbage.getItemId());
 		if(list == null) {
 			return false;
 		}
