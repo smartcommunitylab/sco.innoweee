@@ -125,6 +125,9 @@ export class HomePage extends CommonPage implements OnInit {
   manualInsert() {
     this.router.navigate(['manual-insert'], { queryParams: { playerId: this.playerId } });
   }
+  stats() {
+    this.router.navigate(['result']);
+  }
   signOut() {
     this.auth.signOut();
   }
