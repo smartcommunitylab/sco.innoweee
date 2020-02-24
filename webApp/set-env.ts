@@ -21,7 +21,7 @@ export const environment = {
     redirectUrl: "${process.env.redirectUrl}",
     aacUrl: "${process.env.aacUrl}",
     getDomainApi: 'api/profile',
-    getInstituteApi: '/api/institute/',
+    getInstituteApi: 'api/institute',
     getSchoolApi: 'api/school',
     getGameApi: 'api/game/',
     getPlayerApi: 'api/player',
