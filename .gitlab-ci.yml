@@ -19,8 +19,9 @@ build_backend:
   stage: build
   script:
     - cd engine
+    - VERSION=$(sed -E -n '/<artifactId>(engine)<\/artifactId>.*/{n;p}' pom.xml | grep -Eo '[0-9]\.[0-9]')
     - docker login -u $DHUB_USER -p $DHUB_PASS
-    - DOCKER_BUILDKIT=1 docker build -f Dockerfile -t $IMAGE_BACKEND_SHA -t $IMAGE_BACKEND_LATEST .
+    - DOCKER_BUILDKIT=1 docker build -f Dockerfile -t $IMAGE_BACKEND_SHA -t $IMAGE_BACKEND_LATEST --build-arg VER=$VERSION .
     - docker push $IMAGE_BACKEND_SHA
     - docker push $IMAGE_BACKEND_LATEST
   only:
