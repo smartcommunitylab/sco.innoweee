@@ -1,0 +1,17 @@
+[
+{
+	"binId":"11111A",
+	"binType":"bin_reuse",
+	"gameId":"5db2ea18adb60e1e34188b18"
+},
+{
+	"binId":"11111B",
+	"binType":"bin_recycle",
+	"gameId":"5db2ea18adb60e1e34188b18"
+},
+{
+	"binId":"11111C",
+	"binType":"bin_value",
+	"gameId":"5db2ea18adb60e1e34188b18"
+}
+]

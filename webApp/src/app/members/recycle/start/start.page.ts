@@ -12,8 +12,10 @@ import { MainPage } from 'src/app/class/MainPage';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Storage } from '@ionic/storage';
 import { environment } from './../../../../environments/environment';
+import { UtilsService } from 'src/app/services/utils.service';
 
-
+var ITEM_STATE_CLASSIFIED = 1;
+var ITEM_STATE_CONFIRMED = 2;
 @Component({
   selector: 'app-start',
   templateUrl: './start.page.html',
@@ -44,11 +46,12 @@ export class StartPage extends MainPage implements OnInit {
     public translate: TranslateService,
     public authService: AuthenticationService,
     public storage: Storage,
+    private utils:UtilsService,
     private garbageCollection: GarbageCollectionService,
     private alertController: AlertController,
     private route: ActivatedRoute,
     public navCtrl: NavController) {
-    super(translate, authService, storage,navCtrl);
+    super(translate, authService, storage, navCtrl);
 
     this.itemSocketURL = environment.itemSocketURL;
     this.apiEndpoint = environment.apiEndpoint;
@@ -57,7 +60,7 @@ export class StartPage extends MainPage implements OnInit {
   ionViewWillEnter() {
     this.manual = false;
     this.message = null;
-  
+
     this.manualItemId = "";
     this.profileService.getLocalPlayerData().then(res => {
       this.playerData = res;
@@ -84,16 +87,30 @@ export class StartPage extends MainPage implements OnInit {
     // let sock = new WebSocket("ws://localhost:2020/itemws/websocket");
     this.ws = Stomp.over(sock);
     let that = this;
-    this.ws.connect({},  (frame) => {
-      that.ws.subscribe("/errors",  (message) => {
-        alert("Error " + message.body);
+    this.ws.connect({}, (frame) => {
+      that.ws.subscribe("/errors", (message) => {
+         console.log("Error " + message.body);
       });
-      this.subscription = that.ws.subscribe("/topic/item." + tenantId + "." + playerId,  (message) => {
+      this.subscription = that.ws.subscribe("/topic/item." + tenantId + "." + playerId, (message) => {
         console.log(message)
         that.message = JSON.parse(message.body);
         if (that.message && that.message.itemId) {
           //go to item-loaded
-          that.router.navigate(['item-loaded', that.message.itemId, false]);
+        this.checkIfPresent(that.message.itemId,).then(res => {
+        if (!res) {
+          //new item
+          this.router.navigate(['item-loaded', that.message.itemId, false]);
+
+        }
+        else if (this.itemClassified(res)) {
+          this.confirm(res);
+          // this.router.navigate(['item-confirm',  JSON.stringify(res)]);
+
+        } else {
+          this.showErrorItem(res);
+        }
+      })
+          // that.router.navigate(['item-loaded', that.message.itemId, false]);
         }
       });
       that.disabled = true;
@@ -109,7 +126,7 @@ export class StartPage extends MainPage implements OnInit {
     this.manual = true;
     setTimeout(() => {
       this.manualID.setFocus();
-    },300);
+    }, 300);
     // this.manualID.setFocus();
   }
   manualInsert() {
@@ -117,22 +134,45 @@ export class StartPage extends MainPage implements OnInit {
       //go to item-loaded
       this.checkIfPresent(this.manualItemId).then(res => {
         if (!res) {
+          //new item
           this.router.navigate(['item-loaded', this.manualItemId, true]);
-
         }
-        else {
-          this.showErrorItem();
+        else if (this.itemClassified(res)) {
+          //confirm item
+          this.confirm(res);
+          //this.router.navigate(['item-confirm',  JSON.stringify(res)]);
+
+        } else {
+          this.showErrorItem(res);
         }
       })
       //todo check if id is already present
 
     }
   }
+  itemClassified(res: any) {
+    return (res.state == ITEM_STATE_CLASSIFIED)
+  }
 
-  async showErrorItem() {
+  confirm(item) {
+    this.profileService.getLocalPlayerData().then(res => {
+      this.playerData = res;
+      this.garbageCollection.confirmItem(item.itemId, this.playerData.objectId).then(res => {
+        //show alert confirmed and go out
+        console.log('confermato');
+        item.reusable = res.reusable;
+        item.valuable = res.valuable
+        this.router.navigate(['item-classification', JSON.stringify(item)]);
+      }, err => {
+        this.utils.handleError(err);
+      })
+    })
+  }
+  async showErrorItem(item) {
+    var state = this.calculateState(item)
     let headerLabel = this.translate.instant("duplicate_id_header");
     let subtitleLabel = this.translate.instant("duplicate_id_subtitle");
-    let messageLabel = this.translate.instant("duplicate_id_message");
+    let messageLabel = this.translate.instant("duplicate_id_message", { id: item.itemId, state: state });
 
     const alert = await this.alertController.create({
       header: headerLabel,
@@ -143,10 +183,21 @@ export class StartPage extends MainPage implements OnInit {
 
     await alert.present();
   }
+  private calculateState(item: any) {
+      if (item && item.valuable) {
+        return this.translate.instant("label_bin_value");
+  
+      }
+      if (item && item.reusable) {
+        return this.translate.instant("label_bin_reuse");
+      }
+      return this.translate.instant("label_bin_recycle");
+   }
+
   checkIfPresent(scanData): Promise<any> {
     return this.garbageCollection.checkIfPresent(scanData, this.playerData.objectId).then(res => {
       console.log(res);
-      return res.result
+      return res
     })
   }
 

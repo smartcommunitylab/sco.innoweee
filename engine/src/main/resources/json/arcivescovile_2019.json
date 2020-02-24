@@ -2,6 +2,7 @@
 	"instituteName":"Arcivescovile",
 	"schoolName":"Arcivescovile",
 	"classes":["1A","1B","2A","2B","3A","3B","4B","5B"],
+	"checkCode":"89668590",
 	"collections": [
 	{
 		"tenantId":"TRENTINO",

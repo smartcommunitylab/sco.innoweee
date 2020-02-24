@@ -1,0 +1,202 @@
+{
+	"instituteName":"IC A. Bresciani",
+	"schoolName":"SP M.T. di Calcutta",
+	"classes":["1A","2A","3A","3B","4A","4B","5A","5B"],
+	"gameFrom": "2020-02-24",
+	"gameTo": "2020-04-18",
+	"checkCode":"",
+	"collections": [
+	{
+		"tenantId":"TRENTINO",
+		"gameId":"",
+		"from":1582930800000,
+		"to":1583535599000,
+		"nameGE":"R1",
+		"message":{
+			"it":"Elettrodomestici della cucina", 
+			"en":"Kitchen Appliances"
+		},
+		"reduceMessage":{
+			"it":"Quanti anni ha il frigorifero che hai a casa?",
+			"en":"How old is the fridge you have at home?"
+		},
+		"specialCollection":false,
+		"items":["Ice cream maker","Hand mixer","Milk frother","Baby bottle warmer","Steriliser","Fryer","Electric food steamer","Electric food processor","Egg cooker","Hot dog toaster maker machine","Bread maker","Baby food blender","Digital kitchen scales","Fabric shaver","Vacuum sealer","Food dehydrator","Handy steam cleaner","Electric window vacuum cleaner","Vertical / steam iron","Electric slow cookers","Blender","Centrifuge","Electrical coffe grinder","Coffe machine","Electrical knife","Electrical grater","Tea kettle","Hand vacuum","Minipimer","Squeezer","Toaster"],
+		"links":[
+        {
+            "name" : "Greta Thunberg: una piccola eroina che lotta per la difesa del nostro pianeta",
+            "type" : "link",
+            "previewUri" : "https://imgur.com/pDvYx8H.jpg",
+            "link" : "https://drive.google.com/file/d/1xiJL7BI9rzpiOcYsNd7BbejkILOrebF0/view?usp=sharing"
+        }, 
+        {
+            "name" : "La giungla dei RAEE - Una miniera tra i rifiuti",
+            "type" : "link",
+            "previewUri" : "https://imgur.com/yPfEwOi.jpg",
+            "link" : "https://drive.google.com/file/d/1nW_IzuhF1wBWzXWdzcR-gXLJ574yM1vD/view?usp=sharing"
+        }, 
+        {
+            "name" : "Alla scoperta dei RAEE e AEE",
+            "type" : "video",
+            "previewUri" : "https://imgur.com/2AeGmHD.jpg",
+            "link" : "https://www.youtube.com/watch?v=Ez4QPdKMI7E"
+        }
+    ]
+	},
+	{
+		"tenantId":"TRENTINO",
+		"gameId":"",
+		"from":1583535600000,
+		"to":1584313199000,
+		"nameGE":"R2",
+		"message":{
+			"it":"Cellulari, smartphone, tablet e computer portatili",
+			"en":"Laptop, Notebook, Tablet, Smartphone"
+		},
+		"reduceMessage":{
+			"it":"Quanti anni ha il cellulare più vecchio che usate in famiglia?",
+			"en":"How old is the oldest cell phone used daily in your family?"
+		},
+		"specialCollection":true,
+		"items":["Cellphone","Smartphone","Laptop","Tablet"],
+		"links":[
+        {
+            "name" : "La canzone delle tre R: Riduco, Riuso, Riciclo",
+            "type" : "link",
+            "previewUri" : "https://imgur.com/as4uUAf.jpg",
+            "link" : "http://www.ehabitat.it/2016/06/10/le-3-r-di-jack-johnson-reduce-reuse-recycle/"
+        }, 
+        {
+            "name" : "Il sistema RAEE",
+            "type" : "link",
+            "previewUri" : "https://imgur.com/mGInZvU.jpg",
+            "link" : "https://drive.google.com/file/d/1i521WRzoDs50PocmD-pUUXZcnpQ0_utc/view?usp=sharing"
+        }, 
+        {
+            "name" : "Giocando si impara a reciclare",
+            "type" : "link",
+            "previewUri" : "https://imgur.com/rmBEMMd.jpg",
+            "link" : "https://drive.google.com/file/d/1-addD24w7m0n188j9eUdqoCHH72OqDSa/view?usp=sharing"
+        }
+		]
+	},
+	{
+		"tenantId":"TRENTINO",
+		"gameId":"",
+		"from":1584313200000,
+		"to":1584917999000,
+		"nameGE":"R3",
+		"message":{
+			"it":"Apparecchiature informatiche e per telecomunicazioni",
+			"en":"Information and Communication Technologies"
+		},
+		"reduceMessage":{
+			"it":"Quanti anni ha il computer che hai a casa?",
+			"en":"How old is the computer you have at home?"
+		},
+		"specialCollection":true,
+		"items":["Power adapters","Small electric components","Printed Circuit Boards (PCBs)","Docking station","E-reader","Flash drive","Computer components","Router","Answering machine","Calculator","Cordless","Decoder","Fax","GPS system","Landline phone","Modem","Trackpad","Walkie Talkie","Keyboard","Mouse"],
+		"links":[
+        {
+            "name" : "Il riciclo dei RAEE?",
+            "type" : "link",
+            "previewUri" : "https://imgur.com/04rYwvt.jpg",
+            "link" : "https://drive.google.com/file/d/14xiuLgi9w9vQ7YIKC3CXfc-UcuZ00MWE/view?usp=sharing"
+        }, 
+        {
+            "name" : "Il ciclo di trattamento dei RAEE: il modello ECODOM",
+            "type" : "video",
+            "previewUri" : "",
+            "link" : "https://www.youtube.com/watch?v=7GyXv7rWXNw"
+        }
+    ]
+	},
+	{
+		"tenantId":"TRENTINO",
+		"gameId":"",
+		"from":1584918000000,
+		"to":1585519199000,
+		"nameGE":"R4",
+		"message":{
+			"it":"Piccoli elettrodomestici per la salute e il benessere",
+			"en":"Health, Beauty and Wellness Appliances"
+		},
+		"reduceMessage":{
+			"it":"Quanti anni ha l'asciugacapelli che hai a casa?",
+			"en":"How old is the hair dryer you have at home?"
+		},
+		"specialCollection":false,
+		"items":["Hair removal epilator","Aerosol machine","Digital body weighing bathroom scale","Nasal aspirator","Electric air humudifiers","Electric air purifiers","Curling iron","Electric ear cleaner","Electric razor","Electric toothbrush","Hair cutter","Hair dryer","Aerosol machine","Other appliances for body care","Electrical weighing scale"],
+		"links":[
+        {
+            "name" : "I flussi dei RAEE",
+            "type" : "link",
+            "previewUri" : "https://imgur.com/DPBkRYe.jpg",
+            "link" : "https://drive.google.com/file/d/1jx7dCq5s1bm_mYW0z-kNG6cBuJ_Twssk/view?usp=sharing"
+        }, 
+        {
+            "name" : "Paxi- L’effetto serra",
+            "type" : "video",
+            "previewUri" : "",
+            "link" : "https://www.youtube.com/watch?v=RR30r52uQmQ"
+        }		
+		]
+	},
+	{
+		"tenantId":"TRENTINO",
+		"gameId":"",
+		"from":1585519200000,
+		"to":1586123999000,
+		"nameGE":"R5",
+		"message":{
+			"it":"Apparecchiature audio e video, giochi e giocattoli elettronici",
+			"en":"Audio, video, consumer devices, toys and games"
+		},
+		"reduceMessage":{
+			"it":"Quanti anni ha la televisione che hai a casa?",
+			"en":"How old is the TV you have at home?"
+		},
+		"specialCollection":false,
+		"items":["Amplifier","Car radio","CD reader","Electrical clock","Headphones","Speaker","Mp3 reader","Radio","Record player","Recorder","Stereo","Electrical alarm clock","Battery charger","Camera","DVD reader","Video recorder","Web cam","Remote","Joystick","Portable and stationary console","Talking doll","Electrical musical instruments","Electrical toys"],
+		"links":[
+        {
+            "name" : "Le materie prime critiche nei RAEE",
+            "type" : "link",
+            "previewUri" : "https://imgur.com/7wKyNuo.jpg",
+            "link" : "https://drive.google.com/file/d/1YDzBr2a_twPOHzXceLiHvcS4lJ7RGNo5/view?usp=sharing"
+        }, 
+        {
+            "name" : "Clean Up- Ecodom",
+            "type" : "video",
+            "previewUri" : "",
+            "link" : "https://www.youtube.com/watch?v=ojr4mlaLACk"
+        }		
+		]
+	},
+	{
+		"tenantId":"TRENTINO",
+		"gameId":"",
+		"from":1586124000000,
+		"to":1587160799000,
+		"nameGE":"R6",
+		"message":{
+			"it":"Raccolta Jolly",
+			"en":"Jolly collection"
+		},
+		"reduceMessage":{
+			"it":"Quanti anni ha la lavatrice che hai a casa?",
+			"en":"How old is the washing machine you have at home?"
+		},
+		"specialCollection":false,
+		"items":[],
+		"links":[
+        {
+            "name" : "L'economia circolare",
+            "type" : "link",
+            "previewUri" : "https://imgur.com/6bXI1a6.jpg",
+            "link" : "https://drive.google.com/file/d/1ONtpTFVULDKnNHZ8rFIR_Wge2-lv48F2/view?usp=sharing"
+        }		
+		]
+	}
+]
+}

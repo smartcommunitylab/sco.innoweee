@@ -6,6 +6,7 @@ const routes: Routes = [
   { path: 'start', loadChildren: './recycle/start/start.module#StartPageModule' },
   { path: 'item-classification/:item', loadChildren: './recycle/item-classification/item-classification.module#ItemClassificationPageModule' },
   { path: 'item-loaded/:idItem/:manual', loadChildren: './recycle/item-loaded/item-loaded.module#ItemLoadedPageModule' },
+  { path: 'item-confirm/:item', loadChildren: './recycle/item-confirm/item-confirm.module#ItemConfirmPageModule' },
   { path: 'recycle-results', loadChildren: './recycle/recycle-results/recycle-results.module#RecycleResultsPageModule' },
   { path: 'home', loadChildren: './home/home.module#HomePageModule' },
   { path: 'material', loadChildren: './education/material/material.module#MaterialPageModule' },

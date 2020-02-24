@@ -30,7 +30,7 @@ public class GameActionController extends AuthController {
 			@PathVariable String tenantId,
 			HttpServletRequest request) throws Exception {
 		if(!validateRole(Const.ROLE_OWNER, tenantId, request)) {
-			throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
+			throw new UnauthorizedException(Const.ERROR_CODE_ROLE + "role not valid");
 		}
 		List<GameAction> result = gameActionRepository.findByTenantId(tenantId, 
 				new Sort(Sort.Direction.DESC, "lastUpdate"));

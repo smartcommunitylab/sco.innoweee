@@ -1,12 +1,18 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
 import { ProfileService } from 'src/app/services/profile.service';
 import { TranslateService } from '@ngx-translate/core';
 import { OverlayEventDetail } from '@ionic/core';
-import { ModalController, AlertController } from '@ionic/angular';
+import { ModalController, AlertController, ToastController, NavController } from '@ionic/angular';
 import { ClassComponent } from './modal/class/class.component'
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { AuthService } from 'src/app/auth/auth.service';
+import { CommonPage } from 'src/app/class/common-page';
+import { DataServerService } from 'src/app/services/data.service';
+import { ClassificationService } from 'src/app/services/classification.service';
+import {Location} from '@angular/common';
+
 const REFRESH_TIME = 500;
 @Component({
   selector: 'app-select-class',
@@ -15,7 +21,7 @@ const REFRESH_TIME = 500;
 })
 
 
-export class SelectClassPage implements OnInit {
+export class SelectClassPage extends CommonPage implements OnInit {
   domain: string = "";
   domains: [];
   institute = {};
@@ -33,27 +39,36 @@ export class SelectClassPage implements OnInit {
   playerData: {};
   playerState: {};
   playerName: any;
-  constructor(private profileService: ProfileService,
-    private router: Router, private fb: FormBuilder,
+  profile:string;
+  constructor(public router: Router,
+    public translate: TranslateService,
+    public toastController: ToastController,
+    public route: ActivatedRoute,
+    public auth:AuthService,
+    public dataServerService: DataServerService,
     private _cdr: ChangeDetectorRef,
-    private translate: TranslateService,
     private modalController: ModalController,
-    private authService:AuthenticationService,
-    private alertController:AlertController,
-    private translateService: TranslateService) {
-      console.log('select-class')
-  }
+    public location:Location,
+    public profileService: ProfileService,
+    public authService: AuthenticationService,
+    public classificationService: ClassificationService,
+    private navCtrl: NavController
+
+  ) {
+    super( auth,router,translate, toastController,route,dataServerService,location,profileService,authService) }
 
   ngOnInit() {
-    this.getDomain()
+    this.getDomain();
+    this.profile = this.profileService.getProfileRole();
   }
   enter() {
     this.router.navigate(['/home']);
   }
-   getDomain() {
+   async getDomain() {
     console.log("getDomain");
-    this.authService.getValidAACtoken().then( token => {
-    this.profileService.getDomain(token).then(res => {
+    const token = await this.auth.getValidToken();
+    // this.authService.getValidAACtoken().then( token => {
+    this.profileService.getDomain(token.accessToken).then(res => {
       console.log(res);
       this.domains = res.tenants;
       if (res.tenants.length == 1) {
@@ -63,16 +78,19 @@ export class SelectClassPage implements OnInit {
         }, REFRESH_TIME);
 
       }
-    }    )
-  })
+    }, err => {
+      console.log(err);
+    }   )
+  // })
 }
 
-  getInstitute(domainId: string) {
+  async getInstitute(domainId: string) {
     console.log("getInstitute");
 
     this.domain = domainId;
-    this.authService.getValidAACtoken().then( token => {
-    this.profileService.getInstitute(this.domain,token).then(res => {
+    const token = await this.auth.getValidToken();
+    // this.authService.getValidAACtoken().then( token => {
+    this.profileService.getInstitute(this.domain,token.accessToken).then(res => {
       console.log(res);
       this.institutes = res;
       if (res.length == 1) {
@@ -84,15 +102,17 @@ export class SelectClassPage implements OnInit {
 
       }
     });
-  })
+  // })
   }
-  getSchool(institute) {
+  async getSchool(institute) {
     console.log("getSchool");
 
     this.instituteId = institute.objectId;
-    this.authService.getValidAACtoken().then( token => {
+    const token = await this.auth.getValidToken();
 
-    this.profileService.getSchool(this.domain, this.instituteId,token).then(res => {
+    // this.authService.getValidAACtoken().then( token => {
+
+    this.profileService.getSchool(this.domain, this.instituteId,token.accessToken).then(res => {
       console.log(res);
       this.schools = res;
       if (res.length == 1) {
@@ -104,14 +124,15 @@ export class SelectClassPage implements OnInit {
         }, REFRESH_TIME);
       }
     });
-  })
+  // })
   }
 
-  getGame(school) {
+  async getGame(school) {
     this.schoolId = school.objectId;
-    this.authService.getValidAACtoken().then( token => {
+    const token = await this.auth.getValidToken();
+    // this.authService.getValidAACtoken().then( token => {
 
-    this.profileService.getGame(this.domain, this.instituteId, this.schoolId,token).then(res => {
+    this.profileService.getGame(this.domain, this.instituteId, this.schoolId,token.accessToken).then(res => {
       console.log(res);
       this.games = res;
       if (res.length == 1) {
@@ -123,14 +144,16 @@ export class SelectClassPage implements OnInit {
       }
 
     });
-  })
+  // })
   }
-  getPlayer(game) {
+  async getPlayer(game) {
     this.gameId = game.objectId;
-    this.authService.getValidAACtoken().then( token => {
-    this.profileService.getPlayer(this.gameId,token).then(res => {
-      console.log(res);
-      this.players = res;
+    const token = await this.auth.getValidToken();
+
+    // this.authService.getValidAACtoken().then( token => {
+    this.profileService.getPlayer(this.gameId,token.accessToken).then(res => {
+      // console.log(res);
+      this.players = this.orderPlayer(res);
       this.profileService.setAllPlayers(this.players); // it is promise
       if (res.length == 1) {
         let refreshTimeout = setTimeout(() => {
@@ -141,7 +164,20 @@ export class SelectClassPage implements OnInit {
         }, REFRESH_TIME);
       }
     });
-  })
+  // })
+  }
+  orderPlayer(res: any) {
+    return res.sort((obj1, obj2) => {
+      if (obj1.name > obj2.name) {
+          return 1;
+      }
+  
+      if (obj1.name < obj2.name) {
+          return -1;
+      }
+  
+      return 0;
+  });
   }
 
   setPlayer(player) {
@@ -149,15 +185,30 @@ export class SelectClassPage implements OnInit {
     this.playerName = player.name;
   }
   getPlayerData() {
+    if (this.checkSelection()){
     this.playerData = this.profileService.getPlayerDataFromList(this.playerId, this.players);
     // this.profileService.getPlayerState(this.gameId, this.playerId).then(res => {
       // this.playerState = res;
-      // this.profileService.setPlayerData(this.playerData);
+      this.profileService.setPlayerData(this.playerData);
       // this.profileService.setPlayerState(this.playerState);
       this.profileService.setPlayerName(this.playerName);
       this.profileService.setSchoolName(this.school["name"]);
-      this.router.navigate(['dashboard'], { queryParams: { playerId: this.playerId, playerName: this.playerName } });
+      this.profileService.memorizePlayer(this.playerId,this.playerData, this.playerName, this.school["name"]);
+      this.navCtrl.navigateRoot('/home', { queryParams: { playerId: this.playerId, playerName: this.playerName, playerData: JSON.stringify(this.playerData) } });
+
+      // this.router.navigate(['home'], { queryParams: { playerId: this.playerId, playerName: this.playerName, playerData: JSON.stringify(this.playerData) } });
     // })
+    } else {
+      this.translate.get('toast_select_data').subscribe(s=> {
+        this.presentToast(s);
+
+      })
+    }
+  }
+  checkSelection() {
+    if (this.playerName)
+    return true;
+    return false;
   }
   async chooseClass() {
     const modal: HTMLIonModalElement =
@@ -179,7 +230,13 @@ export class SelectClassPage implements OnInit {
 
   }
 
-
+  async presentToast(string) {
+    const toast = await this.toastController.create({
+      message: string,
+      duration: 2000
+    })
+    toast.present();
+  }
   getFooter() {
     return (this.translate.instant('footer_game_title'))
   }

@@ -54,7 +54,7 @@ public class ResourceController extends AuthController {
 			HttpServletRequest request) throws Exception {
 		if(!validateAuthorization(tenantId, Const.AUTH_RES_Catalog, 
 				Const.AUTH_ACTION_READ, request)) {
-			throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
+			throw new UnauthorizedException(Const.ERROR_CODE_ROLE + "role not valid");
 		}		
 		Catalog catalog = catalogRepository.findByGameId(tenantId, gameId);
 		logger.info("getCatalog[{}]:{}", tenantId, catalog);
@@ -69,7 +69,7 @@ public class ResourceController extends AuthController {
 			HttpServletRequest request) throws Exception {
 		if(!validateAuthorization(tenantId, Const.AUTH_RES_Catalog, 
 				Const.AUTH_ACTION_READ, request)) {
-			throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
+			throw new UnauthorizedException(Const.ERROR_CODE_ROLE + "role not valid");
 		}		
 		Catalog catalog = catalogRepository.findByGameId(tenantId, gameId);
 		if(catalog == null) {
@@ -95,7 +95,7 @@ public class ResourceController extends AuthController {
 			HttpServletRequest request) throws Exception {
 		if(!validateAuthorization(tenantId, Const.AUTH_RES_GarbageMap, 
 				Const.AUTH_ACTION_READ, request)) {
-			throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
+			throw new UnauthorizedException(Const.ERROR_CODE_ROLE + "role not valid");
 		}
 		GarbageMap garbageMap = garbageMapRepository.findByTenantId(tenantId);
 		logger.info("getGarbageMap[{}]:{}", tenantId, garbageMap);
@@ -108,7 +108,7 @@ public class ResourceController extends AuthController {
 			HttpServletRequest request) throws Exception {
 		if(!validateAuthorization(tenantId, Const.AUTH_RES_CategoryMap, 
 				Const.AUTH_ACTION_READ, request)) {
-			throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
+			throw new UnauthorizedException(Const.ERROR_CODE_ROLE + "role not valid");
 		}
 		CategoryMap categoryMap = categoryMapRepository.findByTenantId(tenantId);
 		logger.info("getCategoryMap[{}]:{}", tenantId, categoryMap);

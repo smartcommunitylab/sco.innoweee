@@ -1,0 +1,9 @@
+{
+  "name": "codescanner",
+  "ios_identifier": "it.smartcommunitylab.innowee.codescanner",
+  "android_identifier": "it.smartcommunitylab.innowee.codescanner",
+  "update": "start",
+  "content_url": "https://hcp.smartcommunitylab.it/innoweee",
+  "release": "2020.02.19-14.35.32"
+
+}

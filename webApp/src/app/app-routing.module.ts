@@ -24,6 +24,7 @@ const routes: Routes = [
   { path: 'allteam', loadChildren: './members/team/allteam/allteam.module#AllteamPageModule' , canActivate: [AuthGuard]},
   { path: 'myrobot', loadChildren: './members/robot/myrobot/myrobot.module#MyrobotPageModule' , canActivate: [AuthGuard]},
   { path: 'change', loadChildren: './members/robot/change/change.module#ChangePageModule' , canActivate: [AuthGuard]},
+  { path: 'item-confirm/:item', loadChildren: './members/recycle/item-confirm/item-confirm.module#ItemConfirmPageModule' },
   { path: 'question', loadChildren: './members/recycle/question/question.module#QuestionPageModule' , canActivate: [AuthGuard]},
   { path: '**', redirectTo: 'game-selection', pathMatch: 'full'}
 ];
