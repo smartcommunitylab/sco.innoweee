@@ -23,5 +23,5 @@ export const environment = {
     aacClientId: "2be89b9c-4050-4e7e-9042-c02b0d9121c6",
     redirectUrl: 'https://innoweee.platform.smartcommunitylab.it/',
     scope: 'profile.basicprofile.me profile.accountprofile.me',
-    aacUrl: 'https://am-dev.smartcommunitylab.it/aac/'
+    aacUrl: 'https://aac.platform.smartcommunitylab.it/aac/'
 };
