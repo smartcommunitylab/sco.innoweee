@@ -96,8 +96,7 @@ public class ItemEventManager {
 		if(garbage == null) {
 			throw new EntityNotFoundException(Const.ERROR_CODE_ENTITY + "garbage not found");
 		}
-		itemEvent.setReusable(getReusable(itemEvent, garbage));
-		itemEvent.setValuable(getValuable(itemEvent, garbage, actualCollection));
+		setReusableValuable(itemEvent, garbage, actualCollection);
 		
 		ItemAction action = new ItemAction();
 		action.setActionType("CLASSIFIED");
@@ -108,34 +107,59 @@ public class ItemEventManager {
 		itemEventRepository.save(itemEvent);
 		return itemEvent;
 	}
-
-	private boolean getValuable(ItemEvent event, Garbage garbage, 
+	
+	private void setReusableValuable(ItemEvent event, Garbage garbage, 
 			GarbageCollection collection) {
+		if(event.isBroken() || !event.isSwitchingOn()) {
+			event.setReusable(false);
+		} else {
+			event.setReusable(true);
+		}
+		event.setValuable(false);
 		ItemValuableMap valuableMap = valuableMapRepository.findByCollectionName(
 				collection.getTenantId(), collection.getNameGE());
-		if(valuableMap == null) {
-			return false;
-		}
-		List<ItemValuable> list = valuableMap.getItems().get(garbage.getItemId());
-		if(list == null) {
-			return false;
-		}
-		for(ItemValuable itemValuable : list) {
-			if((itemValuable.isBroken() == event.isBroken()) &&
-					itemValuable.isSwitchingOn() == event.isSwitchingOn() &&
-					itemValuable.getAge() >= event.getAge()) {
-				return true;
+		if(valuableMap != null) {
+			List<ItemValuable> list = valuableMap.getItems().get(garbage.getItemId());
+			if(list != null) {
+				event.setReusable(false);
+				for(ItemValuable itemValuable : list) {
+					if((itemValuable.isBroken() == event.isBroken()) &&
+							itemValuable.isSwitchingOn() == event.isSwitchingOn() &&
+							itemValuable.getAge() >= event.getAge()) {
+						event.setValuable(true);
+					}
+				}
 			}
 		}
-		return false;
 	}
 
-	private boolean getReusable(ItemEvent event, Garbage garbage) {
-		if(event.isBroken() || !event.isSwitchingOn()) {
-			return false;
-		}
-		return true;
-	}
+//	private boolean getValuable(ItemEvent event, Garbage garbage, 
+//			GarbageCollection collection) {
+//		ItemValuableMap valuableMap = valuableMapRepository.findByCollectionName(
+//				collection.getTenantId(), collection.getNameGE());
+//		if(valuableMap == null) {
+//			return false;
+//		}
+//		List<ItemValuable> list = valuableMap.getItems().get(garbage.getItemId());
+//		if(list == null) {
+//			return false;
+//		}
+//		for(ItemValuable itemValuable : list) {
+//			if((itemValuable.isBroken() == event.isBroken()) &&
+//					itemValuable.isSwitchingOn() == event.isSwitchingOn() &&
+//					itemValuable.getAge() >= event.getAge()) {
+//				return true;
+//			}
+//		}
+//		return false;
+//	}
+
+//	private boolean getReusable(ItemEvent event, Garbage garbage) {
+//		if(event.isBroken() || !event.isSwitchingOn()) {
+//			return false;
+//		}
+//		return true;
+//	}
 	
 	public ItemEvent itemConfirmed(ItemEvent itemEvent, Game game, Player player) throws Exception {
 		GarbageCollection actualCollection = collectionRepository.findActualCollection(
