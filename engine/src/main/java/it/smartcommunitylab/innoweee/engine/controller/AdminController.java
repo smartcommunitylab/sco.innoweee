@@ -1,7 +1,10 @@
 package it.smartcommunitylab.innoweee.engine.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -31,6 +34,8 @@ import it.smartcommunitylab.innoweee.engine.model.ItemValuableMap;
 import it.smartcommunitylab.innoweee.engine.model.Player;
 import it.smartcommunitylab.innoweee.engine.model.School;
 import it.smartcommunitylab.innoweee.engine.model.TenantData;
+import it.smartcommunitylab.innoweee.engine.model.WasteCollectorBin;
+import it.smartcommunitylab.innoweee.engine.model.WasteCollectorCard;
 import it.smartcommunitylab.innoweee.engine.repository.CatalogRepository;
 import it.smartcommunitylab.innoweee.engine.repository.CategoryMapRepository;
 import it.smartcommunitylab.innoweee.engine.repository.GameRepository;
@@ -40,6 +45,8 @@ import it.smartcommunitylab.innoweee.engine.repository.InstituteRepository;
 import it.smartcommunitylab.innoweee.engine.repository.ItemValuableMapRepository;
 import it.smartcommunitylab.innoweee.engine.repository.PlayerRepository;
 import it.smartcommunitylab.innoweee.engine.repository.SchoolRepository;
+import it.smartcommunitylab.innoweee.engine.repository.WasteCollectorBinRepository;
+import it.smartcommunitylab.innoweee.engine.repository.WasteCollectorCardRepository;
 
 @RestController
 public class AdminController extends AuthController {
@@ -63,6 +70,10 @@ public class AdminController extends AuthController {
 	private PlayerRepository playerRepository;
 	@Autowired
 	private GarbageCollectionRepository garbageCollectionRepository;
+	@Autowired
+	private WasteCollectorCardRepository collectorCardRepository;
+	@Autowired
+	private WasteCollectorBinRepository collectorBinRepository;
 
 	@PostMapping(value = "/admin/catalog")
 	public Catalog saveCatalog(
@@ -70,7 +81,7 @@ public class AdminController extends AuthController {
 			HttpServletRequest request, 
 			HttpServletResponse response) throws Exception {
 		if(!validateRole(Const.ROLE_ADMIN, request)) {
-			throw new UnauthorizedException("Unauthorized Exception: role not valid");
+			throw new UnauthorizedException(Const.ERROR_CODE_ROLE + "role not valid");
 		}
 		catalogRepository.save(catalog);
 		logger.info("saveCatalog:{}", catalog.getId());
@@ -85,7 +96,7 @@ public class AdminController extends AuthController {
 			HttpServletRequest request, 
 			HttpServletResponse response) throws Exception {
 		if(!validateRole(Const.ROLE_ADMIN, request)) {
-			throw new UnauthorizedException("Unauthorized Exception: role not valid");
+			throw new UnauthorizedException(Const.ERROR_CODE_ROLE + "role not valid");
 		}
 		Catalog catalog = catalogRepository.findByGameId(tenantId, gameId);
 		if(catalog == null) {
@@ -127,7 +138,7 @@ public class AdminController extends AuthController {
 			HttpServletRequest request, 
 			HttpServletResponse response) throws Exception {
 		if(!validateRole(Const.ROLE_ADMIN, request)) {
-			throw new UnauthorizedException("Unauthorized Exception: role not valid");
+			throw new UnauthorizedException(Const.ERROR_CODE_ROLE + "role not valid");
 		}
 		garbageMapRepository.save(map);
 		logger.info("saveGarbageMap:{}", map.getId());
@@ -140,7 +151,7 @@ public class AdminController extends AuthController {
 			HttpServletRequest request, 
 			HttpServletResponse response) throws Exception {
 		if(!validateRole(Const.ROLE_ADMIN, request)) {
-			throw new UnauthorizedException("Unauthorized Exception: role not valid");
+			throw new UnauthorizedException(Const.ERROR_CODE_ROLE + "role not valid");
 		}
 		categoryMapRepository.save(map);
 		logger.info("saveCategoryMap:{}", map.getId());
@@ -153,7 +164,7 @@ public class AdminController extends AuthController {
 			HttpServletRequest request, 
 			HttpServletResponse response) throws Exception {
 		if(!validateRole(Const.ROLE_ADMIN, request)) {
-			throw new UnauthorizedException("Unauthorized Exception: role not valid");
+			throw new UnauthorizedException(Const.ERROR_CODE_ROLE + "role not valid");
 		}
 		valuableMapRepository.save(map);
 		logger.info("saveItemValuableMap:{}", map.getId());
@@ -166,7 +177,7 @@ public class AdminController extends AuthController {
 			@RequestBody TenantData data,
 			HttpServletRequest request) throws Exception {
 		if(!validateRole(Const.ROLE_ADMIN, request)) {
-			throw new UnauthorizedException("Unauthorized Exception: role not valid");
+			throw new UnauthorizedException(Const.ERROR_CODE_ROLE + "role not valid");
 		}
 		Date now = new Date();
 		
@@ -191,11 +202,20 @@ public class AdminController extends AuthController {
 		school.setLastUpdate(now);
 		schoolRepository.save(school);
 		
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(now);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date from = sdf.parse(data.getGameFrom() + " 00:00:00");
+		Date to = sdf.parse(data.getGameTo() + " 23:59:59");
+		
 		Game game = new Game();
 		game.setTenantId(tenantId);
-		game.setGameName("Gioco " + school.getName());
+		game.setGameName("Gioco " + school.getName() + " " + calendar.get(Calendar.YEAR));
 		game.setInstituteId(institute.getObjectId());
 		game.setSchoolId(school.getObjectId());
+		game.setCheckCode(data.getCheckCode());
+		game.setFrom(from);
+		game.setTo(to);
 		game.setCreationDate(now);
 		game.setLastUpdate(now);
 		gameRepository.save(game);
@@ -226,4 +246,30 @@ public class AdminController extends AuthController {
 		logger.info("initTenant:{}", tenantId);
 	}
 	
+	@PostMapping(value = "/admin/collector/cards")
+	public void saveCollectorCards(
+			@RequestBody List<WasteCollectorCard> cards,
+			HttpServletRequest request) throws Exception {
+		if(!validateRole(Const.ROLE_ADMIN, request)) {
+			throw new UnauthorizedException(Const.ERROR_CODE_ROLE + "role not valid");
+		}
+		for(WasteCollectorCard card : cards) {
+			collectorCardRepository.save(card);
+		}
+		logger.info("saveCollectorCards:{}", cards.size());
+	}
+	
+	@PostMapping(value = "/admin/collector/bins")
+	public void saveCollectorBins(
+			@RequestBody List<WasteCollectorBin> bins,
+			HttpServletRequest request) throws Exception {
+		if(!validateRole(Const.ROLE_ADMIN, request)) {
+			throw new UnauthorizedException(Const.ERROR_CODE_ROLE + "role not valid");
+		}
+		for(WasteCollectorBin bin : bins) {
+			collectorBinRepository.save(bin);
+		}
+		logger.info("saveCollectorBins:{}", bins.size());
+	}
+
 }

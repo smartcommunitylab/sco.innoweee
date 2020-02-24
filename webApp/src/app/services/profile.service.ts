@@ -4,6 +4,10 @@ import { environment } from './../../environments/environment';
 import { Observable } from 'rxjs';
 import { Http, ResponseContentType } from '@angular/http';
 import { Storage } from '@ionic/storage';
+import { AlertController } from '@ionic/angular';
+import { Route } from '@angular/compiler/src/core';
+import { Router } from '@angular/router';
+import { UtilsService } from './utils.service';
 
 const PLAYER_DATA_KEY = "PLAYER_DATA"
 const PLAYER_STATE_KEY = "PLAYER_STATE"
@@ -25,6 +29,9 @@ export class ProfileService {
 
   constructor(private httpClient: HttpClient,
     private storage:Storage,
+    private alertController:AlertController,
+    private router: Router,
+    private utils:UtilsService,
     private http: HttpClient) {
     this.endPoint = environment.apiEndpoint;
     this.getDomainApi = environment.getDomainApi;
@@ -44,7 +51,7 @@ export class ProfileService {
         return response
       }
       ).catch(response => {
-        return this.handleError(response)
+        return this.utils.handleError(response)
       });
   }
   getInstitute(domain: string): Promise<any> {
@@ -56,7 +63,7 @@ export class ProfileService {
         return response
       }
       ).catch(response => {
-        return this.handleError(response)
+        return this.utils.handleError(response)
       });
   }
   getSchool(domain: string, institute: string): Promise<any> {
@@ -68,7 +75,7 @@ export class ProfileService {
         return response
       }
       ).catch(response => {
-        return this.handleError(response)
+        return this.utils.handleError(response)
       });
   }
   getGame(domain: string, institute: string, school: string): Promise<any> {
@@ -80,7 +87,7 @@ export class ProfileService {
         return response
       }
       ).catch(response => {
-        return this.handleError(response)
+        return this.utils.handleError(response)
       });
 
   }
@@ -93,7 +100,7 @@ export class ProfileService {
         return response
       }
       ).catch(response => {
-        return this.handleError(response)
+        return this.utils.handleError(response)
       });
   }
   getRobotImage(userId): Promise<any>{
@@ -116,7 +123,7 @@ export class ProfileService {
         return response
       }
       ).catch(response => {
-        return this.handleError(response)
+        return this.utils.handleError(response)
       });
   }
   
@@ -171,22 +178,4 @@ getSchoolName() {
 return this.schoolName;
 }
 
-  private handleError(error: any): Promise<any> {
-
-    return new Promise<string>((resolve, reject) => {
-      console.error('An error occurred', error);
-
-      if ((error.status == 401) || (error.status == 403)) {
-        // display toast and redirect to logout.
-        var errorObj = JSON.parse(error._body)
-        var errorMsg = 'Per favore accedi di nuovo.';
-        if (errorObj.errorMsg) {
-          errorMsg = errorObj.errorMsg;
-        }
-      } else {
-        Promise.reject(error);
-      }
-    });
-
-  }
 }

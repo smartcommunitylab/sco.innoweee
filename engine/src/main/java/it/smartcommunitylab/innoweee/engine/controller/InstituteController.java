@@ -75,7 +75,7 @@ public class InstituteController extends AuthController {
 			HttpServletResponse response) throws Exception {
 		if(!validateAuthorization(institute.getTenantId(), 
 				Const.AUTH_RES_Institute, Const.AUTH_ACTION_ADD, request)) {
-			throw new UnauthorizedException("Unauthorized Exception: token not valid");
+			throw new UnauthorizedException(Const.ERROR_CODE_ROLE + "role not valid");
 		}
 		Date now = new Date();
 		if(StringUtils.isEmpty(institute.getObjectId())) {
@@ -98,7 +98,7 @@ public class InstituteController extends AuthController {
 		}
 		if(!validateAuthorization(institute.getTenantId(), institute.getObjectId(),
 				Const.AUTH_RES_Institute, Const.AUTH_ACTION_UPDATE, request)) {
-			throw new UnauthorizedException("Unauthorized Exception: token not valid");
+			throw new UnauthorizedException(Const.ERROR_CODE_ROLE + "role not valid");
 		}
 		Date now = new Date();
 		institute.setLastUpdate(now);
@@ -119,7 +119,7 @@ public class InstituteController extends AuthController {
 		Institute institute = optional.get();
 		if(!validateAuthorization(institute.getTenantId(), objectId,  
 				Const.AUTH_RES_Institute, Const.AUTH_ACTION_DELETE, request)) {
-			throw new UnauthorizedException("Unauthorized Exception: token not valid");
+			throw new UnauthorizedException(Const.ERROR_CODE_ROLE + "role not valid");
 		}
 		instituteRepository.deleteById(objectId);
 		logger.info(String.format("deleteInstitute[{}]:{}", institute.getTenantId(), objectId));

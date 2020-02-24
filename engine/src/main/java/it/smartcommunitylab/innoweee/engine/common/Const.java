@@ -10,6 +10,9 @@ public class Const {
 	public static final String ROLE_USER = "user";
 	public static final String ROLE_OWNER = "owner";
 	public static final String ROLE_SCHOOL_OWNER = "school-owner";
+	public static final String ROLE_SCHOOL_TEACHER = "school-teacher";
+	public static final String ROLE_SCHOOL_PARENT = "school-parent";
+	public static final String ROLE_COLLECTOR_OPERATOR = "collector-operator";
 	
 	public static final String AUTH_ACTION_READ = "READ";
 	public static final String AUTH_ACTION_ADD = "ADD";
@@ -29,6 +32,7 @@ public class Const {
 	public static final String AUTH_RES_Game_Player = "Game-Player";
 	public static final String AUTH_RES_Game_Robot = "Game-Robot";
 	public static final String AUTH_RES_Game_Item = "Game-Item";
+	public static final String AUTH_RES_Game_Point = "Game-Point";
 	
 	public static final String MEDIA_LINK = "link";
 	public static final String MEDIA_VIDEO = "video";
@@ -63,6 +67,30 @@ public class Const {
 	public static final String ACTION_BUILD_ROBOT = "build_robot";
 	public static final String ACTION_ADD_POINT = "add_point";
 	public static final String ACTION_ADD_CONTRIBUTION = "add_contribution";
-	public static final String ACTION_ADD_ALTRUISTIC = "add_altruistic";
+	
+	public static final String ERROR_CODE_TOKEN = "EC01:";
+	public static final String ERROR_CODE_EMAIL = "EC02:";
+	public static final String ERROR_CODE_USER = "EC03:";
+	public static final String ERROR_CODE_ROLE = "EC04:";
+	public static final String ERROR_CODE_ENTITY = "EC10:";
+	public static final String ERROR_CODE_APP = "EC11:";
+	public static final String ERROR_CODE_PLAYER = "EC12:";
+	
+	public static final int ITEM_STATE_NONE = 0;
+	public static final int ITEM_STATE_CLASSIFIED = 1;
+	public static final int ITEM_STATE_CONFIRMED = 2;
+	public static final int ITEM_STATE_DISPOSED = 3;
+	public static final int ITEM_STATE_COLLECTED = 4;
+	public static final int ITEM_STATE_ARRIVED = 5;
+	public static final int ITEM_STATE_CHECKED = 6;
+	public static final int ITEM_STATE_UNEXPECTED = 7;
+	
+	public static final String WASTE_DISPOSAL = "waste_disposal";
+	public static final String WASTE_COLLECTION = "waste_collection";
+	
+	public static final String BIN_REUSE = "bin_reuse";
+	public static final String BIN_RECYCLE = "bin_recycle";
+	public static final String BIN_VALUE = "bin_value";
+	
 }
 

@@ -238,25 +238,32 @@ if (!!this.user && !!this.user.tokenInfo && !!this.user.tokenInfo.refresh_token)
           resolve(response.access_token);
         } else {
           this.resetUser();
+          this.gotToLogin();
           console.log('[LOGIN] invalid refresh_token');
           reject(null);
         }
       },
        (reason) => {
         this.resetUser();
+        this.gotToLogin();
         reject(reason);
       }
     );
   }
 } else {
   this.resetUser();
+  this.gotToLogin();
   reject(null);
 }
 
 // return this.refreshTokenDeferred.promise;
     })
 		
-	};
+  }
+  gotToLogin() {
+  this.router.navigate(['login']);
+  }
+;
   /**
    * Check status of the login. Return true if the user is already logged or the token present in storage is valid
    */

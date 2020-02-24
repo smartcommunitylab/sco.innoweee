@@ -19,4 +19,7 @@ public interface GameRepository extends MongoRepository<Game, String> {
 	
 	@Query(value="{schoolId:{$in:?0}}")
 	List<Game> findBySchoolIds(List<String> ids);
+	
+	@Query(value="{checkCode:?0}")
+	Game findByCheckCode(String checkCode);
 }

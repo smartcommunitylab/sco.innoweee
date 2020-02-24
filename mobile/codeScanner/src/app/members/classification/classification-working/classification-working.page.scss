@@ -1,0 +1,13 @@
+.answers{
+    ion-button{
+        margin-top: 16px;
+    }
+}
+.recap{
+    span{
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 50%;
+    }
+}

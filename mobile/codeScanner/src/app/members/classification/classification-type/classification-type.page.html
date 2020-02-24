@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar class="color-bar">
+    <ion-buttons slot="start">
+      <ion-back-button class="language"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="game-title">{{'title_game_selection'|translate}}</ion-title>
+    <ion-buttons class="language" slot="end">
+      <ion-label> {{'label_logout'|translate}} </ion-label>
+      <ion-button (click)="changeClass()">
+        <ion-icon slot="icon-only" name="log-out"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="common-content" padding>
+  <ion-grid>
+    <div class="question-screen">
+      <div class="col-vertical-center">
+        <div class="vertical-center right-box">
+          <!-- <div class="popup-info">
+            <ion-button (click)="openInfo()">
+              <ion-icon slot="icon-only" name="help"></ion-icon>
+            </ion-button >
+          </div> -->
+          <div>
+            <ion-list>
+              <ion-list-header> {{'label_type'|translate}}</ion-list-header>
+              <ion-col *ngFor="let item of items| keyvalue">
+                <ion-button color="light" (click)="chooseCategory(item)" expand="block" fill="outline">
+                  <span class="item-text-wrap">{{getLabel(item.key)}}</span>
+                </ion-button>
+              </ion-col>
+                <ion-col size="12" class="other-button" *ngIf="otherIsVisible()">
+                  <ion-button color="light" (click)="otherCategory()" expand="block" fill="outline">
+                    {{'label_other_category'|translate}}</ion-button>
+                </ion-col>
+            </ion-list>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ion-grid>
+</ion-content>
+<ion-footer>
+  <ion-toolbar class="color-bar">
+      <ion-title class="ion-text-center">{{ getFooter()}}</ion-title>
+  </ion-toolbar>
+</ion-footer>

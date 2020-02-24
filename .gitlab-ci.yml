@@ -1,8 +1,6 @@
 image: docker:latest
 services:
   - docker:dind
-variables:
-  DOCKER_DRIVER: overlay
 
 stages:
   - build
@@ -13,13 +11,17 @@ variables:
   IMAGE_BACKEND_LATEST: smartcommunitylab/innoweee-engine:latest
   IMAGE_FRONTEND_SHA: smartcommunitylab/innoweee-frontend:$CI_COMMIT_SHORT_SHA
   IMAGE_FRONTEND_LATEST: smartcommunitylab/innoweee-frontend:latest
+  DOCKER_DRIVER: overlay
+  BLOB: "$BLOB_URL$CNAME$TOKEN"
+  CACHE: '60'
 
 build_backend:
   stage: build
   script:
     - cd engine
+    - VERSION=$(sed -E -n '/<artifactId>(engine)<\/artifactId>.*/{n;p}' pom.xml | grep -Eo '[0-9]\.[0-9]')
     - docker login -u $DHUB_USER -p $DHUB_PASS
-    - DOCKER_BUILDKIT=1 docker build -f Dockerfile -t $IMAGE_BACKEND_SHA -t $IMAGE_BACKEND_LATEST .
+    - DOCKER_BUILDKIT=1 docker build -f Dockerfile -t $IMAGE_BACKEND_SHA -t $IMAGE_BACKEND_LATEST --build-arg VER=$VERSION .
     - docker push $IMAGE_BACKEND_SHA
     - docker push $IMAGE_BACKEND_LATEST
   only:
@@ -59,3 +61,33 @@ deploy_frontend:
     - kubectl -n innoweee rollout status deployment innoweee-frontend
   only:
     - frontend-prod
+
+build_mobile:
+  stage: build
+  image: smartcommunitylab/innoweee-mobile
+  environment:
+    name: develop
+  artifacts:
+    paths:
+      - mobile/codeScanner/www/
+  script:
+    - cd mobile/codeScanner
+    - npm install
+    - ionic cordova platform add android
+    - ng run app:ionic-cordova-build --platform=android
+  only:
+    - mobile-prod
+
+deploy_mobile:
+  stage: deploy
+  image: smartcommunitylab/cordova-hcp:slim
+  environment:
+    name: develop
+  dependencies:
+    - build_mobile
+  script:
+    - cd mobile/codeScanner
+    - /cordova-hpc/node_modules/.bin/cordova-hcp build
+    - azcopy copy './www/*' $BLOB --recursive --cache-control $CACHE --overwrite 'true'
+  only:
+    - mobile-prod

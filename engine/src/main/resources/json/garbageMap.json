@@ -2,7 +2,7 @@
 	"tenantId":"TRENTINO",
   "items" : {
     "Generic item" : {
-      "id" : "Generic item",
+      "itemId" : "Generic item",
       "category" : "Generic items",
       "name" : {
         "en" : "Generic item",
@@ -10,8 +10,260 @@
       },
       "weight" : 0.0
     },
+    "Electric air purifiers" : {
+      "itemId" : "Electric air purifiers",
+      "category" : "Small household appliances",
+      "name" : {
+        "en" : "Electric air purifiers",
+        "it" : "Purificatore d'aria elettrico"
+      },
+      "weight" : 2.1    
+    },
+    "Electric air humudifiers" : {
+      "itemId" : "Electric air humudifiers",
+      "category" : "Small household appliances",
+      "name" : {
+        "en" : "Electric air humudifiers",
+        "it" : "Umidificatore d'aria elettrico "
+      },
+      "weight" : 2.1    
+    },
+    "Electric slow cookers" : {
+      "itemId" : "Electric slow cookers",
+      "category" : "Small household appliances",
+      "name" : {
+        "en" : "Electric slow cookers",
+        "it" : "Pentola elettrica"
+      },
+      "weight" : 4.5    
+    },
+    "Vertical / steam iron" : {
+      "itemId" : "Vertical / steam iron",
+      "category" : "Small household appliances",
+      "name" : {
+        "en" : "Vertical / steam iron",
+        "it" : "Ferro da stiro verticale"
+      },
+      "weight" : 1.1    
+    },
+    "Nasal aspirator" : {
+      "itemId" : "Nasal aspirator",
+      "category" : "Small household appliances",
+      "name" : {
+        "en" : "Nasal aspirator",
+        "it" : "Aspiragocce elettrico"
+      },
+      "weight" : 0.25    
+    },
+    "Electric window vacuum cleaner" : {
+      "itemId" : "Electric window vacuum cleaner",
+      "category" : "Small household appliances",
+      "name" : {
+        "en" : "Electric window vacuum cleaner",
+        "it" : "Asciugavetri elettrico / lavavetri elettrico"
+      },
+      "weight" : 0.85    
+    },
+    "Handy steam cleaner" : {
+      "itemId" : "Handy steam cleaner",
+      "category" : "Small household appliances",
+      "name" : {
+        "en" : "Handy steam cleaner",
+        "it" : "Pistola a vapore portatile"
+      },
+      "weight" : 1.3    
+    },
+    "Food dehydrator" : {
+      "itemId" : "Food dehydrator",
+      "category" : "Small household appliances",
+      "name" : {
+        "en" : "Food dehydrator",
+        "it" : "Essiccatore per frutta"
+      },
+      "weight" : 3.0    
+    },
+    "Vacuum sealer" : {
+      "itemId" : "Vacuum sealer",
+      "category" : "Small household appliances",
+      "name" : {
+        "en" : "Vacuum sealer",
+        "it" : "Macchina sottovuoto per alimenti"
+      },
+      "weight" : 1.5    
+    },
+    "Fabric shaver" : {
+      "itemId" : "Fabric shaver",
+      "category" : "Small household appliances",
+      "name" : {
+        "en" : "Fabric shaver",
+        "it" : "Levapelucchi elettrico"
+      },
+      "weight" : 0.2    
+    },
+    "Digital kitchen scales" : {
+      "itemId" : "Digital kitchen scales",
+      "category" : "Small household appliances",
+      "name" : {
+        "en" : "Digital kitchen scales",
+        "it" : "Bilancia da cucina"
+      },
+      "weight" : 0.64    
+    },
+    "Digital body weighing bathroom scale" : {
+      "itemId" : "Digital body weighing bathroom scale",
+      "category" : "Small household appliances",
+      "name" : {
+        "en" : "Digital body weighing bathroom scale",
+        "it" : "Bilancia da bagno"
+      },
+      "weight" : 2.4    
+    },
+    "Printed Circuit Boards (PCBs)" : {
+      "itemId" : "Printed Circuit Boards (PCBs)",
+      "category" : "IT and telecommunications",
+      "name" : {
+        "en" : "Printed Circuit Boards (PCBs)",
+        "it" : "Schede interne di pc o di altre apparecchiature"
+      },
+      "weight" : 0.15    
+    },
+    "Small electric components" : {
+      "itemId" : "Small electric components",
+      "category" : "IT and telecommunications",
+      "name" : {
+        "en" : "Small electric components",
+        "it" : "Piccoli componenti elettronici"
+      },
+      "weight" : 0.25    
+    },
+    "Power adapters" : {
+      "itemId" : "Power adapters",
+      "category" : "IT and telecommunications",
+      "name" : {
+        "en" : "Power adapters",
+        "it" : "Adattatori"
+      },
+      "weight" : 0.2    
+    },
+    "Baby food blender" : {
+      "itemId" : "Baby food blender",
+      "category" : "Small household appliances",
+      "name" : {
+        "en" : "Baby food blender",
+        "it" : "Cuocipappa / omogeneizzatore"
+      },
+      "weight" : 2.0    
+    },
+    "Bread maker" : {
+      "itemId" : "Bread maker",
+      "category" : "Small household appliances",
+      "name" : {
+        "en" : "Bread maker",
+        "it" : "Macchina del pane"
+      },
+      "weight" : 5.0    
+    },
+    "Hot dog toaster maker machine" : {
+      "itemId" : "Hot dog toaster maker machine",
+      "category" : "Small household appliances",
+      "name" : {
+        "en" : "Hot dog toaster maker machine",
+        "it" : "Macchina hot dog"
+      },
+      "weight" : 2.5    
+    },
+    "Hair removal epilator" : {
+      "itemId" : "Hair removal epilator",
+      "category" : "Small household appliances",
+      "name" : {
+        "en" : "Hair removal epilator",
+        "it" : "Epilatore elettrico"
+      },
+      "weight" : 0.4    
+    },
+    "Egg cooker" : {
+      "itemId" : "Egg cooker",
+      "category" : "Small household appliances",
+      "name" : {
+        "en" : "Egg cooker",
+        "it" : "Cuoci uova elettrico"
+      },
+      "weight" : 0.92    
+    },
+    "Electric food processor" : {
+      "itemId" : "Electric food processor",
+      "category" : "Small household appliances",
+      "name" : {
+        "en" : "Electric food processor",
+        "it" : "Tritatutto"
+      },
+      "weight" : 1.6    
+    },
+    "Electric food steamer" : {
+      "itemId" : "Electric food steamer",
+      "category" : "Small household appliances",
+      "name" : {
+        "en" : "Electric food steamer",
+        "it" : "Vaporiera"
+      },
+      "weight" : 2.4    
+    },
+    "Fryer" : {
+      "itemId" : "Fryer",
+      "category" : "Small household appliances",
+      "name" : {
+        "en" : "Fryer",
+        "it" : "Friggitrice"
+      },
+      "weight" : 2.8    
+    },
+    "Steriliser" : {
+      "itemId" : "Steriliser",
+      "category" : "Electrical and electronic tools",
+      "name" : {
+        "en" : "Steriliser",
+        "it" : "Sterilizzatore"
+      },
+      "weight" : 2.5    
+    },
+    "Baby bottle warmer" : {
+      "itemId" : "Baby bottle warmer",
+      "category" : "Small household appliances",
+      "name" : {
+        "en" : "Baby bottle warmer",
+        "it" : "Scalda biberon"
+      },
+      "weight" : 0.4    
+    },
+    "Milk frother" : {
+      "itemId" : "Milk frother",
+      "category" : "Small household appliances",
+      "name" : {
+        "en" : "Milk frother",
+        "it" : "Montalatte elettrico"
+      },
+      "weight" : 0.95    
+    },
+    "Hand mixer" : {
+      "itemId" : "Hand mixer",
+      "category" : "Small household appliances",
+      "name" : {
+        "en" : "Hand mixer",
+        "it" : "Sbattitore elettrico"
+      },
+      "weight" : 1.58    
+    },
+    "Ice cream maker" : {
+      "itemId" : "Ice cream maker",
+      "category" : "Small household appliances",
+      "name" : {
+        "en" : "Ice cream maker",
+        "it" : "Macchina per gelato"
+      },
+      "weight" : 8.0    
+    },
     "Electrical weighing scale" : {
-      "id" : "Electrical weighing scale",
+      "itemId" : "Electrical weighing scale",
       "category" : "Small household appliances",
       "name" : {
         "en" : "Electrical weighing scale",
@@ -20,7 +272,7 @@
       "weight" : 1.81
     },
     "Curling iron" : {
-      "id" : "Curling iron",
+      "itemId" : "Curling iron",
       "category" : "Small household appliances",
       "name" : {
         "en" : "Curling iron",
@@ -29,7 +281,7 @@
       "weight" : 0.11
     },
     "Electrical coffe grinder" : {
-      "id" : "Electrical coffe grinder",
+      "itemId" : "Electrical coffe grinder",
       "category" : "Small household appliances",
       "name" : {
         "en" : "Electrical coffe grinder",
@@ -38,7 +290,7 @@
       "weight" : 1.34
     },
     "Decoder" : {
-      "id" : "Decoder",
+      "itemId" : "Decoder",
       "category" : "IT and telecommunications",
       "name" : {
         "en" : "Decoder",
@@ -47,7 +299,7 @@
       "weight" : 2.5
     },
     "Electrical knife" : {
-      "id" : "Electrical knife",
+      "itemId" : "Electrical knife",
       "category" : "Small household appliances",
       "name" : {
         "en" : "Electrical knife",
@@ -56,7 +308,7 @@
       "weight" : 0.89
     },
     "Tea kettle" : {
-      "id" : "Tea kettle",
+      "itemId" : "Tea kettle",
       "category" : "Small household appliances",
       "name" : {
         "en" : "Tea kettle",
@@ -65,7 +317,7 @@
       "weight" : 0.59
     },
     "Talking doll" : {
-      "id" : "Talking doll",
+      "itemId" : "Talking doll",
       "category" : "Toys, leisure and sports equipment",
       "name" : {
         "en" : "Talking doll",
@@ -74,7 +326,7 @@
       "weight" : 0.85
     },
     "Docking station" : {
-      "id" : "Docking station",
+      "itemId" : "Docking station",
       "category" : "IT and telecommunications",
       "name" : {
         "en" : "Docking station",
@@ -83,7 +335,7 @@
       "weight" : 0.71
     },
     "Camera" : {
-      "id" : "Camera",
+      "itemId" : "Camera",
       "category" : "Consumer electronics",
       "name" : {
         "en" : "Camera",
@@ -92,7 +344,7 @@
       "weight" : 0.78
     },
     "Trackpad" : {
-      "id" : "Trackpad",
+      "itemId" : "Trackpad",
       "category" : "IT and telecommunications",
       "name" : {
         "en" : "Trackpad",
@@ -101,7 +353,7 @@
       "weight" : 0.22
     },
     "Centrifuge" : {
-      "id" : "Centrifuge",
+      "itemId" : "Centrifuge",
       "category" : "Small household appliances",
       "name" : {
         "en" : "Centrifuge",
@@ -110,7 +362,7 @@
       "weight" : 4.5
     },
     "Hair cutter" : {
-      "id" : "Hair cutter",
+      "itemId" : "Hair cutter",
       "category" : "Small household appliances",
       "name" : {
         "en" : "Hair cutter",
@@ -119,7 +371,7 @@
       "weight" : 0.19
     },
     "Electric toothbrush" : {
-      "id" : "Electric toothbrush",
+      "itemId" : "Electric toothbrush",
       "category" : "Small household appliances",
       "name" : {
         "en" : "Electric toothbrush",
@@ -128,7 +380,7 @@
       "weight" : 0.12
     },
     "GPS system" : {
-      "id" : "GPS system",
+      "itemId" : "GPS system",
       "category" : "IT and telecommunications",
       "name" : {
         "en" : "GPS system",
@@ -137,7 +389,7 @@
       "weight" : 0.22
     },
     "E-reader" : {
-      "id" : "E-reader",
+      "itemId" : "E-reader",
       "category" : "IT and telecommunications",
       "name" : {
         "en" : "E-reader",
@@ -146,7 +398,7 @@
       "weight" : 0.19
     },
     "CD reader" : {
-      "id" : "CD reader",
+      "itemId" : "CD reader",
       "category" : "Consumer electronics",
       "name" : {
         "en" : "CD reader",
@@ -155,7 +407,7 @@
       "weight" : 2.13
     },
     "Router" : {
-      "id" : "Router",
+      "itemId" : "Router",
       "category" : "IT and telecommunications",
       "name" : {
         "en" : "Router",
@@ -164,7 +416,7 @@
       "weight" : 0.41
     },
     "Cordless" : {
-      "id" : "Cordless",
+      "itemId" : "Cordless",
       "category" : "IT and telecommunications",
       "name" : {
         "en" : "Cordless",
@@ -173,7 +425,7 @@
       "weight" : 0.11
     },
     "Electric ear cleaner" : {
-      "id" : "Electric ear cleaner",
+      "itemId" : "Electric ear cleaner",
       "category" : "Small household appliances",
       "name" : {
         "en" : "Electric ear cleaner",
@@ -182,7 +434,7 @@
       "weight" : 0.07
     },
     "Cellphone" : {
-      "id" : "Cellphone",
+      "itemId" : "Cellphone",
       "category" : "IT and telecommunications",
       "name" : {
         "en" : "Cellphone",
@@ -191,7 +443,7 @@
       "weight" : 0.14
     },
     "Stereo" : {
-      "id" : "Stereo",
+      "itemId" : "Stereo",
       "category" : "Consumer electronics",
       "name" : {
         "en" : "Stereo",
@@ -200,7 +452,7 @@
       "weight" : 1.33
     },
     "Other appliances for body care" : {
-      "id" : "Other appliances for body care",
+      "itemId" : "Other appliances for body care",
       "category" : "Small household appliances",
       "name" : {
         "en" : "Other appliances for body care",
@@ -209,7 +461,7 @@
       "weight" : 0.19166666666666668
     },
     "Headphones" : {
-      "id" : "Headphones",
+      "itemId" : "Headphones",
       "category" : "Consumer electronics",
       "name" : {
         "en" : "Headphones",
@@ -218,7 +470,7 @@
       "weight" : 0.17
     },
     "Hair dryer" : {
-      "id" : "Hair dryer",
+      "itemId" : "Hair dryer",
       "category" : "Small household appliances",
       "name" : {
         "en" : "Hair dryer",
@@ -227,7 +479,7 @@
       "weight" : 0.47
     },
     "Joystick" : {
-      "id" : "Joystick",
+      "itemId" : "Joystick",
       "category" : "Toys, leisure and sports equipment",
       "name" : {
         "en" : "Joystick",
@@ -236,7 +488,7 @@
       "weight" : 0.25
     },
     "Squeezer" : {
-      "id" : "Squeezer",
+      "itemId" : "Squeezer",
       "category" : "Small household appliances",
       "name" : {
         "en" : "Squeezer",
@@ -245,7 +497,7 @@
       "weight" : 0.75
     },
     "Walkie Talkie" : {
-      "id" : "Walkie Talkie",
+      "itemId" : "Walkie Talkie",
       "category" : "IT and telecommunications",
       "name" : {
         "en" : "Walkie Talkie",
@@ -254,7 +506,7 @@
       "weight" : 0.09
     },
     "Electrical clock" : {
-      "id" : "Electrical clock",
+      "itemId" : "Electrical clock",
       "category" : "Consumer electronics",
       "name" : {
         "en" : "Electrical clock",
@@ -263,7 +515,7 @@
       "weight" : 0.32
     },
     "Record player" : {
-      "id" : "Record player",
+      "itemId" : "Record player",
       "category" : "Consumer electronics",
       "name" : {
         "en" : "Record player",
@@ -272,7 +524,7 @@
       "weight" : 2.41
     },
     "Electrical grater" : {
-      "id" : "Electrical grater",
+      "itemId" : "Electrical grater",
       "category" : "Small household appliances",
       "name" : {
         "en" : "Electrical grater",
@@ -281,7 +533,7 @@
       "weight" : 4.42
     },
     "Laptop" : {
-      "id" : "Laptop",
+      "itemId" : "Laptop",
       "category" : "IT and telecommunications",
       "name" : {
         "en" : "Laptop",
@@ -290,7 +542,7 @@
       "weight" : 1.93
     },
     "Video recorder" : {
-      "id" : "Video recorder",
+      "itemId" : "Video recorder",
       "category" : "Consumer electronics",
       "name" : {
         "en" : "Video recorder",
@@ -299,7 +551,7 @@
       "weight" : 1.23
     },
     "Flash drive" : {
-      "id" : "Flash drive",
+      "itemId" : "Flash drive",
       "category" : "IT and telecommunications",
       "name" : {
         "en" : "Flash drive",
@@ -308,7 +560,7 @@
       "weight" : 0.06
     },
     "Remote" : {
-      "id" : "Remote",
+      "itemId" : "Remote",
       "category" : "IT and telecommunications",
       "name" : {
         "en" : "Remote",
@@ -317,7 +569,7 @@
       "weight" : 0.08
     },
     "Coffe machine" : {
-      "id" : "Coffe machine",
+      "itemId" : "Coffe machine",
       "category" : "Small household appliances",
       "name" : {
         "en" : "Coffe machine",
@@ -326,7 +578,7 @@
       "weight" : 3.71
     },
     "Hand vacuum" : {
-      "id" : "Hand vacuum",
+      "itemId" : "Hand vacuum",
       "category" : "Small household appliances",
       "name" : {
         "en" : "Hand vacuum",
@@ -335,7 +587,7 @@
       "weight" : 0.77
     },
     "Minipimer" : {
-      "id" : "Minipimer",
+      "itemId" : "Minipimer",
       "category" : "Small household appliances",
       "name" : {
         "en" : "Minipimer",
@@ -344,7 +596,7 @@
       "weight" : 0.58
     },
     "Landline phone" : {
-      "id" : "Landline phone",
+      "itemId" : "Landline phone",
       "category" : "IT and telecommunications",
       "name" : {
         "en" : "Landline phone",
@@ -353,7 +605,7 @@
       "weight" : 0.73
     },
     "Portable and stationary console" : {
-      "id" : "Portable and stationary console",
+      "itemId" : "Portable and stationary console",
       "category" : "Toys, leisure and sports equipment",
       "name" : {
         "en" : "Portable and stationary console",
@@ -362,7 +614,7 @@
       "weight" : 1.15
     },
     "Calculator" : {
-      "id" : "Calculator",
+      "itemId" : "Calculator",
       "category" : "IT and telecommunications",
       "name" : {
         "en" : "Calculator",
@@ -371,7 +623,7 @@
       "weight" : 0.08
     },
     "Electrical toys" : {
-      "id" : "Electrical toys",
+      "itemId" : "Electrical toys",
       "category" : "Toys, leisure and sports equipment",
       "name" : {
         "en" : "Electrical toys",
@@ -380,7 +632,7 @@
       "weight" : 0.92
     },
     "Tablet" : {
-      "id" : "Tablet",
+      "itemId" : "Tablet",
       "category" : "IT and telecommunications",
       "name" : {
         "en" : "Tablet",
@@ -389,7 +641,7 @@
       "weight" : 0.33
     },
     "Car radio" : {
-      "id" : "Car radio",
+      "itemId" : "Car radio",
       "category" : "Consumer electronics",
       "name" : {
         "en" : "Car radio",
@@ -398,7 +650,7 @@
       "weight" : 1.31
     },
     "Speaker" : {
-      "id" : "Speaker",
+      "itemId" : "Speaker",
       "category" : "Consumer electronics",
       "name" : {
         "en" : "Speaker",
@@ -407,7 +659,7 @@
       "weight" : 1.33
     },
     "Electrical musical instruments" : {
-      "id" : "Electrical musical instruments",
+      "itemId" : "Electrical musical instruments",
       "category" : "Toys, leisure and sports equipment",
       "name" : {
         "en" : "Electrical musical instruments",
@@ -416,7 +668,7 @@
       "weight" : 1.49
     },
     "Electric razor" : {
-      "id" : "Electric razor",
+      "itemId" : "Electric razor",
       "category" : "Small household appliances",
       "name" : {
         "en" : "Electric razor",
@@ -425,7 +677,7 @@
       "weight" : 0.19
     },
     "Mp3 reader" : {
-      "id" : "Mp3 reader",
+      "itemId" : "Mp3 reader",
       "category" : "Consumer electronics",
       "name" : {
         "en" : "Mp3 reader",
@@ -434,7 +686,7 @@
       "weight" : 0.08
     },
     "Electrical alarm clock" : {
-      "id" : "Electrical alarm clock",
+      "itemId" : "Electrical alarm clock",
       "category" : "Consumer electronics",
       "name" : {
         "en" : "Electrical alarm clock",
@@ -443,7 +695,7 @@
       "weight" : 0.13
     },
     "Computer components" : {
-      "id" : "Computer components",
+      "itemId" : "Computer components",
       "category" : "IT and telecommunications",
       "name" : {
         "en" : "Computer components",
@@ -452,7 +704,7 @@
       "weight" : 1.037
     },
     "Keyboard" : {
-      "id" : "Keyboard",
+      "itemId" : "Keyboard",
       "category" : "IT and telecommunications",
       "name" : {
         "en" : "Keyboard",
@@ -461,7 +713,7 @@
       "weight" : 1.07
     },
     "Recorder" : {
-      "id" : "Recorder",
+      "itemId" : "Recorder",
       "category" : "Consumer electronics",
       "name" : {
         "en" : "Recorder",
@@ -470,7 +722,7 @@
       "weight" : 0.11
     },
     "Radio" : {
-      "id" : "Radio",
+      "itemId" : "Radio",
       "category" : "Consumer electronics",
       "name" : {
         "en" : "Radio",
@@ -479,7 +731,7 @@
       "weight" : 0.3
     },
     "Answering machine" : {
-      "id" : "Answering machine",
+      "itemId" : "Answering machine",
       "category" : "IT and telecommunications",
       "name" : {
         "en" : "Answering machine",
@@ -488,7 +740,7 @@
       "weight" : 0.61
     },
     "Amplifier" : {
-      "id" : "Amplifier",
+      "itemId" : "Amplifier",
       "category" : "Consumer electronics",
       "name" : {
         "en" : "Amplifier",
@@ -497,7 +749,7 @@
       "weight" : 4.51
     },
     "DVD reader" : {
-      "id" : "DVD reader",
+      "itemId" : "DVD reader",
       "category" : "Consumer electronics",
       "name" : {
         "en" : "DVD reader",
@@ -506,7 +758,7 @@
       "weight" : 2.26
     },
     "Web cam" : {
-      "id" : "Web cam",
+      "itemId" : "Web cam",
       "category" : "Consumer electronics",
       "name" : {
         "en" : "Web cam",
@@ -515,7 +767,7 @@
       "weight" : 0.06
     },
     "Mouse" : {
-      "id" : "Mouse",
+      "itemId" : "Mouse",
       "category" : "IT and telecommunications",
       "name" : {
         "en" : "Mouse",
@@ -524,7 +776,7 @@
       "weight" : 0.09
     },
     "Toaster" : {
-      "id" : "Toaster",
+      "itemId" : "Toaster",
       "category" : "Small household appliances",
       "name" : {
         "en" : "Toaster",
@@ -533,7 +785,7 @@
       "weight" : 1.09
     },
     "Aerosol machine" : {
-      "id" : "Aerosol machine",
+      "itemId" : "Aerosol machine",
       "category" : "Electrical and electronic tools",
       "name" : {
         "en" : "Aerosol machine",
@@ -542,7 +794,7 @@
       "weight" : 1.19
     },
     "Blender" : {
-      "id" : "Blender",
+      "itemId" : "Blender",
       "category" : "Small household appliances",
       "name" : {
         "en" : "Blender",
@@ -551,7 +803,7 @@
       "weight" : 1.61
     },
     "Battery charger" : {
-      "id" : "Battery charger",
+      "itemId" : "Battery charger",
       "category" : "Consumer electronics",
       "name" : {
         "en" : "Battery charger",
@@ -560,7 +812,7 @@
       "weight" : 0.75
     },
     "Modem" : {
-      "id" : "Modem",
+      "itemId" : "Modem",
       "category" : "IT and telecommunications",
       "name" : {
         "en" : "Modem",
@@ -569,7 +821,7 @@
       "weight" : 0.41
     },
     "Fax" : {
-      "id" : "Fax",
+      "itemId" : "Fax",
       "category" : "IT and telecommunications",
       "name" : {
         "en" : "Fax",
@@ -578,7 +830,7 @@
       "weight" : 1.1
     },
     "Smartphone" : {
-      "id" : "Smartphone",
+      "itemId" : "Smartphone",
       "category" : "IT and telecommunications",
       "name" : {
         "en" : "Smartphone",

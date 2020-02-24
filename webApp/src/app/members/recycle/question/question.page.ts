@@ -18,7 +18,7 @@ export class QuestionPage extends MainPage implements OnInit {
   weeklyQuestion: any;
   coinsGained: number = 0;
   numberReplies: number = 0;
-
+  credit = true;
   replies = {
     0: {
       answer: "reply_0_question",
@@ -37,6 +37,7 @@ export class QuestionPage extends MainPage implements OnInit {
       value: 10
     }
   }
+  warningReply: string;
   constructor(public translate: TranslateService,
     public storage: Storage,
     public toastController: ToastController,
@@ -60,6 +61,13 @@ export class QuestionPage extends MainPage implements OnInit {
           this.weeklyQuestion = res.reduceMessage
         }
       });
+      this.garbageCollection.getCredit(this.playerData.gameId,this.playerData.objectId).then(res => {
+        (res==0)?this.credit=false:this.credit=true;
+        console.log(JSON.stringify(res));
+      });
+      this.translate.get('warning_replies').subscribe(async (res: string) => { 
+        this.warningReply=res;
+      })
     });
 
   }

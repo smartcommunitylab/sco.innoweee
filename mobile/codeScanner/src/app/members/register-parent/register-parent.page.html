@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar class="color-bar">
+    
+    <ion-buttons slot="start">
+      <ion-back-button class="language"></ion-back-button>
+    </ion-buttons>
+
+    <ion-title class="game-title">{{'title_register_parent'|translate}}</ion-title>
+    <ion-buttons class="language" slot="end">
+      <ion-label> {{'label_logout'|translate}}</ion-label>
+    <ion-button (click)="changeClass()">
+      <ion-icon slot="icon-only" name="log-out"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-item>
+    <ion-label position="floating" type="text">{{'label_register_parent_name'|translate}}</ion-label>
+    <ion-input [(ngModel)]="user.name"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating" type="text">{{'label_register_parent_surname'|translate}}</ion-label>
+    <ion-input [(ngModel)]="user.surname"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating" type="email">{{'label_register_parent_email'|translate}}</ion-label>
+    <ion-input disabled="true" [(ngModel)]="user.email"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating" type="numeric">{{'label_register_parent_code'|translate}}</ion-label>
+    <ion-input [(ngModel)]="gameCode"></ion-input>
+  </ion-item>
+  <ion-button class="enter-button" expand="block" ion-button (click)="enter()">
+  {{'label_register'|translate}}
+ </ion-button>
+</ion-content>
+<ion-footer>
+  <ion-toolbar class="color-bar">
+      <ion-title class="ion-text-center">{{ getFooter()}}</ion-title>
+  </ion-toolbar>
+</ion-footer>

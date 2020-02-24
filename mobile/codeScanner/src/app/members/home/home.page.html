@@ -1,0 +1,83 @@
+<ion-header>
+  <ion-toolbar class="color-bar">
+                  <ion-title class="game-title">{{'title_game_selection'|translate}}</ion-title>
+      <ion-buttons class="language" slot="end">
+              <ion-label> {{'label_logout'|translate}}                </ion-label>
+          <ion-button (click)="changeClass()">
+              <ion-icon slot="icon-only" name="log-out"></ion-icon>
+          </ion-button>
+      </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-grid>
+      <ion-row>
+          <ion-col class="class-selected">
+              {{'label_class_selected'|translate}}
+          </ion-col>
+      </ion-row>
+      <ion-row>
+          <ion-col class="class-name">
+              <ion-label>{{playerName}} </ion-label>
+          </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+      <div class="wanted-container">
+        <ion-img [src]="getImgName()"></ion-img>
+        <div class="wanted-label ion-text-center">
+          {{currentWeekLabel}}
+        </div>
+        <div class="date-label ion-text-center">
+          <p>{{ 'label_from' | translate }}
+            <span>{{getDateMessageFrom()|date:'d '}}</span>{{ 'label_to' | translate }}<span>{{getDateMessageTo()|date:'d MMMM'}}</span>
+          </p>
+        </div>
+      </div>
+    </ion-col>
+    </ion-row>
+      <ion-row>
+          <ion-col class="procedure">
+              <ion-label [hidden]="!isParent()">
+                  {{'label_scan_procedure'|translate}}
+              </ion-label>
+          </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col >
+            <div class="scan-button">
+              <ion-button expand="block" ion-button (click)="scan()">
+                  <ion-icon class="home-button-icon" slot="icon-only" name="camera"></ion-icon>
+                {{'label_scan'|translate}}
+               </ion-button>
+            </div>
+        </ion-col>
+    </ion-row>
+    <ion-row>
+    
+      <ion-col>
+          <div class="scan-button">
+             <ion-button expand="block" ion-button (click)="manualInsert()">
+                <ion-icon class="home-button-icon"  slot="icon-only" name="create"></ion-icon>
+              {{'label_manual_insert'|translate}} </ion-button>
+          </div>
+      </ion-col>
+  </ion-row>
+  <ion-row>
+    
+    <ion-col>
+        <div class="scan-button">
+           <ion-button expand="block" ion-button (click)="stats()">
+              <ion-icon class="home-button-icon"  slot="icon-only" name="podium"></ion-icon>
+            {{'label_recap'|translate}} </ion-button>
+        </div>
+    </ion-col>
+</ion-row>
+  </ion-grid>
+</ion-content>
+<ion-footer>
+  <ion-toolbar class="color-bar">
+      <ion-title class="ion-text-center">{{ getFooter()}}</ion-title>
+  </ion-toolbar>
+</ion-footer>

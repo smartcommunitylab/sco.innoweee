@@ -98,13 +98,8 @@ export class ItemLoadedPage extends MainPage implements OnInit {
 
     modal.onDidDismiss().then((dataReturned) => {
       if (dataReturned.data !== null) {
-        // this.dataReturned = dataReturned.data;
-        //alert('Modal Sent Data :'+ dataReturned);
-        // console.log(dataReturned)
         if (dataReturned.data["itemType"])
           this.chooseCategory(dataReturned.data["itemType"]);
-        if (dataReturned.data["timestamp"])
-          this.item.timestamp = dataReturned.data["timestamp"]
       }
     });
 

@@ -2,7 +2,7 @@
 FROM maven:3-jdk-11 AS mvn
 WORKDIR /tmp
 COPY . /tmp
-RUN --mount=type=cache,target=/root/.m2  mvn clean install -Dmaven.test.skip=true
+RUN --mount=type=bind,target=/root/.m2,source=/root/.m2,from=smartcommunitylab/innoweee-engine:cache-alpine  mvn clean install -Dmaven.test.skip=true
 
 
 FROM adoptopenjdk/openjdk11:alpine
@@ -25,5 +25,4 @@ RUN apk add --no-cache tzdata
 COPY --from=mvn --chown=innoweee:innoweee ${FOLDER}/${APP} /home/${USER}/app/${APP}
 
 USER innoweee
-# CMD ["java", "-XX:MaxRAMFraction=2", "-jar", "${APP}"]
-ENTRYPOINT java -XX:MaxRAMPercentage=50 -jar ${APP}
+ENTRYPOINT ["sh", "-c", "java ${JAVA_OPTS} -jar ${APP}"]

@@ -5,6 +5,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DataServerService } from 'src/app/services/data.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ProfileService } from 'src/app/services/profile.service';
+import { AuthService } from 'src/app/auth/auth.service';
+import { AuthenticationService } from 'src/app/services/authentication.service';
+import { CommonPage } from 'src/app/class/common-page';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,22 +16,26 @@ import { ProfileService } from 'src/app/services/profile.service';
   styleUrls: ['./dashboard.page.scss'],
 })
 
-export class DashboardPage implements OnInit {
+export class DashboardPage extends CommonPage implements OnInit {
   scanData: any = null;
   options: BarcodeScannerOptions;
   playerId: any;
   playerName: any;
   itemPresent: boolean;
 
-  constructor(public navCtrl: NavController,
+  constructor(public translate: TranslateService,
+    public router: Router,
+    public toastController: ToastController,
+    public profileService: ProfileService,
+    public route: ActivatedRoute,
+    private dataService:DataServerService,
+    public dataServerService: DataServerService,
+    public location: Location,
+    public auth: AuthService,
     private barcodeScanner: BarcodeScanner,
-    private dataServerService: DataServerService,
-    private route: ActivatedRoute,
-    private translate: TranslateService,
-    private profileService: ProfileService,
-    private toastController: ToastController,
-    private router: Router) {
-  }
+    public authService: AuthenticationService) {
+    super(auth, router, translate, toastController, route, dataServerService, location, profileService, authService)
+   }
   ionViewWillEnter() {
     this.scanData = null;
     this.itemPresent = false;
@@ -46,7 +54,6 @@ export class DashboardPage implements OnInit {
       prompt: "Scan your barcode "
     }
     this.barcodeScanner.scan(this.options).then((barcodeData) => {
-
       console.log(barcodeData);
       this.scanData = barcodeData;
       this.router.navigate(['item-recognized'], { queryParams: { scanData: JSON.stringify(this.scanData), playerId: this.playerId } })
@@ -56,55 +63,13 @@ export class DashboardPage implements OnInit {
     });
   }
 
-  changeClass() {
-    this.router.navigate(['select-class']);
-  }
-  // checkIfPresent(scanData) {
-  //   this.dataServerService.checkIfPresent(scanData.text, this.playerId).then(res => {
-  //     console.log(res);
-  //     if (res.result) {
-  //       //ok
-  //       this.itemPresent = true;
-  //     }
-  //     else {
-  //       //already used
-  //       this.itemPresent = false;
-  //     }
-
-
-  //   })
-  // }
-
-  // sendLim() {
-  //   if (!this.itemPresent) {
-  //     this.dataServerService.sendItem(this.scanData.text, this.playerId).then(res => {
-  //       console.log(res);
-  //     })
-  //   } else {
-  //     this.presentToast("ola");
-  //   }
-
-
-
-
-  // }
-
-  // async presentToast(string) {
-  //   const toast = await this.toastController.create({
-  //     message: string,
-  //     duration: 2000
-  //   })
-  //   toast.present();
-  // }
-
   getFooter() {
-    return (this.getSchoolName())
+    return (this.getClassName()) +' - '+(this.getSchoolName())
   }
 
   getSchoolName() {
     return this.profileService.getSchoolName();
   }
-
   getClassName() {
     return this.profileService.getPlayerName();
 
