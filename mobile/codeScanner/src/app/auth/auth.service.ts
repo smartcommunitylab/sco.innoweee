@@ -94,21 +94,21 @@ export class AuthService extends IonicAuth  {
     if (this.platform.is('cordova')) {
       console.log('cordova');
       this.authConfig = {
-        identity_client: environment.cordova_identity_client,
-        identity_server: environment.cordova_identity_server,
-        redirect_url: environment.cordova_redirect_url,
-        scopes: environment.cordova_scopes,
+        identity_client: environment["cordova_identity_client"],
+        identity_server: environment["cordova_identity_server"],
+        redirect_url: environment["cordova_redirect_url"],
+        scopes: environment["cordova_scopes"],
         usePkce: true,
-        end_session_redirect_url: environment.cordova_end_session_redirect_url,
+        end_session_redirect_url: environment["cordova_end_session_redirect_url"],
       };
     } else {
       this.authConfig = {
-        identity_client: environment.implicit_identity_client,
-        identity_server: environment.implicit_identity_server,
-        redirect_url: environment.implicit_redirect_url,
-        scopes: environment.implicit_scopes,
+        identity_client: environment["implicit_identity_client"],
+        identity_server: environment["implicit_identity_server"],
+        redirect_url: environment["implicit_redirect_url"],
+        scopes: environment["implicit_scopes"],
         usePkce: true,
-        end_session_redirect_url: environment.implicit_end_session_redirect_url,
+        end_session_redirect_url: environment["implicit_end_session_redirect_url"],
       };
     }
   }
