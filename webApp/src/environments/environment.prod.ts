@@ -20,8 +20,8 @@ export const environment = {
     getDeliveryApi:"/delivery",
     getGarbageApi:"api/garbageMap/",
     getUsedApi:"/used",
-    aacClientId: "2be89b9c-4050-4e7e-9042-c02b0d9121c6",
+    aacClientId: "2c53f587-693c-48fa-b579-65506d8d3221",
     redirectUrl: 'https://innoweee.platform.smartcommunitylab.it/',
-    scope: 'profile.basicprofile.me profile.accountprofile.me',
+    scope: 'openid profile email profile.basicprofile.me',
     aacUrl: 'https://aac.platform.smartcommunitylab.it/aac/'
 };
