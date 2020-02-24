@@ -7,7 +7,7 @@ export const environment = {
   appName: 'InnoWee',
     apiEndpoint: 'https://dev.smartcommunitylab.it/innoweee-engine/',
     getDomainApi: 'api/profile',
-    getInstituteApi: '/api/institute/',
+    getInstituteApi: 'api/institute/',
     getSchoolApi: 'api/school',
     getGameApi: 'api/game/',
     getPlayerApi: 'api/player',
