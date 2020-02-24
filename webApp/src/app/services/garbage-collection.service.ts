@@ -37,15 +37,15 @@ export class GarbageCollectionService {
   ]
   constructor(private http: HttpClient,
     private utils:UtilsService) {
-      this.endPoint = environment.apiEndpoint;
-      this.getGameApi = environment.getGameApi;
-      this.getItemApi = environment.getItemApi;
-      this.getReduceApi = environment.getReduceApi;
-      this.getDeliveryApi = environment.getDeliveryApi;
-      this.getGarbageApi = environment.getGarbageApi;
-      this.getUsedApi = environment.getUsedApi;
-      this.geCollectionApi = environment.getCollection;
-      this.getConfirmApi = environment.getConfirmApi;
+      this.endPoint = environment["apiEndpoint"];
+      this.getGameApi = environment["getGameApi"];
+      this.getItemApi = environment["getItemApi"];
+      this.getReduceApi = environment["getReduceApi"];
+      this.getDeliveryApi = environment["getDeliveryApi"];
+      this.getGarbageApi = environment["getGarbageApi"];
+      this.getUsedApi = environment["getUsedApi"];
+      this.geCollectionApi = environment["getCollection"];
+      this.getConfirmApi = environment["getConfirmApi"];
    }
    getArrayResources():any[] {
      return this.arrayResources;
