@@ -80,9 +80,10 @@ export class ClassificationTypePage extends CommonPage implements OnInit {
     })
   }
   getLabel(item) {
-    // if (this.answer && this.answer[item] && this.translate)
-      // return this.translate.instant(this.answer[item].label[this.translate.defaultLang]);
-      return this.translate.instant(item.label[this.translate.defaultLang]);
+    console.log(JSON.stringify(item))
+    if (this.answer && this.answer[item] && this.translate)
+      return this.translate.instant(this.answer[item].label[this.translate.defaultLang]);
+      // return this.translate.instant(item.label[this.translate.defaultLang]);
   }
 
   fillSteps() {
