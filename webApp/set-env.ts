@@ -38,7 +38,7 @@ export const environment = {
     getDeliveryApi:"/delivery",
     getGarbageApi:"api/garbageMap/",
     getUsedApi:"/used",
-    scope: 'profile.basicprofile.me profile.accountprofile.me'
+    scope: 'openid profile email profile.basicprofile.me'
 };
 `
 
