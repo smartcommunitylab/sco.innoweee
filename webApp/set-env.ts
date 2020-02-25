@@ -33,6 +33,7 @@ export const environment = {
     robotApi:"/robot/",
     getRobotImageApi:"api/image/robot",
     getItemApi:"api/item",
+    getConfirmApi:"api/item/confirm",
     getReduceApi:"/reduce",
     itemSocketURL:"itemws",
     getDeliveryApi:"/delivery",
