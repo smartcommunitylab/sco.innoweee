@@ -79,11 +79,12 @@ export class ClassificationTypePage extends CommonPage implements OnInit {
       await alert.present();
     })
   }
-  getLabel(item) {
+  getLabel(item, modal) {
     console.log(JSON.stringify(item))
-    if (this.answer && this.answer[item] && this.translate)
-      return this.translate.instant(this.answer[item].label[this.translate.defaultLang]);
-      // return this.translate.instant(item.label[this.translate.defaultLang]);
+    if (!modal)
+   { if (this.answer && this.answer[item] && this.translate)
+      return this.translate.instant(this.answer[item].label[this.translate.defaultLang]);}
+    else return this.translate.instant(item.label[this.translate.defaultLang]);
   }
 
   fillSteps() {
@@ -100,7 +101,7 @@ export class ClassificationTypePage extends CommonPage implements OnInit {
   }
   chooseCategory(item) {
     this.classificationService.itemClassification.setItemType(item.value);
-    this.classificationService.itemClassification.setItemValue(this.getLabel(item.key));
+    this.classificationService.itemClassification.setItemValue(this.getLabel(item.key, false));
     this.router.navigate(['classification-working']);
   }
   getFooter() {
@@ -145,7 +146,7 @@ export class ClassificationTypePage extends CommonPage implements OnInit {
         // if (dataReturned.data["timestamp"])
         //   this.item.timestamp = dataReturned.data["timestamp"]
           this.classificationService.itemClassification.setItemType(dataReturned.data["itemType"].value);
-    this.classificationService.itemClassification.setItemValue(this.getLabel(dataReturned.data["itemType"]));
+    this.classificationService.itemClassification.setItemValue(this.getLabel(dataReturned.data["itemType"],true));
     this.router.navigate(['classification-working']);
 
       }
