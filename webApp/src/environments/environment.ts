@@ -17,7 +17,7 @@ export const environment = {
     buyComponentApi:'/buy/',
     contributionApi:'/contribution/',
     robotApi:"/robot/",
-    getRobotImageApi:"api/image/robot/",
+    getRobotImageApi:"api/image/robot",
     getItemApi:"api/item",
     getReduceApi:"/reduce",
     getConfirmApi:"api/item/confirm",
