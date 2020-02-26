@@ -54,7 +54,7 @@ export class AllteamPage extends MainPage implements OnInit {
       this.profileService.getLocalPlayerData().then(res => {
         this.playerData = res;
         this.listSections.forEach(section => {
-          this.mapImg[section.objectId] = this.imgUrl + section.objectId + "/thumb" + ((section.objectId != this.playerData.objectId) ? "" : "?" + new Date().getTime());
+          this.mapImg[section.objectId] = this.imgUrl +"/"+section.objectId + "/thumb" + ((section.objectId != this.playerData.objectId) ? "" : "?" + new Date().getTime());
         });
       })
     })
