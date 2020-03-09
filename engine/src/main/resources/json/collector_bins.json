@@ -1,17 +1,32 @@
 [
 {
-	"binId":"11111A",
+	"binId":"49",
 	"binType":"bin_reuse",
-	"gameId":"5db2ea18adb60e1e34188b18"
+	"gameId":"5e539130fea13a0001398f33"
 },
 {
-	"binId":"11111B",
+	"binId":"52",
 	"binType":"bin_recycle",
-	"gameId":"5db2ea18adb60e1e34188b18"
+	"gameId":"5e539130fea13a0001398f33"
 },
 {
-	"binId":"11111C",
+	"binId":"51",
 	"binType":"bin_value",
-	"gameId":"5db2ea18adb60e1e34188b18"
+	"gameId":"5e539130fea13a0001398f33"
+},
+{
+	"binId":"53",
+	"binType":"bin_reuse",
+	"gameId":"5e5391bdfea13a0001398f47"
+},
+{
+	"binId":"55",
+	"binType":"bin_recycle",
+	"gameId":"5e5391bdfea13a0001398f47"
+},
+{
+	"binId":"54",
+	"binType":"bin_value",
+	"gameId":"5e5391bdfea13a0001398f47"
 }
 ]

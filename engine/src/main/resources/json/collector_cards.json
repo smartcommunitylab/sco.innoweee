@@ -1,8 +1,93 @@
 [
 {
-	"cardId":"22222B",
-	"playerId":"5db2ea18adb60e1e34188b24",
+	"cardId":"SCUOLA01CLASSE1A",
+	"playerId":"5e5391bdfea13a0001398f4e",
+	"playerName":"1A"
+},
+{
+	"cardId":"SCUOLA01CLASSE2A",
+	"playerId":"5e5391bdfea13a0001398f4f",
+	"playerName":"2A"
+},
+{
+	"cardId":"SCUOLA01CLASSE3A",
+	"playerId":"5e5391bdfea13a0001398f50",
+	"playerName":"3A"
+},
+{
+	"cardId":"SCUOLA01CLASSE3B",
+	"playerId":"5e5391bdfea13a0001398f51",
+	"playerName":"3B"
+},
+{
+	"cardId":"SCUOLA01CLASSE4A",
+	"playerId":"5e5391bdfea13a0001398f52",
+	"playerName":"4A"
+},
+{
+	"cardId":"SCUOLA01CLASSE4B",
+	"playerId":"5e5391bdfea13a0001398f53",
+	"playerName":"4B"
+},
+{
+	"cardId":"SCUOLA01CLASSE5A",
+	"playerId":"5e5391bdfea13a0001398f54",
+	"playerName":"5A"
+},
+{
+	"cardId":"SCUOLA01CLASSE5B",
+	"playerId":"5e5391bdfea13a0001398f55",
+	"playerName":"5B"
+},
+{
+	"cardId":"SCUOLA02CLASSE1A",
+	"playerId":"5e539130fea13a0001398f3a",
+	"playerName":"1A"
+},
+{
+	"cardId":"SCUOLA02CLASSE1B",
+	"playerId":"5e539130fea13a0001398f3b",
+	"playerName":"1B"
+},
+{
+	"cardId":"SCUOLA02CLASSE2A",
+	"playerId":"5e539130fea13a0001398f3c",
+	"playerName":"2A"
+},
+{
+	"cardId":"SCUOLA02CLASSE2B",
+	"playerId":"5e539130fea13a0001398f3d",
 	"playerName":"2B"
+},
+{
+	"cardId":"SCUOLA02CLASSE3A",
+	"playerId":"5e539130fea13a0001398f3e",
+	"playerName":"3A"
+},
+{
+	"cardId":"SCUOLA02CLASSE3B",
+	"playerId":"5e539130fea13a0001398f3f",
+	"playerName":"3B"
+},
+{
+	"cardId":"SCUOLA02CLASSE4A",
+	"playerId":"5e539130fea13a0001398f40",
+	"playerName":"4A"
+},
+{
+	"cardId":"SCUOLA02CLASSE4B",
+	"playerId":"5e539130fea13a0001398f41",
+	"playerName":"4B"
+},
+{
+	"cardId":"SCUOLA02CLASSE5A",
+	"playerId":"5e539130fea13a0001398f42",
+	"playerName":"5A"
+},
+{
+	"cardId":"SCUOLA02CLASSE5B",
+	"playerId":"5e539130fea13a0001398f43",
+	"playerName":"5B"
 },
 {
 	"cardId":"22222A",
