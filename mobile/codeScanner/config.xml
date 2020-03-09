@@ -118,6 +118,7 @@
         <variable name="OKHTTP_VERSION" value="3.10.0" />
     </plugin>
     <plugin name="cordova-plugin-nativestorage" spec="^2.3.2" />
+    <allow-navigation href="http://192.168.1.48:8100" sessionid="ce9fa560" />
     <engine name="android" spec="8.1.0" />
     <engine name="ios" spec="4.5.5" />
 </widget>

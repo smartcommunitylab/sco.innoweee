@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>confirm-code</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col *ngIf="item">
+        <div class="qr-code">
+          <img src="./assets/qr-code.png">
+        </div>
+        <div *ngIf="scanData" class="interaction">
+          <p><span *ngIf="!item">{{'label_id'|translate}}</span>
+            <span *ngIf="scanData" class="bold"> {{scanData}}</span>
+            <div class="buttons">
+            <ion-button size="large" ion-button (click)="sendLim()" [hidden]="!isTeacher()" [disabled]="itemClassified==2">
+              {{'label_send_to_lim'|translate}}
+            </ion-button>
+            <!-- parent classifies the item -->
+            <ion-button size="large" ion-button (click)="classify()" [hidden]="!isParent()" [disabled]="itemPresent">
+              {{'label_classify'|translate}}
+            </ion-button>
+            <ion-button size="large" ion-button (click)="cancel()">{{'label_cancel'|translate}}
+            </ion-button>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

@@ -12,6 +12,13 @@
 
 <ion-content padding>
   <ion-grid>
+    <ion-row class="home-square">
+      <ion-col class="home-square-conent">
+        <div class="label_big">{{'label_ruolo'|translate}}</div>
+        <div class="label_big">{{'label_operatore'|translate}}</div>
+        <div class="label_little">{{'label_home_operatore_insert'|translate}}</div>
+    </ion-col>
+    </ion-row>
     <ion-row>
       <ion-col>
         <div class="scan-button">
@@ -37,7 +44,7 @@
       <ion-col>
         <div class="scan-button">
           <ion-button expand="block" ion-button (click)="stats()">
-            <ion-icon class="home-button-icon" slot="icon-only" name="stats-chart-outline"></ion-icon>
+            <ion-icon class="home-button-icon" slot="icon-only" name="podium"></ion-icon>
             {{'label_stats'|translate}}
           </ion-button>
         </div>
@@ -47,6 +54,6 @@
 </ion-content>
 <ion-footer>
   <ion-toolbar class="color-bar">
-    <ion-title class="ion-text-center">{{ getFooter()}}</ion-title>
+    <ion-title class="ion-text-center">{{'label_operatore'|translate}}</ion-title>
   </ion-toolbar>
 </ion-footer>

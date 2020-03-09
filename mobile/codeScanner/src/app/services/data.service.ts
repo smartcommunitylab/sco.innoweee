@@ -4,7 +4,14 @@ import { APP_CONFIG_TOKEN, ApplicationConfig } from '../app-config';
 import { TranslateService } from '@ngx-translate/core';
 import { AlertController } from '@ionic/angular';
 const ERROR_PLAYERID_WRONG = 'EC12:playerId not corresponding';
-
+const ITEM_STATE_NONE = 0;
+const ITEM_STATE_CLASSIFIED = 1;
+const ITEM_STATE_CONFIRMED = 2;
+const ITEM_STATE_DISPOSED = 3;
+const ITEM_STATE_COLLECTED = 4;
+const ITEM_STATE_ARRIVED = 5;
+const ITEM_STATE_CHECKED = 6;
+const ITEM_STATE_UNEXPECTED = 7;
 @Injectable({
   providedIn: 'root'
 })
@@ -24,6 +31,7 @@ export class DataServerService {
   getCollectorApi: string;
   getCollectionApi:string;
   itemApi: string;
+  
 
 
 
@@ -60,7 +68,32 @@ export class DataServerService {
     }).catch(response => {
       return this.handleError(response);
     });   }
-
+    getOperatorStats(tenantID, token): Promise<any> {
+      let url: string = this.endPoint + this.getCollectorApi+'/'+ this.itemApi+'/'+tenantID+'/report';
+      return this.http.get(url,{ headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
+  
+      }}).toPromise().then(response => {
+        return response;
+      }).catch(response => {
+        return this.handleError(response);
+      });
+    }
+    confirmItemOperator(tenantID,token,itemId,broken,collector):Promise<any> {
+      let url: string = this.endPoint + this.getCollectorApi+'/'+ this.itemApi+'/'+tenantID+'/check?itemId='+itemId+'&broken='+broken+'&collector='+collector;
+      return this.http.put(url,{ headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
+  
+      }}).toPromise().then(response => {
+        return response;
+      }).catch(response => {
+        return this.handleError(response);
+      });
+    }
   getStat(playerId: string, token: any) {
     // @GetMapping(value = "/api/player/{playerId}/report")
 
@@ -167,6 +200,8 @@ export class DataServerService {
       return this.handleError(response);
     });
   }
+
+
 
   private handleError(error: any): Promise<any> {
 

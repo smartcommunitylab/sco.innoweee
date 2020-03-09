@@ -32,6 +32,9 @@ export class InsertNewPage extends CommonPage implements OnInit  {
   ngOnInit() {
   }
 
+  confirm() {
+   //call  @PutMapping(value = "/api/collector/item/{tenantId}/unexpected")
+  }
   getFooter() {
     return (this.getSchoolName())
   }

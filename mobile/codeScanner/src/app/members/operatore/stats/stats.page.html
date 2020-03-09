@@ -3,9 +3,9 @@
     <ion-buttons slot="start">
       <ion-back-button class="language"></ion-back-button>
     </ion-buttons>
-      <ion-title class="game-title">{{'title_game_selection'|translate}}</ion-title>
+    <ion-title class="game-title">{{'title_game_selection'|translate}}</ion-title>
     <ion-buttons class="language" slot="end">
-        <ion-label> {{'label_logout'|translate}}</ion-label>
+      <ion-label> {{'label_logout'|translate}}</ion-label>
       <ion-button (click)="changeClass()">
         <ion-icon slot="icon-only" name="log-out"></ion-icon>
       </ion-button>
@@ -14,10 +14,62 @@
 </ion-header>
 
 <ion-content padding>
-  stats
+  <ion-list *ngIf="stat" lines="none">
+    <ion-item>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-label> {{'label_totale_conferiti'|translate}} </ion-label>
+          </ion-col>
+          <ion-col>
+            <ion-label> {{stat.totaleConferiti}}</ion-label>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+    <ion-item>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-label> {{'label_totale_attesi'|translate}} </ion-label>
+          </ion-col>
+          <ion-col>
+            <ion-label> {{stat.totaleAttesi}}</ion-label>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+    <ion-item>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-label> {{'label_totale_corrispondenti'|translate}} </ion-label>
+          </ion-col>
+          <ion-col>
+            <ion-label> {{stat.totaleCorrispondenti}}</ion-label>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+    <ion-item>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-label> {{'label_totale_inattesi'|translate}} </ion-label>
+          </ion-col>
+          <ion-col>
+            <ion-label> {{stat.totaleInattesi}}</ion-label>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-list>
+  <div expand="block">
+    <ion-button class="color-bar" size="block" ion-button (click)="home()">{{'label_new_item'|translate}} </ion-button>
+</div>
 </ion-content>
 <ion-footer>
   <ion-toolbar class="color-bar">
-    <ion-title class="ion-text-center">{{ getFooter()}}</ion-title>
+    <ion-title class="ion-text-center">{{'label_operatore'|translate}}</ion-title>
   </ion-toolbar>
 </ion-footer>

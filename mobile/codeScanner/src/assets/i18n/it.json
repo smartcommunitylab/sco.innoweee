@@ -8,7 +8,7 @@
         "label_game_selection": "Seleziona il profilo ",
         "label_tenants": "Dominio: ",
         "label_institute": "Istituto: ",
-        "label_school": "Scuola: ",
+        "schoolName": "Scuola: ",
         "label_game": "Campagna: ",
         "label_section":"Classe:",
         "label_choose_section":"Seleziona la classe",
@@ -121,5 +121,16 @@
         "label_other_category": "Altra categoria",
         "other_item": "Oggetto generico",
         "title_type_selection":"Seleziona la tipologia",
-        "toast_select_data":"Seleziona tutti i dati per accedere"
+        "toast_select_data":"Seleziona tutti i dati per accedere",
+        "label_totale_conferiti":"Totale oggetti conferiti",
+        "label_totale_attesi":"Totale oggetti attesi",
+        "label_totale_corrispondenti":"Totale oggetti corrispondenti",
+        "label_totale_inattesi":"Totale oggetti inattesi",
+        "label_classification":"Classificazione: ",
+        "label_true":"Si",
+        "label_false":"No",
+        "label_ruolo":"Ruolo",
+        "label_operatore":"operatore",
+        "label_home_operatore_insert":"Inserimento oggetti",
+        "label_conferma_operatore":"Sei sicuro di voler confermare i dati?"
 }
