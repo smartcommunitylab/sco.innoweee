@@ -33,6 +33,7 @@ public class ItemEvent {
 	private String collector;
 	private List<ItemAction> actions = new ArrayList<ItemAction>();
 	private String tenantId;
+	private String note;
 	
 	public void addStateNote(String note) {
 		if(Utils.isEmpty(this.stateNote)) {
@@ -145,5 +146,13 @@ public class ItemEvent {
 
 	public void setTenantId(String tenantId) {
 		this.tenantId = tenantId;
+	}
+
+	public String getNote() {
+		return note;
+	}
+
+	public void setNote(String note) {
+		this.note = note;
 	}
 }

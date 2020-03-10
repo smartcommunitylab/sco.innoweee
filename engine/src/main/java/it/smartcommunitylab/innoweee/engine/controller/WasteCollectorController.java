@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.smartcommunitylab.innoweee.engine.common.Const;
+import it.smartcommunitylab.innoweee.engine.common.Utils;
 import it.smartcommunitylab.innoweee.engine.exception.EntityNotFoundException;
 import it.smartcommunitylab.innoweee.engine.exception.UnauthorizedException;
 import it.smartcommunitylab.innoweee.engine.manager.ItemEventManager;
@@ -100,11 +101,12 @@ public class WasteCollectorController extends AuthController {
 		return report;
 	}
 	
-	@PutMapping(value = "/api/collector/item/{tenantId}/check")
+	@PostMapping(value = "/api/collector/item/{tenantId}/check")
 	public @ResponseBody ItemEvent itemChecked(
 			@PathVariable String tenantId,
 			@RequestParam String itemId,
 			@RequestParam boolean broken,
+			@RequestParam(required=false) String note,
 			@RequestParam String collector,
 			HttpServletRequest request) throws Exception {
 		if(!validateRole(Const.ROLE_COLLECTOR_OPERATOR, tenantId, request)) {
@@ -124,6 +126,9 @@ public class WasteCollectorController extends AuthController {
 			if(itemEvent.isBroken() ^ broken) {
 				itemEvent.addStateNote("BROKEN flag changed");
 			}
+			if(Utils.isNotEmpty(note)) {
+				itemEvent.setNote(note);
+			}
 			itemEventManager.itemChecked(itemEvent);
 		} else {
 			throw new EntityNotFoundException(Const.ERROR_CODE_APP + "item state not compatible");
@@ -132,12 +137,13 @@ public class WasteCollectorController extends AuthController {
 		return itemEvent; 
 	}
 	
-	@PutMapping(value = "/api/collector/item/{tenantId}/unexpected")
+	@PostMapping(value = "/api/collector/item/{tenantId}/unexpected")
 	public @ResponseBody ItemEvent itemUnexpected(
 			@PathVariable String tenantId,
 			@RequestParam String itemId,
 			@RequestParam String itemType,
 			@RequestParam boolean broken,
+			@RequestParam(required=false) String note,
 			@RequestParam String collector,
 			HttpServletRequest request) throws Exception {
 		if(!validateRole(Const.ROLE_COLLECTOR_OPERATOR, tenantId, request)) {
@@ -151,6 +157,15 @@ public class WasteCollectorController extends AuthController {
 			itemEvent.setBroken(broken);
 			itemEvent.setTenantId(tenantId);
 			itemEvent.setTimestamp(System.currentTimeMillis());
+		}
+		if(itemEvent.isBroken() ^ broken) {
+			itemEvent.addStateNote("BROKEN flag changed");
+		}
+		if(!itemEvent.getItemType().equals(itemType)) {
+			itemEvent.addStateNote("TYPE changed " + itemType);
+		}
+		if(Utils.isNotEmpty(note)) {
+			itemEvent.setNote(note);
 		}
 		itemEvent.setCollector(collector);
 		itemEventManager.itemUnexpected(itemEvent);
