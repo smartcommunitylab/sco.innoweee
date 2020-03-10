@@ -1,0 +1,26 @@
+.not-disposed {
+  color: red;
+  font-weight: bold;
+}
+
+.qr-code {
+  width: 128px;
+  margin: auto;
+  .label_code{
+      text-align: center;
+  }
+}
+.home-square {
+  height: 50vh;
+  text-align: center;
+  position: relative;
+  .home-square-conent {
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    .label_big {
+      font-size: 26px;
+    }
+  }
+}

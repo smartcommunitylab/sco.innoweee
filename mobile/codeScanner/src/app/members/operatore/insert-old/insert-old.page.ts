@@ -16,9 +16,14 @@ import { Location } from '@angular/common';
 })
 export class InsertOldPage extends CommonPage implements OnInit {
   actualObj: any;
-  workingConfirm:boolean;
-  types: any =[];
-  confirmedObj:any;
+  workingConfirm: boolean;
+  types: any = [];
+  confirmedObj: any;
+  alreadyInserted: boolean;
+  notDisposedAtSchool: boolean;
+  garbageMap: any;
+  typeItem: any;
+  note:string;
   constructor(public translate: TranslateService,
     public router: Router,
     public toastController: ToastController,
@@ -33,26 +38,72 @@ export class InsertOldPage extends CommonPage implements OnInit {
     super(auth, router, translate, toastController, route, dataServerService, location, profileService, authService)
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.route.queryParams
       .subscribe(params => {
-        if (params.scanData)
-          {
-            this.actualObj = JSON.parse(params.scanData);
-          // this.workingConfirm= this.actualObj.broken
+        if (params.scanData) {
+          this.actualObj = JSON.parse(params.scanData);
+          this.checkState();
         }
-        console.log(JSON.stringify(params))
-        console.log(JSON.stringify(params.scanData))
-      })
+      }) 
+      const token = await this.auth.getValidToken();
+          this.dataServerService.getGargabeMap(this.profileService.getDomainMemorized()["tenants"][0], token.accessToken).then(res => {
+            this.garbageMap = res;
+             this.fillSteps();
+
+          });
   }
-cancel() {
-  this.navCtrl.navigateRoot('home-operator');
-}
-getType() {
-  console.log("TODO")
-  return ""
-}
-confirmItem() {
+  fillSteps() {
+    if (this.garbageMap && this.garbageMap.items)
+    for (let key in this.garbageMap.items) {
+      console.log(key);
+    // this.garbageMap.items.forEach((value: boolean, key: string) => {
+      // console.log(key, value);
+      if (key==this.actualObj.itemType)
+      {
+        this.typeItem = this.garbageMap.items[key];
+      }
+  };
+    
+    // forEach(element => {
+    //   this.types.push({
+    //     "label": {
+    //       "it": this.garbageMap.items[element].name.it,
+    //       "en": this.garbageMap.items[element].name.en
+    //     },
+    //     "value": element
+    //   })
+    // });
+  }
+  checkState() {
+    switch (this.actualObj.state) {
+      case 6:
+        this.alreadyInserted = true;
+        break;
+      case 2:
+        this.alreadyInserted = false;
+        this.notDisposedAtSchool = true;
+        break;
+      case 3:
+        this.alreadyInserted = false;
+        this.notDisposedAtSchool = false;
+        break;
+      default:
+        break;
+    }
+
+  }
+  cancel() {
+    this.navCtrl.navigateRoot('home-operator');
+  }
+  
+  getType() {
+    if (this.typeItem)
+    return this.typeItem.name["it"];
+    else return ""
+  }
+
+  confirmItem() {
     this.translate.get('label_classify').subscribe(async (res: string) => {
       var title = res;
       var message = this.translate.instant('label_conferma_operatore');
@@ -70,13 +121,14 @@ confirmItem() {
           }, {
             text: 'Conferma',
             handler: async () => {
+              console.log('conferma')
               const token = await this.auth.getValidToken();
-              this.dataServerService.confirmItemOperator(this.profileService.getDomainMemorized()["tenants"][0],token,this.actualObj.itemId,this.workingConfirm,this.profileService.getCollector()).then(()=>{
+              this.dataServerService.confirmItemOperator(this.profileService.getDomainMemorized()["tenants"][0], token.accessToken, this.actualObj.itemId, this.workingConfirm, this.profileService.getCollector(),this.note).then(() => {
 
-              },err=>{
+              }, err => {
 
               })
-  //call @PutMapping(value = "/api/collector/item/{tenantId}/check")
+              //call @PutMapping(value = "/api/collector/item/{tenantId}/check")
             }
           }
         ]
@@ -84,8 +136,8 @@ confirmItem() {
 
       await alert.present();
     })
-  // popup confirm
-}
+    // popup confirm
+  }
   getValueString(): string {
     if (this.actualObj && this.actualObj.valuable) {
       return this.translate.instant("label_recycle_string_value");

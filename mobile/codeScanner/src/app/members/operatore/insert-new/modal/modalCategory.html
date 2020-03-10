@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar class="color-bar">
+    <ion-buttons slot="start">
+      <ion-button (click)="chooseBack()">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+      <ion-title class="game-title">{{'title_type_selection'|translate}}</ion-title>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content padding>
+  <ion-grid *ngIf="firstStep">
+    <div *ngFor="let collection of collections">
+      <ion-row class="label-row" *ngIf="isVisible(collection)">
+        <ion-col size="8" text-center class="box" (click)="chooseCategory(collection)">
+          <span>{{getCollectionTitle(collection)}}</span>
+        </ion-col>
+        <ion-col size="3" text-center>
+          <ion-img class="class-img" [src]="getImgName(collection)"></ion-img>
+        </ion-col>
+      </ion-row>
+    </div>
+    <ion-row class="label-row">
+
+      <ion-col size="6" text-center class="box" (click)="chooseOther(collection)">
+        <span>{{'other_item'|translate}}</span>
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+  <ion-grid *ngIf="!firstStep">
+    <ion-row class="label-row">
+      <ion-col text-center class="box" *ngFor="let item of items" (click)="chooseItem(item)">
+        <span>{{getStringItem(item)}}</span>
+      </ion-col>
+
+    </ion-row>
+    <!-- <ion-row class="label-row back">
+      <ion-col size=3></ion-col>
+      <ion-col size="6" text-center class="box" (click)="chooseBack()">
+        <span>{{'back_label'|translate}}</span>
+      </ion-col>
+      <ion-col size=3></ion-col>
+    </ion-row> -->
+  </ion-grid>
+</ion-content>

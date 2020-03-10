@@ -17,6 +17,7 @@ const ITEM_STATE_UNEXPECTED = 7;
 })
 export class DataServerService {
 
+
   
   
   endPoint: any;
@@ -55,6 +56,9 @@ export class DataServerService {
 
   } 
 
+
+ 
+
   findItem(itemId: any, tenantID: any, token: string) {
     ///api/collector/item/{tenantId}/find
     let url: string = this.endPoint + this.getCollectorApi +'/'+ this.itemApi+'/'+tenantID+'/find?itemId='+ itemId;
@@ -81,9 +85,13 @@ export class DataServerService {
         return this.handleError(response);
       });
     }
-    confirmItemOperator(tenantID,token,itemId,broken,collector):Promise<any> {
+    confirmItemOperator(tenantID,token,itemId,broken,collector,note):Promise<any> {
       let url: string = this.endPoint + this.getCollectorApi+'/'+ this.itemApi+'/'+tenantID+'/check?itemId='+itemId+'&broken='+broken+'&collector='+collector;
-      return this.http.put(url,{ headers: {
+      if (note)
+        {
+        url+='&note='+note
+      }
+      return this.http.post(url,{},{ headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + token
@@ -94,6 +102,23 @@ export class DataServerService {
         return this.handleError(response);
       });
     }
+    unexpetedItemOperator(tenantID, token: string, itemId: any, broken: boolean, collector: any, typeItem: any, note: any) {
+      let url: string = this.endPoint + this.getCollectorApi+'/'+ this.itemApi+'/'+tenantID+'/unexpected?itemId='+itemId+'&broken='+broken+'&collector='+collector;
+      if (note)
+        {
+        url+='&note='+note
+      }
+      return this.http.post(url,{},{ headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
+  
+      }}).toPromise().then(response => {
+        return response;
+      }).catch(response => {
+        return this.handleError(response);
+      });
+        }
   getStat(playerId: string, token: any) {
     // @GetMapping(value = "/api/player/{playerId}/report")
 

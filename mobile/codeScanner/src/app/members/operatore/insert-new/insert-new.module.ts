@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { InsertNewPage } from './insert-new.page';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { ModalCategory } from './modal/modalCategory';
 
 const routes: Routes = [
   {
@@ -23,6 +24,7 @@ const routes: Routes = [
     SharedModule,
     RouterModule.forChild(routes)
   ],
+  entryComponents:[ModalCategory],
   declarations: [InsertNewPage]
 })
 export class InsertNewPageModule {}

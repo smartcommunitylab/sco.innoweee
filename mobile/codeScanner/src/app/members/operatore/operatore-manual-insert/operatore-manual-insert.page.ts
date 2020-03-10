@@ -46,7 +46,7 @@ export class OperatoreManualInsertPage extends CommonPage implements OnInit {
         //already used
         if (!res) {
           //new item
-          this.router.navigate(['insert-new'], { queryParams: { scanData: JSON.stringify(res)}});
+          this.router.navigate(['insert-new'], { queryParams: { scanData: this.scanData}});
 
         }
         else {
