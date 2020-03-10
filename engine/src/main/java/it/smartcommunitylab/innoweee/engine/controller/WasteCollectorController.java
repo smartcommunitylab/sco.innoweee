@@ -101,7 +101,7 @@ public class WasteCollectorController extends AuthController {
 		return report;
 	}
 	
-	@PutMapping(value = "/api/collector/item/{tenantId}/check")
+	@PostMapping(value = "/api/collector/item/{tenantId}/check")
 	public @ResponseBody ItemEvent itemChecked(
 			@PathVariable String tenantId,
 			@RequestParam String itemId,
@@ -137,7 +137,7 @@ public class WasteCollectorController extends AuthController {
 		return itemEvent; 
 	}
 	
-	@PutMapping(value = "/api/collector/item/{tenantId}/unexpected")
+	@PostMapping(value = "/api/collector/item/{tenantId}/unexpected")
 	public @ResponseBody ItemEvent itemUnexpected(
 			@PathVariable String tenantId,
 			@RequestParam String itemId,
