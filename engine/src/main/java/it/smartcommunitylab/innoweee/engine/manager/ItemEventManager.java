@@ -77,6 +77,10 @@ public class ItemEventManager {
 		return itemEventRepository.countByParams(playerIds, states, reusable, valuable);
 	}
 	
+	public int countByStates(List<String> playerIds, List<Integer> states) {
+		return itemEventRepository.countByStates(playerIds, states);
+	}
+	
 	public ItemEvent itemClassified(ItemEvent itemEvent, Game game) throws Exception {
 		if(findByItemId(itemEvent.getItemId()) != null) {
 			throw new EntityNotFoundException(Const.ERROR_CODE_APP + "item already used");
