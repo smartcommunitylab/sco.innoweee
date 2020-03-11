@@ -81,19 +81,21 @@ public class WasteCollectorController extends AuthController {
 		ItemEvent itemEvent = itemEventManager.findByItemId(itemId);
 		if(itemEvent != null) {
 			report = new ItemReport(itemEvent);
-			Optional<Player> optionalPlayer = playerRepository.findById(itemEvent.getPlayerId());
-			if(optionalPlayer.isPresent()) {
-				Player player = optionalPlayer.get();
-				report.setPlayerName(player.getName());
-				Optional<Game> optionalGame = gameRepository.findById(player.getGameId());
-				if(optionalGame.isPresent()) {
-					Game game = optionalGame.get();
-					Optional<School> optionalSchool = schoolRepository.findById(game.getSchoolId());
-					if(optionalSchool.isPresent()) {
-						School school = optionalSchool.get();
-						report.setSchoolName(school.getName());
+			if(Utils.isNotEmpty(itemEvent.getPlayerId())) {
+				Optional<Player> optionalPlayer = playerRepository.findById(itemEvent.getPlayerId());
+				if(optionalPlayer.isPresent()) {
+					Player player = optionalPlayer.get();
+					report.setPlayerName(player.getName());
+					Optional<Game> optionalGame = gameRepository.findById(player.getGameId());
+					if(optionalGame.isPresent()) {
+						Game game = optionalGame.get();
+						Optional<School> optionalSchool = schoolRepository.findById(game.getSchoolId());
+						if(optionalSchool.isPresent()) {
+							School school = optionalSchool.get();
+							report.setSchoolName(school.getName());
+						}
 					}
-				}
+				}				
 			}
 		}
 		logger.info("findItem[{}]:{} / {}", tenantId, itemId, report);

@@ -32,6 +32,6 @@ public interface ItemEventRepository extends MongoRepository<ItemEvent, String> 
 	@Query(value="{playerId:{$in:?0}, state:{$in:?1}, reusable:?2, valuable:?3}", count=true)
 	int countByParams(List<String> playerIds, List<Integer> states, boolean reusable, boolean valuable);
 	
-	@Query(value="{playerId:{$in:?0}, state:{$in:?1}}", count=true)
-	int countByStates(List<String> playerIds, List<Integer> states);
+	@Query(value="{$or:[{playerId:{$in:?0}}, {tenantId:?1}], state:{$in:?2}}", count=true)
+	int countByStates(List<String> playerIds, String tenantId, List<Integer> states);
 }

@@ -77,8 +77,9 @@ public class ItemEventManager {
 		return itemEventRepository.countByParams(playerIds, states, reusable, valuable);
 	}
 	
-	public int countByStates(List<String> playerIds, List<Integer> states) {
-		return itemEventRepository.countByStates(playerIds, states);
+	public int countByStates(List<String> playerIds, String tenantId,
+			List<Integer> states) {
+		return itemEventRepository.countByStates(playerIds, tenantId, states);
 	}
 	
 	public ItemEvent itemClassified(ItemEvent itemEvent, Game game) throws Exception {
