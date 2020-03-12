@@ -24,6 +24,7 @@ export class InsertOldPage extends CommonPage implements OnInit {
   garbageMap: any;
   typeItem: any;
   note:string;
+  wrongPlace:boolean=false;
   constructor(public translate: TranslateService,
     public router: Router,
     public toastController: ToastController,
@@ -57,29 +58,21 @@ export class InsertOldPage extends CommonPage implements OnInit {
     if (this.garbageMap && this.garbageMap.items)
     for (let key in this.garbageMap.items) {
       console.log(key);
-    // this.garbageMap.items.forEach((value: boolean, key: string) => {
-      // console.log(key, value);
       if (key==this.actualObj.itemType)
       {
         this.typeItem = this.garbageMap.items[key];
       }
   };
     
-    // forEach(element => {
-    //   this.types.push({
-    //     "label": {
-    //       "it": this.garbageMap.items[element].name.it,
-    //       "en": this.garbageMap.items[element].name.en
-    //     },
-    //     "value": element
-    //   })
-    // });
   }
   checkState() {
     switch (this.actualObj.state) {
       case 6:
         this.alreadyInserted = true;
         break;
+        case 7:
+          this.alreadyInserted = true;
+          break;
       case 2:
         this.alreadyInserted = false;
         this.notDisposedAtSchool = true;
@@ -91,7 +84,8 @@ export class InsertOldPage extends CommonPage implements OnInit {
       default:
         break;
     }
-
+    if (this.actualObj.valuable || this.actualObj.reusable)
+      this.wrongPlace=true
   }
   cancel() {
     this.navCtrl.navigateRoot('home-operator');
@@ -123,8 +117,18 @@ export class InsertOldPage extends CommonPage implements OnInit {
             handler: async () => {
               console.log('conferma')
               const token = await this.auth.getValidToken();
+              if (!this.wrongPlace)
               this.dataServerService.confirmItemOperator(this.profileService.getDomainMemorized()["tenants"][0], token.accessToken, this.actualObj.itemId, this.workingConfirm, this.profileService.getCollector(),this.note).then(() => {
+                this.showToastConfirmed()
+                this.router.navigate(['checked']);
+              }, err => {
 
+              })
+              else  
+              this.dataServerService.unexpetedItemOperator(this.profileService.getDomainMemorized()["tenants"][0], token.accessToken, this.actualObj.itemId, this.workingConfirm, this.profileService.getCollector(),this.actualObj.itemType,this.note).then(() => {
+                // this.dataServerService.unexpetedItemOperator(this.profileService.getDomainMemorized()["tenants"][0], token.accessToken, this.actualObj.itemId, this.workingConfirm, this.profileService.getCollector(),this.note).then(() => {
+                  this.showToastConfirmed()
+                  this.router.navigate(['checked']);
               }, err => {
 
               })
@@ -138,6 +142,16 @@ export class InsertOldPage extends CommonPage implements OnInit {
     })
     // popup confirm
   }
+  showToastConfirmed() {
+    this.translate.get('object_inserted').subscribe(async res => {
+
+      const toast = await this.toastController.create({
+        message: res,
+        duration: 2000
+      })
+      toast.present();
+    })
+    }  
   getValueString(): string {
     if (this.actualObj && this.actualObj.valuable) {
       return this.translate.instant("label_recycle_string_value");
@@ -146,6 +160,7 @@ export class InsertOldPage extends CommonPage implements OnInit {
       return this.translate.instant("label_recycle_string_reuse");
     }
     return this.translate.instant("label_recycle_string_recycle");
+
   }
   getValueField(field): string {
     if (field) {

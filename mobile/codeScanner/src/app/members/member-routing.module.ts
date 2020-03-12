@@ -7,7 +7,7 @@ const routes: Routes = [
   { path: 'select-class', loadChildren: './select-class/select-class.module#SelectClassPageModule' },
   { path: 'item-recognized', loadChildren: './item-recognized/item-recognized.module#ItemRecognizedPageModule' },
   { path: 'modal', loadChildren: './classification/recap/modal/modal.module#ModalPageModule' },
-  { path: 'confirm-code', loadChildren: './operatore/confirm-code/confirm-code.module#ConfirmCodePageModule' }
+
 ];
  
 @NgModule({

@@ -73,7 +73,7 @@
                 <ion-label> {{'label_classification'|translate}} </ion-label>
               </ion-col>
               <ion-col>
-                <ion-label> {{getValueString()}}</ion-label>
+                <ion-label [ngClass]="{'wrong': wrongPlace}"> {{getValueString()}}</ion-label>
               </ion-col>
             </ion-row>
           </ion-grid>
@@ -134,7 +134,6 @@
               <ion-col>
                 <ion-label> {{getAge()}}</ion-label>
               </ion-col>
-
             </ion-row>
           </ion-grid>
         </ion-item>
@@ -169,7 +168,12 @@
     </div>
   </ng-template>
   <div *ngIf="!alreadyInserted">
-
+    <div *ngIf="wrongPlace">
+      <ion-label >
+        <p class="wrong">{{'label_wrong_place'|translate}}</p>
+        <p class="wrong">{{getValueString()}}</p>
+      </ion-label>
+    </div>
     <div expand="block">
       <ion-button class="color-bar" size="block" ion-button (click)="confirmItem()" [disabled]="!workingConfirm">
         {{'label_classify'|translate}} </ion-button>

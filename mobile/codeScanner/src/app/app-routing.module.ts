@@ -28,6 +28,8 @@ const routes: Routes = [
   { path: 'insert-new', loadChildren: './members/operatore/insert-new/insert-new.module#InsertNewPageModule' },
   { path: 'insert-old', loadChildren: './members/operatore/insert-old/insert-old.module#InsertOldPageModule' },
   { path: 'operatore-manual-insert', loadChildren: './members/operatore/operatore-manual-insert/operatore-manual-insert.module#OperatoreManualInsertPageModule' },
+  { path: 'confirm-code', loadChildren: './members/operatore/confirm-code/confirm-code.module#ConfirmCodePageModule' },
+  { path: 'checked', loadChildren: './members/operatore/checked/checked.module#CheckedPageModule' },
   { path: '**', redirectTo: 'select-class', pathMatch: 'full'}
  
 ];

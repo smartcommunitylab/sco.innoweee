@@ -34,12 +34,17 @@
           <ion-col size="8">
             <ion-label> {{'label_recap_type'|translate}} </ion-label>
           </ion-col>
-          <ion-col *ngIf="getType(); else insertType">
-            <ion-label> {{getType()}}</ion-label>
+          <ion-col *ngIf="typeString; else insertType">
+            <ion-label> {{typeString}}</ion-label>
+          </ion-col>
+          <ion-col *ngIf="typeString;">
+            <ion-button class="color-bar" ion-button (click)="chooseType()" >
+              {{'label_choose_change'|translate}} </ion-button>
           </ion-col>
           <ng-template #insertType>
             <ion-col>
-              <ion-label> {{chooseType()}}</ion-label>
+              <ion-button class="color-bar" ion-button (click)="chooseType()" >
+                {{'label_choose_type'|translate}} </ion-button>
             </ion-col>
           </ng-template>
           

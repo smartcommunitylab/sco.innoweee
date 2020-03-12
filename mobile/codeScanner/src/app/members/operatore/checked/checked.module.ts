@@ -5,14 +5,13 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { InsertNewPage } from './insert-new.page';
+import { CheckedPage } from './checked.page';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { InsertModalCategory } from './modal/insertModalCategory';
 
 const routes: Routes = [
   {
     path: '',
-    component: InsertNewPage
+    component: CheckedPage
   }
 ];
 
@@ -24,7 +23,6 @@ const routes: Routes = [
     SharedModule,
     RouterModule.forChild(routes)
   ],
-  entryComponents:[InsertModalCategory],
-  declarations: [InsertNewPage,InsertModalCategory]
+  declarations: [CheckedPage]
 })
-export class InsertNewPageModule {}
+export class CheckedPageModule {}

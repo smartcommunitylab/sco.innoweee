@@ -103,7 +103,7 @@ export class DataServerService {
       });
     }
     unexpetedItemOperator(tenantID, token: string, itemId: any, broken: boolean, collector: any, typeItem: any, note: any) {
-      let url: string = this.endPoint + this.getCollectorApi+'/'+ this.itemApi+'/'+tenantID+'/unexpected?itemId='+itemId+'&broken='+broken+'&collector='+collector;
+      let url: string = this.endPoint + this.getCollectorApi+'/'+ this.itemApi+'/'+tenantID+'/unexpected?itemId='+itemId+'&broken='+broken+'&collector='+collector+'&itemType='+typeItem;
       if (note)
         {
         url+='&note='+note

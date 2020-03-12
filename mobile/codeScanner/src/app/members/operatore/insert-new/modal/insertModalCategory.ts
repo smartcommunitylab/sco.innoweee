@@ -6,11 +6,11 @@ import { DataServerService } from 'src/app/services/data.service';
 import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
-  selector: 'modalCategory',
-  templateUrl: './modalCategory.html',
-  styleUrls: ['./modalCategory.scss'],
+  selector: 'insertModalCategory',
+  templateUrl: './insertModalCategory.html',
+  styleUrls: ['./insertModalCategory.scss'],
 })
-export class ModalCategory implements OnInit {
+export class InsertModalCategory implements OnInit {
 
   modalTitle: string;
   modelId: number;
@@ -40,14 +40,17 @@ export class ModalCategory implements OnInit {
 
     this.profileService.getLocalPlayerData().then(res => {
       this.playerData = res;
-      this.dataServerService.getCollections(this.playerData.gameId, token.accessToken).then(res => {
-        this.collections = this.orderCollection(res);
-
-        this.dataServerService.getGargabeMap(this.playerData.tenantId, token.accessToken).then(res => {
+      // this.dataServerService.getCollections(this.playerData.gameId, token.accessToken).then(res => {
+      //   this.collections = this.orderCollection(res);
+        this.dataServerService.getGargabeMap(this.profileService.getDomainMemorized()["tenants"][0], token.accessToken).then(res => {
           this.garbageMap = res;
+          for (let key in this.garbageMap.items) {
+            this.items.push(this.garbageMap.items[key]);
+            // Use `key` and `value`
+        }
         });
       })
-    })
+    // })
   }
 
   isVisible(collection) {
@@ -92,8 +95,10 @@ export class ModalCategory implements OnInit {
   }
   getStringItem(item) {
     console.log(JSON.stringify(this.garbageMap));
-    if (this.garbageMap.items[item] && this.translate.defaultLang && this.garbageMap.items[item].name)
-    return this.garbageMap.items[item].name[this.translate.defaultLang];
+    if (this.translate.defaultLang)
+    return item.name[this.translate.defaultLang];
+    else   return item.name['it'];
+
   }
   chooseOther() {
     this.item.itemType = {
@@ -109,12 +114,12 @@ export class ModalCategory implements OnInit {
 
     this.item.itemType = {
       "label": {
-        "it": this.garbageMap.items[item].name.it,
-        "en": this.garbageMap.items[item].name.en
+        "it": item.name.it,
+        "en": item.name.en
       },
       "value": item
     };
-    this.item.timestamp = this.collection.from + (3000 * 60 * 60)
+    // this.item.timestamp = this.collection.from + (3000 * 60 * 60)
     this.closeModal();
   }
   chooseCategory(collection) {

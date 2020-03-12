@@ -8,18 +8,19 @@ import { ProfileService } from 'src/app/services/profile.service';
 import { DataServerService } from 'src/app/services/data.service';
 import { AuthService } from 'src/app/auth/auth.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
-import { ModalCategory } from './modal/modalCategory';
+import { InsertModalCategory } from './modal/insertModalCategory';
 
 @Component({
   selector: 'app-insert-new',
   templateUrl: './insert-new.page.html',
   styleUrls: ['./insert-new.page.scss'],
 })
-export class InsertNewPage extends CommonPage implements OnInit  {
+export class InsertNewPage extends CommonPage implements OnInit {
   itemId: any;
   typeItem: any;
   workingConfirm: boolean;
   note: any;
+  typeString: any;
 
   constructor(public translate: TranslateService,
     public router: Router,
@@ -30,7 +31,7 @@ export class InsertNewPage extends CommonPage implements OnInit  {
     public dataServerService: DataServerService,
     public location: Location,
     public auth: AuthService,
-    private navCtrl:NavController,
+    private navCtrl: NavController,
     private modalController: ModalController,
     public authService: AuthenticationService) {
     super(auth, router, translate, toastController, route, dataServerService, location, profileService, authService)
@@ -42,26 +43,26 @@ export class InsertNewPage extends CommonPage implements OnInit  {
         if (params.scanData) {
           this.itemId = params.scanData;
         }
-      }) 
-      // const token = await this.auth.getValidToken();
-      //     this.dataServerService.getGargabeMap(this.profileService.getDomainMemorized()["tenants"][0], token.accessToken).then(res => {
-      //       this.garbageMap = res;
-      //        this.fillSteps();
+      })
+    // const token = await this.auth.getValidToken();
+    //     this.dataServerService.getGargabeMap(this.profileService.getDomainMemorized()["tenants"][0], token.accessToken).then(res => {
+    //       this.garbageMap = res;
+    //        this.fillSteps();
 
-      //     });
+    //     });
   }
-  
+
   getType() {
     if (this.typeItem)
-    return this.typeItem.name["it"];
+      return this.typeItem.name["it"];
     else return ""
   }
 
   cancel() {
     this.navCtrl.navigateRoot('home-operator');
   }
-  
-  
+
+
 
   confirmItem() {
     this.translate.get('label_classify').subscribe(async (res: string) => {
@@ -83,8 +84,9 @@ export class InsertNewPage extends CommonPage implements OnInit  {
             handler: async () => {
               console.log('conferma')
               const token = await this.auth.getValidToken();
-              this.dataServerService.unexpetedItemOperator(this.profileService.getDomainMemorized()["tenants"][0], token.accessToken, this.itemId, this.workingConfirm, this.profileService.getCollector(),this.typeItem,this.note).then(() => {
-
+              this.dataServerService.unexpetedItemOperator(this.profileService.getDomainMemorized()["tenants"][0], token.accessToken, this.itemId, this.workingConfirm, this.profileService.getCollector(), this.typeItem.itemId, this.note).then(() => {
+                this.showToastConfirmed()
+                this.router.navigate(['checked']);
               }, err => {
 
               })
@@ -98,12 +100,22 @@ export class InsertNewPage extends CommonPage implements OnInit  {
     })
     // popup confirm
   }
+  showToastConfirmed() {
+    this.translate.get('object_inserted').subscribe(async res => {
+
+      const toast = await this.toastController.create({
+        message: res,
+        duration: 2000
+      })
+      toast.present();
+    })
+    }  
   chooseType() {
     this.openModal()
   }
   async openModal() {
     const modal = await this.modalController.create({
-      component: ModalCategory,
+      component: InsertModalCategory,
       // backdropDismiss:false,
       cssClass: 'modal-category',
       componentProps: {
@@ -114,8 +126,10 @@ export class InsertNewPage extends CommonPage implements OnInit  {
 
     modal.onDidDismiss().then((dataReturned) => {
       if (dataReturned.data !== null) {
-console.log(dataReturned.data["itemType"].value);
-
+        console.log(dataReturned.data["itemType"].value);
+        var type = dataReturned.data["itemType"]
+        this.typeItem = type.value;
+        this.typeString = type.label[this.translate.defaultLang];
       }
     });
 
@@ -123,7 +137,7 @@ console.log(dataReturned.data["itemType"].value);
   }
 
   confirm() {
-   //call  @PutMapping(value = "/api/collector/item/{tenantId}/unexpected")
+    //call  @PutMapping(value = "/api/collector/item/{tenantId}/unexpected")
   }
   getFooter() {
     return (this.getSchoolName())

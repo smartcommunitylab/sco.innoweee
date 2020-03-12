@@ -20,7 +20,7 @@ const SCHOOL_OWNER_KEY = "school-owner";
 })
 export class ProfileService {
   getCollector(): any {
-return "ALTARES"  }
+return "ECODOM"  }
   checkServer() : Promise<any> {
     let url: string = 'https://aac.platform.smartcommunitylab.it/aac/.well-known/openid-configuration';
     return this.http.get(url,{
