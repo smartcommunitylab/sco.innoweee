@@ -44,12 +44,6 @@ export class InsertNewPage extends CommonPage implements OnInit {
           this.itemId = params.scanData;
         }
       })
-    // const token = await this.auth.getValidToken();
-    //     this.dataServerService.getGargabeMap(this.profileService.getDomainMemorized()["tenants"][0], token.accessToken).then(res => {
-    //       this.garbageMap = res;
-    //        this.fillSteps();
-
-    //     });
   }
 
   getType() {
@@ -125,7 +119,7 @@ export class InsertNewPage extends CommonPage implements OnInit {
     });
 
     modal.onDidDismiss().then((dataReturned) => {
-      if (dataReturned.data !== null) {
+      if (dataReturned.data !== null && dataReturned.data["itemType"] !=null) {
         console.log(dataReturned.data["itemType"].value);
         var type = dataReturned.data["itemType"]
         this.typeItem = type.value;

@@ -1,0 +1,40 @@
+.label-value{
+    text-align: center;
+    font-size: 26px;
+    font-weight: bold;
+}
+.button-type {
+    width: 100%;
+}
+.note-label{
+    color: #0fb4d7;
+}
+.item-highlight {
+    background-color: #0fb4d7!important;
+}
+ion-segment{
+    border:1px solid #0fb4d7;
+    border-radius: 20px;
+    ion-segment-button{
+        border-radius: 20px;  
+        --background-checked: #0fb4d7;
+        --background: transparent;
+        --background-hover: #0fb4d7;
+        --background-activated: #0fb4d7;
+        --background-checked: #0fb4d7;
+        --color: #0fb4d7;
+        --color-checked: white;
+        --color-disabled: #0fb4d7;
+        --color-checked-disabled: #0fb4d7;
+        --border-color: #0fb4d7;
+        --indicator-color: transparent;
+        margin: -2px;
+    }
+}
+.new-item-warning {
+    color: red;
+    font-weight: bold;
+    text-align: center;
+    width: 100%;
+    padding: 29px;
+  }
