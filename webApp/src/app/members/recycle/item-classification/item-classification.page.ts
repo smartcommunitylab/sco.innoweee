@@ -3,12 +3,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { ProfileService } from 'src/app/services/profile.service';
 import { MainPage } from 'src/app/class/MainPage';
-import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Storage } from '@ionic/storage';
 import { NavController } from '@ionic/angular';
 import { environment } from './../../../../environments/environment';
 import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client';
+import { AuthService } from 'src/app/auth/auth.service';
 @Component({
   selector: 'app-item-classification',
   templateUrl: './item-classification.page.html',
@@ -31,7 +31,7 @@ export class ItemClassificationPage extends MainPage implements OnInit {
     public navCtrl: NavController, 
     private router: Router,
     public translate: TranslateService, 
-    public authService: AuthenticationService, 
+    public authService: AuthService, 
     public storage: Storage) {
     super(translate, authService, storage,navCtrl);
     this.itemSocketURL = environment.itemSocketURL;

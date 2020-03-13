@@ -27,10 +27,15 @@ export class CatalogService {
   get the list with all the components
   
   */
-  getCatalog(tenantId,gameId): Promise<any> {
+  getCatalog(tenantId,gameId,token:string): Promise<any> {
     let url: string = this.endPoint + this.getCatalogApi+'/'+tenantId+'/'+gameId;
 
-    return this.http.get(url).toPromise().then(response => {
+    return this.http.get(url,{ headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token
+
+    }}).toPromise().then(response => {
       return response;
     }).catch(response => {
       return this.handleError(response)
@@ -39,12 +44,17 @@ export class CatalogService {
 
 
 
-  buyComponent(item,gameId,playerId): Promise<any> {
+  buyComponent(item,gameId,playerId,token:string): Promise<any> {
 
 // /api/game/{gameId}/robot/{playerId}/buy/{componentId}
     let url: string = this.endPoint +this.getGameApi+ gameId+ this.robotApi+playerId+ this.buyComponentApi+item.componentId;
 
-    return this.http.get(url).toPromise().then(response => {
+    return this.http.get(url,{ headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token
+
+    }}).toPromise().then(response => {
       return response;
     }).catch(response => {
       return this.handleError(response)

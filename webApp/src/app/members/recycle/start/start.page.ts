@@ -1,6 +1,5 @@
 import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { WebsocketService } from 'src/app/services/websocket.service';
-// import { APP_CONFIG_TOKEN, ApplicationConfig } from 'src/app/app-config';
 import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client';
 import { ProfileService } from 'src/app/services/profile.service';
@@ -9,10 +8,10 @@ import { GarbageCollectionService } from 'src/app/services/garbage-collection.se
 import { AlertController, NavController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { MainPage } from 'src/app/class/MainPage';
-import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Storage } from '@ionic/storage';
 import { environment } from './../../../../environments/environment';
 import { UtilsService } from 'src/app/services/utils.service';
+import { AuthService } from 'src/app/auth/auth.service';
 
 var ITEM_STATE_CLASSIFIED = 1;
 var ITEM_STATE_CONFIRMED = 2;
@@ -44,12 +43,12 @@ export class StartPage extends MainPage implements OnInit {
     private profileService: ProfileService,
     private router: Router,
     public translate: TranslateService,
-    public authService: AuthenticationService,
+    public authService: AuthService,
     public storage: Storage,
     private utils:UtilsService,
     private garbageCollection: GarbageCollectionService,
     private alertController: AlertController,
-    private route: ActivatedRoute,
+    private auth: AuthService,
     public navCtrl: NavController) {
     super(translate, authService, storage, navCtrl);
 
@@ -62,10 +61,11 @@ export class StartPage extends MainPage implements OnInit {
     this.message = null;
 
     this.manualItemId = "";
-    this.profileService.getLocalPlayerData().then(res => {
+    this.profileService.getLocalPlayerData().then(async res => {
       this.playerData = res;
       this.connect(this.playerData.tenantId, this.playerData.objectId);
-      this.garbageCollection.getActualCollection(this.playerData.gameId).then(res => {
+      const token = await this.auth.getValidToken();
+      this.garbageCollection.getActualCollection(this.playerData.gameId,token.accessToken).then(res => {
         this.garbageCollectionName = res.nameGE;
         this.weeklyGarbage = res.message
       });
@@ -155,9 +155,10 @@ export class StartPage extends MainPage implements OnInit {
   }
 
   confirm(item) {
-    this.profileService.getLocalPlayerData().then(res => {
+    this.profileService.getLocalPlayerData().then(async res => {
       this.playerData = res;
-      this.garbageCollection.confirmItem(item.itemId, this.playerData.objectId).then(res => {
+      const token = await this.auth.getValidToken();
+      this.garbageCollection.confirmItem(item.itemId, this.playerData.objectId,token.accessToken).then(res => {
         //show alert confirmed and go out
         console.log('confermato');
         item.reusable = res.reusable;
@@ -194,8 +195,9 @@ export class StartPage extends MainPage implements OnInit {
       return this.translate.instant("label_bin_recycle");
    }
 
-  checkIfPresent(scanData): Promise<any> {
-    return this.garbageCollection.checkIfPresent(scanData, this.playerData.objectId).then(res => {
+  async checkIfPresent(scanData): Promise<any> {
+    const token = await this.auth.getValidToken();
+    return this.garbageCollection.checkIfPresent(scanData, this.playerData.objectId,token.accessToken).then(res => {
       console.log(res);
       return res
     })

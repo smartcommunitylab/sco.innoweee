@@ -38,10 +38,15 @@ export class GameService {
     });
     return localdistributions;
   }
-    sendContribution(gameId,playerId,nameGE): Promise<any> {
+    sendContribution(gameId,playerId,nameGE,token:string): Promise<any> {
     let url: string = this.endPoint +this.getGameApi+ gameId+ this.contributionApi+playerId+"?nameGE="+nameGE;
 
-    return this.http.get(url).toPromise().then(response => {
+    return this.http.get(url,{ headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token
+
+    }}).toPromise().then(response => {
       return response;
     }).catch(response => {
       return this.handleError(response)
