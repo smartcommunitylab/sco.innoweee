@@ -136,13 +136,23 @@ export class ClassificationTypePage extends CommonPage implements OnInit {
   async openModal() {
     const modal = await this.modalController.create({
       component: ModalCategory,
+      // backdropDismiss:false,
       cssClass: 'modal-category',
       componentProps: {
+        // "paramID": 123,
+        // "paramTitle": "Test Title"
       }
     });
 
     modal.onDidDismiss().then((dataReturned) => {
       if (dataReturned.data !== null) {
+        // this.dataReturned = dataReturned.data;
+        //alert('Modal Sent Data :'+ dataReturned);
+        // console.log(dataReturned)
+        // if (dataReturned.data["itemType"])
+        //   this.chooseCategory(dataReturned.data["itemType"]);
+        // if (dataReturned.data["timestamp"])
+        //   this.item.timestamp = dataReturned.data["timestamp"]
           this.classificationService.itemClassification.setItemType(dataReturned.data["itemType"].value);
     this.classificationService.itemClassification.setItemValue(this.getLabel(dataReturned.data["itemType"],true));
     this.router.navigate(['classification-working']);

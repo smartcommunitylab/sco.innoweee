@@ -91,7 +91,7 @@ export class ModalCategory implements OnInit {
       return ""
   }
   getStringItem(item) {
-    // console.log(JSON.stringify(this.garbageMap));
+    console.log(JSON.stringify(this.garbageMap));
     if (this.garbageMap.items[item] && this.translate.defaultLang && this.garbageMap.items[item].name)
     return this.garbageMap.items[item].name[this.translate.defaultLang];
   }

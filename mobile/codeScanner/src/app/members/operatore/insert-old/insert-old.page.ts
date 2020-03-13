@@ -21,12 +21,10 @@ export class InsertOldPage extends CommonPage implements OnInit {
   confirmedObj: any;
   alreadyInserted: boolean;
   notDisposedAtSchool: boolean;
-  notConfirmedAtSchool: boolean;
   garbageMap: any;
   typeItem: any;
-  note: string;
-  wrongPlace: boolean = false;
-  notConfirmed: boolean = false;
+  note:string;
+  wrongPlace:boolean=false;
   constructor(public translate: TranslateService,
     public router: Router,
     public toastController: ToastController,
@@ -48,32 +46,33 @@ export class InsertOldPage extends CommonPage implements OnInit {
           this.actualObj = JSON.parse(params.scanData);
           this.checkState();
         }
-      })
-    const token = await this.auth.getValidToken();
-    this.dataServerService.getGargabeMap(this.profileService.getDomainMemorized()["tenants"][0], token.accessToken).then(res => {
-      this.garbageMap = res;
-      this.fillSteps();
+      }) 
+      const token = await this.auth.getValidToken();
+          this.dataServerService.getGargabeMap(this.profileService.getDomainMemorized()["tenants"][0], token.accessToken).then(res => {
+            this.garbageMap = res;
+             this.fillSteps();
 
-    });
+          });
   }
   fillSteps() {
     if (this.garbageMap && this.garbageMap.items)
-      for (let key in this.garbageMap.items) {
-        console.log(key);
-        if (key == this.actualObj.itemType) {
-          this.typeItem = this.garbageMap.items[key];
-        }
-      };
-
+    for (let key in this.garbageMap.items) {
+      console.log(key);
+      if (key==this.actualObj.itemType)
+      {
+        this.typeItem = this.garbageMap.items[key];
+      }
+  };
+    
   }
   checkState() {
     switch (this.actualObj.state) {
       case 6:
         this.alreadyInserted = true;
         break;
-      case 7:
-        this.alreadyInserted = true;
-        break;
+        case 7:
+          this.alreadyInserted = true;
+          break;
       case 2:
         this.alreadyInserted = false;
         this.notDisposedAtSchool = true;
@@ -82,23 +81,19 @@ export class InsertOldPage extends CommonPage implements OnInit {
         this.alreadyInserted = false;
         this.notDisposedAtSchool = false;
         break;
-      case 1:
-        this.notConfirmedAtSchool = true;
-        this.notConfirmed = true
-        break;
       default:
         break;
     }
     if (this.actualObj.valuable || this.actualObj.reusable)
-      this.wrongPlace = true
+      this.wrongPlace=true
   }
   cancel() {
     this.navCtrl.navigateRoot('home-operator');
   }
-
+  
   getType() {
     if (this.typeItem)
-      return this.typeItem.name["it"];
+    return this.typeItem.name["it"];
     else return ""
   }
 
@@ -122,21 +117,21 @@ export class InsertOldPage extends CommonPage implements OnInit {
             handler: async () => {
               console.log('conferma')
               const token = await this.auth.getValidToken();
-              if (!this.wrongPlace && !this.notConfirmed)
-                this.dataServerService.confirmItemOperator(this.profileService.getDomainMemorized()["tenants"][0], token.accessToken, this.actualObj.itemId, this.workingConfirm, this.profileService.getCollector(), this.note).then(() => {
+              if (!this.wrongPlace)
+              this.dataServerService.confirmItemOperator(this.profileService.getDomainMemorized()["tenants"][0], token.accessToken, this.actualObj.itemId, this.workingConfirm, this.profileService.getCollector(),this.note).then(() => {
+                this.showToastConfirmed()
+                this.router.navigate(['checked']);
+              }, err => {
+
+              })
+              else  
+              this.dataServerService.unexpetedItemOperator(this.profileService.getDomainMemorized()["tenants"][0], token.accessToken, this.actualObj.itemId, this.workingConfirm, this.profileService.getCollector(),this.actualObj.itemType,this.note).then(() => {
+                // this.dataServerService.unexpetedItemOperator(this.profileService.getDomainMemorized()["tenants"][0], token.accessToken, this.actualObj.itemId, this.workingConfirm, this.profileService.getCollector(),this.note).then(() => {
                   this.showToastConfirmed()
                   this.router.navigate(['checked']);
-                }, err => {
+              }, err => {
 
-                })
-              else
-                this.dataServerService.unexpetedItemOperator(this.profileService.getDomainMemorized()["tenants"][0], token.accessToken, this.actualObj.itemId, this.workingConfirm, this.profileService.getCollector(), this.actualObj.itemType, this.note).then(() => {
-                  // this.dataServerService.unexpetedItemOperator(this.profileService.getDomainMemorized()["tenants"][0], token.accessToken, this.actualObj.itemId, this.workingConfirm, this.profileService.getCollector(),this.note).then(() => {
-                  this.showToastConfirmed()
-                  this.router.navigate(['checked']);
-                }, err => {
-
-                })
+              })
               //call @PutMapping(value = "/api/collector/item/{tenantId}/check")
             }
           }
@@ -156,15 +151,15 @@ export class InsertOldPage extends CommonPage implements OnInit {
       })
       toast.present();
     })
-  }
+    }  
   getValueString(): string {
     if (this.actualObj && this.actualObj.valuable) {
-      return this.translate.instant("label_bin_recycle_string_value");
+      return this.translate.instant("label_recycle_string_value");
     }
     if (this.actualObj && this.actualObj.reusable) {
-      return this.translate.instant("label_bin_recycle_string_reuse");
+      return this.translate.instant("label_recycle_string_reuse");
     }
-    return this.translate.instant("label_bin_recycle_string_recycle");
+    return this.translate.instant("label_recycle_string_recycle");
 
   }
   getValueField(field): string {

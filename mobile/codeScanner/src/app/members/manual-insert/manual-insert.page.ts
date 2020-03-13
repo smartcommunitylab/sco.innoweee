@@ -40,28 +40,20 @@ export class ManualInsertPage extends CommonPage implements OnInit {
   async insertCode() {
     //check if it is already inserted
     if (this.scanData) {
-      if (this.scanData.length == 5) {
-        const token = await this.auth.getValidToken();
-        this.dataServerService.checkIfPresent(this.scanData, this.profileService.getPlayerData()["objectId"], token.accessToken).then(res => {
-          //already used
-          this.router.navigate(['item-recognized'], { queryParams: { scanData: JSON.stringify(this.scanData), playerId: this.playerId } })
-        }
-        ), err => {
-          //presente con altro player id? Eccezione
-        }
+      const token = await this.auth.getValidToken();
+      this.dataServerService.checkIfPresent(this.scanData, this.profileService.getPlayerData()["objectId"], token.accessToken).then(res => {
+        //already used
+        this.router.navigate(['item-recognized'], { queryParams: { scanData: JSON.stringify(this.scanData), playerId: this.playerId } })
       }
-      else {
-        this.translate.get('wrong_length_id').subscribe(res => {
-          this.presentToast(res)
-        })
+        // }  
+      ), err => {
+        //presente con altro player id? Eccezione
       }
     } else {
       this.translate.get('empty_id').subscribe(res => {
         this.presentToast(res)
       })
-    }
-
-
+   }
   }
   async presentToast(string) {
     const toast = await this.toastController.create({
@@ -84,7 +76,7 @@ export class ManualInsertPage extends CommonPage implements OnInit {
     })
   }
   getFooter() {
-    return (this.getClassName()) + ' - ' + (this.getSchoolName())
+    return (this.getClassName()) +' - '+(this.getSchoolName())
   }
 
   getSchoolName() {
