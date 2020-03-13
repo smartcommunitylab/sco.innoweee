@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { MaterialService } from 'src/app/services/material.service';
 import { ProfileService } from 'src/app/services/profile.service';
 import { TranslateService } from '@ngx-translate/core';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 import { MainPage } from 'src/app/class/MainPage';
 import { Storage } from '@ionic/storage';
 import { NavController } from '@ionic/angular';
-import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-material',
@@ -22,18 +22,17 @@ export class MaterialPage extends MainPage implements OnInit {
     private materialService: MaterialService,
     private profileService: ProfileService,
     public navCtrl: NavController, 
-    private auth:AuthService,
+
     translate: TranslateService,
     storage: Storage,
-    authService: AuthService) {
+    authService: AuthenticationService) {
     super(translate, authService, storage,navCtrl);
   }
   ngOnInit() {
     super.ngOnInit();
-    this.profileService.getLocalPlayerData().then(async res => {
+    this.profileService.getLocalPlayerData().then(res => {
       this.playerData = res;
-      const token = await this.auth.getValidToken();
-      this.materialService.getMaterial(this.playerData.gameId,token.accessToken).then(res => {
+      this.materialService.getMaterial(this.playerData.gameId).then(res => {
         this.resources = res;
         if (res.length > 0) {
           this.selected = res[0]

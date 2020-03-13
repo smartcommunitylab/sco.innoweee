@@ -1,12 +1,12 @@
 import { Component, OnInit, Inject, TrackByFunction } from '@angular/core';
 import { MainPage } from 'src/app/class/MainPage';
 import { TranslateService } from '@ngx-translate/core';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 import { ProfileService } from 'src/app/services/profile.service';
 import { Storage } from '@ionic/storage';
 import { NavController } from '@ionic/angular';
 import { environment } from './../../../../environments/environment';
 import { GarbageCollectionService } from 'src/app/services/garbage-collection.service';
-import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-allteam',
@@ -32,10 +32,9 @@ export class AllteamPage extends MainPage implements OnInit {
 
   constructor(public translate: TranslateService,
     public storage: Storage,
-    public authService: AuthService,
+    public authService: AuthenticationService,
     public garbageService: GarbageCollectionService,
     public navCtrl: NavController, 
-    private auth: AuthService,
     public profileService: ProfileService) {
     super(translate, authService, storage,navCtrl);
     this.imgUrl = environment.apiEndpoint + environment.getRobotImageApi;
@@ -44,12 +43,11 @@ export class AllteamPage extends MainPage implements OnInit {
   ngOnInit() {
     super.ngOnInit();
     super.setRoute("allteam");
-    this.profileService.getAllPlayers().then(async players => {
+    this.profileService.getAllPlayers().then(players => {
       this.gameId = players[0].gameId;
       this.listSections = players.filter(item => item.team == false)
       this.school = players.find(item => item.team == true)
-      const token = await this.auth.getValidToken();
-      this.profileService.getPlayerState(this.gameId, this.school.objectId, token.accessToken).then(res => {
+      this.profileService.getPlayerState(this.gameId, this.school.objectId).then(res => {
         this.profileState = res;
         this.orderResources(this.profileState)
       });
@@ -164,11 +162,10 @@ export class AllteamPage extends MainPage implements OnInit {
   // getResourceClassBar(resource) {
   //   return '0.2';
   // }
-  async selectClass(selectedClass) {
+  selectClass(selectedClass) {
     if (!this.selectedClass || this.selectedClass["objectId"]!=selectedClass.objectId) {
       this.selectedClass = selectedClass;
-      const token = await this.auth.getValidToken();
-      this.profileService.getPlayerState(this.gameId, this.selectedClass.objectId, token.accessToken).then(res => {
+      this.profileService.getPlayerState(this.gameId, this.selectedClass.objectId).then(res => {
         this.profileClassState = res;
       });
     } else {

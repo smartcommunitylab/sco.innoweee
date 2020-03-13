@@ -2,13 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastController, NavController, AlertController, LoadingController } from '@ionic/angular';
 import { ProfileService } from 'src/app/services/profile.service';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 import { GarbageCollectionService } from 'src/app/services/garbage-collection.service';
 import { Router } from '@angular/router';
 import { CatalogService } from 'src/app/services/catalog.service';
 import { Storage } from '@ionic/storage';
 import { MainPage } from 'src/app/class/MainPage';
 import { loadInternal } from '@angular/core/src/render3/util';
-import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-recycle-results',
@@ -29,11 +29,11 @@ export class RecycleResultsPage extends MainPage implements OnInit {
     public storage: Storage,
     public toastController: ToastController,
     public profileService: ProfileService,
-    public authService: AuthService,
+    public authService: AuthenticationService,
     public navCtrl: NavController,
     private alertController: AlertController,
     private garbageCollection: GarbageCollectionService,
-    private auth: AuthService,
+    private router: Router,
     private loadingController: LoadingController,
     private garbageService: GarbageCollectionService,
     public catalogService: CatalogService) {
@@ -41,12 +41,11 @@ export class RecycleResultsPage extends MainPage implements OnInit {
   }
   ngOnInit() {
     super.ngOnInit();
-    this.profileService.getLocalPlayerData().then(async res => {
+    this.profileService.getLocalPlayerData().then(res => {
       this.playerData = res;
-      const token = await this.auth.getValidToken();
-      this.garbageCollection.getActualCollection(this.playerData.gameId,token.accessToken).then(res => {
+      this.garbageCollection.getActualCollection(this.playerData.gameId).then(res => {
         this.nameGE = res.nameGE
-        this.profileService.getPlayerState(this.playerData.gameId, this.playerData.objectId, token.accessToken,this.nameGE).then(res => {
+        this.profileService.getPlayerState(this.playerData.gameId, this.playerData.objectId, this.nameGE).then(res => {
           this.profileState = res;
           this.orderResources(this.profileState)
         });

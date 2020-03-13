@@ -18,14 +18,9 @@ export class MaterialService {
     this.endPoint = environment.apiEndpoint;
   }
 
-  getMaterial(gameId,token): Promise<any> {
+  getMaterial(gameId): Promise<any> {
     let url: string = this.endPoint + this.getGameApi + gameId + this.getMaterialApi;
-    return this.http.get(url,{ headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + token
-
-    }}).toPromise().then(response => {
+    return this.http.get(url).toPromise().then(response => {
       return response
     }).catch(response => {
       return this.handleError(response)

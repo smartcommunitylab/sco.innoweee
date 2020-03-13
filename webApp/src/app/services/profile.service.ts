@@ -9,20 +9,12 @@ import { Route } from '@angular/compiler/src/core';
 import { Router } from '@angular/router';
 import { UtilsService } from './utils.service';
 
-const DOMAIN_KEY = "DOMAIN"
 const PLAYER_DATA_KEY = "PLAYER_DATA"
 const PLAYER_STATE_KEY = "PLAYER_STATE"
 const ALL_PLAYERS_KEY = "ALL_PLAYERS"
-const TEACHER_KEY = "school-teacher"
-const PARENT_KEY = "school-parent"
-const OPERATOR_KEY = "collector-operator"
-const OWNER_KEY = "owner";
-const SCHOOL_OWNER_KEY = "school-owner";
-
 @Injectable({
   providedIn: 'root'
 })
-
 export class ProfileService {
   endPoint: string = "";
   getDomainApi: string = "";
@@ -50,51 +42,10 @@ export class ProfileService {
     this.getRobotImageApi = environment.getRobotImageApi;
   }
 
-  getParentKey() {
-    return PARENT_KEY  }
-      getTecherKey() {
-    return TEACHER_KEY  }
-      getSchoolOwnerKey() {
-    return SCHOOL_OWNER_KEY
-      }
-      getOwnerKey() {
-        return OWNER_KEY;
-      }
-  setProfileRole(profile: string) {
-    window.localStorage.setItem('profile', profile);
-  }
-  getProfileRole() {
-    return window.localStorage.getItem('profile');
-  }
-  setDomainMemorized(res: any) {
-    localStorage.setItem(DOMAIN_KEY,JSON.stringify(res))
-  }
-  getDomainMemorized() {
-    return JSON.parse(localStorage.getItem(DOMAIN_KEY));
-  } 
-  memorizePlayer(playerId, playerData, playerName, schoolName) {
-    localStorage.setItem("playerId", JSON.stringify(playerId));
-    localStorage.setItem("playerData", JSON.stringify(playerData));
-    localStorage.setItem("playerName", JSON.stringify(playerName));
-    localStorage.setItem("schoolName", JSON.stringify(schoolName));
-  }
-  cleanPlayer() {
-    localStorage.removeItem("DOMAIN");
-    localStorage.removeItem("playerId");
-    localStorage.removeItem("playerData");
-    localStorage.removeItem("playerName");
-    localStorage.removeItem("schoolName");
-    localStorage.removeItem("profile");
-  }
-  getDomain(token: string): Promise<any> {
+  getDomain(): Promise<any> {
     let url: string = this.endPoint + this.getDomainApi;
 
-    return this.http.get(url,{ headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + token
-
-    }})
+    return this.http.get(url)
       .toPromise()
       .then(response => {
         return response
@@ -103,15 +54,10 @@ export class ProfileService {
         return this.utils.handleError(response)
       });
   }
-  getInstitute(domain: string,token: string): Promise<any> {
+  getInstitute(domain: string): Promise<any> {
     let url: string = this.endPoint + this.getInstituteApi + "/" + domain;
 
-    return this.http.get(url,{ headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + token
-
-    }})
+    return this.http.get(url)
       .toPromise()
       .then(response => {
         return response
@@ -120,15 +66,10 @@ export class ProfileService {
         return this.utils.handleError(response)
       });
   }
-  getSchool(domain: string, institute: string,token: string): Promise<any> {
+  getSchool(domain: string, institute: string): Promise<any> {
     let url: string = this.endPoint + this.getSchoolApi + "/" + domain + "/" + institute
 
-    return this.http.get(url,{ headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + token
-
-    }})
+    return this.http.get(url)
       .toPromise()
       .then(response => {
         return response
@@ -137,15 +78,10 @@ export class ProfileService {
         return this.utils.handleError(response)
       });
   }
-  getGame(domain: string, institute: string, school: string,token: string): Promise<any> {
+  getGame(domain: string, institute: string, school: string): Promise<any> {
     let url: string = this.endPoint + this.getGameApi + domain + "/" + institute + "/" + school;
 
-    return this.http.get(url,{ headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + token
-
-    }})
+    return this.http.get(url)
       .toPromise()
       .then(response => {
         return response
@@ -155,15 +91,10 @@ export class ProfileService {
       });
 
   }
-  getPlayer(gameId,token: string): Promise<any> {
+  getPlayer(gameId): Promise<any> {
     let url: string = this.endPoint + this.getPlayerApi + "/" + gameId;
 
-    return this.http.get(url,{ headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + token
-
-    }})
+    return this.http.get(url)
       .toPromise()
       .then(response => {
         return response
@@ -183,15 +114,10 @@ export class ProfileService {
     //         .get(url, { responseType: ResponseContentType.Blob }).toPromise().then(res => {
     //           res.blob()});
   }
-  getPlayerState(gameId,playerId,token: string, nameGE?:string):Promise<any> {
+  getPlayerState(gameId,playerId, nameGE?:string):Promise<any> {
     let url: string = this.endPoint + this.getGameApi + gameId+"/state/"+playerId+(nameGE?("?nameGE="+nameGE):"");
 
-    return this.http.get(url,{ headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + token
-
-    }})
+    return this.http.get(url)
       .toPromise()
       .then(response => {
         return response

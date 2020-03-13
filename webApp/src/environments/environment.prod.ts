@@ -23,10 +23,5 @@ export const environment = {
     aacClientId: "2c53f587-693c-48fa-b579-65506d8d3221",
     redirectUrl: 'https://innoweee.platform.smartcommunitylab.it/',
     scope: 'openid profile email profile.basicprofile.me',
-    aacUrl: 'https://aac.platform.smartcommunitylab.it/aac/',
-  implicit_identity_client: '2c53f587-693c-48fa-b579-65506d8d3221',
-  implicit_identity_server: 'https://aac.platform.smartcommunitylab.it/aac',
-  implicit_redirect_url: 'http://localhost:8100/callback',
-  implicit_scopes: 'openid profile email',
-  implicit_end_session_redirect_url: 'http://localhost:8100/logout',
+    aacUrl: 'https://aac.platform.smartcommunitylab.it/aac/'
 };

@@ -1,3 +1,4 @@
+import { AuthenticationService } from '../../services/authentication.service';
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Storage } from '@ionic/storage';
@@ -5,10 +6,9 @@ import { MainPage } from '../../class/MainPage'
 import { MaterialService } from 'src/app/services/material.service';
 import { ProfileService } from 'src/app/services/profile.service';
 import { GarbageCollectionService } from 'src/app/services/garbage-collection.service';
-import {  Router } from '@angular/router';
+import { Route, Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { GameService } from 'src/app/services/game.service';
-import { AuthService } from 'src/app/auth/auth.service';
 const ROUTER_KEY = "router-key"
 
 @Component({
@@ -39,8 +39,7 @@ export class HomePage extends MainPage implements OnInit {
     private garbageCollection: GarbageCollectionService,
     private gameService: GameService,
     public navCtrl: NavController, 
-    private auth: AuthService,
-    authService: AuthService) {
+    authService: AuthenticationService) {
     super(translate, authService, storage,navCtrl);
   }
 
@@ -48,13 +47,12 @@ export class HomePage extends MainPage implements OnInit {
     super.ngOnInit();
     this.contributions = [];
     this.setRoute("home");
-    this.profileService.getLocalPlayerData().then(async res => {
+    this.profileService.getLocalPlayerData().then(res => {
       this.playerData = res;
       this.ionViewDidEnter();
-      const token = await this.auth.getValidToken();
-      this.materialService.getMaterial(this.playerData.gameId,token.accessToken).then(res => {
+      this.materialService.getMaterial(this.playerData.gameId).then(res => {
         this.materials = res.length;
-        this.garbageCollection.getActualCollection(this.playerData.gameId,token.accessToken).then(res => {
+        this.garbageCollection.getActualCollection(this.playerData.gameId).then(res => {
           this.actualCollection = res;
           this.receivedDonations = this.getReceivedDonation();
           this.contributions = this.gameService.createContributions(this.playerData.contributions);

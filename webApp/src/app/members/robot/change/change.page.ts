@@ -5,9 +5,9 @@ import { MainPage } from 'src/app/class/MainPage';
 import { Storage } from '@ionic/storage';
 import { CatalogService } from 'src/app/services/catalog.service';
 import { ToastController, NavController, AlertController, LoadingController } from '@ionic/angular';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 import { GameService } from 'src/app/services/game.service';
 import { GarbageCollectionService } from 'src/app/services/garbage-collection.service';
-import { AuthService } from 'src/app/auth/auth.service';
 
 const FOLDER_COMPONENTS = "./assets/images/components/";
 
@@ -34,13 +34,12 @@ export class ChangePage extends MainPage implements OnInit {
     public storage: Storage,
     public toastController: ToastController,
     public profileService: ProfileService,
-    public authService: AuthService,
+    public authService: AuthenticationService,
     private garbageService: GarbageCollectionService,
     public navCtrl: NavController,
     private loadingController: LoadingController,
     private alertController: AlertController,
     private gameService: GameService,
-    private auth: AuthService,
     public catalogService: CatalogService) {
     super(translate, authService, storage, navCtrl);
   }
@@ -60,14 +59,13 @@ export class ChangePage extends MainPage implements OnInit {
   }
   ionViewWillEnter() {
     super.ionViewDidEnter();
-    this.profileService.getLocalPlayerData().then(async res => {
+    this.profileService.getLocalPlayerData().then(res => {
       //get data and robot
       this.profileData = res
-      const token = await this.auth.getValidToken();
-      this.catalogService.getCatalog(this.profileData.tenantId,this.profileData.gameId,token.accessToken).then(res => {
+      this.catalogService.getCatalog(this.profileData.tenantId,this.profileData.gameId).then(res => {
         this.catalog = res;
         this.enableButtons();
-        this.garbageService.getActualCollection(this.profileData.gameId,token.accessToken).then(res => {
+        this.garbageService.getActualCollection(this.profileData.gameId).then(res => {
           this.actualCollection = res;
         })
       })
@@ -212,8 +210,7 @@ export class ChangePage extends MainPage implements OnInit {
     const loading = await this.loadingController.create({
     });
     this.presentLoading(loading);
-    const token = await this.auth.getValidToken();
-    this.gameService.sendContribution(this.profileData.gameId,this.profileData.objectId,this.actualCollection.nameGE,token.accessToken).then(res=>{
+    this.gameService.sendContribution(this.profileData.gameId,this.profileData.objectId,this.actualCollection.nameGE).then(res=>{
       console.log(res)
       //popup con info sulla classe -> prendo array donate e scrivo le classi
         this.donated(res)
@@ -351,8 +348,7 @@ export class ChangePage extends MainPage implements OnInit {
             const loading = await this.loadingController.create({
             });
             this.presentLoading(loading);
-            const token = await this.auth.getValidToken();
-            this.catalogService.buyComponent(item, this.profileData.gameId, this.profileData.objectId,token.accessToken).then(async newRobot => {
+            this.catalogService.buyComponent(item, this.profileData.gameId, this.profileData.objectId).then(newRobot => {
               // //robot changed 
               //if not try, change it and buy it
               if (!this.trying) {
@@ -377,8 +373,7 @@ export class ChangePage extends MainPage implements OnInit {
               }, err => {
                 loading.dismiss();
               })
-              const token = await this.auth.getValidToken();
-              this.profileService.getPlayerState(this.profileData.gameId, this.profileData.objectId,token.accessToken).then(res => {
+              this.profileService.getPlayerState(this.profileData.gameId, this.profileData.objectId).then(res => {
                 this.profileState = res;
                 this.profileService.setPlayerState(res);
                 this.enableButtons();

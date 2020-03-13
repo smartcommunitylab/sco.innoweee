@@ -18,6 +18,9 @@ import { SharedModule } from './shared.module';
 import { registerLocaleData } from '@angular/common';
 import localeIt from '@angular/common/locales/it';
 import { WebsocketService } from './services/websocket.service';
+import { AuthenticationService } from './services/authentication.service';
+import { AuthGuard } from './guards/auth.guard';
+import { TokenInterceptor } from './interceptors/token-interceptor';
 
 // the second parameter 'fr' is optional
 registerLocaleData(localeIt, 'it');
@@ -46,6 +49,13 @@ export function HttpLoaderFactory(http: HttpClient) {
     StatusBar,
     SplashScreen,
     WebsocketService,
+    AuthenticationService,
+    AuthGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    },
     // {provide: LOCALE_ID, useValue: "it"},
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],

@@ -26,19 +26,9 @@ export const environment = {
     getGarbageApi:"api/garbageMap/",
     getUsedApi:"/used",
     aacClientId: "2c53f587-693c-48fa-b579-65506d8d3221",
-    redirectUrl: 'https://dev.smartcommunitylab.it/innoweee/',
+    redirectUrl: 'http://localhost:8100/',
     scope: 'openid profile email profile.basicprofile.me',
-    aacUrl: 'https://aac.platform.smartcommunitylab.it/aac',
-    cordova_identity_client: '2c53f587-693c-48fa-b579-65506d8d3221',
-    cordova_identity_server: 'https://aac.platform.smartcommunitylab.it/aac',
-    cordova_redirect_url: 'it.smartcommunitylab.innowee.codescanner://callback',
-  cordova_scopes: 'openid profile email profile.basicprofile.me',
-  cordova_end_session_redirect_url: 'it.smartcommunitylab.innowee.codescanner://logout',
-  implicit_identity_client: '2c53f587-693c-48fa-b579-65506d8d3221',
-  implicit_identity_server: 'https://aac.platform.smartcommunitylab.it/aac',
-  implicit_redirect_url: 'http://localhost:8100/callback',
-  implicit_scopes: 'openid profile email',
-  implicit_end_session_redirect_url: 'http://localhost:8100/logout',
+    aacUrl: 'https://aac.platform.smartcommunitylab.it/aac'
 };
 
 /*

@@ -3,11 +3,11 @@ import { MainPage } from 'src/app/class/MainPage';
 import { TranslateService } from '@ngx-translate/core';
 import { Storage } from '@ionic/storage';
 import { ProfileService } from 'src/app/services/profile.service';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 import { GarbageCollectionService } from 'src/app/services/garbage-collection.service';
 import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { GameService } from 'src/app/services/game.service';
-import { AuthService } from 'src/app/auth/auth.service';
 
 const FOLDER_COMPONENTS = "./assets/images/components/";
 @Component({
@@ -35,10 +35,9 @@ export class MyrobotPage extends MainPage implements OnInit {
   constructor(public translate: TranslateService,
     public storage: Storage,
     private router: Router,
-    public authService: AuthService,
+    public authService: AuthenticationService,
     private garbageService: GarbageCollectionService,
     private gameService: GameService,
-    private auth: AuthService,
     public navCtrl: NavController,
 
     public profileService: ProfileService) {
@@ -57,11 +56,10 @@ export class MyrobotPage extends MainPage implements OnInit {
     super.ionViewDidEnter();
     this.resources = [];
     this.contributions = [];
-    this.profileService.getLocalPlayerData().then(async res => {
+    this.profileService.getLocalPlayerData().then(res => {
       this.profileData = res
       if (this.profileData) {
-        const token = await this.auth.getValidToken();
-        this.garbageService.getActualCollection(this.profileData.gameId,token.accessToken).then(res => {
+        this.garbageService.getActualCollection(this.profileData.gameId).then(res => {
           this.actualCollection = res;
           this.contributions = this.gameService.createContributions(this.profileData.contributions);
           this.getNumeroRaccolta();
@@ -72,8 +70,7 @@ export class MyrobotPage extends MainPage implements OnInit {
       Object.keys(res.robot.components).forEach(key => {
         this.mapUri[res.robot.components[key].type] = res.robot.components[key].imageUri;
       })
-      const token = await this.auth.getValidToken();
-      this.profileService.getPlayerState(this.profileData.gameId, this.profileData.objectId, token.accessToken).then(res => {
+      this.profileService.getPlayerState(this.profileData.gameId, this.profileData.objectId).then(res => {
         this.profileState = res;
         this.profileService.setPlayerState(res);
         this.orderResources(this.profileState)
