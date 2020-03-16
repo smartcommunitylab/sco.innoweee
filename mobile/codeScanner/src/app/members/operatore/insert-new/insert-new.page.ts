@@ -77,7 +77,7 @@ export class InsertNewPage extends CommonPage implements OnInit {
             text: 'Annulla',
             cssClass: 'secondary',
             handler: () => {
-              this.router.navigate(['home']);
+              this.router.navigate(['home-operator']);
             }
           }, {
             text: 'Conferma',
