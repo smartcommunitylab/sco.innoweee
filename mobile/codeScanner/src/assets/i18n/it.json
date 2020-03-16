@@ -85,7 +85,7 @@
         "label_recycle_string_value": "Questo oggetto HA VALORE",
         "label_recycle_string_reuse": "Questo oggetto puo' essere RIUTILIZZATO",
         "label_recycle_string_recycle": "Questo oggetto puo' essere RICICLATO",
-        "label_bin_recycle_string_value":"Green Idea",
+        "label_bin_recycle_string_value":"Valore",
         "label_bin_recycle_string_reuse":"Riuso",
         "label_bin_recycle_string_recycle":"Riciclo",
         "label_point_reusable": "Portando l’oggetto a scuola guadagni un punto RIUSO",
@@ -134,6 +134,16 @@
         "label_home_operatore_insert":"Inserimento oggetti",
         "label_conferma_operatore":"Sei sicuro di voler confermare i dati?",
         "label_not_disposed_at_school":"Oggetto NON disposto a scuola",
+        "label_not_confirmed_at_school":"Oggetto NON confermato a scuola",
         "label_already_inserted":"Oggetto gia' registrato dall'operatore",
-        "label_note":"Note: "
-}
+        "label_note":"Note: ",
+        "label_wrong_place":"ATTENZIONE!",
+        "object_inserted":"Oggetto inserito con successo!",
+        "label_choose_type":"Seleziona il tipo",
+        "label_registered_item":"L’oggetto è stato verificato e registrato dall’operatore!",
+        "label_choose_change":"Cambia",
+        "label_note_placeholder":"Inserisci le tue note qui...",
+        "label_new_item_warning":"Questo oggetto non è stato classificato sul database!",
+        "wrong_length_id":"La lunghezza dell'identificatore deve essere di 5 caratteri",
+        "label_item_already_operator":"Codice oggetto non piu' disponibile.",
+        "label_item_already_classified_parent":"Oggetto gia' classificato. Ricordati di portarlo a scuola per confermarlo"}

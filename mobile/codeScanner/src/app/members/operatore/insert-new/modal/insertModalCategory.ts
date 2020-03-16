@@ -11,13 +11,14 @@ import { AuthService } from 'src/app/auth/auth.service';
   styleUrls: ['./insertModalCategory.scss'],
 })
 export class InsertModalCategory implements OnInit {
-
+  searchTerm: string = "";
   modalTitle: string;
   modelId: number;
   playerData: any;
   collections: any;
   firstStep: boolean;
   items: any = [];
+  filteredItems: any = [];
   item: any = {};
   garbageMap: any;
   collection: any;
@@ -25,7 +26,7 @@ export class InsertModalCategory implements OnInit {
     private modalController: ModalController,
     private navParams: NavParams,
     private profileService: ProfileService,
-    private dataServerService:  DataServerService,
+    private dataServerService: DataServerService,
     public translate: TranslateService,
     private auth: AuthService
 
@@ -33,7 +34,7 @@ export class InsertModalCategory implements OnInit {
 
   async ngOnInit() {
     this.firstStep = true;
-    console.table(this.navParams);
+    // console.table(this.navParams);
     this.modelId = this.navParams.data.paramTitle;
     this.modalTitle = this.navParams.data.paramID;
     const token = await this.auth.getValidToken();
@@ -42,20 +43,23 @@ export class InsertModalCategory implements OnInit {
       this.playerData = res;
       // this.dataServerService.getCollections(this.playerData.gameId, token.accessToken).then(res => {
       //   this.collections = this.orderCollection(res);
-        this.dataServerService.getGargabeMap(this.profileService.getDomainMemorized()["tenants"][0], token.accessToken).then(res => {
-          this.garbageMap = res;
-          for (let key in this.garbageMap.items) {
-            this.items.push(this.garbageMap.items[key]);
-            // Use `key` and `value`
+      this.dataServerService.getGargabeMap(this.profileService.getDomainMemorized()["tenants"][0], token.accessToken).then(res => {
+        this.garbageMap = res;
+        for (let key in this.garbageMap.items) {
+          this.items.push(this.garbageMap.items[key]);
+          // console.log(JSON.stringify(this.items));
+          // console.log(JSON.stringify(this.filterItems));
+          // Use `key` and `value`
         }
-        });
-      })
+        this.filteredItems = JSON.parse(JSON.stringify(this.items));
+
+      });
+    })
     // })
   }
 
   isVisible(collection) {
-    if (collection && collection["nameGE"] &&  collection["nameGE"].toLowerCase() !="r6")
-    {
+    if (collection && collection["nameGE"] && collection["nameGE"].toLowerCase() != "r6") {
       return true;
     }
     return false;
@@ -63,15 +67,15 @@ export class InsertModalCategory implements OnInit {
   orderCollection(res: any): any {
     return res.sort((obj1, obj2) => {
       if (obj1.from > obj2.from) {
-          return 1;
+        return 1;
       }
-  
+
       if (obj1.from < obj2.from) {
-          return -1;
+        return -1;
       }
-  
+
       return 0;
-  });
+    });
   }
 
   async closeModal() {
@@ -86,7 +90,7 @@ export class InsertModalCategory implements OnInit {
       return ""
   }
   getCollectionTitle(garbageCollection) {
-    console.log(JSON.stringify(garbageCollection));
+    // console.log(JSON.stringify(garbageCollection));
     if (garbageCollection.message && this.translate.defaultLang) {
       return garbageCollection.message[this.translate.defaultLang]
     }
@@ -94,10 +98,10 @@ export class InsertModalCategory implements OnInit {
       return ""
   }
   getStringItem(item) {
-    console.log(JSON.stringify(this.garbageMap));
+    // console.log(JSON.stringify(this.garbageMap));
     if (this.translate.defaultLang)
-    return item.name[this.translate.defaultLang];
-    else   return item.name['it'];
+      return item.name[this.translate.defaultLang];
+    else return item.name['it'];
 
   }
   chooseOther() {
@@ -122,15 +126,18 @@ export class InsertModalCategory implements OnInit {
     // this.item.timestamp = this.collection.from + (3000 * 60 * 60)
     this.closeModal();
   }
-  chooseCategory(collection) {
-    this.firstStep = false;
-    this.collection = collection;
-    this.items = collection.items;
 
-  }
   chooseBack() {
     if (!this.firstStep)
-    this.firstStep = true;
-    else {this.closeModal();}
+      this.firstStep = true;
+    else { this.closeModal(); }
+  }
+  setFilteredItems() {
+    this.filteredItems = this.filterItems(this.searchTerm);
+  }
+  filterItems(searchTerm) {
+    return this.items.filter(item => {
+      return item.name[this.translate.defaultLang].toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
+    });
   }
 }

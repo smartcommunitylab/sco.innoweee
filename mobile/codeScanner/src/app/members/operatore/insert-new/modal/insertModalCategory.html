@@ -9,8 +9,12 @@
   </ion-toolbar>
 </ion-header>
 <ion-content padding>
+  <ion-searchbar
+    [(ngModel)]="searchTerm"
+    (ionChange)="setFilteredItems()"
+  ></ion-searchbar>
   <ion-grid *ngIf="firstStep">
-    <div *ngFor="let item of items">
+    <div *ngFor="let item of filteredItems">
       <ion-row class="label-row">
         <ion-col text-center class="box" (click)="chooseItem(item)">
           <span>{{getStringItem(item)}}</span>

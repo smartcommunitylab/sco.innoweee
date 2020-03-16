@@ -7,3 +7,17 @@ ion-button {
     --color-activated: #0fb4d7;
     --color: white;
   }
+  .home-square {
+    height: 50vh;
+    text-align: center;
+    position: relative;
+    .home-square-conent {
+      position: absolute;
+      top: 50%;
+      -ms-transform: translateY(-50%);
+      transform: translateY(-50%);
+      .label_big{
+          font-size: 26px;
+      }
+    }
+}

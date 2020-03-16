@@ -120,6 +120,9 @@ isDarkColor (color) {
 
   }
   getPoints(): string {
+    if (this.item && this.item.value) {
+      return this.translate.instant("label_point_reusable");
+    }
     if (this.item && this.item.reusable)
       return this.translate.instant("label_point_reusable");
     return this.translate.instant("label_point_recicle");
