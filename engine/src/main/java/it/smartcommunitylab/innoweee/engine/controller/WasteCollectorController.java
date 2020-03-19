@@ -177,11 +177,12 @@ public class WasteCollectorController extends AuthController {
 	@GetMapping(value = "/api/collector/item/{tenantId}/report")
 	public @ResponseBody CollectorReport operatorReport(
 			@PathVariable String tenantId,
+			@RequestParam String collector,
 			HttpServletRequest request) throws Exception {
 		if(!validateRole(Const.ROLE_COLLECTOR_OPERATOR, tenantId, request)) {
 			throw new UnauthorizedException("Unauthorized Exception: token or role not valid");
 		}
-		CollectorReport report = wasteCollectorManager.getOperatorReport(tenantId);
+		CollectorReport report = wasteCollectorManager.getOperatorReport(tenantId, collector);
 		logger.info("operatorReport[{}]:{}", tenantId, report);
 		return report;
 	}

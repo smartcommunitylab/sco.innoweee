@@ -103,7 +103,7 @@ public class WasteCollectorManager {
 		actionRepository.save(action);
 	}
 	
-	public CollectorReport getOperatorReport(String tenantId) {
+	public CollectorReport getOperatorReport(String tenantId, String collector) {
 		List<Game> games = gameRepository.findByTenantId(tenantId);
 		List<String> gameIds = new ArrayList<String>();
 		for(Game game : games) {
@@ -116,16 +116,12 @@ public class WasteCollectorManager {
 		List<Integer> states = new ArrayList<Integer>();
 		states.add(Const.ITEM_STATE_DISPOSED);
 		int totaleAttesi = itemEventManager.countByStates(playerIds, tenantId, states);
-		states.clear();
-		states.add(Const.ITEM_STATE_DISPOSED);
-		states.add(Const.ITEM_STATE_CHECKED);
-		int totaleConferiti = itemEventManager.countByStates(playerIds, tenantId, states);
-		states.clear();
-		states.add(Const.ITEM_STATE_CHECKED);
-		int totaleCorrispondenti = itemEventManager.countByStates(playerIds, tenantId, states);
-		states.clear();
-		states.add(Const.ITEM_STATE_UNEXPECTED);
-		int totaleInattesi = itemEventManager.countByStates(playerIds, tenantId, states);
+		int totaleConferiti = totaleAttesi + itemEventManager.countByStateAndCollector(playerIds, tenantId, 
+				Const.ITEM_STATE_CHECKED, collector);
+		int totaleCorrispondenti = itemEventManager.countByStateAndCollector(playerIds, tenantId, 
+				Const.ITEM_STATE_CHECKED, collector);
+		int totaleInattesi = itemEventManager.countByStateAndCollector(playerIds, tenantId, 
+				Const.ITEM_STATE_UNEXPECTED, collector);
 		CollectorReport report = new CollectorReport();
 		report.setTotaleAttesi(totaleAttesi);
 		report.setTotaleConferiti(totaleConferiti);
