@@ -72,8 +72,8 @@ export class DataServerService {
     }).catch(response => {
       return this.handleError(response);
     });   }
-    getOperatorStats(tenantID, token): Promise<any> {
-      let url: string = this.endPoint + this.getCollectorApi+'/'+ this.itemApi+'/'+tenantID+'/report';
+    getOperatorStats(tenantID, collector,token): Promise<any> {
+      let url: string = this.endPoint + this.getCollectorApi+'/'+ this.itemApi+'/'+tenantID+'/report?collector='+collector;
       return this.http.get(url,{ headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',

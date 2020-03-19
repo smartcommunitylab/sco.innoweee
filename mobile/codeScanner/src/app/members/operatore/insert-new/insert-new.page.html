@@ -80,12 +80,12 @@
         </ion-row>
         <ion-row>
           <ion-col>
-            <ion-segment mode="ios" scrollable="true" [(ngModel)]="workingConfirm" (ionChange)="segmentChanged($event)">
+            <ion-segment mode="ios" scrollable="true" [(ngModel)]="brokenConfirm" (ionChange)="segmentChanged($event)">
               <ion-segment-button value="true">
-                <ion-label>Vero</ion-label>
+                <ion-label>{{'label_confirm_broken'|translate}}</ion-label>
               </ion-segment-button>
               <ion-segment-button value="false">
-                <ion-label>Falso</ion-label>
+                <ion-label>{{'label_confirm_not_broken'|translate}}</ion-label>
               </ion-segment-button>
             </ion-segment>
           </ion-col>
@@ -104,7 +104,7 @@
     </ion-item>
   </ion-list>
   <div expand="block">
-    <ion-button class="color-bar" size="block" ion-button (click)="confirmItem()" [disabled]="!workingConfirm || !typeString">
+    <ion-button class="color-bar" size="block" ion-button (click)="confirmItem()" [disabled]="!brokenConfirm || !typeString">
       {{'label_classify'|translate}} </ion-button>
   </div>
   <div expand="block">

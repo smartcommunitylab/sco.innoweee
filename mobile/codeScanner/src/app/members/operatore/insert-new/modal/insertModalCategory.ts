@@ -34,28 +34,22 @@ export class InsertModalCategory implements OnInit {
 
   async ngOnInit() {
     this.firstStep = true;
-    // console.table(this.navParams);
     this.modelId = this.navParams.data.paramTitle;
     this.modalTitle = this.navParams.data.paramID;
     const token = await this.auth.getValidToken();
 
     this.profileService.getLocalPlayerData().then(res => {
       this.playerData = res;
-      // this.dataServerService.getCollections(this.playerData.gameId, token.accessToken).then(res => {
-      //   this.collections = this.orderCollection(res);
       this.dataServerService.getGargabeMap(this.profileService.getDomainMemorized()["tenants"][0], token.accessToken).then(res => {
         this.garbageMap = res;
         for (let key in this.garbageMap.items) {
           this.items.push(this.garbageMap.items[key]);
-          // console.log(JSON.stringify(this.items));
-          // console.log(JSON.stringify(this.filterItems));
-          // Use `key` and `value`
         }
+        this.items.sort((a, b) => a.name[this.translate.defaultLang] < b.name[this.translate.defaultLang] ? -1 : a.name[this.translate.defaultLang] > b.name[this.translate.defaultLang] ? 1 : 0)
         this.filteredItems = JSON.parse(JSON.stringify(this.items));
 
       });
     })
-    // })
   }
 
   isVisible(collection) {
@@ -90,7 +84,6 @@ export class InsertModalCategory implements OnInit {
       return ""
   }
   getCollectionTitle(garbageCollection) {
-    // console.log(JSON.stringify(garbageCollection));
     if (garbageCollection.message && this.translate.defaultLang) {
       return garbageCollection.message[this.translate.defaultLang]
     }
@@ -98,7 +91,6 @@ export class InsertModalCategory implements OnInit {
       return ""
   }
   getStringItem(item) {
-    // console.log(JSON.stringify(this.garbageMap));
     if (this.translate.defaultLang)
       return item.name[this.translate.defaultLang];
     else return item.name['it'];
@@ -123,7 +115,6 @@ export class InsertModalCategory implements OnInit {
       },
       "value": item
     };
-    // this.item.timestamp = this.collection.from + (3000 * 60 * 60)
     this.closeModal();
   }
 

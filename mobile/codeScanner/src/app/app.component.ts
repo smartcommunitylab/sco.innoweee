@@ -115,7 +115,9 @@ export class AppComponent {
   async presentToast(string) {
     const toast = await this.toastController.create({
       message: string,
-      duration: 2000
+      duration: 2000,
+      position: 'middle'
+
     })
     toast.present();
   }

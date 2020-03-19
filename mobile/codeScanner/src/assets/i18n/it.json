@@ -134,7 +134,7 @@
         "label_home_operatore_insert":"Inserimento oggetti",
         "label_conferma_operatore":"Sei sicuro di voler confermare i dati?",
         "label_not_disposed_at_school":"Oggetto NON disposto a scuola",
-        "label_not_confirmed_at_school":"Oggetto NON confermato a scuola",
+        "label_not_confirmed_at_school":"L'oggetto non è stato validato a scuola",
         "label_already_inserted":"Oggetto gia' registrato dall'operatore",
         "label_note":"Note: ",
         "label_wrong_place":"ATTENZIONE!",
@@ -146,4 +146,7 @@
         "label_new_item_warning":"Questo oggetto non è stato classificato sul database!",
         "wrong_length_id":"La lunghezza dell'identificatore deve essere di 5 caratteri",
         "label_item_already_operator":"Codice oggetto non piu' disponibile.",
-        "label_item_already_classified_parent":"Oggetto gia' classificato. Ricordati di portarlo a scuola per confermarlo"}
+        "label_item_already_classified_parent":"Oggetto gia' classificato. Ricordati di portarlo a scuola per confermarlo",
+        "label_confirm_broken":"Rotto",
+        "label_confirm_not_broken":"Non rotto"
+}

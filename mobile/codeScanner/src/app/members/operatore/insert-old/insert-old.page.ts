@@ -16,7 +16,7 @@ import { Location } from '@angular/common';
 })
 export class InsertOldPage extends CommonPage implements OnInit {
   actualObj: any;
-  workingConfirm: boolean;
+  brokenConfirm: boolean;
   types: any = [];
   confirmedObj: any;
   alreadyInserted: boolean;
@@ -113,24 +113,25 @@ export class InsertOldPage extends CommonPage implements OnInit {
         buttons: [
           {
             text: 'Annulla',
-            cssClass: 'secondary',
-            handler: () => {
-              this.router.navigate(['home-operator']);
-            }
+            cssClass: 'secondary'
+            // ,
+            // handler: () => {
+            //   this.router.navigate(['home-operator']);
+            // }
           }, {
             text: 'Conferma',
             handler: async () => {
               console.log('conferma')
               const token = await this.auth.getValidToken();
               if (!this.wrongPlace && !this.notConfirmed)
-                this.dataServerService.confirmItemOperator(this.profileService.getDomainMemorized()["tenants"][0], token.accessToken, this.actualObj.itemId, this.workingConfirm, this.profileService.getCollector(), this.note).then(() => {
+                this.dataServerService.confirmItemOperator(this.profileService.getDomainMemorized()["tenants"][0], token.accessToken, this.actualObj.itemId, this.brokenConfirm, this.profileService.getCollector(), this.note).then(() => {
                   this.showToastConfirmed()
                   this.router.navigate(['checked']);
                 }, err => {
 
                 })
               else
-                this.dataServerService.unexpetedItemOperator(this.profileService.getDomainMemorized()["tenants"][0], token.accessToken, this.actualObj.itemId, this.workingConfirm, this.profileService.getCollector(), this.actualObj.itemType, this.note).then(() => {
+                this.dataServerService.unexpetedItemOperator(this.profileService.getDomainMemorized()["tenants"][0], token.accessToken, this.actualObj.itemId, this.brokenConfirm, this.profileService.getCollector(), this.actualObj.itemType, this.note).then(() => {
                   // this.dataServerService.unexpetedItemOperator(this.profileService.getDomainMemorized()["tenants"][0], token.accessToken, this.actualObj.itemId, this.workingConfirm, this.profileService.getCollector(),this.note).then(() => {
                   this.showToastConfirmed()
                   this.router.navigate(['checked']);
@@ -152,7 +153,8 @@ export class InsertOldPage extends CommonPage implements OnInit {
 
       const toast = await this.toastController.create({
         message: res,
-        duration: 2000
+        duration: 2000,
+        position: 'middle'
       })
       toast.present();
     })

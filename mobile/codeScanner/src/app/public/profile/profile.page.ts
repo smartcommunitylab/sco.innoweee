@@ -81,7 +81,8 @@ export class ProfilePage extends CommonPage implements OnInit {
       this.translate.get('toast_error').subscribe(async (res: string) => {
         const toast = await this.toastController.create({
           message: res,
-          duration: 2000
+          duration: 2000,
+          position: 'middle'
         })
         toast.present();
       })

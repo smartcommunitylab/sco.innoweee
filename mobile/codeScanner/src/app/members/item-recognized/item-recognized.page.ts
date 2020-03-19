@@ -56,7 +56,8 @@ export class ItemRecognizedPage extends CommonPage implements OnInit {
   async presentToast(string) {
     const toast = await this.toastController.create({
       message: string,
-      duration: 2000
+      duration: 2000,
+      position: 'middle'
     })
     toast.present();
   }

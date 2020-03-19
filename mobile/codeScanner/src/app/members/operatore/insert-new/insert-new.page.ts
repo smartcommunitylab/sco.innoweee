@@ -18,7 +18,7 @@ import { InsertModalCategory } from './modal/insertModalCategory';
 export class InsertNewPage extends CommonPage implements OnInit {
   itemId: any;
   typeItem: any;
-  workingConfirm: boolean;
+  brokenConfirm: boolean;
   note: any;
   typeString: any;
 
@@ -69,16 +69,14 @@ export class InsertNewPage extends CommonPage implements OnInit {
         buttons: [
           {
             text: 'Annulla',
-            cssClass: 'secondary',
-            handler: () => {
-              this.router.navigate(['home-operator']);
-            }
+            cssClass: 'secondary'
+
           }, {
             text: 'Conferma',
             handler: async () => {
               console.log('conferma')
               const token = await this.auth.getValidToken();
-              this.dataServerService.unexpetedItemOperator(this.profileService.getDomainMemorized()["tenants"][0], token.accessToken, this.itemId, this.workingConfirm, this.profileService.getCollector(), this.typeItem.itemId, this.note).then(() => {
+              this.dataServerService.unexpetedItemOperator(this.profileService.getDomainMemorized()["tenants"][0], token.accessToken, this.itemId, this.brokenConfirm, this.profileService.getCollector(), this.typeItem.itemId, this.note).then(() => {
                 this.showToastConfirmed()
                 this.router.navigate(['checked']);
               }, err => {
@@ -99,7 +97,8 @@ export class InsertNewPage extends CommonPage implements OnInit {
 
       const toast = await this.toastController.create({
         message: res,
-        duration: 2000
+        duration: 2000,
+        position: 'middle'
       })
       toast.present();
     })
