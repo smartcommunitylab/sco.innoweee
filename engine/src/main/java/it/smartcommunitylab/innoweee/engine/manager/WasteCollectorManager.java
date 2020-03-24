@@ -115,7 +115,7 @@ public class WasteCollectorManager {
 		List<String> playerIds = getPlayerIds(players);
 		List<Integer> states = new ArrayList<Integer>();
 		states.add(Const.ITEM_STATE_DISPOSED);
-		int totaleAttesi = itemEventManager.countByStates(playerIds, tenantId, states);
+		int totaleAttesi = itemEventManager.countByParams(playerIds, states, false, false);
 		int totaleConferiti = totaleAttesi + itemEventManager.countByStateAndCollector(playerIds, tenantId, 
 				Const.ITEM_STATE_CHECKED, collector);
 		int totaleCorrispondenti = itemEventManager.countByStateAndCollector(playerIds, tenantId, 
