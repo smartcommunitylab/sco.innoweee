@@ -52,7 +52,7 @@
               </ion-button>
               <ion-item>
                 <ion-label position="floating">{{'label_id'|translate}}</ion-label>
-                <ion-input #manualID [(ngModel)]="manualItemId"></ion-input>
+                <ion-input #manualID [(ngModel)]="manualItemId" maxlength="5" minlength="5"></ion-input>
               </ion-item>
             </div>
           </div>

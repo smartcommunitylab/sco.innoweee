@@ -26,6 +26,11 @@ $font-family-wp-base: "Montserrat";
   .game-title {
     text-align: center;
     width: 100%;
+    font-weight: bold;
+  }
+  .game-subtitle
+  {
+      font-weight: normal;
   }
   ion-back-button {
     --color:white!important;
@@ -41,6 +46,13 @@ $font-family-wp-base: "Montserrat";
     }
   }
 }
+.background-img{
+  position: absolute;
+  opacity: 0.1;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
 .recap{
   border: solid 1px;
   border-radius: 16px;
@@ -50,7 +62,8 @@ $font-family-wp-base: "Montserrat";
   --background: #dcf5fa;
   --padding-top: 0px;
   --padding-bottom: 0px;
-
+  --ion-background-color: #dcf5fa;
+  --color: #707070;
   ion-grid {
     --ion-grid-padding: 0px;
 

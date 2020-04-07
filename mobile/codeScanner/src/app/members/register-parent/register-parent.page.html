@@ -5,9 +5,9 @@
       <ion-back-button class="language"></ion-back-button>
     </ion-buttons>
 
-    <ion-title class="game-title">{{'title_register_parent'|translate}}</ion-title>
+    <ion-title class="game-title"><div>{{'title_game_selection'|translate}}</div><div class="game-subtitle">{{ getFooter()}}</div></ion-title>
     <ion-buttons class="language" slot="end">
-      <ion-label> {{'label_logout'|translate}}</ion-label>
+      <!-- <ion-label> {{'label_logout'|translate}}</ion-label> -->
     <ion-button (click)="changeClass()">
       <ion-icon slot="icon-only" name="log-out"></ion-icon>
     </ion-button>
@@ -36,8 +36,8 @@
   {{'label_register'|translate}}
  </ion-button>
 </ion-content>
-<ion-footer>
+<!-- <ion-footer>
   <ion-toolbar class="color-bar">
       <ion-title class="ion-text-center">{{ getFooter()}}</ion-title>
   </ion-toolbar>
-</ion-footer>
+</ion-footer> -->

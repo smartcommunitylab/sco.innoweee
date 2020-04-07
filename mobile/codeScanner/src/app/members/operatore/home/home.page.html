@@ -1,8 +1,8 @@
 <ion-header>
   <ion-toolbar class="color-bar">
-    <ion-title class="game-title">{{'title_game_selection'|translate}}</ion-title>
+    <ion-title class="game-title"><div>{{'title_game_selection'|translate}}</div><div class="game-subtitle">{{'label_operatore'|translate}}</div></ion-title>
     <ion-buttons class="language" slot="end">
-      <ion-label> {{'label_logout'|translate}} </ion-label>
+      <!-- <ion-label> {{'label_logout'|translate}} </ion-label> -->
       <ion-button (click)="changeClass()">
         <ion-icon slot="icon-only" name="log-out"></ion-icon>
       </ion-button>
@@ -10,8 +10,8 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-  <ion-grid>
+<ion-content padding class="common-content">
+  <img class="background-img" src="./assets/logo.png">  <ion-grid>
     <ion-row class="home-square">
       <ion-col class="home-square-conent">
         <div class="label_big">{{'label_ruolo'|translate}}</div>
@@ -52,8 +52,8 @@
     </ion-row>
   </ion-grid>
 </ion-content>
-<ion-footer>
+<!-- <ion-footer>
   <ion-toolbar class="color-bar">
     <ion-title class="ion-text-center">{{'label_operatore'|translate}}</ion-title>
   </ion-toolbar>
-</ion-footer>
+</ion-footer> -->

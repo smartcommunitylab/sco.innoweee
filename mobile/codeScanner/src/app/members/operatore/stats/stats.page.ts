@@ -40,23 +40,18 @@ export class StatsPage extends CommonPage implements OnInit {
   }
   async ngOnInit() {
     this.presentLoading();
-    // this.profileService.getLocalPlayerData().then(async res => {
-    //   this.playerData = res;
-    // this.profileService.getPlayerData()
     const token = await this.auth.getValidToken();
     this.dataServerService.getOperatorStats(this.profileService.getDomainMemorized()["tenants"][0],this.profileService.getCollector(), token.accessToken).then(res => {
       console.log(JSON.stringify(res));
       if (res)
       this.stat=res;
     })
-    // })
   }
 home(){
   this.navCtrl.navigateRoot('home-operator');
 }
 
   getFooter() {
-    //  return (this.getSchoolName())
   }
 
 

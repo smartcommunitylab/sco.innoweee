@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button class="language"></ion-back-button>
     </ion-buttons>
-    <ion-title class="game-title">{{'title_game_selection'|translate}}</ion-title>
+    <ion-title class="game-title"><div>{{'title_game_selection'|translate}}</div><div class="game-subtitle">{{'label_operatore'|translate}}</div></ion-title>
     <ion-buttons class="language" slot="end">
       <ion-label> {{'label_logout'|translate}}</ion-label>
       <ion-button (click)="changeClass()">
@@ -13,8 +13,8 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-  <div *ngIf="actualObj">
+<ion-content padding class="common-content">
+  <img class="background-img" src="./assets/logo.png">  <div *ngIf="actualObj">
     <div *ngIf="!alreadyInserted; else itemAlreadyInserted">
       <ion-list lines="none">
         <ion-item>
@@ -210,8 +210,8 @@
     </div>
   </div>
 </ion-content>
-<ion-footer>
+<!-- <ion-footer>
   <ion-toolbar class="color-bar">
     <ion-title class="ion-text-center">{{'label_operatore'|translate}}</ion-title>
   </ion-toolbar>
-</ion-footer>
+</ion-footer> -->
