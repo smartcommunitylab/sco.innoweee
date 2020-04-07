@@ -117,13 +117,12 @@ public class WasteCollectorController extends AuthController {
 		if(itemEvent == null) {
 			throw new EntityNotFoundException(Const.ERROR_CODE_ENTITY + "item not found");
 		}
-		if(!itemEvent.isReusable() && !itemEvent.isValuable() && (
-				(itemEvent.getState() == Const.ITEM_STATE_CONFIRMED) ||
-				(itemEvent.getState() == Const.ITEM_STATE_DISPOSED))) {
+		if(!itemEvent.isReusable() && !itemEvent.isValuable() &&
+				(itemEvent.getState() == Const.ITEM_STATE_DISPOSED)) {
 			itemEvent.setCollector(collector);
-			if(itemEvent.getState() == Const.ITEM_STATE_CONFIRMED) {
-				itemEvent.addStateNote("not in DISPOSED state");
-			}
+			//if(itemEvent.getState() == Const.ITEM_STATE_CONFIRMED) {
+			//	itemEvent.addStateNote("not in DISPOSED state");
+			//}
 			if(itemEvent.isBroken() ^ broken) {
 				itemEvent.addStateNote("BROKEN flag changed");
 			}
