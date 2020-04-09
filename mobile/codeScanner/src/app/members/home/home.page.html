@@ -21,13 +21,12 @@
     </ion-row>
     <ion-row>
       <ion-col class="class-name">
-        <ion-label>{{playerName}} </ion-label>
+        <div>{{playerName}} </div>
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-col>
         <div class="wanted-container">
-          <ion-img [src]="getImgName()"></ion-img>
           <div class="wanted-label ion-text-center">
             {{currentWeekLabel}}
           </div>
@@ -36,6 +35,8 @@
               <span>{{getDateMessageFrom()|date:'d '}}</span>{{ 'label_to' | translate }}<span>{{getDateMessageTo()|date:'d MMMM'}}</span>
             </p>
           </div>
+          <ion-img [src]="getImgName()"></ion-img>
+
         </div>
       </ion-col>
     </ion-row>
@@ -49,7 +50,7 @@
     <ion-row>
       <ion-col>
         <div class="scan-button">
-          <ion-button expand="block" ion-button (click)="scan()">
+          <ion-button class="robot-button" expand="block" ion-button (click)="scan()">
             <ion-icon class="home-button-icon" slot="icon-only" name="camera"></ion-icon>
             {{'label_scan'|translate}}
           </ion-button>
@@ -60,7 +61,7 @@
 
       <ion-col>
         <div class="scan-button">
-          <ion-button expand="block" ion-button (click)="manualInsert()">
+          <ion-button class="robot-button" expand="block" ion-button (click)="manualInsert()">
             <ion-icon class="home-button-icon" slot="icon-only" name="create"></ion-icon>
             {{'label_manual_insert'|translate}}
           </ion-button>
@@ -71,7 +72,7 @@
 
       <ion-col>
         <div class="scan-button">
-          <ion-button expand="block" ion-button (click)="stats()">
+          <ion-button class="robot-button" expand="block" ion-button (click)="stats()">
             <ion-icon class="home-button-icon" slot="icon-only" name="podium"></ion-icon>
             {{'label_recap'|translate}}
           </ion-button>

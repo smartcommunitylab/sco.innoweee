@@ -20,6 +20,17 @@ $font-family-wp-base: "Montserrat";
 * {
   font-family: "Montserrat";
 }
+
+.robot-button {
+  --background: white;
+  --background-activated: #0fb4d7;
+  --border-style: solid;
+  --border-width: 2px;
+  --border-color: #0fb4d7;
+  --color-activated: white;
+  --color: #0fb4d7;
+  font-weight: bold;
+}
 .color-bar {
   --background: #0fb4d7;
   --color: white;
@@ -28,35 +39,36 @@ $font-family-wp-base: "Montserrat";
     width: 100%;
     font-weight: bold;
   }
-  .game-subtitle
-  {
-      font-weight: normal;
+  .game-subtitle {
+    font-weight: normal;
   }
   ion-back-button {
-    --color:white!important;
-
+    --color: white !important;
   }
   .language {
     ion-item {
       min-width: 250px;
       --background: #0fb4d7;
     }
-    ion-button{
-      --color:white!important;
+    ion-button {
+      --color: white !important;
     }
   }
 }
-.background-img{
+.background-img {
   position: absolute;
   opacity: 0.1;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
 }
-.recap{
+.recap {
   border: solid 1px;
   border-radius: 16px;
   padding: 8px;
+}
+.common-label {
+  color: #12b4d7 !important;
 }
 .common-content {
   --background: #dcf5fa;
@@ -84,7 +96,7 @@ $font-family-wp-base: "Montserrat";
           top: 24px;
           font-size: 17px;
           z-index: 99;
-          ion-button{
+          ion-button {
             --background: transparent;
             --border-width: 2px;
             --border-color: white;
@@ -96,12 +108,12 @@ $font-family-wp-base: "Montserrat";
             width: 32px;
             --padding-top: 0px;
             height: 32px;
-            ion-icon{
+            ion-icon {
               padding: 0px;
-    --padding-bottom: 0px;
-    --padding-start: 0px;
-    margin: 0px;
-    font-size: 32px;
+              --padding-bottom: 0px;
+              --padding-start: 0px;
+              margin: 0px;
+              font-size: 32px;
             }
           }
         }
@@ -119,7 +131,7 @@ $font-family-wp-base: "Montserrat";
           ion-item {
             --background: #0fb4d7;
             --color: white;
-          
+
             ion-input {
               --background: #0fb4d7;
               --color: white;
@@ -141,3 +153,50 @@ $font-family-wp-base: "Montserrat";
     }
   }
 }
+.stat-popup {
+  .alert-wrapper {
+    width: 90%;
+    max-width: 90%;
+    border-radius: 20px;
+    border: solid 2px;
+    // background-color: #bee6f5;
+    color: #0fb4d7;
+    .alert-sub-title.sc-ion-alert-md,
+    .alert-title.sc-ion-alert-md {
+      color: #0fb4d7;
+      font-weight: bold;
+      text-align: center;
+    }
+    .alert-message.sc-ion-alert-md {
+      max-height: none;
+    }
+
+    .legenda-label {
+      margin: 16px 8px;
+      .legenda-label-title {
+        font-weight: 600;
+        color: #0fb4d7;
+      }
+      .legenda-label-text {
+        text-align: justify;
+        color: #0fb4d7;
+      }
+    }
+    .alert-button-group {
+      display: flex;
+      justify-content: space-between;
+      button {
+        text-align: center;
+        width: 80%;
+        background-color: #0fb4d7;
+        color: white;
+        font-weight: bold;
+        margin: auto;
+        span {
+          justify-content: center;
+        }
+      }
+    }
+  }
+}
+

@@ -1,8 +1,4 @@
-.label-value{
-    text-align: center;
-    font-size: 26px;
-    font-weight: bold;
-}
+
 .button-type {
     width: 100%;
 }
@@ -37,4 +33,20 @@ ion-segment{
     text-align: center;
     width: 100%;
     padding: 29px;
+  }
+  .box-container{
+      background-color: white;
+      border: solid 3px #0fb4d7;
+      margin: 20px 0px;
+      border-radius: 20px;
+      padding: 8px;
+      ion-list,ion-item,ion-grid,ion-label{
+          --background:white;
+          background: white;
+      }
+      .label-value{
+        text-align: center;
+        font-size: 26px;
+        font-weight: bold;
+    }
   }

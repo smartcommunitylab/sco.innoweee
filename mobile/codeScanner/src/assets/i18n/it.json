@@ -148,5 +148,6 @@
         "label_item_already_operator":"Codice oggetto non piu' disponibile.",
         "label_item_already_classified_parent":"Oggetto gia' classificato. Ricordati di portarlo a scuola per confermarlo",
         "label_confirm_broken":"Rotto",
-        "label_confirm_not_broken":"Non rotto"
+        "label_confirm_not_broken":"Non rotto",
+        "label_legenda":"Che cosa sono le categorie di oggetti?"
 }

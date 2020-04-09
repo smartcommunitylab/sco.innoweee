@@ -3,7 +3,10 @@
     <ion-buttons slot="start">
       <ion-back-button class="language"></ion-back-button>
     </ion-buttons>
-    <ion-title class="game-title"><div>{{'title_game_selection'|translate}}</div><div class="game-subtitle">{{'label_operatore'|translate}}</div></ion-title>
+    <ion-title class="game-title">
+      <div>{{'title_game_selection'|translate}}</div>
+      <div class="game-subtitle">{{'label_operatore'|translate}}</div>
+    </ion-title>
     <ion-buttons class="language" slot="end">
       <!-- <ion-label> {{'label_logout'|translate}}</ion-label> -->
       <ion-button (click)="changeClass()">
@@ -14,19 +17,11 @@
 </ion-header>
 
 <ion-content padding class="common-content">
-  <img class="background-img" src="./assets/logo.png">  <div class="new-item-warning"> {{'label_new_item_warning'|translate}} </div>
+  <img class="background-img" src="./assets/logo.png">
+  <div class="box-container">
+  <div class="new-item-warning"> {{'label_new_item_warning'|translate}} </div>
 
   <ion-list lines="none" *ngIf="itemId">
-    <!-- <ion-item>
-      <ion-grid>
-        <ion-row>
-          <ion-col >
-            <ion-icon  slot="icon-only" name="warning-outline"></ion-icon>
-          </ion-col>
-
-        </ion-row>
-      </ion-grid>
-    </ion-item> -->
     <ion-item>
       <ion-grid>
         <ion-row>
@@ -57,16 +52,16 @@
       </ion-grid>
     </ion-item>
     <ion-item>
-        <!-- <ion-row>
+      <!-- <ion-row>
           <ion-col > -->
-            <div expand="block" *ngIf="typeString;" class="button-type">
-              <ion-button class="color-bar" size="block" ion-button (click)="chooseType()">
-                {{'label_choose_change'|translate}} </ion-button>
-            </div>
-              <div expand="block" class="button-type" *ngIf="!typeString">
-                <ion-button class="color-bar" size="block" ion-button (click)="chooseType()">
-                  {{'label_choose_type'|translate}} </ion-button>
-              </div>
+      <div expand="block" *ngIf="typeString;" class="button-type">
+        <ion-button class="color-bar" size="block" ion-button (click)="chooseType()">
+          {{'label_choose_change'|translate}} </ion-button>
+      </div>
+      <div expand="block" class="button-type" *ngIf="!typeString">
+        <ion-button class="color-bar" size="block" ion-button (click)="chooseType()">
+          {{'label_choose_type'|translate}} </ion-button>
+      </div>
 
     </ion-item>
 
@@ -103,8 +98,10 @@
       </ion-grid>
     </ion-item>
   </ion-list>
+</div>
   <div expand="block">
-    <ion-button class="color-bar" size="block" ion-button (click)="confirmItem()" [disabled]="!brokenConfirm || !typeString">
+    <ion-button class="color-bar" size="block" ion-button (click)="confirmItem()"
+      [disabled]="!brokenConfirm || !typeString">
       {{'label_classify'|translate}} </ion-button>
   </div>
   <div expand="block">

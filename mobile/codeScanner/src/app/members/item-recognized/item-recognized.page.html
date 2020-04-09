@@ -29,14 +29,14 @@
             <p *ngIf="itemClassified!=0"><span class="bold">{{alreadyClassified}}</span></p>
             <!-- teacher send item to LIM for classifiying  -->
             <div class="buttons">
-            <ion-button size="large" ion-button (click)="sendLim()" [hidden]="!isTeacher()" [disabled]="itemClassified>=2">
+            <ion-button expand="block" ion-button (click)="sendLim()" [hidden]="!isTeacher()" [disabled]="itemClassified>=2">
               {{'label_send_to_lim'|translate}}
             </ion-button>
             <!-- parent classifies the item -->
-            <ion-button size="large" ion-button (click)="classify()" [hidden]="!isParent()" [disabled]="itemPresent">
+            <ion-button expand="block" ion-button (click)="classify()" [hidden]="!isParent()" [disabled]="itemPresent">
               {{'label_classify'|translate}}
             </ion-button>
-            <ion-button size="large" ion-button (click)="cancel()">{{'label_cancel'|translate}}
+            <ion-button expand="block" ion-button (click)="cancel()">{{'label_cancel'|translate}}
             </ion-button>
           </div>
         </div>
