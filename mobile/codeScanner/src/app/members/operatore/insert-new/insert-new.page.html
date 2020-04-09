@@ -8,7 +8,6 @@
       <div class="game-subtitle">{{'label_operatore'|translate}}</div>
     </ion-title>
     <ion-buttons class="language" slot="end">
-      <!-- <ion-label> {{'label_logout'|translate}}</ion-label> -->
       <ion-button (click)="changeClass()">
         <ion-icon slot="icon-only" name="log-out"></ion-icon>
       </ion-button>
@@ -17,7 +16,7 @@
 </ion-header>
 
 <ion-content padding class="common-content">
-  <img class="background-img" src="./assets/logo.png">
+  <!-- <img class="background-img" src="./assets/logo.png"> -->
   <div class="box-container">
   <div class="new-item-warning"> {{'label_new_item_warning'|translate}} </div>
 
@@ -26,22 +25,19 @@
       <ion-grid>
         <ion-row>
           <ion-col>
-            <ion-label> {{'label_id'|translate}} </ion-label>
+            <ion-label class="label-string"> {{'label_id'|translate}} </ion-label>
           </ion-col>
-        </ion-row>
-        <ion-row>
           <ion-col>
-            <ion-label class="label-value"> {{itemId}}</ion-label>
+            <ion-label class="label-value ion-text-right"> {{itemId}}</ion-label>
           </ion-col>
         </ion-row>
       </ion-grid>
     </ion-item>
-
     <ion-item>
       <ion-grid>
         <ion-row>
           <ion-col>
-            <ion-label> {{'label_recap_type'|translate}} </ion-label>
+            <ion-label class="label-string"> {{'label_recap_type'|translate}} </ion-label>
           </ion-col>
         </ion-row>
         <ion-row>
@@ -70,17 +66,17 @@
       <ion-grid>
         <ion-row>
           <ion-col>
-            <ion-label> {{'label_broken'|translate}} </ion-label>
+            <ion-label class="label-string"> {{'label_broken'|translate}} </ion-label>
           </ion-col>
         </ion-row>
         <ion-row>
           <ion-col>
             <ion-segment mode="ios" scrollable="true" [(ngModel)]="brokenConfirm" (ionChange)="segmentChanged($event)">
               <ion-segment-button value="true">
-                <ion-label>{{'label_confirm_broken'|translate}}</ion-label>
+                <ion-label class="label-string">{{'label_confirm_broken'|translate}}</ion-label>
               </ion-segment-button>
               <ion-segment-button value="false">
-                <ion-label>{{'label_confirm_not_broken'|translate}}</ion-label>
+                <ion-label class="label-string">{{'label_confirm_not_broken'|translate}}</ion-label>
               </ion-segment-button>
             </ion-segment>
           </ion-col>
@@ -100,12 +96,12 @@
   </ion-list>
 </div>
   <div expand="block">
-    <ion-button class="color-bar" size="block" ion-button (click)="confirmItem()"
+    <ion-button  class="robot-button" size="block" ion-button (click)="confirmItem()"
       [disabled]="!brokenConfirm || !typeString">
       {{'label_classify'|translate}} </ion-button>
   </div>
   <div expand="block">
-    <ion-button class="color-bar" size="block" ion-button (click)="cancel()">{{'label_cancel'|translate}}
+    <ion-button  class="robot-button" size="block" ion-button (click)="cancel()">{{'label_cancel'|translate}}
     </ion-button>
   </div>
 </ion-content>

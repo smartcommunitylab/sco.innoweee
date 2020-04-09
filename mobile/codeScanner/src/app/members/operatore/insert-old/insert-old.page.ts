@@ -123,7 +123,7 @@ export class InsertOldPage extends CommonPage implements OnInit {
             handler: async () => {
               console.log('conferma')
               const token = await this.auth.getValidToken();
-              if (!this.wrongPlace && !this.notConfirmed)
+              if (!this.wrongPlace && !this.notConfirmed && !this.notDisposedAtSchool)
                 this.dataServerService.confirmItemOperator(this.profileService.getDomainMemorized()["tenants"][0], token.accessToken, this.actualObj.itemId, this.brokenConfirm, this.profileService.getCollector(), this.note).then(() => {
                   this.showToastConfirmed()
                   this.router.navigate(['checked']);

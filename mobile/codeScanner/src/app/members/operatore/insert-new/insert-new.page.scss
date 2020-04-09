@@ -1,9 +1,16 @@
 
+.qr-code {
+    width: 200px;
+    padding: 18px;
+    margin: auto;
+    margin-top: 20px;
+    background-color: white;
+}
 .button-type {
     width: 100%;
 }
 .note-label{
-    color: #0fb4d7;
+    color: #0fb4d7!important;
 }
 .item-highlight {
     background-color: #0fb4d7!important;
@@ -25,6 +32,13 @@ ion-segment{
         --border-color: #0fb4d7;
         --indicator-color: transparent;
         margin: -2px;
+
+    }
+    .segment-button-checked {
+        ion-label{
+            color: white;
+            background-color: #0fb4d7;
+        }
     }
 }
 .new-item-warning {
@@ -44,9 +58,16 @@ ion-segment{
           --background:white;
           background: white;
       }
+      .label-string{
+        color: #0fb4d7;
+        font-weight: bold;
+        font-size: 20px;
+        padding: 8px 0px;
+      }
       .label-value{
         text-align: center;
-        font-size: 26px;
-        font-weight: bold;
+        font-size: 20px;
+        // font-weight: bold;
+        color: #0fb4d7;
     }
   }

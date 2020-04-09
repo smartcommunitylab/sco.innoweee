@@ -4,11 +4,15 @@
       <ion-button (click)="chooseBack()">
         <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
       </ion-button>
-      <ion-title class="game-title">{{'title_type_selection'|translate}}</ion-title>
+      <ion-title class="game-title">
+        <div>{{'title_game_selection'|translate}}</div>
+        <div class="game-subtitle">{{'label_operatore'|translate}}</div>
+      </ion-title>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 <ion-content padding>
+  <div class="common-label select-label">{{'title_type_selection'|translate}}</div>
   <ion-searchbar
     [(ngModel)]="searchTerm"
     (ionChange)="setFilteredItems()"

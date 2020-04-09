@@ -31,6 +31,10 @@ $font-family-wp-base: "Montserrat";
   --color: #0fb4d7;
   font-weight: bold;
 }
+.absolute-icon {
+  position: absolute;
+  left: var(--padding-start);
+}
 .color-bar {
   --background: #0fb4d7;
   --color: white;

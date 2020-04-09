@@ -10,8 +10,11 @@
   text-align: center;
 }
 .qr-code {
-  width: 128px;
+  width: 200px;
+  padding: 18px;
   margin: auto;
+  margin-top: 20px;
+  background-color: white;
   .label_code{
       text-align: center;
   }
