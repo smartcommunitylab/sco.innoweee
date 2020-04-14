@@ -178,6 +178,11 @@
         <p class="wrong">{{getValueString()}}</p>
       </ion-label>
     </div>
+    <div *ngIf="notConfirmedAtSchool">
+      <ion-label>
+        <p class="wrong">{{'label_not_confirmed_at_school'|translate}} </p>
+      </ion-label>
+    </div>
   </div>
   <ng-template #itemAlreadyInserted>
     <div class="qr-code">

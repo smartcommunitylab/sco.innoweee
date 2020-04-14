@@ -134,7 +134,7 @@
         "label_home_operatore_insert":"Inserimento oggetti",
         "label_conferma_operatore":"Sei sicuro di voler confermare i dati?",
         "label_not_disposed_at_school":"Oggetto NON disposto a scuola",
-        "label_not_confirmed_at_school":"L'oggetto non è stato validato a scuola",
+        "label_not_confirmed_at_school":"Questo oggetto non risulta confermato in classe!",
         "label_already_inserted":"Oggetto gia' registrato dall'operatore",
         "label_note":"Note: ",
         "label_wrong_place":"ATTENZIONE!",
