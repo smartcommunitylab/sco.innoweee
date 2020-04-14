@@ -18,7 +18,8 @@
 
 
 <ion-content padding class="common-content">
-  <img class="background-img" src="./assets/logo.png">  <ion-grid>
+    <!-- <img class="background-img" src="./assets/logo.png"> -->
+  <ion-grid>
     <div class="question-screen">
       <div class="col-vertical-center">
         <div class="vertical-center right-box">
@@ -31,7 +32,7 @@
                 <ion-item lines="none">{{totalItems}}</ion-item>
                 <!-- <ion-item lines="none">label_item_confirmed{{confirmedItems}}</ion-item> -->
                 </div>
-              <ion-button color="light" expand="block" [routerLink]="['/home']" fill="outline">
+              <ion-button class="robot-button" expand="block" [routerLink]="['/home']" fill="outline">
                 {{'label_end_recycle'|translate}}
               </ion-button>
             </ion-list>

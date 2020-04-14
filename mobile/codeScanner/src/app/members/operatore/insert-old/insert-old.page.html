@@ -3,9 +3,11 @@
     <ion-buttons slot="start">
       <ion-back-button class="language"></ion-back-button>
     </ion-buttons>
-    <ion-title class="game-title"><div>{{'title_game_selection'|translate}}</div><div class="game-subtitle">{{'label_operatore'|translate}}</div></ion-title>
+    <ion-title class="game-title">
+      <div>{{'title_game_selection'|translate}}</div>
+      <div class="game-subtitle">{{'label_operatore'|translate}}</div>
+    </ion-title>
     <ion-buttons class="language" slot="end">
-      <ion-label> {{'label_logout'|translate}}</ion-label>
       <ion-button (click)="changeClass()">
         <ion-icon slot="icon-only" name="log-out"></ion-icon>
       </ion-button>
@@ -14,33 +16,19 @@
 </ion-header>
 
 <ion-content padding class="common-content">
-  <img class="background-img" src="./assets/logo.png">  <div *ngIf="actualObj">
+    <!-- <img class="background-img" src="./assets/logo.png"> -->
+
+  <div class="box-container" *ngIf="actualObj">
     <div *ngIf="!alreadyInserted; else itemAlreadyInserted">
       <ion-list lines="none">
         <ion-item>
           <ion-grid>
             <ion-row>
               <ion-col>
-                <ion-label> {{'label_id'|translate}} </ion-label>
+                <ion-label class="label-string"> {{'label_id'|translate}} </ion-label>
               </ion-col>
-            </ion-row>
-            <ion-row>
               <ion-col>
-                <ion-label class="label-value"> {{actualObj.itemId}}</ion-label>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-item>
-        <ion-item>
-          <ion-grid>
-            <ion-row>
-              <ion-col>
-                <ion-label > {{'schoolName'|translate}} </ion-label>
-              </ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col>
-                <ion-label class="label-value"> {{actualObj.schoolName}}</ion-label>
+                <ion-label class="label-value ion-text-right"> {{actualObj.itemId}}</ion-label>
               </ion-col>
             </ion-row>
           </ion-grid>
@@ -49,12 +37,22 @@
           <ion-grid>
             <ion-row>
               <ion-col>
-                <ion-label> {{'label_section'|translate}} </ion-label>
+                <ion-label class="label-string"> {{'schoolName'|translate}} </ion-label>
+              </ion-col>
+              <ion-col>
+                <ion-label class="label-value ion-text-right"> {{actualObj.schoolName}}</ion-label>
               </ion-col>
             </ion-row>
+          </ion-grid>
+        </ion-item>
+        <ion-item>
+          <ion-grid>
             <ion-row>
               <ion-col>
-                <ion-label class="label-value"> {{actualObj.playerName}}</ion-label>
+                <ion-label class="label-string"> {{'label_section'|translate}} </ion-label>
+              </ion-col>
+              <ion-col>
+                <ion-label class="label-value ion-text-right"> {{actualObj.playerName}}</ion-label>
               </ion-col>
             </ion-row>
           </ion-grid>
@@ -70,27 +68,53 @@
             </ion-row>
           </ion-grid>
         </ion-item> -->
-        <ion-item *ngIf="notConfirmedAtSchool">
+        <!-- <ion-item >
           <ion-grid>
             <ion-row>
-              <ion-col class="not-disposed">
-                <ion-icon  slot="icon-only" name="warning-outline"></ion-icon>
-                <ion-label> {{'label_not_confirmed_at_school'|translate}} </ion-label>
+              <ion-col>
+                <ion-label class="label-string"> {{'label_classification'|translate}} </ion-label>
               </ion-col>
+              <ion-col>
+                <ion-label class="label-string ion-text-right"> <span *ngIf="!notConfirmedAtSchool">{{'label_true'|translate}}
+                  </span><span  *ngIf="notConfirmedAtSchool" [ngClass]="{'wrong': notConfirmedAtSchool}">{{'label_false'|translate}}</span></ion-label>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item> -->
+        <ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <ion-label class="label-string"> {{'label_classification'|translate}} </ion-label>
+              </ion-col>
+              <ion-col>
+                <ion-label [ngClass]="{'wrong': wrongPlace}" class="label-value ion-text-right"> {{getValueString()}}
+                </ion-label>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+        <ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <ion-label class="label-string"> {{'label_recap_type'|translate}} </ion-label>
+              </ion-col>
+              <ion-col>
+                <ion-label class="label-value ion-text-right"> {{getType()}}</ion-label>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
 
-            </ion-row>
-          </ion-grid>
-        </ion-item>
-                <ion-item>
+        <ion-item>
           <ion-grid>
             <ion-row>
               <ion-col>
-                <ion-label> {{'label_classification'|translate}} </ion-label>
+                <ion-label class="label-string"> {{'label_working'|translate}} </ion-label>
               </ion-col>
-            </ion-row>
-            <ion-row>
               <ion-col>
-                <ion-label [ngClass]="{'wrong': wrongPlace}" class="label-value"> {{getValueString()}}</ion-label>
+                <ion-label class="label-value ion-text-right"> {{getValueField(actualObj.switchingOn)}}</ion-label>
               </ion-col>
             </ion-row>
           </ion-grid>
@@ -99,41 +123,10 @@
           <ion-grid>
             <ion-row>
               <ion-col>
-                <ion-label> {{'label_recap_type'|translate}} </ion-label>
+                <ion-label class="label-string"> {{'label_broken'|translate}} </ion-label>
               </ion-col>
-            </ion-row>
-            <ion-row>
               <ion-col>
-                <ion-label class="label-value"> {{getType()}}</ion-label>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-item>
-
-        <ion-item>
-          <ion-grid>
-            <ion-row>
-              <ion-col>
-                <ion-label> {{'label_working'|translate}} </ion-label>
-              </ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col>
-                <ion-label class="label-value"> {{getValueField(actualObj.switchingOn)}}</ion-label>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-item>
-        <ion-item>
-          <ion-grid>
-            <ion-row>
-              <ion-col>
-                <ion-label> {{'label_broken'|translate}} </ion-label>
-              </ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col>
-                <ion-label class="label-value"> {{getValueField(actualObj.broken)}}</ion-label>
+                <ion-label class="label-value ion-text-right"> {{getValueField(actualObj.broken)}}</ion-label>
               </ion-col>
             </ion-row>
             <ion-row>
@@ -153,13 +146,11 @@
         <ion-item>
           <ion-grid>
             <ion-row>
-              <ion-col >
-                <ion-label> {{'label_old'|translate}} </ion-label>
-              </ion-col>
-            </ion-row>
-            <ion-row>
               <ion-col>
-                <ion-label class="label-value"> {{getAge()}}</ion-label>
+                <ion-label class="label-string"> {{'label_old'|translate}} </ion-label>
+              </ion-col>
+              <ion-col>
+                <ion-label class="label-value ion-text-right"> {{getAge()}}</ion-label>
               </ion-col>
             </ion-row>
           </ion-grid>
@@ -175,6 +166,17 @@
           </ion-grid>
         </ion-item>
       </ion-list>
+    </div>
+    <div *ngIf="notDisposedAtSchool">
+      <ion-label>
+        <p class="wrong">{{'label_not_disposed_at_school'|translate}} </p>
+      </ion-label>
+    </div>
+    <div *ngIf="wrongPlace">
+      <ion-label>
+        <p class="wrong">{{'label_wrong_place'|translate}}</p>
+        <p class="wrong">{{getValueString()}}</p>
+      </ion-label>
     </div>
   </div>
   <ng-template #itemAlreadyInserted>
@@ -194,24 +196,13 @@
     </div>
   </ng-template>
   <div *ngIf="!alreadyInserted">
-    <div *ngIf="wrongPlace">
-      <ion-label >
-        <p class="wrong">{{'label_wrong_place'|translate}}</p>
-        <p class="wrong">{{getValueString()}}</p>
-      </ion-label>
-    </div>
     <div expand="block">
-      <ion-button class="color-bar" size="block" ion-button (click)="confirmItem()" [disabled]="!brokenConfirm">
+      <ion-button class="robot-button" size="block" ion-button (click)="confirmItem()" [disabled]="!brokenConfirm">
         {{'label_classify'|translate}} </ion-button>
     </div>
     <div expand="block">
-      <ion-button class="color-bar" size="block" ion-button (click)="cancel()">{{'label_cancel'|translate}}
+      <ion-button class="robot-button" size="block" ion-button (click)="cancel()">{{'label_cancel'|translate}}
       </ion-button>
     </div>
   </div>
 </ion-content>
-<!-- <ion-footer>
-  <ion-toolbar class="color-bar">
-    <ion-title class="ion-text-center">{{'label_operatore'|translate}}</ion-title>
-  </ion-toolbar>
-</ion-footer> -->

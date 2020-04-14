@@ -17,7 +17,8 @@
 
 
 <ion-content padding class="common-content">
-  <img class="background-img" src="./assets/logo.png">  <ion-grid>
+    <!-- <img class="background-img" src="./assets/logo.png"> -->
+  <ion-grid>
     <div class="question-screen">
       <div class="col-vertical-center">
         <div class="vertical-center right-box">
@@ -34,10 +35,10 @@
                 <ion-item lines="none"><ion-label>{{'label_recap_age'|translate}}</ion-label>{{getAge()}}</ion-item>
               </div>
               <!-- {{itemClassification.playerId}}</ion-item> -->
-                <ion-button color="light" (click)="confirm()" expand="block" fill="outline">
+                <ion-button class="robot-button" (click)="confirm()" expand="block" fill="outline">
                   {{'label_confirm'|translate}}
                 </ion-button>
-                <ion-button color="light" (click)="change()" expand="block" fill="outline">
+                <ion-button class="robot-button" (click)="change()" expand="block" fill="outline">
                   {{'label_change'|translate}}
                 </ion-button>
             </ion-list>
