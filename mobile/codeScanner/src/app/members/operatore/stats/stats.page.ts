@@ -53,7 +53,7 @@ export class StatsPage extends CommonPage implements OnInit {
   }
   async legenda() {
     const alert = await this.alertController.create({
-      header: "Il significato delle statistiche",
+      header: "Legenda",
       cssClass: 'stat-popup',
       message: `
       <div class="legenda-label">

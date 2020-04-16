@@ -123,9 +123,9 @@
         "title_type_selection":"Seleziona la tipologia:",
         "toast_select_data":"Seleziona tutti i dati per accedere",
         "label_totale_conferiti":"Totale oggetti conferiti: ",
-        "label_totale_attesi":"Totale oggetti attesi: ",
-        "label_totale_corrispondenti":"Totale oggetti corrispondenti: ",
-        "label_totale_inattesi":"Totale oggetti inattesi: ",
+        "label_totale_attesi":"Oggetti attesi: ",
+        "label_totale_corrispondenti":"Oggetti corrispondenti: ",
+        "label_totale_inattesi":"Oggetti inattesi: ",
         "label_classification":"Classificazione: ",
         "label_true":"Si",
         "label_false":"No",
@@ -133,7 +133,7 @@
         "label_operatore":"operatore",
         "label_home_operatore_insert":"Inserimento oggetti",
         "label_conferma_operatore":"Sei sicuro di voler confermare i dati?",
-        "label_not_disposed_at_school":"Oggetto NON disposto a scuola",
+        "label_not_disposed_at_school":"Oggetto NON risulta conferito nello smart bin",
         "label_not_confirmed_at_school":"Questo oggetto non risulta confermato in classe!",
         "label_already_inserted":"Oggetto gia' registrato dall'operatore",
         "label_note":"Note: ",
@@ -149,5 +149,5 @@
         "label_item_already_classified_parent":"Oggetto gia' classificato. Ricordati di portarlo a scuola per confermarlo",
         "label_confirm_broken":"Rotto",
         "label_confirm_not_broken":"Non rotto",
-        "label_legenda":"Che cosa sono le categorie di oggetti?"
+        "label_legenda":"Legenda"
 }
