@@ -149,5 +149,8 @@
         "label_item_already_classified_parent":"Oggetto gia' classificato. Ricordati di portarlo a scuola per confermarlo",
         "label_confirm_broken":"Rotto",
         "label_confirm_not_broken":"Non rotto",
-        "label_legenda":"Legenda"
+        "label_legenda":"Legenda",
+        "label_school": "Scuola: ",
+        "label_total_item_classified":"Oggetti classificati: ",
+        "label_total_item_confirmed":"Oggetti confirmed: "
 }
