@@ -82,7 +82,7 @@
         "insert_error_message":"Errore nell'inserimento dell'oggetto",
         "insert_done_title":"Oggetto inserito",
         "insert_done_message":"L'oggetto e' stato inserito correttamente",
-        "label_recycle_string_value": "Questo oggetto HA VALORE",
+        "label_recycle_string_value": "Questo oggetto È RIPARABILE",
         "label_recycle_string_reuse": "Questo oggetto puo' essere RIUTILIZZATO",
         "label_recycle_string_recycle": "Questo oggetto puo' essere RICICLATO",
         "label_bin_recycle_string_value":"Riparo",
@@ -112,7 +112,7 @@
         "alert_different_class_message":"Questo codice è già stato usato da un'altra classe. Scegline un'altro",
         "cancel_popup":"Annulla",
         "empty_id":"Campo vuoto! Inserire un codice",
-        "label_bin_value":"VALORE",
+        "label_bin_value":"RIPARO",
         "label_bin_reuse":"RIUSO",
         "label_bin_recycle":"RICICLO",
         "label_stats":"Statistiche",
@@ -152,5 +152,5 @@
         "label_legenda":"Legenda",
         "label_school": "Scuola: ",
         "label_total_item_classified":"Oggetti classificati: ",
-        "label_total_item_confirmed":"Oggetti confirmed: "
+        "label_total_item_confirmed":"Oggetti confermati        : "
 }
