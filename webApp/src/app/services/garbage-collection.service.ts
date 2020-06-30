@@ -50,35 +50,55 @@ export class GarbageCollectionService {
    getArrayResources():any[] {
      return this.arrayResources;
    }
-   getCredit(gameId: any, objectId: any):Promise<any> {
+   getCredit(gameId: any, objectId: any,token:string):Promise<any> {
     let url: string = this.endPoint + this.getGameApi + gameId + this.getReduceApi+'/'+objectId;
-    return this.http.get(url).toPromise().then(response => {
+    return this.http.get(url,{ headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token
+
+    }}).toPromise().then(response => {
       return response;
     }).catch(response => {
       return this.utils.handleError(response);
     });
   }
-   getActualCollection(gameId): Promise<any> {
+   getActualCollection(gameId,token:string): Promise<any> {
     let url: string = this.endPoint + this.getGameApi + gameId + '/collection';
-    return this.http.get(url).toPromise().then(response => {
+    return this.http.get(url,{ headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token
+
+    }}).toPromise().then(response => {
       return response;
     }).catch(response => {
       return this.utils.handleError(response);
     });
   }
   
-  getCollections(gameId): Promise<any> {
+  getCollections(gameId,token:string): Promise<any> {
     let url: string = this.endPoint + this.geCollectionApi  +gameId  ;
-    return this.http.get(url).toPromise().then(response => {
+    return this.http.get(url,{ headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token
+
+    }}).toPromise().then(response => {
       return response;
     }).catch(response => {
       return this.utils.handleError(response);
     });
   }
-  checkIfPresent(id: string, idUser:string): Promise<any> {
+  checkIfPresent(id: string, idUser:string,token:string): Promise<any> {
     let url: string = this.endPoint + this.getItemApi + this.getUsedApi+"?playerId="+idUser+"&itemId="+encodeURIComponent(id);
 
-    return this.http.get( url).toPromise().then(res => {
+    return this.http.get( url,{ headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token
+
+    }}).toPromise().then(res => {
       return res;
 
     }).catch(response => {
@@ -87,39 +107,60 @@ export class GarbageCollectionService {
 
 
   }
-  confirmItem(id: string, idUser:string): Promise<any> {
+  confirmItem(id: string, idUser:string,token:string): Promise<any> {
     let url: string = this.endPoint + this.getConfirmApi + "?itemId="+id+"&playerId="+idUser;
-    return this.http.get(url).toPromise().then(response => {
+    return this.http.get(url,{ headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token
+
+    }}).toPromise().then(response => {
       return response;
     }).catch(response => {
       return this.utils.handleError(response);
     });
   }
-  getGargabeMap(tenantId): Promise<any> {
+  getGargabeMap(tenantId,token:string): Promise<any> {
     let url: string = this.endPoint + this.getGarbageApi + tenantId ;
-    return this.http.get(url).toPromise().then(response => {
+    return this.http.get(url,{ headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token
+
+    }}).toPromise().then(response => {
       return response;
     }).catch(response => {
       return this.utils.handleError(response);
     });
   }
-  reduce(playerId,coins): Promise<any> {
+  reduce(playerId,coins,token): Promise<any> {
     let url: string = this.endPoint + this.getItemApi+this.getReduceApi;
     let body = {
       playerId:playerId,
       reduceCoin:coins
+      
     }    
-    return this.http.post(url,body).toPromise().then(response => {
+    return this.http.post(url,body,{headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token
+
+    }}).toPromise().then(response => {
       return response;
     }).catch(response => {
       return this.utils.handleError(response);
     });
   }
 
-  itemDelivery(item): Promise<any> {
+  itemDelivery(item,token): Promise<any> {
     let url: string = this.endPoint + this.getItemApi+this.getDeliveryApi;
     let body = item;    
-    return this.http.post(url,body).toPromise().then(response => {
+    return this.http.post(url,body,{headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token
+
+    }}).toPromise().then(response => {
       return response;
     }).catch(response => {
       return this.utils.handleError(response);

@@ -4,6 +4,7 @@ import { ProfileService } from 'src/app/services/profile.service';
 import { GarbageCollectionService } from 'src/app/services/garbage-collection.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ItemGarbage } from '../item-loaded.page';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'modalCategory',
@@ -27,7 +28,7 @@ export class ModalCategory implements OnInit {
     private profileService: ProfileService,
     private garbageCollection: GarbageCollectionService,
     public translate: TranslateService,
-
+    private auth: AuthService
   ) { }
 
   ngOnInit() {
@@ -35,12 +36,13 @@ export class ModalCategory implements OnInit {
     console.table(this.navParams);
     this.modelId = this.navParams.data.paramTitle;
     this.modalTitle = this.navParams.data.paramID;
-    this.profileService.getLocalPlayerData().then(res => {
+    this.profileService.getLocalPlayerData().then(async res => {
       this.playerData = res;
-      this.garbageCollection.getCollections(this.playerData.gameId).then(res => {
+      const token = await this.auth.getValidToken();
+      this.garbageCollection.getCollections(this.playerData.gameId,token.accessToken).then(res => {
         this.collections = this.orderCollection(res);
 
-        this.garbageCollection.getGargabeMap(this.playerData.tenantId).then(res => {
+        this.garbageCollection.getGargabeMap(this.playerData.tenantId,token.accessToken).then(res => {
           this.garbageMap = res;
         });
       })
