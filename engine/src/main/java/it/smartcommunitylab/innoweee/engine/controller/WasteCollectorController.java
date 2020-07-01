@@ -107,6 +107,7 @@ public class WasteCollectorController extends AuthController {
 			@PathVariable String tenantId,
 			@RequestParam String itemId,
 			@RequestParam boolean broken,
+			@RequestParam(required=false) String itemType,
 			@RequestParam(required=false) String note,
 			@RequestParam String collector,
 			HttpServletRequest request) throws Exception {
@@ -125,6 +126,11 @@ public class WasteCollectorController extends AuthController {
 			//}
 			if(itemEvent.isBroken() ^ broken) {
 				itemEvent.addStateNote("BROKEN flag changed");
+			}
+			if(Utils.isNotEmpty(itemType)) {
+				if(itemEvent.getItemType().equalsIgnoreCase(itemType)) {
+					itemEvent.addStateNote("TYPE changed:" + itemType);
+				}
 			}
 			if(Utils.isNotEmpty(note)) {
 				itemEvent.setNote(note);
