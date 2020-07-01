@@ -27,13 +27,13 @@ const routes: Routes = [
   { path: 'item-confirm/:item', loadChildren: './members/recycle/item-confirm/item-confirm.module#ItemConfirmPageModule' },
   { path: 'question', loadChildren: './members/recycle/question/question.module#QuestionPageModule' },
   { path: 'callback', loadChildren: './auth/implicit/auth-callback/auth-callback.module#AuthCallbackPageModule' },
-    { path: 'logout', loadChildren: './auth/implicit/end-session/end-session.module#EndSessionPageModule' },
+  { path: 'logout', loadChildren: './auth/implicit/end-session/end-session.module#EndSessionPageModule' },
   { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
   { path: '**', redirectTo: 'game-selection', pathMatch: 'full'}
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes,{useHash:false})],
+  imports: [RouterModule.forRoot(routes,{useHash:true})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
