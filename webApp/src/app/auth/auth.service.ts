@@ -35,8 +35,8 @@ export class AuthService extends IonicAuth  {
       (platform.is('android') || platform.is('ios')) ? secureStorage : storage,
       (platform.is('android') || platform.is('ios')) ? cordovaRequestor : requestor,
       undefined, undefined,
-      (platform.is('android') || platform.is('ios')) ? new IonicAuthorizationRequestHandler(browser, secureStorage)
-                               : new IonicImplicitRequestHandler(new DefaultBrowser(), storage)
+       new IonicAuthorizationRequestHandler(new DefaultBrowser(), storage)
+                               
       // new IonicAuthorizationRequestHandler(new DefaultBrowser(), storage)
     );
 

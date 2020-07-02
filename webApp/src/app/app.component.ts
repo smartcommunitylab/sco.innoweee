@@ -147,6 +147,7 @@ export class AppComponent {
     toast.present();
   }
   initializeApp() {
+    console.log("startup");
     this.platform.ready().then(() => {
       this.auth.startUpAsync();
       this.statusBar.styleDefault();
