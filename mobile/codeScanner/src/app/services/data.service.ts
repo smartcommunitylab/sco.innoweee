@@ -85,8 +85,8 @@ export class DataServerService {
         return this.handleError(response);
       });
     }
-    confirmItemOperator(tenantID,token,itemId,broken,collector,note):Promise<any> {
-      let url: string = this.endPoint + this.getCollectorApi+'/'+ this.itemApi+'/'+tenantID+'/check?itemId='+itemId+'&broken='+broken+'&collector='+collector;
+    confirmItemOperator(tenantID,token,itemId,broken,collector,note,itemType?):Promise<any> {
+      let url: string = this.endPoint + this.getCollectorApi+'/'+ this.itemApi+'/'+tenantID+'/check?itemId='+itemId+'&broken='+broken+'&collector='+collector + (itemType?('&itemType='+itemType):'');
       if (note)
         {
         url+='&note='+note

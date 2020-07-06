@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { CommonPage } from 'src/app/class/common-page';
 import { TranslateService } from '@ngx-translate/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ToastController, AlertController, NavController } from '@ionic/angular';
+import { ToastController, AlertController, NavController, ModalController } from '@ionic/angular';
 import { ProfileService } from 'src/app/services/profile.service';
 import { DataServerService } from 'src/app/services/data.service';
 import { AuthService } from 'src/app/auth/auth.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Location } from '@angular/common';
+import { InsertModalCategory } from '../insertCategoryModal/insertModalCategory';
 
 @Component({
   selector: 'app-insert-old',
@@ -27,6 +28,10 @@ export class InsertOldPage extends CommonPage implements OnInit {
   note: string;
   wrongPlace: boolean = false;
   notConfirmed: boolean = false;
+  typeString: any;
+  typeItemNew:any;
+  typeStringNew:string;
+
   constructor(public translate: TranslateService,
     public router: Router,
     public toastController: ToastController,
@@ -37,6 +42,7 @@ export class InsertOldPage extends CommonPage implements OnInit {
     public location: Location,
     private navCtrl: NavController,
     public auth: AuthService,
+    private modalController: ModalController,
     public authService: AuthenticationService) {
     super(auth, router, translate, toastController, route, dataServerService, location, profileService, authService)
   }
@@ -101,7 +107,36 @@ export class InsertOldPage extends CommonPage implements OnInit {
       return this.typeItem.name["it"];
     else return ""
   }
+  getTypeNew() {
+    if (this.typeItemNew)
+      return this.typeItemNew.name["it"];
+    else return ""
+  }
+  chooseType() {
+    this.openModal()
+  }
+  async openModal() {
+    const modal = await this.modalController.create({
+      component: InsertModalCategory,
+      // backdropDismiss:false,
+      cssClass: 'modal-category',
+      componentProps: {
+        // "paramID": 123,
+        // "paramTitle": "Test Title"
+      }
+    });
 
+    modal.onDidDismiss().then((dataReturned) => {
+      if (dataReturned.data !== null && dataReturned.data["itemType"] !=null) {
+        console.log(dataReturned.data["itemType"].value);
+        var type = dataReturned.data["itemType"]
+        this.typeItemNew = type.value;
+        this.typeStringNew = type.label[this.translate.defaultLang];
+      }
+    });
+
+    return await modal.present();
+  }
   confirmItem() {
     this.translate.get('label_classify').subscribe(async (res: string) => {
       var title = res;
@@ -124,7 +159,7 @@ export class InsertOldPage extends CommonPage implements OnInit {
               console.log('conferma')
               const token = await this.auth.getValidToken();
               if (!this.wrongPlace && !this.notConfirmed && !this.notDisposedAtSchool)
-                this.dataServerService.confirmItemOperator(this.profileService.getDomainMemorized()["tenants"][0], token.accessToken, this.actualObj.itemId, this.brokenConfirm, this.profileService.getCollector(), this.note).then(() => {
+                this.dataServerService.confirmItemOperator(this.profileService.getDomainMemorized()["tenants"][0], token.accessToken, this.actualObj.itemId, this.brokenConfirm, this.profileService.getCollector(), this.note,this.typeItemNew.itemId).then(() => {
                   this.showToastConfirmed()
                   this.router.navigate(['checked']);
                 }, err => {

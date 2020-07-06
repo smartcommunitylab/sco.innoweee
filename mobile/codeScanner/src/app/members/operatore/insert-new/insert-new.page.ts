@@ -8,7 +8,7 @@ import { ProfileService } from 'src/app/services/profile.service';
 import { DataServerService } from 'src/app/services/data.service';
 import { AuthService } from 'src/app/auth/auth.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
-import { InsertModalCategory } from './modal/insertModalCategory';
+import { InsertModalCategory } from '../insertCategoryModal/insertModalCategory';
 
 @Component({
   selector: 'app-insert-new',

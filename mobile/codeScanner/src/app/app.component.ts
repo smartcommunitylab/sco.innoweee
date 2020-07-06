@@ -6,6 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from './auth/auth.service';
 import { AuthActions } from 'ionic-appauth/lib/auth-action';
 import { ProfileService } from './services/profile.service';
+import { CodePush } from '@ionic-native/code-push/ngx';
 
 @Component({
   selector: 'app-root',
@@ -21,6 +22,7 @@ export class AppComponent {
   }
   constructor(
     private navCtrl: NavController,
+    private codePush: CodePush,
     private platform: Platform,
     private splashScreen: SplashScreen,
     private loadingController: LoadingController,
@@ -167,8 +169,15 @@ export class AppComponent {
     }
     return returnVar
   }
+  checkCodePush() {
+    
+    this.codePush.sync().subscribe((syncStatus) => console.log(syncStatus));
+    const downloadProgress = (progress) => { console.log(`Downloaded ${progress.receivedBytes} of ${progress.totalBytes}`); }
+    this.codePush.sync({}, downloadProgress).subscribe((syncStatus) => console.log(syncStatus));
+ }
   initializeApp() {
     this.platform.ready().then(() => {
+      this.checkCodePush();
       this.auth.startUpAsync();
       console.log('ready');
       this.initAuth();
