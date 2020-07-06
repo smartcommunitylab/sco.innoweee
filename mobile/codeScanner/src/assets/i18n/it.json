@@ -99,6 +99,8 @@
         "label_item_confirmed":"Fino ad ora la tua classe ha raccolto un totale di {{confirmedItems}} oggetti. Ricordati di portarli in classe per ottenere i crediti RICICLO e RIUSO per comprare le parti del robot. Con l'aiuto della tua insegnante conferisci gli oggetti all'interno dello smart bin corretto.",
         "label_recap_id":"ID:",
         "label_recap_type":"Tipologia:",
+        "label_type_user":"Tipologia utente:",
+        "label_type_operator":"Tipologia operatore",
         "label_recap_switch":"Funziona:",
         "label_recap_broken":"Ha parti rotte o mancanti:",
         "label_recap_age":"Ha più di 5 anni:",
