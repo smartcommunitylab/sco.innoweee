@@ -128,7 +128,7 @@ public class WasteCollectorController extends AuthController {
 				itemEvent.addStateNote("BROKEN flag changed");
 			}
 			if(Utils.isNotEmpty(itemType)) {
-				if(itemEvent.getItemType().equalsIgnoreCase(itemType)) {
+				if(!itemEvent.getItemType().equalsIgnoreCase(itemType)) {
 					itemEvent.addStateNote("TYPE changed:" + itemType);
 				}
 			}
