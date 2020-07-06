@@ -58,14 +58,14 @@
         "reply_1_question": "1-3 years",
         "reply_2_question":"3-5 years",
         "reply_3_question":">5 years",
-        "reply_on_question":"It turns on",
-        "reply_off_question":"It doesn't turn on",
-        "reply_working_question":"Intact",
-        "reply_broken_question":"Broken",
+        "reply_on_question":"Yes",
+        "reply_off_question":"No",
+        "reply_working_question":"No",
+        "reply_broken_question":"Yes",
         "number_replies":"Number Answers",
         "number_coins":"Reduce coins",
         "go_to_recycle":"Go to collect garbage",
-        "Label_close_item": "Place near the object",
+        "label_close_item": "Place near the object",
         "label_identified":"Object identified",
         "label_end_recycle":"End the collection",
         "label_send_item":"Send",
@@ -171,7 +171,10 @@
         "label_bin_reuse":"REUSED",
         "label_bin_recycle":"RECYCLED",
         "warning_replies":"<b>WARNING</b><br> Ricordatevi di rispondere alla domanda riduco per ottenere i crediti necessari all'acquisto del robot",
-        "wrong_length_id":"The ID length must be 5 characters"
+        "wrong_length_id":"The ID length must be 5 characters",
+        "alert_different_class_title":"Different class",
+        "alert_different_class_message":"This ID has already been used by another class. Choose another ID."
+    
 
 
 
