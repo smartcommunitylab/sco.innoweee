@@ -18,13 +18,20 @@
 
     </ion-row>
   </ion-grid>
-  <ion-grid *ngIf="!firstStep">
+  <div *ngIf="!firstStep">
+  <ion-grid >
     <ion-row class="label-row">
       <ion-col text-center class="box" *ngFor="let item of items" (click)="chooseItem(item)">
         <span>{{getStringItem(item)}}</span>
       </ion-col>
-
+      <ion-col size="12" text-center class="box" (click)="chooseBack()">
+        <span>{{'back_label'|translate}}</span>
+      </ion-col>
     </ion-row>
+
+  </ion-grid>
+</div>
+  <!-- <ion-grid>
     <ion-row class="label-row back">
       <ion-col size=3></ion-col>
       <ion-col size="6" text-center class="box" (click)="chooseBack()">
@@ -32,5 +39,5 @@
       </ion-col>
       <ion-col size=3></ion-col>
     </ion-row>
-  </ion-grid>
+  </ion-grid> -->
 </ion-content>

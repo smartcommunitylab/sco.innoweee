@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { AuthService } from '../auth/auth.service';
 const ERROR_ITEM_CONFIRMED = 'EC11:item already confirmed';
 const ERROR_PLAYERID_WRONG = 'EC12:playerId not corresponding';
 
@@ -15,6 +16,7 @@ export class UtilsService {
   constructor(
     private alertController: AlertController,
     private router: Router,
+    private auth:AuthService,
     private translate: TranslateService
   ) { }
   handleError(error: any): Promise<any> {
@@ -42,6 +44,7 @@ export class UtilsService {
             buttons: [{
               text: button,
               handler: () => {
+                this.auth.signOut();
                 this.router.navigate(['']);
               }
             }]

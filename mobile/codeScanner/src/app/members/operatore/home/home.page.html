@@ -1,8 +1,8 @@
 <ion-header>
-  <ion-toolbar class="color-bar">
-    <ion-title class="game-title">{{'title_game_selection'|translate}}</ion-title>
+  <ion-toolbar class="color-bar" mode="ios">
+    <ion-title class="game-title"><div>{{'title_game_selection'|translate}}</div><div class="game-subtitle">{{'label_operatore'|translate}}</div></ion-title>
     <ion-buttons class="language" slot="end">
-      <ion-label> {{'label_logout'|translate}} </ion-label>
+      <!-- <ion-label> {{'label_logout'|translate}} </ion-label> -->
       <ion-button (click)="changeClass()">
         <ion-icon slot="icon-only" name="log-out"></ion-icon>
       </ion-button>
@@ -10,13 +10,22 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content padding class="common-content">
+    <!-- <img class="background-img" src="./assets/logo.png"> -->
   <ion-grid>
+    <ion-row class="home-square">
+      <ion-col class="home-square-conent">
+        <div class="label_big common-label">{{'label_ruolo'|translate}}</div>
+        <div class="label_big common-label">{{'label_operatore'|translate}}</div>
+        <div class="label_little common-label">{{'label_home_operatore_insert'|translate}}</div>
+    </ion-col>
+    </ion-row>
+    <div class="home-buttons">
     <ion-row>
       <ion-col>
         <div class="scan-button">
-          <ion-button expand="block" ion-button (click)="scan()">
-            <ion-icon class="home-button-icon" slot="icon-only" name="camera"></ion-icon>
+          <ion-button class="robot-button" expand="block" ion-button (click)="scan()">
+            <ion-icon class="absolute-icon" slot="icon-only" name="camera"></ion-icon>
             {{'label_scan'|translate}}
           </ion-button>
         </div>
@@ -25,8 +34,8 @@
     <ion-row>
       <ion-col>
         <div class="scan-button">
-          <ion-button expand="block" ion-button (click)="manualInsert()">
-            <ion-icon class="home-button-icon" slot="icon-only" name="create"></ion-icon>
+          <ion-button class="robot-button" expand="block" ion-button (click)="manualInsert()">
+            <ion-icon class="absolute-icon" slot="icon-only" name="create"></ion-icon>
             {{'label_manual_insert'|translate}}
           </ion-button>
         </div>
@@ -36,17 +45,18 @@
 
       <ion-col>
         <div class="scan-button">
-          <ion-button expand="block" ion-button (click)="stats()">
-            <ion-icon class="home-button-icon" slot="icon-only" name="stats-chart-outline"></ion-icon>
+          <ion-button class="robot-button" expand="block" ion-button (click)="stats()">
+            <ion-icon class="absolute-icon" slot="icon-only" name="podium"></ion-icon>
             {{'label_stats'|translate}}
           </ion-button>
         </div>
       </ion-col>
     </ion-row>
+  </div>
   </ion-grid>
 </ion-content>
-<ion-footer>
+<!-- <ion-footer>
   <ion-toolbar class="color-bar">
-    <ion-title class="ion-text-center">{{ getFooter()}}</ion-title>
+    <ion-title class="ion-text-center">{{'label_operatore'|translate}}</ion-title>
   </ion-toolbar>
-</ion-footer>
+</ion-footer> -->

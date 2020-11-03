@@ -98,6 +98,7 @@ export class ClassificationWorkingPage extends CommonPage implements OnInit {
     return ""
   }
   getType() {
+    console.log("this.itemClassification.getItemValue()"+this.itemClassification.getItemValue());
     if (this.itemClassification)
 
     return this.itemClassification.getItemValue()

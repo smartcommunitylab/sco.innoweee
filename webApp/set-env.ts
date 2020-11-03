@@ -21,7 +21,7 @@ export const environment = {
     redirectUrl: "${process.env.redirectUrl}",
     aacUrl: "${process.env.aacUrl}",
     getDomainApi: 'api/profile',
-    getInstituteApi: '/api/institute/',
+    getInstituteApi: 'api/institute',
     getSchoolApi: 'api/school',
     getGameApi: 'api/game/',
     getPlayerApi: 'api/player',
@@ -31,14 +31,15 @@ export const environment = {
     buyComponentApi:'/buy/',
     contributionApi:'/contribution/',
     robotApi:"/robot/",
-    getRobotImageApi:"api/image/robot/",
+    getRobotImageApi:"api/image/robot",
     getItemApi:"api/item",
+    getConfirmApi:"api/item/confirm",
     getReduceApi:"/reduce",
     itemSocketURL:"itemws",
     getDeliveryApi:"/delivery",
     getGarbageApi:"api/garbageMap/",
     getUsedApi:"/used",
-    scope: 'profile.basicprofile.me profile.accountprofile.me'
+    scope: 'openid profile email profile.basicprofile.me'
 };
 `
 

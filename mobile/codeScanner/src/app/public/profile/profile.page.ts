@@ -37,33 +37,33 @@ export class ProfilePage extends CommonPage implements OnInit {
     super( auth,router,translate, toastController,route,dataServerService,location,profileService,authService) }
 
   async ngOnInit() {
-    this.auth.authObservable.subscribe((action) => {
-      var playerId = this.profileService.getMemorizedPlayerId();
-      var playerData = this.profileService.getMemorizedPlayerData();
-      var playerName = this.profileService.getMemorizedPlayerName();
-      var schoolName = this.profileService.getMemorizedSchool();
-      if ((this.isNotOperator(localStorage.getItem('profile')))) {
-        console.log('teacher or parent')
+    // this.auth.authObservable.subscribe((action) => {
+    //   var playerId = this.profileService.getMemorizedPlayerId();
+    //   var playerData = this.profileService.getMemorizedPlayerData();
+    //   var playerName = this.profileService.getMemorizedPlayerName();
+    //   var schoolName = this.profileService.getMemorizedSchool();
+    //   if ((this.isNotOperator(localStorage.getItem('profile')))) {
+    //     console.log('teacher or parent')
 
-      if (localStorage.getItem('profile') && playerId && playerData && playerName && schoolName) {
-          this.profileService.setPlayerData(playerData);
-          this.profileService.setPlayerName(playerName);
-          this.profileService.setSchoolName(schoolName);
-          this.router.navigate(['home'], { queryParams: { playerId: playerId, playerName: playerName, playerData: JSON.stringify(playerData) } });
-        } 
+    //   if (localStorage.getItem('profile') && playerId && playerData && playerName && schoolName) {
+    //       this.profileService.setPlayerData(playerData);
+    //       this.profileService.setPlayerName(playerName);
+    //       this.profileService.setSchoolName(schoolName);
+    //       this.router.navigate(['home'], { queryParams: { playerId: playerId, playerName: playerName, playerData: JSON.stringify(playerData) } });
+    //     } 
 
-      }
-      else {
-        console.log('operator')
-        this.router.navigate(['home-operator']);
-      }
-    })
+    //   }
+    //   else {
+    //     console.log('operator')
+    //     this.router.navigate(['home-operator']);
+    //   }
+    // })
   }
-  private isNotOperator(arg0: string) {
-    if ((arg0 != this.profileService.getOwnerKey()) && (arg0 != this.profileService.getOperatorKey()))
-      return true;
-    return false
-  }
+  // private isNotOperator(arg0: string) {
+  //   if ((arg0 != this.profileService.getOwnerKey()) && (arg0 != this.profileService.getOperatorKey()))
+  //     return true;
+  //   return false
+  // }
 
 
   playerData(playerData: any): any {
@@ -81,7 +81,8 @@ export class ProfilePage extends CommonPage implements OnInit {
       this.translate.get('toast_error').subscribe(async (res: string) => {
         const toast = await this.toastController.create({
           message: res,
-          duration: 2000
+          duration: 2000,
+          position: 'middle'
         })
         toast.present();
       })

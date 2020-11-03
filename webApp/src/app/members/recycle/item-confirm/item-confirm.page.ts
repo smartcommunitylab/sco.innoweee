@@ -2,17 +2,20 @@ import { Component, OnInit } from '@angular/core';
 import { ItemClassification } from 'src/app/class/item-classification';
 import { TranslateService } from '@ngx-translate/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { GarbageCollectionService } from 'src/app/services/garbage-collection.service';
 import { ProfileService } from 'src/app/services/profile.service';
 import { NavController } from '@ionic/angular';
+import { MainPage } from 'src/app/class/MainPage';
+import { Storage } from '@ionic/storage';
+import { GarbageCollectionService } from 'src/app/services/garbage-collection.service';
 import { UtilsService } from 'src/app/services/utils.service';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-item-confirm',
   templateUrl: './item-confirm.page.html',
   styleUrls: ['./item-confirm.page.scss'],
 })
-export class ItemConfirmPage implements OnInit {
+export class ItemConfirmPage  extends MainPage implements OnInit {
   private itemClassification: ItemClassification;
   recap: any = {};
   item: any;
@@ -22,15 +25,18 @@ export class ItemConfirmPage implements OnInit {
   items: any;
   types: any =[];
 
-  constructor(
-    private translate: TranslateService,
-    private garbageCollectionService: GarbageCollectionService,
+  constructor(private route: ActivatedRoute,
     private profileService: ProfileService,
-    private navCtrl: NavController,
+    public navCtrl: NavController, 
     private router: Router,
+    public translate: TranslateService, 
+    public auth: AuthService, 
+    private garbageCollectionService: GarbageCollectionService,
     private utils: UtilsService,
-    private garbageCollection: GarbageCollectionService,
-    private route: ActivatedRoute) { }
+    public storage: Storage) {
+    super(translate, auth, storage,navCtrl);
+    }
+  
 
   ngOnInit() {
     // get item from param
@@ -45,14 +51,15 @@ export class ItemConfirmPage implements OnInit {
       this.recap["off"] = this.translate.instant("classification_off");
     }
     )
-    this.profileService.getLocalPlayerData().then(res => {
+    this.profileService.getLocalPlayerData().then(async res => {
       this.playerData = res;
-      this.garbageCollection.getActualCollection(this.playerData.gameId).then(res => {
+      const token = await this.auth.getValidToken();
+      this.garbageCollectionService.getActualCollection(this.playerData.gameId,token.accessToken).then(res => {
         if (res) {
           this.items = res.items
           this.garbageCollectionName = res.nameGE;
         }
-        this.garbageCollection.getGargabeMap(this.playerData.tenantId).then(res => {
+        this.garbageCollectionService.getGargabeMap(this.playerData.tenantId,token.accessToken).then(res => {
           this.garbageMap = res;
           this.fillSteps();
         });
@@ -116,9 +123,10 @@ export class ItemConfirmPage implements OnInit {
     }
   }
   confirm() {
-    this.profileService.getLocalPlayerData().then(res => {
+    this.profileService.getLocalPlayerData().then(async res => {
       this.playerData = res;
-      this.garbageCollectionService.confirmItem(this.item.itemId, this.playerData.objectId).then(res => {
+      const token = await this.auth.getValidToken();
+      this.garbageCollectionService.confirmItem(this.item.itemId, this.playerData.objectId,token.accessToken).then(res => {
         //show alert confirmed and go out
         console.log('confermato');
         this.item.reusable = res.reusable;

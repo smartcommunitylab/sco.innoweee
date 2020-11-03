@@ -92,5 +92,11 @@ public class Const {
 	public static final String BIN_RECYCLE = "bin_recycle";
 	public static final String BIN_VALUE = "bin_value";
 	
+	public static final String ITEM_ACTION_CLASSIFIED = "CLASSIFIED";
+	public static final String ITEM_ACTION_CONFIRMED = "CONFIRMED";
+	public static final String ITEM_ACTION_DISPOSED = "DISPOSED";
+	public static final String ITEM_ACTION_CHECKED = "CHECKED";
+	public static final String ITEM_ACTION_UNEXPECTED = "UNEXPECTED";
+	
 }
 

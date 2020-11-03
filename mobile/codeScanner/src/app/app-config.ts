@@ -55,7 +55,7 @@ export const APP_CONFIG: ApplicationConfig = {
     getUsedApi:"/used",
     getReportApi:"report",
     parentApi:"/parent",
-    itemApi: '/item',
+    itemApi: 'item',
 
 };
 

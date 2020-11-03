@@ -3,9 +3,9 @@
     <ion-buttons slot="start">
       <ion-back-button class="language"></ion-back-button>
     </ion-buttons>
-    <ion-title class="game-title">{{'title_game_selection'|translate}}</ion-title>
+    <ion-title class="game-title"><div>{{'title_game_selection'|translate}}</div><div class="game-subtitle">{{ getFooter()}}</div></ion-title>
     <ion-buttons class="language" slot="end">
-      <ion-label> {{'label_logout'|translate}} </ion-label>
+      <!-- <ion-label> {{'label_logout'|translate}} </ion-label> -->
       <ion-button (click)="changeClass()">
         <ion-icon slot="icon-only" name="log-out"></ion-icon>
       </ion-button>
@@ -13,7 +13,9 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="common-content" padding>
+
+<ion-content padding class="common-content">
+    <!-- <img class="background-img" src="./assets/logo.png"> -->
   <ion-grid>
     <div class="question-screen">
       <div class="col-vertical-center">
@@ -28,10 +30,10 @@
               <ion-list-header>
                 {{'label_broken'|translate}}
               </ion-list-header>
-              <ion-button color="light" (click)="sayYes()" expand="block" fill="outline">
+              <ion-button class="robot-button"  (click)="sayYes()" expand="block" fill="outline">
                 {{'answer_broken'|translate}}
               </ion-button>
-              <ion-button color="light" (click)="sayNo()" expand="block" fill="outline">
+              <ion-button class="robot-button"  (click)="sayNo()" expand="block" fill="outline">
                 {{'answer_not_broken'|translate}}
               </ion-button>
             </ion-list>
@@ -42,11 +44,11 @@
                 {{'label_recap'|translate}}
               </ion-list-header>
               <div class="recap">
-                <ion-item lines="none"><ion-label>{{'label_recap_id'|translate}}</ion-label><span>{{getId()}}</span></ion-item>
-                <ion-item lines="none"><ion-label>{{'label_recap_type'|translate}}</ion-label><span>{{getType()}}</span></ion-item>
-                <ion-item lines="none"><ion-label>{{'label_recap_switch'|translate}}</ion-label><span>{{getSwitching()}}</span></ion-item>
-                <ion-item lines="none"><ion-label>{{'label_recap_broken'|translate}}</ion-label><span>{{getBroken()}}</span></ion-item>
-                <ion-item lines="none"><ion-label>{{'label_recap_age'|translate}}</ion-label><span>{{getAge()}}</span></ion-item>
+                <ion-item lines="none"><ion-label>{{'label_recap_id'|translate}}</ion-label>{{getId()}}</ion-item>
+                <ion-item lines="none"><ion-label>{{'label_recap_type'|translate}}</ion-label>{{getType()}}</ion-item>
+                <ion-item lines="none"><ion-label>{{'label_recap_switch'|translate}}</ion-label>{{getSwitching()}}</ion-item>
+                <ion-item lines="none"><ion-label>{{'label_recap_broken'|translate}}</ion-label>{{getBroken()}}</ion-item>
+                <ion-item lines="none"><ion-label>{{'label_recap_age'|translate}}</ion-label>{{getAge()}}</ion-item>
               </div>
             </ion-list>
           </div>
@@ -55,8 +57,8 @@
     </div>
   </ion-grid>
 </ion-content>
-<ion-footer>
+<!-- <ion-footer>
   <ion-toolbar class="color-bar">
       <ion-title class="ion-text-center">{{ getFooter()}}</ion-title>
   </ion-toolbar>
-</ion-footer>
+</ion-footer> -->

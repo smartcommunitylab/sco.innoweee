@@ -1,8 +1,8 @@
 import {  OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Storage } from '@ionic/storage';
-import { AuthenticationService } from '../services/authentication.service';
 import { NavController } from '@ionic/angular';
+import { AuthService } from '../auth/auth.service';
 
 const ROUTER_KEY= "router-key"
 
@@ -11,7 +11,7 @@ export class MainPage implements OnInit {
 
   constructor(
     public translate: TranslateService,
-    public authService: AuthenticationService,
+    public authService: AuthService,
     public storage:Storage,
     public navCtrl: NavController
     ) {
@@ -34,8 +34,8 @@ export class MainPage implements OnInit {
   }
   
   public logout() {
-    this.authService.logout();
-    this.storage.clear();
+    this.authService.signOut();
+    // this.storage.clear();
   }
   public goBack() {
     this.navCtrl.pop();

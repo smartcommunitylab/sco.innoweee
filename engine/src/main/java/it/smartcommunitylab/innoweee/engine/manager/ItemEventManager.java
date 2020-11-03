@@ -77,6 +77,16 @@ public class ItemEventManager {
 		return itemEventRepository.countByParams(playerIds, states, reusable, valuable);
 	}
 	
+	public int countByStates(List<String> playerIds, String tenantId,
+			List<Integer> states) {
+		return itemEventRepository.countByStates(playerIds, tenantId, states);
+	}
+
+	public int countByStateAndCollector(List<String> playerIds, String tenantId,
+			Integer state, String collector) {
+		return itemEventRepository.countByStateAndCollector(playerIds, tenantId, state, collector);
+	}
+
 	public ItemEvent itemClassified(ItemEvent itemEvent, Game game) throws Exception {
 		if(findByItemId(itemEvent.getItemId()) != null) {
 			throw new EntityNotFoundException(Const.ERROR_CODE_APP + "item already used");
@@ -99,7 +109,7 @@ public class ItemEventManager {
 		setReusableValuable(itemEvent, garbage, actualCollection);
 		
 		ItemAction action = new ItemAction();
-		action.setActionType("CLASSIFIED");
+		action.setActionType(Const.ITEM_ACTION_CLASSIFIED);
 		action.setTimestamp(new Date());
 		itemEvent.getActions().add(action);
 		itemEvent.setState(Const.ITEM_STATE_CLASSIFIED);
@@ -181,7 +191,7 @@ public class ItemEventManager {
 				actualCollection.getNameGE(), garbage, category);
 		
 		ItemAction action = new ItemAction();
-		action.setActionType("CONFIRMED");
+		action.setActionType(Const.ITEM_ACTION_CONFIRMED);
 		action.setTimestamp(new Date());
 		itemEvent.getActions().add(action);
 		itemEvent.setState(Const.ITEM_STATE_CONFIRMED);
@@ -195,7 +205,7 @@ public class ItemEventManager {
 	
 	public ItemEvent itemDisposed(ItemEvent itemEvent) {
 		ItemAction action = new ItemAction();
-		action.setActionType("DISPOSED");
+		action.setActionType(Const.ITEM_ACTION_DISPOSED);
 		action.setTimestamp(new Date());
 		itemEvent.getActions().add(action);
 		itemEvent.setState(Const.ITEM_STATE_DISPOSED);
@@ -205,7 +215,7 @@ public class ItemEventManager {
 	
 	public ItemEvent itemChecked(ItemEvent itemEvent) {
 		ItemAction action = new ItemAction();
-		action.setActionType("CHECKED");
+		action.setActionType(Const.ITEM_ACTION_CHECKED);
 		action.setTimestamp(new Date());
 		itemEvent.getActions().add(action);
 		itemEvent.setState(Const.ITEM_STATE_CHECKED);
@@ -215,7 +225,7 @@ public class ItemEventManager {
 
 	public ItemEvent itemUnexpected(ItemEvent itemEvent) {
 		ItemAction action = new ItemAction();
-		action.setActionType("UNEXPECTED");
+		action.setActionType(Const.ITEM_ACTION_UNEXPECTED);
 		action.setTimestamp(new Date());
 		itemEvent.getActions().add(action);
 		itemEvent.setState(Const.ITEM_STATE_UNEXPECTED);

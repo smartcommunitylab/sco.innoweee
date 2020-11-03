@@ -40,34 +40,43 @@ export class OperatoreManualInsertPage extends CommonPage implements OnInit {
   async insertCode() {
     //check if it is already inserted
     if (this.scanData) {
-      const token = await this.auth.getValidToken();
-      //itemId: any, tenantID: any, token: string
-      this.dataServerService.findItem(this.scanData, this.profileService.getDomainMemorized()["tenants"][0], token.accessToken).then(res => {
-        //already used
-        if (!res) {
-          //new item
-          this.router.navigate(['insert-new'], { queryParams: { scanData: JSON.stringify(res)}});
+      if (this.scanData.length == 5) {
+        const token = await this.auth.getValidToken();
+        //itemId: any, tenantID: any, token: string
+        this.dataServerService.findItem(this.scanData, this.profileService.getDomainMemorized()["tenants"][0], token.accessToken).then(res => {
+          //already used
+          if (!res) {
+            //new item
+            this.router.navigate(['insert-new'], { queryParams: { scanData: this.scanData } });
 
+          }
+          else {
+            this.router.navigate(['insert-old'], { queryParams: { scanData: JSON.stringify(res) } });
+
+
+          }
         }
-        else {
-          this.router.navigate(['insert-old'], { queryParams: { scanData: JSON.stringify(res)}} );
-
-
+        ), err => {
+          //presente con altro player id? Eccezione
         }
+
       }
-      ), err => {
-        //presente con altro player id? Eccezione
+      else {
+        this.translate.get('wrong_length_id').subscribe(res => {
+          this.presentToast(res)
+        })
       }
     } else {
       this.translate.get('empty_id').subscribe(res => {
         this.presentToast(res)
       })
-   }
+    }
   }
   async presentToast(string) {
     const toast = await this.toastController.create({
       message: string,
-      duration: 2000
+      duration: 2000,
+      position: 'middle'
     })
     toast.present();
   }

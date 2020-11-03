@@ -31,11 +31,11 @@ export class AuthService extends IonicAuth  {
     private ngZone: NgZone,
   ) {
     super(
-      (platform.is('cordova')) ? browser : undefined,
-      (platform.is('cordova')) ? secureStorage : storage,
-      (platform.is('cordova')) ? cordovaRequestor : requestor,
+      (platform.is('android') || platform.is('ios')) ? browser : undefined,
+      (platform.is('android') || platform.is('ios')) ? secureStorage : storage,
+      (platform.is('android') || platform.is('ios')) ? cordovaRequestor : requestor,
       undefined, undefined,
-      (platform.is('cordova')) ? new IonicAuthorizationRequestHandler(browser, secureStorage)
+      (platform.is('android') || platform.is('ios')) ? new IonicAuthorizationRequestHandler(browser, secureStorage)
                                : new IonicImplicitRequestHandler(new DefaultBrowser(), storage)
       // new IonicAuthorizationRequestHandler(new DefaultBrowser(), storage)
     );
@@ -47,7 +47,7 @@ export class AuthService extends IonicAuth  {
    * Override to handle cordova callback
    */
   public async startUpAsync() {
-    if (this.platform.is('cordova')) {
+    if (this.platform.is('android') || this.platform.is('ios')) {
       (<any>window).handleOpenURL = (callbackUrl) => {
         this.ngZone.run(() => {
           console.log(callbackUrl);
@@ -91,24 +91,24 @@ export class AuthService extends IonicAuth  {
 
   private addConfig() {
     console.log('add config');
-    if (this.platform.is('cordova')) {
+    if (this.platform.is('android') || this.platform.is('ios')) {
       console.log('cordova');
       this.authConfig = {
-        identity_client: environment.cordova_identity_client,
-        identity_server: environment.cordova_identity_server,
-        redirect_url: environment.cordova_redirect_url,
-        scopes: environment.cordova_scopes,
+        identity_client: environment["cordova_identity_client"],
+        identity_server: environment["cordova_identity_server"],
+        redirect_url: environment["cordova_redirect_url"],
+        scopes: environment["cordova_scopes"],
         usePkce: true,
-        end_session_redirect_url: environment.cordova_end_session_redirect_url,
+        end_session_redirect_url: environment["cordova_end_session_redirect_url"],
       };
     } else {
       this.authConfig = {
-        identity_client: environment.implicit_identity_client,
-        identity_server: environment.implicit_identity_server,
-        redirect_url: environment.implicit_redirect_url,
-        scopes: environment.implicit_scopes,
+        identity_client: environment["implicit_identity_client"],
+        identity_server: environment["implicit_identity_server"],
+        redirect_url: environment["implicit_redirect_url"],
+        scopes: environment["implicit_scopes"],
         usePkce: true,
-        end_session_redirect_url: environment.implicit_end_session_redirect_url,
+        end_session_redirect_url: environment["implicit_end_session_redirect_url"],
       };
     }
   }

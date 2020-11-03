@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar class="color-bar">
+    <ion-buttons slot="start">
+      <ion-button (click)="chooseBack()">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+      <ion-title class="game-title">
+        <div>{{'title_game_selection'|translate}}</div>
+        <div class="game-subtitle">{{'label_operatore'|translate}}</div>
+      </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content padding>
+  <div class="common-label select-label">{{'title_type_selection'|translate}}</div>
+  <ion-searchbar
+    [(ngModel)]="searchTerm"
+    (ionChange)="setFilteredItems()"
+  ></ion-searchbar>
+  <ion-grid *ngIf="firstStep">
+    <div *ngFor="let item of filteredItems">
+      <ion-row class="label-row">
+        <ion-col text-center class="box" (click)="chooseItem(item)">
+          <span>{{getStringItem(item)}}</span>
+        </ion-col>
+      </ion-row>
+    </div>
+    <ion-row class="label-row">
+      <ion-col text-center class="box" (click)="chooseOther()">
+        <span>{{'other_item'|translate}}</span>
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+</ion-content>

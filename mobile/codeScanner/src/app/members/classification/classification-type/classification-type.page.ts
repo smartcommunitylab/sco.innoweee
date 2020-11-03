@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CommonPage } from 'src/app/class/common-page';
 import { TranslateService } from '@ngx-translate/core';
-import { ToastController, AlertController, ModalController } from '@ionic/angular';
+import { ToastController, AlertController, ModalController, LoadingController } from '@ionic/angular';
 import { DataServerService } from 'src/app/services/data.service';
 import { ProfileService } from 'src/app/services/profile.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
@@ -36,12 +36,20 @@ export class ClassificationTypePage extends CommonPage implements OnInit {
     public profileService: ProfileService,
     private classificationService: ClassificationService,
     private modalController: ModalController,
+    public loadingController: LoadingController,
     public authService: AuthenticationService) {
     super(auth, router, translate, toastController, route, dataServerService, location, profileService, authService)
   }
 
+  async presentLoading() {
+    const loading = await this.loadingController.create({
+      duration: 2000
+    });
+    await loading.present();
 
+  }
   ngOnInit() {
+    this.presentLoading();
     this.profileService.getLocalPlayerData().then(async res => {
       this.playerData = res;
       const token = await this.auth.getValidToken();
@@ -58,7 +66,8 @@ export class ClassificationTypePage extends CommonPage implements OnInit {
           this.translate.get('wrong_data_server').subscribe(async (res: string) => {
             const toast = await this.toastController.create({
               message: res,
-              duration: 2000
+              duration: 2000,
+              position: 'middle'
             })
             toast.present();
           })
@@ -79,10 +88,12 @@ export class ClassificationTypePage extends CommonPage implements OnInit {
       await alert.present();
     })
   }
-  getLabel(item) {
-    // if (this.answer && this.answer[item] && this.translate)
-      // return this.translate.instant(this.answer[item].label[this.translate.defaultLang]);
-      return this.translate.instant(item.label[this.translate.defaultLang]);
+  getLabel(item, modal) {
+    console.log(JSON.stringify(item))
+    if (!modal)
+   { if (this.answer && this.answer[item] && this.translate)
+      return this.translate.instant(this.answer[item].label[this.translate.defaultLang]);}
+    else return this.translate.instant(item.label[this.translate.defaultLang]);
   }
 
   fillSteps() {
@@ -99,7 +110,7 @@ export class ClassificationTypePage extends CommonPage implements OnInit {
   }
   chooseCategory(item) {
     this.classificationService.itemClassification.setItemType(item.value);
-    this.classificationService.itemClassification.setItemValue(this.getLabel(item.key));
+    this.classificationService.itemClassification.setItemValue(this.getLabel(item.key, false));
     this.router.navigate(['classification-working']);
   }
   getFooter() {
@@ -144,7 +155,7 @@ export class ClassificationTypePage extends CommonPage implements OnInit {
         // if (dataReturned.data["timestamp"])
         //   this.item.timestamp = dataReturned.data["timestamp"]
           this.classificationService.itemClassification.setItemType(dataReturned.data["itemType"].value);
-    this.classificationService.itemClassification.setItemValue(this.getLabel(dataReturned.data["itemType"]));
+    this.classificationService.itemClassification.setItemValue(this.getLabel(dataReturned.data["itemType"],true));
     this.router.navigate(['classification-working']);
 
       }

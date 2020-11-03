@@ -4,10 +4,10 @@ import { TranslateService } from '@ngx-translate/core';
 import { GarbageCollectionService } from 'src/app/services/garbage-collection.service';
 import { ProfileService } from 'src/app/services/profile.service';
 import { MainPage } from 'src/app/class/MainPage';
-import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Storage } from '@ionic/storage';
 import { NavController, ModalController } from '@ionic/angular';
 import { ModalCategory } from './modal/modalCategory'
+import { AuthService } from 'src/app/auth/auth.service';
 export class ItemGarbage {
 
   playerId: string = "";
@@ -44,12 +44,13 @@ export class ItemLoadedPage extends MainPage implements OnInit {
   dataReturned: any;
   constructor(private route: ActivatedRoute,
     public translate: TranslateService,
-    public authService: AuthenticationService,
+    public authService: AuthService,
     public storage: Storage,
     private profileService: ProfileService,
     private router: Router,
     public navCtrl: NavController,
     public modalController: ModalController,
+    private auth:AuthService,
     private garbageCollection: GarbageCollectionService) {
     super(translate, authService, storage, navCtrl)
   }
@@ -60,12 +61,13 @@ export class ItemLoadedPage extends MainPage implements OnInit {
       this.item["itemId"] = this.route.snapshot.paramMap.get("idItem")
       this.item["manual"] = JSON.parse(this.route.snapshot.paramMap.get("manual"));
     }
-    this.profileService.getLocalPlayerData().then(res => {
+    this.profileService.getLocalPlayerData().then(async res => {
       this.playerData = res;
-      this.garbageCollection.getActualCollection(this.playerData.gameId).then(res => {
+      const token = await this.auth.getValidToken();
+      this.garbageCollection.getActualCollection(this.playerData.gameId,token.accessToken).then(res => {
         this.items = res.items
         this.garbageCollectionName = res.nameGE;
-        this.garbageCollection.getGargabeMap(this.playerData.tenantId).then(res => {
+        this.garbageCollection.getGargabeMap(this.playerData.tenantId,token.accessToken).then(res => {
           this.garbageMap = res;
           this.fillSteps();
         });
@@ -147,14 +149,15 @@ export class ItemLoadedPage extends MainPage implements OnInit {
   }
 
 
-  sendItem() {
+  async sendItem() {
     //check values
     this.item.playerId = this.playerData.objectId;
     this.item.itemType = this.choices[0].value;
     this.item.switchingOn = this.choices[1].value;
     this.item.broken = this.choices[2].value;
     this.item.age = this.choices[3].value;
-    this.garbageCollection.itemDelivery(this.item).then(res => {
+    const token = await this.auth.getValidToken();
+    this.garbageCollection.itemDelivery(this.item,token.accessToken).then(res => {
       //go to item classification
       this.item.reusable = res.reusable;
       this.item.valuable = res.valuable

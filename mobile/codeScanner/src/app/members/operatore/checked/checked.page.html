@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar class="color-bar">
+    <ion-buttons slot="start">
+      <ion-back-button class="language"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="game-title"><div>{{'title_game_selection'|translate}}</div><div class="game-subtitle">{{'label_operatore'|translate}}</div></ion-title>
+    <ion-buttons class="language" slot="end">
+      <!-- <ion-label> {{'label_logout'|translate}}</ion-label> -->
+      <ion-button (click)="changeClass()">
+        <ion-icon slot="icon-only" name="log-out"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding class="common-content">
+    <!-- <img class="background-img" src="./assets/logo.png"> -->
+  <ion-grid>
+    <ion-row class="home-square">
+      <ion-col class="home-square-conent">
+        <div class="label_big">{{'label_registered_item'|translate}}</div>
+        
+    </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <div class="scan-button">
+          <ion-button class="robot-button" expand="block" ion-button  (click)="goHome()">
+            <ion-icon class="absolute-icon" slot="icon-only" name="create"></ion-icon>
+            {{'label_scan'|translate}}
+          </ion-button>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <div class="scan-button">
+          <ion-button class="robot-button" expand="block" ion-button  (click)="stats()">
+            <ion-icon class="absolute-icon" slot="icon-only" name="podium"></ion-icon>
+            {{'label_stats'|translate}}
+          </ion-button>
+        </div>
+      </ion-col>
+    </ion-row>
+</ion-grid>
+</ion-content>
+<!-- <ion-footer>
+  <ion-toolbar class="color-bar">
+    <ion-title class="ion-text-center">{{'label_operatore'|translate}}</ion-title>
+  </ion-toolbar>
+</ion-footer> -->

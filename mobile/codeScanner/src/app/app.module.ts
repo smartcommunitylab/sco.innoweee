@@ -20,14 +20,16 @@ import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { AuthenticationService } from './services/authentication.service';
 import { AuthGuard } from './guards/auth.guard';
 import {TokenInterceptor} from './interceptors/token-interceptor'
+import { InsertModalCategory } from './members/operatore/insertCategoryModal/insertModalCategory';
+import { CodePush } from '@ionic-native/code-push/ngx';
 
 registerLocaleData(localeIt, 'it');
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 @NgModule({
-  declarations: [AppComponent],
-  entryComponents: [],
+  declarations: [AppComponent,InsertModalCategory],
+  entryComponents: [InsertModalCategory],
   imports: [
     BrowserModule, 
     FormsModule,
@@ -51,6 +53,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     GooglePlus,
     AuthenticationService,
     AuthGuard,
+    CodePush,
     { provide: LOCALE_ID, useValue: 'it-IT' },
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     {provide: APP_CONFIG_TOKEN, useValue: APP_CONFIG }

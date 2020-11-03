@@ -14,8 +14,8 @@ import { MainPage } from 'src/app/class/MainPage';
 import { MaterialService } from 'src/app/services/material.service';
 import { GarbageCollectionService } from 'src/app/services/garbage-collection.service';
 import { GameService } from 'src/app/services/game.service';
-import { AuthenticationService } from 'src/app/services/authentication.service';
 import { NavController } from '@ionic/angular';
+import { AuthService } from 'src/app/auth/auth.service';
 
 
 const PLAYER_DATA_KEY = 'playerData';
@@ -43,7 +43,8 @@ export class GameSelectionPage extends MainPage implements OnInit {
     private _cdr: ChangeDetectorRef,
     public modalController: ModalController,
     public navCtrl: NavController, 
-    authService: AuthenticationService) {
+    private auth: AuthService,
+    authService: AuthService) {
     super(translate, authService, storage,navCtrl);
     }
  
@@ -75,10 +76,10 @@ export class GameSelectionPage extends MainPage implements OnInit {
     this.router.navigate(['/home']);
   }
   
-  getDomain() {
+  async getDomain() {
     //this.presentLoading();
-
-    this.profileService.getDomain().then(res => {
+    const token = await this.auth.getValidToken();
+    this.profileService.getDomain(token.accessToken).then(res => {
       console.log(res);
       this.domains = res.tenants;
       if (res.tenants.length == 1) {
@@ -94,9 +95,10 @@ export class GameSelectionPage extends MainPage implements OnInit {
     )
   }
 
-  getInstitute(domainId: string) {
+  async getInstitute(domainId: string) {
     this.domain = domainId;
-    this.profileService.getInstitute(this.domain).then(res => {
+    const token = await this.auth.getValidToken();
+    this.profileService.getInstitute(this.domain,token.accessToken).then(res => {
       console.log(res);
       this.institutes = res;
       if (res.length == 1) {
@@ -109,9 +111,10 @@ export class GameSelectionPage extends MainPage implements OnInit {
       }
     });
   }
-  getSchool(institute) {
+  async getSchool(institute) {
     this.instituteId = institute.objectId;
-    this.profileService.getSchool(this.domain, this.instituteId).then(res => {
+    const token = await this.auth.getValidToken();
+    this.profileService.getSchool(this.domain, this.instituteId,token.accessToken).then(res => {
       console.log(res);
       this.schools = res;
       if (res.length == 1) {
@@ -125,9 +128,10 @@ export class GameSelectionPage extends MainPage implements OnInit {
     });
   }
 
-  getGame(school) {
+  async getGame(school) {
     this.schoolId = school.objectId;
-    this.profileService.getGame(this.domain, this.instituteId, this.schoolId).then(res => {
+    const token = await this.auth.getValidToken();
+    this.profileService.getGame(this.domain, this.instituteId, this.schoolId,token.accessToken).then(res => {
       console.log(res);
       this.games = res;
       if (res.length == 1) {
@@ -140,9 +144,10 @@ export class GameSelectionPage extends MainPage implements OnInit {
 
     });
   }
-  getPlayer(game) {
+  async getPlayer(game) {
     this.gameId = game.objectId;
-    this.profileService.getPlayer(this.gameId).then(res => {
+    const token = await this.auth.getValidToken();
+    this.profileService.getPlayer(this.gameId,token.accessToken).then(res => {
       console.log(res);
       this.players = this.orderPlayer(res);
       this.profileService.setAllPlayers(this.players); // it is promise
@@ -174,9 +179,10 @@ export class GameSelectionPage extends MainPage implements OnInit {
     this.playerId = player.objectId;
     this.playerName= player.name;
   }
-  getPlayerData() {
+  async getPlayerData() {
     this.playerData = this.profileService.getPlayerDataFromList(this.playerId, this.players);
-    this.profileService.getPlayerState(this.gameId, this.playerId).then(res => {
+    const token = await this.auth.getValidToken();
+    this.profileService.getPlayerState(this.gameId, this.playerId,token.accessToken).then(res => {
       this.playerState = res;
       this.profileService.setPlayerData(this.playerData);
       this.profileService.setPlayerState(this.playerState);

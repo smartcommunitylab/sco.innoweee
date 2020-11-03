@@ -3,9 +3,9 @@
     <ion-buttons slot="start">
       <ion-back-button class="language"></ion-back-button>
     </ion-buttons>
-    <ion-title class="game-title">{{'title_game_selection'|translate}}</ion-title>
+    <ion-title class="game-title"><div>{{'title_game_selection'|translate}}</div><div class="game-subtitle">{{ getFooter()}}</div></ion-title>
     <ion-buttons class="language" slot="end">
-      <ion-label> {{'label_logout'|translate}} </ion-label>
+      <!-- <ion-label> {{'label_logout'|translate}} </ion-label> -->
       <ion-button (click)="changeClass()">
         <ion-icon slot="icon-only" name="log-out"></ion-icon>
       </ion-button>
@@ -13,7 +13,9 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="common-content" padding>
+
+<ion-content padding class="common-content">
+    <!-- <img class="background-img" src="./assets/logo.png"> -->
   <ion-grid>
     <div class="question-screen">
       <div class="col-vertical-center">
@@ -24,15 +26,15 @@
             </ion-button >
           </div> -->
           <div>
-            <ion-list>
+            <ion-list >
               <ion-list-header> {{'label_type'|translate}}</ion-list-header>
               <ion-col *ngFor="let item of items| keyvalue">
-                <ion-button color="light" (click)="chooseCategory(item)" expand="block" fill="outline">
+                <ion-button class="robot-button"  (click)="chooseCategory(item)" expand="block" fill="outline">
                   <span class="item-text-wrap">{{getLabel(item.key)}}</span>
                 </ion-button>
               </ion-col>
                 <ion-col size="12" class="other-button" *ngIf="otherIsVisible()">
-                  <ion-button color="light" (click)="otherCategory()" expand="block" fill="outline">
+                  <ion-button class="robot-button" (click)="otherCategory()" expand="block" fill="outline">
                     {{'label_other_category'|translate}}</ion-button>
                 </ion-col>
             </ion-list>
@@ -42,8 +44,8 @@
     </div>
   </ion-grid>
 </ion-content>
-<ion-footer>
+<!-- <ion-footer>
   <ion-toolbar class="color-bar">
       <ion-title class="ion-text-center">{{ getFooter()}}</ion-title>
   </ion-toolbar>
-</ion-footer>
+</ion-footer> -->

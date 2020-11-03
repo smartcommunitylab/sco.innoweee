@@ -1,11 +1,11 @@
 <ion-header>
   <ion-toolbar class="color-bar">
-    <ion-title class="game-title">{{'title_game_selection'|translate}}</ion-title>
+    <ion-title class="game-title"><div>{{'title_game_selection'|translate}}</div><div class="game-subtitle">{{ getFooter()}}</div></ion-title>
     <ion-buttons slot="start">
       <ion-back-button class="language"></ion-back-button>
     </ion-buttons>
     <ion-buttons class="language" slot="end">
-      <ion-label> {{'label_logout'|translate}} </ion-label>
+      <!-- <ion-label> {{'label_logout'|translate}} </ion-label> -->
       <ion-button (click)="changeClass()">
         <ion-icon slot="icon-only" name="log-out"></ion-icon>
       </ion-button>
@@ -13,7 +13,10 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content padding class="common-content">
+    <!-- <img class="background-img" src="./assets/logo.png"> -->
+
+
   <ion-grid>
     <ion-row>
       <ion-col *ngIf="item">
@@ -23,22 +26,18 @@
         <div *ngIf="item" class="interaction">
           <p><span *ngIf="!item">{{'label_id'|translate}}</span>
             <span *ngIf="item.text; else manual_insert" class="bold"> {{item.text}}</span>
-
-
             <ng-template #manual_insert><span *ngIf="item" class="bold">{{item}}</span></ng-template>
-
-
-            <p *ngIf="itemClassified==2"><span class="bold">{{alreadyClassified}}</span></p>
+            <p *ngIf="itemClassified!=0"><span class="bold">{{alreadyClassified}}</span></p>
             <!-- teacher send item to LIM for classifiying  -->
             <div class="buttons">
-            <ion-button size="large" ion-button (click)="sendLim()" [hidden]="!isTeacher()" [disabled]="itemClassified==2">
+            <ion-button expand="block" ion-button (click)="sendLim()" [hidden]="!isTeacher()" [disabled]="itemClassified>=2">
               {{'label_send_to_lim'|translate}}
             </ion-button>
             <!-- parent classifies the item -->
-            <ion-button size="large" ion-button (click)="classify()" [hidden]="!isParent()" [disabled]="itemPresent">
+            <ion-button expand="block" ion-button (click)="classify()" [hidden]="!isParent()" [disabled]="itemPresent">
               {{'label_classify'|translate}}
             </ion-button>
-            <ion-button size="large" ion-button (click)="cancel()">{{'label_cancel'|translate}}
+            <ion-button expand="block" ion-button (click)="cancel()">{{'label_cancel'|translate}}
             </ion-button>
           </div>
         </div>
@@ -46,8 +45,8 @@
     </ion-row>
   </ion-grid>
 </ion-content>
-<ion-footer>
+<!-- <ion-footer>
   <ion-toolbar class="color-bar">
     <ion-title class="ion-text-center">{{ getFooter()}}</ion-title>
   </ion-toolbar>
-</ion-footer>
+</ion-footer> -->

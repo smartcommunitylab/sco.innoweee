@@ -44,7 +44,7 @@ build_frontend:
   script:
     - cd webApp
     - docker login -u $DHUB_USER -p $DHUB_PASS
-    - DOCKER_BUILDKIT=1 docker build -f Dockerfile -t $IMAGE_FRONTEND_SHA -t $IMAGE_FRONTEND_LATEST .
+    - DOCKER_BUILDKIT=1 docker build -f Dockerfile -t $IMAGE_FRONTEND_SHA -t $IMAGE_FRONTEND_LATEST --build-arg aacClientId=$AAC_CLIENT_ID --build-arg aacUrl=$AAC_URL .
     - docker push $IMAGE_FRONTEND_SHA
     - docker push $IMAGE_FRONTEND_LATEST
   only:

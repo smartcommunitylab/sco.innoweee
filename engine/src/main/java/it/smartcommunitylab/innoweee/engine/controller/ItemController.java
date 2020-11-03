@@ -36,6 +36,7 @@ import it.smartcommunitylab.innoweee.engine.model.GameAction;
 import it.smartcommunitylab.innoweee.engine.model.GarbageCollection;
 import it.smartcommunitylab.innoweee.engine.model.GarbageMap;
 import it.smartcommunitylab.innoweee.engine.model.Institute;
+import it.smartcommunitylab.innoweee.engine.model.ItemAction;
 import it.smartcommunitylab.innoweee.engine.model.ItemEvent;
 import it.smartcommunitylab.innoweee.engine.model.Player;
 import it.smartcommunitylab.innoweee.engine.model.ReduceReport;
@@ -253,7 +254,8 @@ public class ItemController extends AuthController {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
 		StringBuffer sb = new StringBuffer("instituteName,instituteId,schoolName,schoolId,");
 		sb.append("gameName,gameId,playerName,playerId,collection,itemId,itemType,state,isBroken,");
-		sb.append("isSwitchingOn,ageRange,isReusable,isValuable,weight,timestamp,saveTime,collector,stateNote\n");
+		sb.append("isSwitchingOn,ageRange,isReusable,isValuable,weight,timestamp,saveTime,collector,");
+		sb.append("tsClassified,tsConfirmed,tsDisposed,tsChecked,tsUnexpected,stateNote\n");
 		List<Institute> instituteList = instituteRepository.findByTenantId(tenantId);
 		Map<String, Institute> instituteMap = new HashMap<>();
 		List<String> institues = new ArrayList<>();
@@ -309,19 +311,23 @@ public class ItemController extends AuthController {
 				String timestamp = null;
 				String saveTime = null;
 				String collector = null;
+				String tsClassified = null;
+				String tsConfirmed = null;
+				String tsDisposed = null;
+				String tsChecked = null;
+				String tsUnexpected = null;
 				String stateNote = null;
-				if(Utils.isEmpty(event.getPlayerId())) {
-					itemId = event.getItemId();
-					itemType = event.getItemType();
-					isBroken = String.valueOf(event.isBroken());
-					state = Utils.getItemState(event.getState());
-					collector = event.getCollector();
-					stateNote = event.getStateNote();
-					timestamp = sdf.format(new Date(event.getTimestamp()));
-					if(event.getSaveTime() != null) {
-						saveTime = sdf.format(event.getSaveTime());
-					}
-				} else {
+				itemId = event.getItemId();
+				itemType = event.getItemType();
+				isBroken = String.valueOf(event.isBroken());
+				state = Utils.getItemState(event.getState());
+				collector = event.getCollector();
+				stateNote = event.getStateNote();
+				timestamp = sdf.format(new Date(event.getTimestamp()));
+				if(event.getSaveTime() != null) {
+					saveTime = sdf.format(event.getSaveTime());
+				}
+				if(Utils.isNotEmpty(event.getPlayerId())) {
 					Player player = playerMap.get(event.getPlayerId());
 					Game game = gameMap.get(player.getGameId());
 					School school = schoolMap.get(game.getSchoolId());
@@ -337,22 +343,30 @@ public class ItemController extends AuthController {
 					playerName = player.getName();
 					playerId = player.getObjectId();
 					collection = actualCollection.getNameGE();
-					itemId = event.getItemId();
-					itemType = event.getItemType();
-					state = Utils.getItemState(event.getState());
-					isBroken = String.valueOf(event.isBroken());
 					isSwitchingOn = String.valueOf(event.isSwitchingOn());
 					ageRange = String.valueOf(event.getAge());
 					isReusable = String.valueOf(event.isReusable());
 					isValuable = String.valueOf(event.isValuable());
 					weight = String.valueOf(garbageMap.getItems().get(itemType).getWeight());
-					collector = event.getCollector();			
-					stateNote = event.getStateNote();
-					timestamp = sdf.format(new Date(event.getTimestamp()));
-					if(event.getSaveTime() != null) {
-						saveTime = sdf.format(event.getSaveTime());
+				}
+				for(ItemAction action : event.getActions()) {
+					if("CLASSIFIED".equals(action.getActionType())) {
+						tsClassified = sdf.format(action.getTimestamp());
+					}
+					if("CONFIRMED".equals(action.getActionType())) {
+						tsConfirmed = sdf.format(action.getTimestamp());
+					}
+					if("DISPOSED".equals(action.getActionType())) {
+						tsDisposed = sdf.format(action.getTimestamp());
+					}
+					if("CHECKED".equals(action.getActionType())) {
+						tsChecked = sdf.format(action.getTimestamp());
+					}
+					if("UNEXPECTED".equals(action.getActionType())) {
+						tsUnexpected = sdf.format(action.getTimestamp());
 					}
 				}
+				
 				sb.append("\"" + instituteName + "\",");
 				sb.append("\"" + instituteId + "\",");
 				sb.append("\"" + schoolName + "\",");
@@ -374,6 +388,11 @@ public class ItemController extends AuthController {
 				sb.append("\"" + timestamp + "\",");
 				sb.append("\"" + saveTime + "\",");
 				sb.append("\"" + collector + "\",");
+				sb.append("\"" + tsClassified + "\",");
+				sb.append("\"" + tsConfirmed + "\",");
+				sb.append("\"" + tsDisposed + "\",");
+				sb.append("\"" + tsChecked + "\",");
+				sb.append("\"" + tsUnexpected + "\",");
 				sb.append("\"" + stateNote + "\"\n");
 			} catch (Exception e) {
 				logger.info("getItemCsv error:{} / {}", event.getId(), e.getMessage());
