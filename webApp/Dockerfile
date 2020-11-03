@@ -1,4 +1,4 @@
-FROM node:9-alpine as build
+FROM node:10-alpine as build
 COPY . /tmp
 RUN apk add --no-cache git python build-base
 WORKDIR /tmp
