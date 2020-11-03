@@ -3,11 +3,11 @@ import { MainPage } from 'src/app/class/MainPage';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastController, NavController, AlertController, LoadingController } from '@ionic/angular';
 import { ProfileService } from 'src/app/services/profile.service';
-import { AuthenticationService } from 'src/app/services/authentication.service';
 import { GarbageCollectionService } from 'src/app/services/garbage-collection.service';
 import { CatalogService } from 'src/app/services/catalog.service';
 import { Storage } from '@ionic/storage'
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/auth/auth.service';
 @Component({
   selector: 'app-question',
   templateUrl: './question.page.html',
@@ -42,9 +42,9 @@ export class QuestionPage extends MainPage implements OnInit {
     public storage: Storage,
     public toastController: ToastController,
     public profileService: ProfileService,
-    public authService: AuthenticationService,
+    public authService: AuthService,
     public navCtrl: NavController,
-    private alertController: AlertController,
+    private auth: AuthService,
     private garbageCollection: GarbageCollectionService,
     private router: Router,
     private loadingController:LoadingController,
@@ -54,14 +54,15 @@ export class QuestionPage extends MainPage implements OnInit {
   ngOnInit() {
     super.ngOnInit();
     this.setRoute("home");
-    this.profileService.getLocalPlayerData().then(res => {
+    this.profileService.getLocalPlayerData().then(async res => {
       this.playerData = res;
-      this.garbageCollection.getActualCollection(this.playerData.gameId).then(res => {
+      const token = await this.auth.getValidToken();
+      this.garbageCollection.getActualCollection(this.playerData.gameId,token.accessToken).then(res => {
         if (res && res.reduceMessage) {
           this.weeklyQuestion = res.reduceMessage
         }
       });
-      this.garbageCollection.getCredit(this.playerData.gameId,this.playerData.objectId).then(res => {
+      this.garbageCollection.getCredit(this.playerData.gameId,this.playerData.objectId,token.accessToken).then(res => {
         (res==0)?this.credit=false:this.credit=true;
         console.log(JSON.stringify(res));
       });
@@ -97,7 +98,8 @@ export class QuestionPage extends MainPage implements OnInit {
     const loading = await this.loadingController.create({
     });
     this.presentLoading(loading);
-    this.garbageCollection.reduce(this.playerData.objectId, this.coinsGained).then(res => {
+    const token = await this.auth.getValidToken();
+    this.garbageCollection.reduce(this.playerData.objectId, this.coinsGained,token.accessToken).then(res => {
       loading.dismiss();
       this.router.navigate(['start']);
       this.coinsGained =0;

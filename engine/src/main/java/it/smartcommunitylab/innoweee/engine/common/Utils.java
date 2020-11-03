@@ -32,6 +32,7 @@ import it.smartcommunitylab.innoweee.engine.model.ContributionPoint;
 import it.smartcommunitylab.innoweee.engine.model.Game;
 import it.smartcommunitylab.innoweee.engine.model.GameAction;
 import it.smartcommunitylab.innoweee.engine.model.GarbageCollection;
+import it.smartcommunitylab.innoweee.engine.model.ItemAction;
 import it.smartcommunitylab.innoweee.engine.model.ItemEvent;
 import it.smartcommunitylab.innoweee.engine.model.Player;
 import it.smartcommunitylab.innoweee.engine.model.ReduceReport;
@@ -471,5 +472,17 @@ public class Utils {
 		}
 		return valid;
 	}
-
+	
+	public static boolean hasItemAction(ItemEvent event, String actionType) {
+		if(Utils.isEmpty(actionType)) {
+			return false;
+		}
+		for(ItemAction action : event.getActions()) {
+			if(actionType.equals(action.getActionType())) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 }

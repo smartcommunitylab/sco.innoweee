@@ -110,7 +110,7 @@
         "recap_year": "Ha piu' di 5 anni: ",
         "label_well_done": "Ben fatto!",
         "label_bring_stuff": "Porta altri oggetti che non usi più per guadagnare crediti ed evolvere il tuo robot",
-        "label_recycle_string_value": "Questo oggetto HA VALORE",
+        "label_recycle_string_value": "Questo oggetto È RIPARABILE",
         "label_recycle_string_reuse": "Questo oggetto puo' essere RIUTILIZZATO",
         "label_recycle_string_recycle": "Questo oggetto puo' essere RICICLATO",
         "label_bin_recycle_string_value":"Green Idea",
@@ -178,8 +178,9 @@
         "alert_different_class_message":"Questo codice è già stato usato da un'altra classe. Scegline un'altro",
         "error_server_title":"Errore di comunicazione con il server",
         "error_server_message":"Riavvia l'aplicazione e assicurati di avere connettivita`",
-        "label_bin_value":"VALORE",
+        "label_bin_value":"RIPARO",
         "label_bin_reuse":"RIUSO",
         "label_bin_recycle":"RICICLO",
-        "warning_replies":"<b>ATTENZIONE</b><br> Ricordatevi di rispondere alla domanda RIDUCO tutte le settimane per ottenere i crediti riduco necessari per comprare i pezzi del robot."
+        "warning_replies":"<b>ATTENZIONE</b><br> Ricordatevi di rispondere alla domanda RIDUCO tutte le settimane per ottenere i crediti riduco necessari per comprare i pezzi del robot.",
+        "wrong_length_id":"La lunghezza dell'identificatore deve essere di 5 caratteri"
 }

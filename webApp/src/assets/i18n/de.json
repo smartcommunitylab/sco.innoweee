@@ -16,5 +16,7 @@
         "classification_off":"Non si accende",
         "label_confirm":"Conferma",
         "label_change":"Modifica",
-        "confirm_title":"Conferma i dati"
+        "confirm_title":"Conferma i dati",
+        "wrong_length_id":"La lunghezza dell'identificatore deve essere di 5 caratteri"
+
 }

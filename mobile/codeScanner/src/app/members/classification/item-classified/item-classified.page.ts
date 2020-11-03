@@ -17,8 +17,8 @@ import { Location } from '@angular/common';
 })
 export class ItemClassifiedPage extends CommonPage implements OnInit {
   item: any;
-
-  constructor( public translate: TranslateService,
+  imagePath = "";
+  constructor(public translate: TranslateService,
     public router: Router,
     private alertController: AlertController,
     public toastController: ToastController,
@@ -29,19 +29,29 @@ export class ItemClassifiedPage extends CommonPage implements OnInit {
     public profileService: ProfileService,
     private classificationService: ClassificationService,
     public authService: AuthenticationService) {
-    super(auth,router, translate, toastController, route, dataServerService, location, profileService, authService)
-   }
+    super(auth, router, translate, toastController, route, dataServerService, location, profileService, authService)
+  }
 
   ngOnInit() {
   }
 
   ionViewWillEnter() {
     if (this.route.snapshot && this.route.snapshot.paramMap) {
-      this.item= JSON.parse(this.route.snapshot.paramMap.get("item"))
+      this.item = JSON.parse(this.route.snapshot.paramMap.get("item"));
+      this.imagePath=this.setImgParh();
     }
 
   }
-  getColorMarker(){
+  setImgParh() {
+    if (this.item && this.item.valuable) {
+      return "./assets/images/objtype/riparo.svg"
+    }
+    if (this.item && this.item.reusable) {
+      return "./assets/images/objtype/riuso.svg"
+    }
+    return "./assets/images/objtype/riciclo.svg"
+  }
+  getColorMarker() {
     if (this.item && this.item.valuable) {
       return "marker-green"
     }
@@ -50,12 +60,12 @@ export class ItemClassifiedPage extends CommonPage implements OnInit {
     }
     return "marker-yellow"
   }
-  
-textColor(color) {
+
+  textColor(color) {
     if (this.isDarkColor(color)) return '#fff';
     return '#000';
-};
-isDarkColor (color) {
+  };
+  isDarkColor(color) {
     if (!color) return true;
     var c = color.substring(1); // strip #
     var rgb = parseInt(c, 16); // convert rrggbb to decimal
@@ -66,7 +76,7 @@ isDarkColor (color) {
     var luma = (r + g + b) / 3; //0.2126 * r + 0.7152 * g + 0.0722 * b; // per ITU-R BT.709
 
     return luma < 128;
-};
+  };
   // getColorMarker(){
   //   if (this.item && this.item.valuable) {
   //     return "marker-green"
@@ -120,13 +130,16 @@ isDarkColor (color) {
 
   }
   getPoints(): string {
+    if (this.item && this.item.value) {
+      return this.translate.instant("label_point_reusable");
+    }
     if (this.item && this.item.reusable)
       return this.translate.instant("label_point_reusable");
     return this.translate.instant("label_point_recicle");
   }
 
   getFooter() {
-    return (this.getClassName()) +' - '+(this.getSchoolName())
+    return (this.getClassName()) + ' - ' + (this.getSchoolName())
   }
 
   getSchoolName() {

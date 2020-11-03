@@ -30,8 +30,8 @@ export interface ApplicationConfig {
 // Configuration values for our app
 export const APP_CONFIG: ApplicationConfig = {
     appName: 'InnoWee',
-     apiEndpoint: 'https://innoweee.platform.smartcommunitylab.it/innoweee-engine/',
-    // apiEndpoint: 'https://dev.smartcommunitylab.it/innoweee-engine/',
+    //  apiEndpoint: 'https://innoweee.platform.smartcommunitylab.it/innoweee-engine/',
+    apiEndpoint: 'https://dev.smartcommunitylab.it/innoweee-engine/',
     // apiEndpoint: 'http://192.168.42.60:2020/',
     getDomainApi: 'api/profile',
     getInstituteApi: 'api/institute',
@@ -55,7 +55,7 @@ export const APP_CONFIG: ApplicationConfig = {
     getUsedApi:"/used",
     getReportApi:"report",
     parentApi:"/parent",
-    itemApi: '/item',
+    itemApi: 'item',
 
 };
 

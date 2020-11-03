@@ -1,14 +1,12 @@
 import { Router } from '@angular/router';
-import { AuthenticationService } from './services/authentication.service';
 import { Component } from '@angular/core';
-
 import { Platform, LoadingController, ToastController, NavController, AlertController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
-import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from './auth/auth.service';
 import { AuthActions } from 'ionic-appauth/lib/auth-action';
 import { ProfileService } from './services/profile.service';
+import { CodePush } from '@ionic-native/code-push/ngx';
 
 @Component({
   selector: 'app-root',
@@ -24,6 +22,7 @@ export class AppComponent {
   }
   constructor(
     private navCtrl: NavController,
+    private codePush: CodePush,
     private platform: Platform,
     private splashScreen: SplashScreen,
     private loadingController: LoadingController,
@@ -43,26 +42,30 @@ export class AppComponent {
   }
   ngOnInit() {
 
+   
+  }
+  initAuth() {
     this.subscription = this.auth.authObservable.subscribe(async (action) => {
       console.log("login back");
       console.dir(action);
 
       if (action.action === AuthActions.SignInSuccess) {
+        console.log("SignInSuccess")
         const loading = await this.loadingController.create({
           duration: 2000
         });
         await loading.present();
         //check if profile is valid
-        // const token = await this.auth.getValidToken();
         this.token = action.tokenResponse;
-        // console.log("token: "+token.accessToken)
         this.profileService.getDomain(this.token.accessToken).then(res => {
           //check if domain is correct
           this.profileService.setDomainMemorized(res);
           if (this.checkProfileDomain(res)) {
+            console.log("domain correct for the page")
             this.navigateToFirstPage();
           } else {
             //error
+            console.log("domain not correct")
             this.router.navigate(['profile']);
             //show alert with confirm of logout
             this.showAlertDone();
@@ -73,8 +76,27 @@ export class AppComponent {
           this.router.navigate(['register-parent']);
         })
       } else if (action.action === AuthActions.SignOutSuccess) {
+        console.log("SignOutSuccess")
+
         this.router.navigate(['profile']);
+      } else if (action.action === AuthActions.AutoSignInSuccess){
+        console.log("AutoSignInSuccess")
+        if ((this.isNotOperator(localStorage.getItem('profile')))) {
+          var playerId = this.profileService.getMemorizedPlayerId();
+          var playerData = this.profileService.getMemorizedPlayerData();
+          var playerName = this.profileService.getMemorizedPlayerName();
+          var schoolName = this.profileService.getMemorizedSchool();
+          if (localStorage.getItem('profile') && playerId && playerData && playerName && schoolName) {
+                this.profileService.setPlayerData(playerData);
+                this.profileService.setPlayerName(playerName);
+                this.profileService.setSchoolName(schoolName);
+                this.router.navigate(['home'], { queryParams: { playerId: playerId, playerName: playerName, playerData: JSON.stringify(playerData) } });
+              } 
+        } else {
+          this.router.navigate(['home-operator']);
+        }
       } else {
+        console.log("Default")
         if (!navigator.onLine) {
           this.presentToast("Connessione assente");
 
@@ -115,7 +137,9 @@ export class AppComponent {
   async presentToast(string) {
     const toast = await this.toastController.create({
       message: string,
-      duration: 2000
+      duration: 2000,
+      position: 'middle'
+
     })
     toast.present();
   }
@@ -145,16 +169,27 @@ export class AppComponent {
     }
     return returnVar
   }
+  checkCodePush() {
+    
+    this.codePush.sync().subscribe((syncStatus) => console.log(syncStatus));
+    const downloadProgress = (progress) => { console.log(`Downloaded ${progress.receivedBytes} of ${progress.totalBytes}`); }
+    this.codePush.sync({}, downloadProgress).subscribe((syncStatus) => console.log(syncStatus));
+ }
   initializeApp() {
     this.platform.ready().then(() => {
-      console.log('ready');
+      this.checkCodePush();
       this.auth.startUpAsync();
       console.log('ready');
-
+      this.initAuth();
       this.splashScreen.hide();
       this.initTranslate();
 
     });
   }
-
+  
+  private isNotOperator(arg0: string) {
+    if ((arg0 != this.profileService.getOwnerKey()) && (arg0 != this.profileService.getOperatorKey()))
+      return true;
+    return false
+  }
 }

@@ -3,9 +3,11 @@
     <ion-buttons slot="start">
       <ion-back-button class="language"></ion-back-button>
     </ion-buttons>
-      <ion-title class="game-title">{{'title_game_selection'|translate}}</ion-title>
+    <ion-title class="game-title">
+      <div>{{'title_game_selection'|translate}}</div>
+      <div class="game-subtitle">{{'label_operatore'|translate}}</div>
+    </ion-title>
     <ion-buttons class="language" slot="end">
-        <ion-label> {{'label_logout'|translate}}</ion-label>
       <ion-button (click)="changeClass()">
         <ion-icon slot="icon-only" name="log-out"></ion-icon>
       </ion-button>
@@ -13,11 +15,217 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-  insert old and confirm data
+<ion-content padding class="common-content">
+    <!-- <img class="background-img" src="./assets/logo.png"> -->
+
+  <div class="box-container" *ngIf="actualObj">
+    <div *ngIf="!alreadyInserted; else itemAlreadyInserted">
+      <ion-list lines="none">
+        <ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <ion-label class="label-string"> {{'label_id'|translate}}: </ion-label>
+              </ion-col>
+              <ion-col>
+                <ion-label class="label-value ion-text-right"> {{actualObj.itemId}}</ion-label>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+        <ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <ion-label class="label-string"> {{'schoolName'|translate}} </ion-label>
+              </ion-col>
+              <ion-col>
+                <ion-label class="label-value ion-text-right"> {{actualObj.schoolName}}</ion-label>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+        <ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <ion-label class="label-string"> {{'label_section'|translate}} </ion-label>
+              </ion-col>
+              <ion-col>
+                <ion-label class="label-value ion-text-right"> {{actualObj.playerName}}</ion-label>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+        <!-- <ion-item *ngIf="notDisposedAtSchool">
+          <ion-grid>
+            <ion-row>
+              <ion-col class="not-disposed">
+                <ion-icon  slot="icon-only" name="warning-outline"></ion-icon>
+                <ion-label> {{'label_not_disposed_at_school'|translate}} </ion-label>
+              </ion-col>
+
+            </ion-row>
+          </ion-grid>
+        </ion-item> -->
+        <!-- <ion-item >
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <ion-label class="label-string"> {{'label_classification'|translate}} </ion-label>
+              </ion-col>
+              <ion-col>
+                <ion-label class="label-string ion-text-right"> <span *ngIf="!notConfirmedAtSchool">{{'label_true'|translate}}
+                  </span><span  *ngIf="notConfirmedAtSchool" [ngClass]="{'wrong': notConfirmedAtSchool}">{{'label_false'|translate}}</span></ion-label>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item> -->
+        <ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <ion-label class="label-string"> {{'label_classification'|translate}} </ion-label>
+              </ion-col>
+              <ion-col>
+                <ion-label [ngClass]="{'wrong': wrongPlace}" class="label-value ion-text-right"> {{getValueString()}}
+                </ion-label>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+        <ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <ion-label class="label-string"> {{'label_type_user'|translate}} </ion-label>
+              </ion-col>
+              <ion-col>
+                <ion-label class="label-value ion-text-right" [ngClass]="{'modified-class': typeStringNew}"> {{getType()}}</ion-label>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+                  <ion-col >
+                    <div expand="block"  class="button-type">
+                      <ion-button class="color-bar" size="block" ion-button (click)="chooseType()">
+                        {{'label_choose_change'|translate}} </ion-button>
+                      </div>
+                  </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <ion-label class="label-string"> {{'label_type_operator'|translate}} </ion-label>
+              </ion-col>
+              <ion-col>
+                      <ion-label *ngIf="typeStringNew" class="label-value ion-text-right"> {{getTypeNew()}}</ion-label>                    <ion-col>
+                      </ion-col>
+
+                </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+
+        <ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <ion-label class="label-string"> {{'label_working'|translate}} </ion-label>
+              </ion-col>
+              <ion-col>
+                <ion-label class="label-value ion-text-right"> {{getValueField(actualObj.switchingOn)}}</ion-label>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+        <ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <ion-label class="label-string"> {{'label_broken'|translate}} </ion-label>
+              </ion-col>
+              <ion-col>
+                <ion-label class="label-value ion-text-right"> {{getValueField(actualObj.broken)}}</ion-label>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <ion-segment [(ngModel)]="brokenConfirm" (ionChange)="segmentChanged($event)">
+                  <ion-segment-button value="true">
+                    <ion-label>{{'label_confirm_broken'|translate}}</ion-label>
+                  </ion-segment-button>
+                  <ion-segment-button value="false">
+                    <ion-label>{{'label_confirm_not_broken'|translate}}</ion-label>
+                  </ion-segment-button>
+                </ion-segment>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+        <ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <ion-label class="label-string"> {{'label_old'|translate}} </ion-label>
+              </ion-col>
+              <ion-col>
+                <ion-label class="label-value ion-text-right"> {{getAge()}}</ion-label>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+        <ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <ion-label position="floating" class="note-label">{{'label_note'|translate}}</ion-label>
+                <ion-textarea placeholder="{{'label_note_placeholder'|translate}}">{{note}}</ion-textarea>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+      </ion-list>
+    </div>
+    <div *ngIf="notDisposedAtSchool">
+      <ion-label>
+        <p class="wrong">{{'label_not_disposed_at_school'|translate}} </p>
+      </ion-label>
+    </div>
+    <div *ngIf="wrongPlace">
+      <ion-label>
+        <p class="wrong">{{'label_wrong_place'|translate}}</p>
+        <p class="wrong">{{getValueString()}}</p>
+      </ion-label>
+    </div>
+    <div *ngIf="notConfirmedAtSchool">
+      <ion-label>
+        <p class="wrong">{{'label_not_confirmed_at_school'|translate}} </p>
+      </ion-label>
+    </div>
+  </div>
+  <ng-template #itemAlreadyInserted>
+    <div class="qr-code">
+      <img src="./assets/qr-code.png">
+      <div class="label_code">{{actualObj.itemId}}</div>
+
+    </div>
+    <ion-row class="home-square">
+      <ion-col class="home-square-conent">
+        <div class="label_big">{{'label_already_inserted'|translate}}</div>
+      </ion-col>
+    </ion-row>
+    <div expand="block">
+      <ion-button class="color-bar" size="block" ion-button (click)="cancel()">{{'label_cancel'|translate}}
+      </ion-button>
+    </div>
+  </ng-template>
+  <div *ngIf="!alreadyInserted">
+    <div expand="block">
+      <ion-button class="robot-button" size="block" ion-button (click)="confirmItem()" [disabled]="!brokenConfirm">
+        {{'label_classify'|translate}} </ion-button>
+    </div>
+    <div expand="block">
+      <ion-button class="robot-button" size="block" ion-button (click)="cancel()">{{'label_cancel'|translate}}
+      </ion-button>
+    </div>
+  </div>
 </ion-content>
-<ion-footer>
-  <ion-toolbar class="color-bar">
-    <ion-title class="ion-text-center">{{ getFooter()}}</ion-title>
-  </ion-toolbar>
-</ion-footer>

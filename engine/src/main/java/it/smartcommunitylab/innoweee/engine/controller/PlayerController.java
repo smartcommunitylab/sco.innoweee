@@ -235,9 +235,10 @@ public class PlayerController extends AuthController {
 		PlayerReport result = new PlayerReport();
 		List<ItemEvent> events = itemEventRepository.findByPlayerId(playerId);
 		for (ItemEvent itemEvent : events) {
-			if(itemEvent.getState() == Const.ITEM_STATE_CLASSIFIED) {
+			if(Utils.hasItemAction(itemEvent, Const.ITEM_ACTION_CLASSIFIED)) {
 				result.addItem();
-			} else if(itemEvent.getState() == Const.ITEM_STATE_CONFIRMED) {
+			}
+			if(Utils.hasItemAction(itemEvent, Const.ITEM_ACTION_CONFIRMED)) {
 				result.addConfirmedItem();
 			}
 		}

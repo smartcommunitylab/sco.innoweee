@@ -3,9 +3,12 @@
     <ion-buttons slot="start">
       <ion-back-button class="language"></ion-back-button>
     </ion-buttons>
-    <ion-title class="game-title">{{'title_game_selection'|translate}}</ion-title>
+    <ion-title class="game-title">
+      <div>{{'title_game_selection'|translate}}</div>
+      <div class="game-subtitle">{{ getFooter()}}</div>
+    </ion-title>
     <ion-buttons class="language" slot="end">
-      <ion-label> {{'label_logout'|translate}} </ion-label>
+      <!-- <ion-label> {{'label_logout'|translate}} </ion-label> -->
       <ion-button (click)="changeClass()">
         <ion-icon slot="icon-only" name="log-out"></ion-icon>
       </ion-button>
@@ -13,15 +16,18 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="common-content" padding>
+
+<ion-content padding class="common-content">
   <ion-grid>
     <div class="question-screen">
       <div class="col-vertical-center">
-        <div class="vertical-center right-box" [ngClass]="getColorMarker()">
+        <div class="title-result ion-text-center">
+          {{'label_well_done'|translate|uppercase}}
+        </div>
+        <div class="vertical-center right-box result-box" [ngClass]="getColorMarker()">
           <div>
-            <div class="title-result ion-padding ion-text-center">
-              {{'label_well_done'|translate|uppercase}}
-            </div>
+            <img class="recycle-img" [src]="imagePath">
+
             <div class="subtitle-result ion-padding">
               {{getValueString()}}
             </div>
@@ -31,20 +37,21 @@
             <div class="ion-padding">
               {{getPoints()}}
             </div>
-            <ion-button expand="block" [routerLink]="['/home']" fill="outline">
-              {{'label_new_item'|translate}}
-            </ion-button>
-            <ion-button  expand="block" [routerLink]="['/result']" fill="outline">
-              {{'label_end_recycle'|translate}}
-            </ion-button>
+
           </div>
         </div>
+        <ion-button class="robot-button" expand="block" [routerLink]="['/home']" fill="outline">
+          {{'label_new_item'|translate}}
+        </ion-button>
+        <ion-button class="robot-button" expand="block" [routerLink]="['/result']" fill="outline">
+          {{'label_end_recycle'|translate}}
+        </ion-button>
       </div>
     </div>
   </ion-grid>
 </ion-content>
-<ion-footer>
+<!-- <ion-footer>
   <ion-toolbar class="color-bar">
       <ion-title class="ion-text-center">{{ getFooter()}}</ion-title>
   </ion-toolbar>
-</ion-footer>
+</ion-footer> -->

@@ -5,10 +5,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ProfileService } from 'src/app/services/profile.service';
 import { NavController } from '@ionic/angular';
 import { MainPage } from 'src/app/class/MainPage';
-import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Storage } from '@ionic/storage';
 import { GarbageCollectionService } from 'src/app/services/garbage-collection.service';
 import { UtilsService } from 'src/app/services/utils.service';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-item-confirm',
@@ -30,11 +30,11 @@ export class ItemConfirmPage  extends MainPage implements OnInit {
     public navCtrl: NavController, 
     private router: Router,
     public translate: TranslateService, 
-    public authService: AuthenticationService, 
+    public auth: AuthService, 
     private garbageCollectionService: GarbageCollectionService,
     private utils: UtilsService,
     public storage: Storage) {
-    super(translate, authService, storage,navCtrl);
+    super(translate, auth, storage,navCtrl);
     }
   
 
@@ -51,14 +51,15 @@ export class ItemConfirmPage  extends MainPage implements OnInit {
       this.recap["off"] = this.translate.instant("classification_off");
     }
     )
-    this.profileService.getLocalPlayerData().then(res => {
+    this.profileService.getLocalPlayerData().then(async res => {
       this.playerData = res;
-      this.garbageCollectionService.getActualCollection(this.playerData.gameId).then(res => {
+      const token = await this.auth.getValidToken();
+      this.garbageCollectionService.getActualCollection(this.playerData.gameId,token.accessToken).then(res => {
         if (res) {
           this.items = res.items
           this.garbageCollectionName = res.nameGE;
         }
-        this.garbageCollectionService.getGargabeMap(this.playerData.tenantId).then(res => {
+        this.garbageCollectionService.getGargabeMap(this.playerData.tenantId,token.accessToken).then(res => {
           this.garbageMap = res;
           this.fillSteps();
         });
@@ -122,9 +123,10 @@ export class ItemConfirmPage  extends MainPage implements OnInit {
     }
   }
   confirm() {
-    this.profileService.getLocalPlayerData().then(res => {
+    this.profileService.getLocalPlayerData().then(async res => {
       this.playerData = res;
-      this.garbageCollectionService.confirmItem(this.item.itemId, this.playerData.objectId).then(res => {
+      const token = await this.auth.getValidToken();
+      this.garbageCollectionService.confirmItem(this.item.itemId, this.playerData.objectId,token.accessToken).then(res => {
         //show alert confirmed and go out
         console.log('confermato');
         this.item.reusable = res.reusable;

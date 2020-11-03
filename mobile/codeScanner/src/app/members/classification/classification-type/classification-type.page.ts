@@ -66,7 +66,8 @@ export class ClassificationTypePage extends CommonPage implements OnInit {
           this.translate.get('wrong_data_server').subscribe(async (res: string) => {
             const toast = await this.toastController.create({
               message: res,
-              duration: 2000
+              duration: 2000,
+              position: 'middle'
             })
             toast.present();
           })
