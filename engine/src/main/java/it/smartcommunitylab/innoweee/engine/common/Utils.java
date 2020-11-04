@@ -466,7 +466,7 @@ public class Utils {
 		boolean valid = false;
 		if((game.getFrom() != null) && (game.getTo() != null)) {
 			Date now = new Date();
-			if(now.after(game.getFrom()) || now.before(game.getTo())) {
+			if(now.after(game.getFrom()) && now.before(game.getTo())) {
 				valid = true;
 			}
 		}
