@@ -39,8 +39,13 @@ export const environment = {
     getDeliveryApi:"/delivery",
     getGarbageApi:"api/garbageMap/",
     getUsedApi:"/used",
-    scope: 'openid profile email profile.basicprofile.me'
-};
+    scope: 'openid profile email profile.basicprofile.me',
+    implicit_identity_client: '${process.env.aacClientId}',
+    implicit_identity_server: '${process.env.aacUrl}',
+    implicit_redirect_url: '${process.env.redirectUrl}',
+    implicit_scopes: 'openid profile email profile.basicprofile.me',
+    implicit_end_session_redirect_url: '${process.env.redirectUrl}/logout',
+  };
 `
 
 fs.writeFile(targetPath, envConfigFile, function (err) {
