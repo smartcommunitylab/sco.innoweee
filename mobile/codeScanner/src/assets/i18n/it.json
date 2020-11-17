@@ -92,7 +92,7 @@
         "label_point_recicle": "Portando l’oggetto a scuola guadagni un punto RICICLO",
         "label_well_done": "Ben fatto!",
         "label_recycle_value": "L'oggetto andra' nel contenitore Riparo",
-        "label_recycle_reuse": "L'oggetto andra'  nella contenitore Riuso",
+        "label_recycle_reuse": "L'oggetto andra'  nel contenitore Riuso",
         "label_recycle_recycle": "L'oggetto andra' nel contenitore Riciclo",
         "label_end_recycle": "Completa la raccolta",
         "label_item_collected":"Fino ad ora la tua classe ha raccolto un totale di {{totalItems}} oggetti. Ricordati di portarli in classe per ottenere i crediti RICICLO e RIUSO per comprare le parti del robot. Con l'aiuto della tua insegnante conferisci gli oggetti all'interno dello smart bin corretto.",
@@ -153,6 +153,6 @@
         "label_confirm_not_broken":"Non rotto",
         "label_legenda":"Legenda",
         "label_school": "Scuola: ",
-        "label_total_item_classified":"Oggetti classificati: ",
-        "label_total_item_confirmed":"Oggetti confermati        : "
+        "label_total_item_classified":"Oggetti classificati a casa : ",
+        "label_total_item_confirmed":"Oggetti confermati a scuola : "
 }
