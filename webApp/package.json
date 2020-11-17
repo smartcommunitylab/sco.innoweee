@@ -44,7 +44,7 @@
     "express": "^4.16.4",
     "ionic-appauth": "^0.4.4",
     "net": "^1.0.2",
-    "node-sass": "^4.12.0",
+    "node-sass": "^4.13.1",
     "rxjs": "~6.3.3",
     "socket.io": "^2.2.0",
     "sockjs-client": "^1.3.0",
