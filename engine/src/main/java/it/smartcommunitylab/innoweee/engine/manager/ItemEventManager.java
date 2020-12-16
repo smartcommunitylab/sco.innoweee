@@ -137,6 +137,7 @@ public class ItemEventManager {
 							itemValuable.isSwitchingOn() == event.isSwitchingOn() &&
 							itemValuable.getAge() >= event.getAge()) {
 						event.setValuable(true);
+						event.setReusable(true);
 					}
 				}
 			}

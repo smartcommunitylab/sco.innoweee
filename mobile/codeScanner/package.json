@@ -34,7 +34,7 @@
     "@openid/appauth": "^1.2.6",
     "code-push": "^3.0.1",
     "cordova": "9.0.0",
-    "cordova-android": "8.1.0",
+    "cordova-android": "^9.0.0",
     "cordova-ios": "4.5.5",
     "cordova-plugin-advanced-http": "^2.3.1",
     "cordova-plugin-code-push": "^1.12.5",
@@ -119,8 +119,8 @@
       "cordova-plugin-zip": {}
     },
     "platforms": [
-      "android",
-      "ios"
+      "ios",
+      "android"
     ]
   }
 }

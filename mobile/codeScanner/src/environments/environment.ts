@@ -14,7 +14,8 @@
 export const environment = {
   production: false,
   appName: 'InnoWee',
-    apiEndpoint: 'https://dev.smartcommunitylab.it/innoweee-engine/',
+    // apiEndpoint: 'https://dev.smartcommunitylab.it/innoweee-engine/',
+    apiEndpoint: 'https://innoweee.platform.smartcommunitylab.it/innoweee-engine/',
     // apiEndpoint: 'http://192.168.42.60:2020/',
     getDomainApi: 'api/profile',
     getInstituteApi: '/api/institute/',

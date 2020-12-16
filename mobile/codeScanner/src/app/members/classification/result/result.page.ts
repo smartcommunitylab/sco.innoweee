@@ -77,12 +77,12 @@ export class ResultPage extends CommonPage implements OnInit {
       cssClass: 'stat-popup',
       message: `
       <div class="legenda-label">
-      <div class="legenda-label-title">Oggetti classificati:</div>
+      <div class="legenda-label-title">Oggetti classificati a casa :</div>
       <div class="legenda-label-text">
 sono gli oggetti che sono stati registrati con la Mobile App WEEE R robots a casa dalla tua classe.      </div>
     </div>
     <div class="legenda-label">
-      <div class="legenda-label-title">Oggetti confermati:</div>
+      <div class="legenda-label-title">Oggetti confermati a scuola:</div>
       <div class="legenda-label-text">
       sono gli oggetti che sono stati portati a scuola e verificati dall'insegnante della tua classe.
       </div>
