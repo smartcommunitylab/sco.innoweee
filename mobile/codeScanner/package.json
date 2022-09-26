@@ -32,7 +32,7 @@
     "@ngx-translate/core": "^11.0.1",
     "@ngx-translate/http-loader": "^4.0.0",
     "@openid/appauth": "^1.2.6",
-    "code-push": "^3.0.1",
+    "code-push": "^3.1.0",
     "cordova": "9.0.0",
     "cordova-android": "^9.0.0",
     "cordova-ios": "4.5.5",
