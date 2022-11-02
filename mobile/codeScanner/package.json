@@ -35,7 +35,7 @@
     "code-push": "^3.0.1",
     "cordova": "9.0.0",
     "cordova-android": "^9.0.0",
-    "cordova-ios": "4.5.5",
+    "cordova-ios": "6.2.0",
     "cordova-plugin-advanced-http": "^2.3.1",
     "cordova-plugin-code-push": "^1.12.5",
     "cordova-plugin-customurlscheme": "^5.0.0",
